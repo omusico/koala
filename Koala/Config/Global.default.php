@@ -79,6 +79,28 @@ $cfg["DB_PORT"]= 3306; // 端口
 $cfg["DB_PREFIX"]='candy_'; // 数据库表前缀
 $cfg["DB_CHARSET"] = 'UTF8';
 
+//缓存配置
+$cfg['CACHE'] = array(
+  //设置默认缓存
+  'default'=>'LAEMemcache',
+  //memcache缓存配置项
+  'laememcache'=>array(
+    'group'=>'[APP_NAME][APP_VERSION]',
+    'expire'=>3600,/* 缓存时间 */
+    'compress'=>1,/* 是否压缩存储 */
+    'servers'=>array(
+      'host'=>'127.0.0.1',
+      'port'=>11211
+      )
+    ),
+  //apc
+  'laeapc'=>array(
+    'group'=>'[APP_NAME][APP_VERSION]',
+    'expire'=>3600,
+    'compress'=>1
+    ),
+  //更多...
+  );
 return $cfg;
 
 ?>

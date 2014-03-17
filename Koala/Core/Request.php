@@ -60,8 +60,10 @@ class Request{
 			}else{
 				$app_name = self::$_paths[] = C('APP:DEFAULT','APP1');
 			}
-			define('APP_NAME',$app_name);
+		}else{
+			$app_name = basename(ROOT_RELPATH);
 		}
+		define('APP_NAME',$app_name);
 		//是否启用了多分组//默认多分组
 		if(C('MULTIPLE_GROUP',1)){
 			//如果在已有的分组列表中

@@ -18,16 +18,18 @@ class Config extends Initial{
 	 */
 	public static function getItem($key,$defv=''){
 		list($key,$subkey) = explode(':',$key);
-		switch (strtolower($subkey)) {
-			case 'list':
-				return isset(self::$config[$key]['list'])?explode(',',self::$config[$key]['list']):explode(',',$defv);
-				break;
-			case 'default':
-				return isset(self::$config[$key]['default'])?self::$config[$key]['default']:$defv;
-				break;
-			default:
-				return isset(self::$config[$key])?self::$config[$key]:$defv;
-				break;
+		if(isset($subkey)){
+			$subkey = strtolower($subkey);
+			switch ($subkey) {
+				case 'list':
+					return isset(self::$config[$key]['list'])?explode(',',self::$config[$key]['list']):explode(',',$defv);
+					break;
+				default:
+					return isset(self::$config[$key][$subkey])?self::$config[$key][$subkey]:$defv;
+					break;
+			}
+		}else{
+			return isset(self::$config[$key])?self::$config[$key]:$defv;
 		}
 	}
 	/**

@@ -44,7 +44,6 @@ define("IS_AJAX",is_ajax());
 !defined('DB_PREFIX')&&define('DB_PREFIX',Config::getItem('DB_PREFIX'));
 !defined('DB_CHARSET')&&define('DB_CHARSET',Config::getItem('DB_CHARSET'));
 
-
 //设定Session_Memcache
 //new SessionToMMC(Factory_Cache::getInstance('Memcache','Session'));
 

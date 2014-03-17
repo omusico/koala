@@ -2,6 +2,8 @@
 define('IN_Koala',true);
 //调试
 define('DEBUG',0);
+//主版本
+define('APP_VERSION','1');
 //根路径
 define('ROOT_PATH',realpath(dirname(__FILE__)).DIRECTORY_SEPARATOR);
 //框架路径

@@ -3,7 +3,7 @@ defined('IN_Koala') or exit();
 /**
  * 缓存基类
  */
-class Base_Cache{
+class Core_Cache_Base{
     static $adapter = null;
     static $options = array();
     static $prefix = APR;
