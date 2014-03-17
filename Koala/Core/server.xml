@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<Server>
+	<LAE>
+		<Counter item="class" key="Counter" value="1">LAECounter</Counter>
+		<Storage item="class" key="Storage" value="1">LAEStorage</Storage>
+		<Segment item="class" key="Segment" value="1">LAESegment</Segment>
+	</LAE>
+	<BAE>
+		<Counter item="class" key="BaeCounter" value="1">BAECounter</Counter>
+		<Rank item="class" key="BaeRank" value="1">BAERank</Rank>
+		<Storage item="getenv" key="HTTP_BAE_ENV_AK" value="1">BAEStorage</Storage>
+	</BAE>
+	<SAE>
+		<Counter item="class" key="SaeCounter" value="1">SAECounter</Counter>
+		<KVDB item="class" key="SaeKV" value="1">SAEKVDB</KVDB>
+		<Storage item="class" key="SaeStorage" value="1">SAEStorage</Storage>
+	</SAE>
+</Server>
