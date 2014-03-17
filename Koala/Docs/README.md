@@ -5,7 +5,7 @@
 1. [环境要求](start/environment.md)
 2. 获取Koala框架
 3. 许可协议
-4. 目录结构
+4. [目录结构](start/directory.md)
 5. 命名规范
 
 ###第二章 流程
