@@ -29,14 +29,7 @@ KoalaCore::initialize(function(){
         'Drive' => ROOT_PATH.'Koala/Core/Server',
         'Psr' => ROOT_PATH.'Koala/Addons/Vendor',
         'Minion' => ROOT_PATH.'Koala/Addons',
-        'Monolog' => ROOT_PATH.'Koala/Addons/Vendor',
-        'Guzzle\\Common' => ROOT_PATH.'Koala/Addons/Vendor/guzzle/common',
-        'Guzzle\\Parser' => ROOT_PATH.'Koala/Addons/Vendor/guzzle/parser',
-        'Guzzle\\Plugin' => ROOT_PATH.'Koala/Addons/Vendor/guzzle/plugin',
-        'Guzzle\\Stream' => ROOT_PATH.'Koala/Addons/Vendor/guzzle/stream',
-        'Guzzle\\Http' => ROOT_PATH.'Koala/Addons/Vendor/guzzle/http',
-        'Symfony\\Component\\EventDispatcher' => ROOT_PATH.'Koala/Addons/Vendor/symfony/event-dispatcher',
-        'Symfony\\Component\\ClassLoader' => ROOT_PATH.'Koala/Addons/Vendor/symfony/class-loader'
+        'Monolog' => ROOT_PATH.'Koala/Addons/Vendor'
         ));
     $instance->registerDirs(array(
         ROOT_PATH.'Koala/Core',
