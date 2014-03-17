@@ -1,2 +1,0 @@
-1、array_key_exists($key,$array) => isset($array[$key])
-2、脚本开始时间microtime(),time()  => $_SERVER['REQUEST_TIME_FLOAT'],$_SERVER['REQUEST_TIME']
