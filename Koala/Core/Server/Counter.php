@@ -10,6 +10,6 @@ class Counter{
 		if(!isset(self::$objects[$type])){
 			self::$objects[$type] = Core_Counter_Factory::getInstance($type,C('Counter:'.$type));
 		}
-		return $objects[$type];
+		returnself::$objects[$type];
 	}
 }

@@ -12,8 +12,6 @@ define('LOG_PATH',RUNTIME_PATH.'Storage'.DS);
 //初始化类库
 //set_include_path(get_include_path() . PATH_SEPARATOR . implode(PATH_SEPARATOR,array(FRAME_PATH.'Core')));
 include_once(__DIR__.'/ClassLoader.php');
-use Monolog\ErrorHandler;
-use Monolog\Logger;
 //内核初始化进程
 KoalaCore::initialize(function(){
     ClassLoader::initialize(function($instance){
@@ -46,10 +44,10 @@ KoalaCore::initialize(function(){
     defined('APPENGINE')&&(APPENGINE!=='LAE')&&$instance->loadClass('Func_'.APPENGINE);
     });
     //++++++++++++++++++++++++系统调试及错误设置++++++++++++++++++++++++++++
-    $log = new Logger('log');
+    $log = Log::factory();
     ErrorHandler::register($log);
-    $log->pushHandler(new AEStreamHandler('Log/'.date('Y-m-d')."/ERROR.log", Logger::ERROR));
-    $log->pushHandler(new AEStreamHandler('Log/'.date('Y-m-d')."/WARN.log", Logger::WARNING));
+    $log->pushHandler(new AEStreamHandler('Log/'.date('Y-m-d')."/ERROR.log", Log::ERROR));
+    $log->pushHandler(new AEStreamHandler('Log/'.date('Y-m-d')."/WARN.log", Log::WARNING));
     //检查环境
     require_once(FRAME_PATH.'Initialise/checkEnv.php');
     if(!file_exists(ROOT_PATH.'App')){

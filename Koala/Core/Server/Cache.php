@@ -11,6 +11,6 @@ class Cache{
 		if(!isset(self::$objects[$type])){
 			self::$objects[$type] = Core_Cache_Factory::getInstance($type,C('CACHE:'.$type));
 		}
-		return $objects[$type];
+		return self::$objects[$type];
 	}
 }

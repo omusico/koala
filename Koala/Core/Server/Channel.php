@@ -1,5 +1,4 @@
 <?php
-defined('IN_Koala') or exit();
 /**
  * 
  *对不同云计算平台的Channel服务API支持
@@ -14,8 +13,8 @@ class Channel{
 			$type = C('Channel:DEFAULT','Channel');
 		}
 		if(!isset(self::$objects[$type])){
-			self::$objects[$type] = Core_Cache_Factory::getInstance($type,C('Channel:'.$type));
+			self::$objects[$type] = Core_Channel_Factory::getInstance($type,C('Channel:'.$type));
 		}
-		return $objects[$type];
+		return self::$objects[$type];
 	}
 }

@@ -1,5 +1,4 @@
 <?php
-defined('IN_Koala') or exit();
 /**
  * 
  *对不同云计算平台的KVDB服务API支持
@@ -14,8 +13,8 @@ class KVDB{
 			$type = C('KVDB:DEFAULT','KVDB');
 		}
 		if(!isset(self::$objects[$type])){
-			self::$objects[$type] = Core_Cache_Factory::getInstance($type,C('KVDB:'.$type));
+			self::$objects[$type] = Core_KVDB_Factory::getInstance($type,C('KVDB:'.$type));
 		}
-		return $objects[$type];
+		return self::$objects[$type];
 	}
 }
