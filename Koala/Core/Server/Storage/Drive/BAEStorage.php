@@ -1,13 +1,14 @@
 <?php
-defined('IN_Koala') or exit();
+namespace Server\Storage\Drive;
+use Server_Storage_Base;
 //百度云存储
-final class Drive_BAEStorage extends Base_Storage{
+final class BAEStorage extends Server_Storage_Base{
 	var $bucket='imagefile';
 	//云服务对象
     var $object = '';
 	//构造函数
 	public function __construct(){
-		$this->object = new BCS();
+		$this->object = new \BCS();
 	}
 	//向文件写入内容
 	final public function write($file,$content){

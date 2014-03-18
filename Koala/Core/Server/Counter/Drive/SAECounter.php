@@ -9,7 +9,7 @@ final class SAECounter extends Server_Counter_Base{
     //云服务对象
     var $object = '';
     public function __construct(){
-        $this->object = new SaeCounter();
+        $this->object = new \SaeCounter();
     }
     // 增加一个计数器name。
     final public function create($name, $value = 0,$expires=-1){

@@ -1,10 +1,11 @@
 <?php
-defined('IN_Koala') or exit();
+namespace Server\Storage\Drive;
+use Server_Storage_Base;
 /**
  * 非云计算环境下的Storage驱动
  * 所有文件名使用相对于数据存储区域的路径
  */
-final class Drive_LAEStorage extends Base_Storage{
+final class LAEStorage extends Server_Storage_Base{
 	//数据存储区
 	var $bucket = '';
 	//构造函数

@@ -7,7 +7,7 @@ use Server_Counter_Base;
 final class BAECounter extends Server_Counter_Base{
 	var $object = '';
 	public function __construct(){
-		$this->object = new BaeCounter();
+		$this->object = new \BaeCounter();
 	}
 	//建立一个计数器
 	public static function create($name,$value,$expires=''){

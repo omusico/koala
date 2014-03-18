@@ -1,17 +1,18 @@
 <?php
-defined('IN_Koala') or exit();
+namespace Server\Storage\Drive;
+use Server_Storage_Base;
 /**
  * SAE的Storage驱动
  * 所有文件名使用相对于数据存储区域的路径
  * 
  */
-final class Drive_SAEStorage extends Base_Storage{
+final class SAEStorage extends Server_Storage_Base{
     //数据存储区
 	var $bucket = 'image';
 	//云服务对象
     var $object = '';
 	public function __construct($_accessKey='',$_secretKey=''){
-		$this->object = new SaeStorage($_accessKey, $_secretKey);
+		$this->object = new \SaeStorage($_accessKey, $_secretKey);
 	}
     
 	//将数据写入存储

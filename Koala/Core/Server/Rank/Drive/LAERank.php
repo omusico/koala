@@ -1,9 +1,10 @@
 <?php
-defined('IN_Koala') or exit();
+namespace Server\Rank\Drive;
+use Server_Rank_Base;
 /**
  * 非云计算环境下的Rank驱动
  */
-final class Drive_LAERank extends Base_Rank{
+final class LAERank extends Server_Rank_Base{
 	//建立一个排行榜
 	public function create($name, $number, $expire = 0){}
 	//设置排行榜某一项的值

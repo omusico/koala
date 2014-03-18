@@ -8,7 +8,7 @@ final class SAEChannel extends Server_Channel_Base{
 	//云服务对象
     var $object = '';
 	public function __construct(){
-		$this->object = new SaeChannel();
+		$this->object = new \SaeChannel();
 	}
 	public function createChannel(channel,$duration=3600){
 

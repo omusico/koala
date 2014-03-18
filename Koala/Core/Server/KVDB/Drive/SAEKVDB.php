@@ -9,7 +9,7 @@ final class SAEKVDB extends Server_KVDB_Base{
 	//云服务对象
     var $object = '';
 	public function __construct(){
-    	$this->object = new SaeKV();
+    	$this->object = new \SaeKV();
 		// 初始化KVClient对象
 		$ret = $this->object->init();
 	}
