@@ -6,11 +6,10 @@
  */
 class KVDB{
 	static $objects = null;
-	static $type = 'KVDB';
 	public function __construct(){}
 	public static function factory($type=''){
 		if(empty($type)||!is_string($type)){
-			$type = C('KVDB:DEFAULT','KVDB');
+			$type = C('KVDB:DEFAULT','LAEKVDB');
 		}
 		if(!isset(self::$objects[$type])){
 			self::$objects[$type] = Server_KVDB_Factory::getInstance($type,C('KVDB:'.$type));

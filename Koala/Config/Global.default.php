@@ -79,7 +79,31 @@ $cfg["DB_PORT"]= 3306; // 端口
 $cfg["DB_PREFIX"]='candy_'; // 数据库表前缀
 $cfg["DB_CHARSET"] = 'UTF8';
 
-//缓存配置
+//服务配置
+//CACHE,Channel,Counter,KVDB,Log,Rank,Segment,Storage
+//参照格式    详细请查看文档
+//
+/*
+$cfg['Channel'] = array(
+  //设置默认
+  'default'=>'LAEChannel',
+  //驱动配置
+  'laechannel'=>array(),//$option
+  'saechannel'=>array(),//$option
+  'baechannel'=>array(),//$option
+  //更多...
+  );
+$cfg['Counter'] = array(
+  //设置默认
+  'default'=>'LAECounter',
+  //驱动配置
+  'laecounter'=>array(),//$option
+  'saecounter'=>array(),//$option
+  'baecounter'=>array(),//$option
+  //更多...
+  );
+*/
+//缓存服务配置
 $cfg['CACHE'] = array(
   //设置默认缓存
   'default'=>'LAEMemcache',

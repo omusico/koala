@@ -6,11 +6,10 @@
  */
 class Channel{
 	static $objects = null;
-	static $type = 'Channel';
 	public function __construct(){}
 	public static function factory($type=''){
 		if(empty($type)||!is_string($type)){
-			$type = C('Channel:DEFAULT','Channel');
+			$type = C('Channel:DEFAULT','LAEChannel');
 		}
 		if(!isset(self::$objects[$type])){
 			self::$objects[$type] = Server_Channel_Factory::getInstance($type,C('Channel:'.$type));

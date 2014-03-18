@@ -6,7 +6,6 @@
  */
 class Storage{
   static $objects = null;
-  static $type = 'Storage';
   public function __construct(){}
   public static function factory($type=''){
     if(empty($type)||!is_string($type)){

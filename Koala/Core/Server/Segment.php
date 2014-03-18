@@ -6,7 +6,6 @@
  */
 class Segment{
 	static $objects = null;
-  	static $type = 'Segment';
   	public function __construct(){}
 	public static function factory($type=''){
 	    if(empty($type)||!is_string($type)){

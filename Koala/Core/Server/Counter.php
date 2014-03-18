@@ -1,11 +1,10 @@
 <?php
 class Counter{
 	static $objects = null;
-	static $type = 'Counter';
 	public function __construct(){}
 	public static function factory($type=''){
 		if(empty($type)||!is_string($type)){
-			$type = C('Counter:DEFAULT','Counter');
+			$type = C('Counter:DEFAULT','LAECounter');
 		}
 		if(!isset(self::$objects[$type])){
 			self::$objects[$type] = Server_Counter_Factory::getInstance($type,C('Counter:'.$type));

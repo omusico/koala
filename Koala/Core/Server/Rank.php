@@ -7,7 +7,6 @@ defined('IN_Koala') or exit();
  */
 class Rank{
 	static $objects = null;
-	static $type = 'Rank';
 	public function __construct(){}
 	public static function factory($type=''){
 		if(empty($type)||!is_string($type)){
