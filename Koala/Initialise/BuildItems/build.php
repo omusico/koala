@@ -9,6 +9,8 @@ copy(FRAME_PATH.'Initialise/Files/Koala.php',ROOT_PATH.'App/Custom/Koala.php');
 
 copy(FRAME_PATH.'Initialise/Files/Config/LAEGlobal.user.php',ROOT_PATH.'App/Config/LAEGlobal.user.php');
 
+copy(FRAME_PATH.'Initialise/Files/bootstrap.php',ROOT_PATH.'App/bootstrap.php');
+
 mkdir(ROOT_PATH.'App/Controller',0777,true);
 mkdir(ROOT_PATH.'App/Controller/Home',0777,true);
 mkdir(ROOT_PATH.'App/Module',0777,true);

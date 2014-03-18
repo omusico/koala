@@ -1,5 +1,4 @@
 <?php
-defined('IN_Koala') or exit();
 function var_filter(&$value,$key,$arr){
     //array_walk_recursive($arr,"var_filter",array($v,$k));
     $value = str_replace("[".strtoupper($arr[1])."]",$arr[0],$value);

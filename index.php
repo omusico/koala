@@ -13,7 +13,7 @@ if (!defined('START_TIME')){
 	define('START_TIME', microtime(TRUE));
 }
 //引导应用程序
-require FRAME_PATH.'Initialise/bootstrap.php';
+require ROOT_PATH.'App/bootstrap.php';
 //引导结束时间
 $init_end_time = microtime(true);
 
