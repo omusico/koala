@@ -31,7 +31,7 @@ Koala::initialize(function(){
     Config::initialize(function($instance){
         //用户文件
         $file = APPENGINE.'Global.user.php';
-        $file_path = APP_PATH.'Config/'.$file;
+        $file_path = Config::getPath('Config/'.$file);
         if(file_exists($file_path)){
             $instance->loadConfig($file_path);
         }

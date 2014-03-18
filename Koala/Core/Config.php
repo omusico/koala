@@ -53,5 +53,15 @@ class Config extends Initial{
 		}
 		return $cfgs;
 	}
+	/**
+	 * 获取配置文件路径
+	 */
+	public static function getPath($file){
+		if(APPENGINE!=='LAE'){
+			return STOR_PATH.$file;
+		}else{
+			return APP_PATH.$file;
+		}
+	}
 }
 ?>
