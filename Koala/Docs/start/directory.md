@@ -41,7 +41,7 @@
         Custom/             应用自实现类库
             Koala.php       应用级初始化文件(在首次运行时会生成该文件,开发者需要修改以满足实际情况)
         Language            应用语言包
-        Model               应用模型类库
+        Module              应用逻辑模块
         Source              应用静态资源库
         View                模板目录
     Koala/                  框架目录

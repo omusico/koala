@@ -13,11 +13,4 @@ class Cache{
 		}
 		return $objects[$type];
 	}
-	public static function __callStatic($method,$args){
-		if(method_exists(self::$objects[self::$type], $method)){
-			$res = call_user_func_array(array(self::$objects[self::$type],$method),$args);
-			return $res;
-		}
-		return false;
-	}
 }

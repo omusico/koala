@@ -11,7 +11,7 @@ copy(FRAME_PATH.'Initialise/Files/Config/LAEGlobal.user.php',ROOT_PATH.'App/Conf
 
 mkdir(ROOT_PATH.'App/Controller',0777,true);
 mkdir(ROOT_PATH.'App/Controller/Home',0777,true);
-mkdir(ROOT_PATH.'App/Model',0777,true);
+mkdir(ROOT_PATH.'App/Module',0777,true);
 mkdir(ROOT_PATH.'App/Language',0777,true);
 mkdir(ROOT_PATH.'App/Source',0777,true);
 mkdir(ROOT_PATH.'App/View/default/Home/Index/page',0777,true);
