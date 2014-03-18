@@ -1,9 +1,11 @@
 <?php
+namespace Core\Counter\Drive;
+use Core_Counter_Base;
 /**
  * SAE的Counter驱动
  * 
  */
-final class Drive_SAECounter extends Base_Counter{
+final class SAECounter extends Core_Counter_Base{
     //云服务对象
     var $object = '';
     public function __construct(){

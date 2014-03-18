@@ -1,9 +1,10 @@
 <?php
-defined('IN_Koala') or exit();
+namespace Core\Counter\Drive;
+use Core_Counter_Base;
 /**
  * BAE环境下的Counter驱动
  */
-final class Drive_BAECounter extends Base_Counter{
+final class BAECounter extends Core_Counter_Base{
 	var $object = '';
 	public function __construct(){
 		$this->object = new BaeCounter();

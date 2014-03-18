@@ -1,10 +1,19 @@
 <?php
-defined('IN_Koala') or exit();
-/**
- * 
- *对不同云计算平台的Counter服务API支持
- *
- */
+class Counter{
+	static $objects = null;
+	static $type = 'Counter';
+	public function __construct(){}
+	public static function factory($type=''){
+		if(empty($type)||!is_string($type)){
+			$type = C('Counter:DEFAULT','Counter');
+		}
+		if(!isset(self::$objects[$type])){
+			self::$objects[$type] = Core_Counter_Factory::getInstance($type,C('Counter:'.$type));
+		}
+		return $objects[$type];
+	}
+}
+
 class Counter{
 	static $object = null;
 	public static function __callStatic($method,$args){
