@@ -1,25 +1,27 @@
 <?php
-defined('IN_Koala') or exit();
 class Server{
-	public static function getInstance($serverName){
-		$class = self::initForConf($serverName);
-
-		if(stripos($class,APPENGINE)!==false){
-	        $class = 'Drive_'.$class;
-	    }else{
-	        $class = 'Drive_'.$class;
-	        if(!class_exists($class)){
-	            $class = $class;
-	        }
-	    }
-        if(class_exists($class)){
-            $instance = new $class();
-        } 
-        else
-            return null;
-        
-        return $instance;
-    }
+	static $objects = null;
+	static $type = '';
+	public function __construct(){}
+	//工厂化实例
+	public static function factory($type){
+		$name = str_replace(APPENGINE,'',$type);
+		if(empty($type)||!is_string($type)){
+			$type = C($name.':DEFAULT',$name);
+		}
+		if(!isset(self::$objects[$type])){
+			$factory_class = 'Server_'.ucfirst($name).'_Factory';
+			self::$objects[$type] = $factory_class::getInstance($type,C($name.':'.$type));
+		}
+		returnself::$objects[$type];
+	}
+	/**
+	 * 获取服务类名
+	 *
+	 * @deprecated 不推荐使用该方法
+	 * @param  string $serverName 服务名
+	 * @return string            服务类名
+	 */
     public static function initForConf($serverName){
     	$name = APPENGINE;
 	    $file = 'server.xml';
