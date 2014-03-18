@@ -1,5 +1,41 @@
 <?php
-defined('IN_Koala') or exit();
+/**
+ * 该文件存放不常用函数和一些专用的函数
+ */
+//==========视图函数库
+/**
+ * smarty调用函数
+ * {'url'|PU:'id':1:'page':1}   =>   url?id=1&page=1
+ */
+function PU(){
+    $args = func_get_args();
+    $param[] = array_shift($args);
+    if(count($args)%2!=0){
+        array_pop($args);
+    }
+    foreach ($args as $key => $value) {
+        if($key%2==0)
+            $one[] = $value;
+        else
+            $two[] = $value;
+    }
+    $param = array_merge($param,array(array_combine($one,$two)));
+    return call_user_func_array('U',$param);
+}
+/**
+ * 字符串拼接
+ * smarty调用函数
+ * {'/'|cats:'s1':'s2':'s3'}   =>   s1/s2/s3
+ */
+function cats(){
+    $args = func_get_args();
+    $depr = array_shift($args);
+    return implode($depr,$args);
+}
+
+
+
+
 //高级算法函数库
 // 测试
 //imagezoom('1.jpg', '2.jpg', 400, 300, '#FFFFFF');
@@ -297,4 +333,116 @@ function imagebmp ($im, $fn = false)
     }
     return $returnstr;
  }
-?>
+
+
+ //校验函数库
+/**
+ * sql过滤处理
+ * 主要对不太长的请求字符串进行处理。
+ * @param string $str 要处理的字符串
+ */
+function SqlInjiectFilter(&$str,$key=''){
+    //关键字表
+    $keys = array('select','update','insert','and','or','xor','order','union','group','user');
+    $rkeys = array('se\lect','up\date','ins\ert','an\d','o\r','x\or','or\der','uni\on','gro\up','us\er');
+    //对str进行解码
+    $str = urldecode($str);
+    //1、空格分割处理关键字
+    $arr = explode(' ',$str);
+    //深度处理
+    foreach ($arr as $key => $value) {
+        $ckey = $key;
+        $cvalue = $value;
+        $tempstr='';
+        //对可能存在的关键字进行处理
+        $tempstr =str_replace($keys,$rkeys,$cvalue);
+        //保存
+        $arr[$ckey]=$tempstr;
+    }
+    //连接
+    $str = implode(' ',$arr);
+    unset($arr);
+    //2、对与sql相关特殊字符右侧新增\
+    //特殊字符表
+    $char = array('/','*','-',';','%','@','(','<');
+    $rchar = array('/\\','*\\','-\\',';\\','%\\','@\\','(\\','<\\');
+    $str = str_replace($char, $rchar, $str);
+
+    //return $str;
+}
+
+/**
+ * 回复sql过滤处理
+ * 主要对不太长的请求字符串进行处理。
+ * @param string $str 要处理的字符串
+ */
+function RevertSqlInjiectFilter(&$str,$key=''){
+    
+    //关键字表
+    $rkeys = array('select','update','insert','and','or','xor','order','union','group','user');
+    $keys = array('se\lect','up\date','ins\ert','an\d','o\r','x\or','or\der','uni\on','gro\up','us\er');
+    //对str进行解码
+    $str = urldecode($str);
+    //1、空格分割处理关键字
+    $arr = explode(' ',$str);
+    //深度处理
+    foreach ($arr as $key => $value) {
+        $ckey = $key;
+        $cvalue = $value;
+        $tempstr='';
+        //对可能存在的关键字进行处理
+        $tempstr =str_replace($keys,$rkeys,$cvalue);
+        //保存
+        $arr[$ckey]=$tempstr;
+    }
+    //连接
+    $str = implode(' ',$arr);
+    unset($arr);
+    //2、对与sql相关特殊字符右侧侧新增\
+    //特殊字符表
+    $rchar = array('/','*','-',';','%','@','(');
+    $char = array('/\\','*\\','-\\',';\\','%\\','@\\','(\\');
+    $str = str_replace($char, $rchar, $str);
+    
+    //return $str;
+}
+/**
+ * 过滤
+ */
+function Filter($str,$callfunc='SqlInjiectFilter'){
+    if(is_string($str)){
+        $strarr = array($str);
+    }else{
+        $strarr = $str;
+    }
+    array_walk_recursive($strarr, $callfunc);
+    return $strarr;
+}
+//检查是否是汉字//gbk版
+function isCWInGBK($str){
+    $iscw = 0;
+    if(preg_match("(([\xB0-\xF7][\xA1-\xFE])|([\x81-\xA0][\x40-\xFE])|([\xAA-\xFE][\x40-\xA0])|(\w))+", $str)){
+        $iscw =1;
+    }
+    return $iscw;
+}
+//检查是否是汉字//utf8版
+function isCWInUTF8($str){
+    $iscw = 0;
+    //4E00-9FFF：常用汉字
+    if(preg_match("/^[\x{4E00}-\x{9FFF}]+$/u",$str)){
+        $iscw=1;
+    }
+    //3400-4DBF：罕用汉字A
+    if(preg_match("/^[\x{3400}-\x{4DBF}]+$/u",$str)){
+        $iscw=1;
+    }
+    //其他区域20000-2A6DF,2A700-2B73F,F900-FAFF,2F800-2FA1F无数据或者包含少量偏僻数据
+    return $iscw;
+}
+
+//分页插件使用的替换函数
+//array_walk_recursive($arr,"var_filter",array($v,$k));
+function var_filter(&$value,$key,$arr){
+    $value = str_replace("[".strtoupper($arr[1])."]",$arr[0],$value);
+}

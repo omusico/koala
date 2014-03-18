@@ -22,7 +22,7 @@ class UUM_Logic_Auth{
 			foreach ($files as $index => $file) {
                 $info = pathinfo($file);
 				$m = $info['filename'];
-				$controller = getController($g,$m,'\\');//Cotroller\Home\Index
+				$controller = 'Controller\\'.$g.'\\'.$m;//Cotroller\Home\Index
 				$methods[$g.'-'.$m]  =   get_class_methods($controller);
 			}
 		}

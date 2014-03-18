@@ -39,12 +39,8 @@ KoalaCore::initialize(function(){
         ));
     //-----------加载系统函数库-----------
     //系统内置函数库
-    $instance->loadClass('Func_CheckInfo');
-    $instance->loadClass('Func_Global');
-    $instance->loadClass('Func_Filter');
-    $instance->loadClass('Func_Letter');
-    $instance->loadClass('Func_Message');
-    $instance->loadClass('Func_Senior');
+    $instance->loadClass('Func_Common');
+    $instance->loadClass('Func_Special');
 
     //加载差异函数库
     defined('APPENGINE')&&(APPENGINE!=='LAE')&&$instance->loadClass('Func_'.APPENGINE);
