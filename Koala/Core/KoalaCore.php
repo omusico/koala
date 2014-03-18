@@ -61,12 +61,6 @@ KoalaCore::initialize(function(){
         $default_file = 'Global.default.php';
         $default_file_path = CONFIG_PATH.$default_file;
         $instance->loadConfig($default_file_path);
-        //用户文件
-        $file = APPENGINE.'Global.user.php';
-        $file_path = APP_PATH.'Config/'.$file;
-        if(!file_exists($file_path)){
-            $instance->loadConfig($file_path);
-        }
     });
     //加载常量
     file_exists(FRAME_PATH.'Initialise/Constant'.APPENGINE.'.php')&&require_once(FRAME_PATH.'Initialise/Constant'.APPENGINE.'.php');
