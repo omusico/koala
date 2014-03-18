@@ -11,6 +11,11 @@ final class Drive_SAEKVDB{
 		// 初始化KVClient对象
 		$ret = $this->object->init();
 	}
+	
+	//初始化Sae KV 服务
+	final public function init(){
+		return $this->object->init();
+	}
 	//增加key-value对，如果key存在则返回失败
 	final public function add($key, $value){
 		return $this->object->add($key, $value);
@@ -38,10 +43,6 @@ final class Drive_SAEKVDB{
 	//获取选项值
 	final public function get_options(){
 		return $this->object->get_options();
-	}
-	//初始化Sae KV 服务
-	final public function init(){
-		return $this->object->init();
 	}
 	//批量获得key-values
 	final public function mget($ary){

@@ -6,26 +6,16 @@ defined('IN_Koala') or exit();
  *
  */
 class Channel{
-	static $object = null;
-	public static function __callStatic($method,$args){
-		if(self::$object==''){
-			self::$object = Server::getInstance('Channel');
+	static $objects = null;
+	static $type = 'Channel';
+	public function __construct(){}
+	public static function factory($type=''){
+		if(empty($type)||!is_string($type)){
+			$type = C('Channel:DEFAULT','Channel');
 		}
-		if(method_exists(self::$object, $method)){
-			$res = call_user_func_array(array(self::$object,$method),$args);
-			return $res;
+		if(!isset(self::$objects[$type])){
+			self::$objects[$type] = Core_Cache_Factory::getInstance($type,C('Channel:'.$type));
 		}
-		return null;
+		return $objects[$type];
 	}
-	public static function createChannel(){
-		$m = explode('::',__METHOD__);
-    	$p = func_get_args();
-    	return self::__callStatic($m[1],$p);
-	}
-    public static function sendMessage(){
-    	$m = explode('::',__METHOD__);
-    	$p = func_get_args();
-    	return self::__callStatic($m[1],$p);
-    }
 }
-?>

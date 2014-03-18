@@ -6,22 +6,16 @@ defined('IN_Koala') or exit();
  *
  */
 class KVDB{
-	static $object = null;
-	public static function __callStatic($method,$args){
-		if(self::$object==''){
-			self::$object = Server::getInstance('KVDB');
+	static $objects = null;
+	static $type = 'KVDB';
+	public function __construct(){}
+	public static function factory($type=''){
+		if(empty($type)||!is_string($type)){
+			$type = C('KVDB:DEFAULT','KVDB');
 		}
-		if(method_exists(self::$object, $method)){
-			$res = call_user_func_array(array(self::$object,$method),$args);
-			return $res;
+		if(!isset(self::$objects[$type])){
+			self::$objects[$type] = Core_Cache_Factory::getInstance($type,C('KVDB:'.$type));
 		}
-		return null;
+		return $objects[$type];
 	}
 }
-/*
-if(KVDB::write('xhprof','test.txt','SaeWriteTest')!==false){echo '写入文件成功!';}
-if(($content = KVDB::read('xhprof','test.txt'))!==false){
-	echo '读取内容:'.$content;
-}
- */
-?>

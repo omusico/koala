@@ -1,9 +1,10 @@
 <?php
-defined('IN_Koala') or exit();
+namespace Core\Counter\Drive;
+use Core_Counter_Base;
 /**
  * SAE环境下的Channel驱动
  */
-final class Drive_SAEChannel extends Base_Channel{
+final class SAEChannel extends Core_Counter_Base{
 	//云服务对象
     var $object = '';
 	public function __construct(){

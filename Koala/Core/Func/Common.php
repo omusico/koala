@@ -212,7 +212,20 @@ function is_ssl(){
 function get_request_method(){
     return strtolower($_SERVER['REQUEST_METHOD']);
 }
-
+/**
+ * 获取客户端ip
+ * @return string ip地址
+ */
+function get_ip(){
+    if(getenv("HTTP_CLIENT_IP"))
+        $ip = getenv("HTTP_CLIENT_IP");
+    else if(getenv("HTTP_X_FORWARDED_FOR"))
+        $ip = getenv("HTTP_X_FORWARDED_FOR");
+    else if(getenv("REMOTE_ADDR"))
+        $ip = getenv("REMOTE_ADDR");
+        else $ip = "Unknow";
+    return $ip;
+}
 
 //===========配置函数
 /**
