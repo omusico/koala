@@ -8,7 +8,7 @@ class Counter{
 			$type = C('Counter:DEFAULT','Counter');
 		}
 		if(!isset(self::$objects[$type])){
-			self::$objects[$type] = Core_Counter_Factory::getInstance($type,C('Counter:'.$type));
+			self::$objects[$type] = Server_Counter_Factory::getInstance($type,C('Counter:'.$type));
 		}
 		returnself::$objects[$type];
 	}

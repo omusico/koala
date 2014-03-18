@@ -13,7 +13,7 @@ class KVDB{
 			$type = C('KVDB:DEFAULT','KVDB');
 		}
 		if(!isset(self::$objects[$type])){
-			self::$objects[$type] = Core_KVDB_Factory::getInstance($type,C('KVDB:'.$type));
+			self::$objects[$type] = Server_KVDB_Factory::getInstance($type,C('KVDB:'.$type));
 		}
 		return self::$objects[$type];
 	}

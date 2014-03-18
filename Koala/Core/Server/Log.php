@@ -70,7 +70,7 @@ class Log{
 			$type = C('Log:DEFAULT','Monolog');
 		}
 		if(!isset(self::$objects[$type])){
-			self::$objects[$type] = Core_Log_Factory::getInstance($type,C('Log:'.$type));
+			self::$objects[$type] = Server_Log_Factory::getInstance($type,C('Log:'.$type));
 		}
 		return self::$objects[$type];
 	}

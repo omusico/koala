@@ -24,6 +24,7 @@ KoalaCore::initialize(function(){
         'Interface' => ROOT_PATH.'Koala/Core',
         'Factory' => ROOT_PATH.'Koala/Core',
         'Core' => ROOT_PATH.'Koala',
+        'Server' => ROOT_PATH.'Koala/Core',
         'Drive' => ROOT_PATH.'Koala/Core/Server',
         'Psr' => ROOT_PATH.'Koala/Addons/Vendor',
         'Minion' => ROOT_PATH.'Koala/Addons',

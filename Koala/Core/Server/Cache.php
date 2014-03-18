@@ -9,7 +9,7 @@ class Cache{
 			$type = C('CACHE:DEFAULT','Memcache');
 		}
 		if(!isset(self::$objects[$type])){
-			self::$objects[$type] = Core_Cache_Factory::getInstance($type,C('CACHE:'.$type));
+			self::$objects[$type] = Server_Cache_Factory::getInstance($type,C('CACHE:'.$type));
 		}
 		return self::$objects[$type];
 	}
