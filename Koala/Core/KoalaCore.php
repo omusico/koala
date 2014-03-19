@@ -19,8 +19,6 @@ KoalaCore::initialize(function(){
         'Func' => ROOT_PATH.'Koala/Core',
         'Helper' => ROOT_PATH.'Koala',
         'Base' => ROOT_PATH.'Koala/Core',
-        'Interface' => ROOT_PATH.'Koala/Core',
-        'Factory' => ROOT_PATH.'Koala/Core',
         'Core' => ROOT_PATH.'Koala',
         'Server' => ROOT_PATH.'Koala/Core',
         'Minion' => ROOT_PATH.'Koala/Addons',
@@ -32,11 +30,8 @@ KoalaCore::initialize(function(){
         ROOT_PATH.'Koala/Core/Server',
         ROOT_PATH.'Koala/Addons/Compatible',
         ));
-    //-----------加载系统函数库-----------
     //系统内置函数库
     $instance->LoadFunc('Func','Common,Special');
-    //加载差异函数库
-    defined('APPENGINE')&&(APPENGINE!=='LAE')&&$instance->loadClass('Func_'.APPENGINE);
     });
     //++++++++++++++++++++++++系统调试及错误设置++++++++++++++++++++++++++++
     $log = Log::factory();
@@ -45,12 +40,17 @@ KoalaCore::initialize(function(){
     $log->pushHandler(new AEStreamHandler('Log/'.date('Y-m-d')."/WARN.log", Log::WARNING));
     //检查环境
     require_once(FRAME_PATH.'Initialise/checkEnv.php');
+    //加载常量
+    include(FRAME_PATH.'Initialise/Constant'.APPENGINE.'.php');
+    //加载云服务类支持(如BAE类库)
+    include(FRAME_PATH.'Initialise/Class'.APPENGINE.".php");
+    
     if(!file_exists(ROOT_PATH.'App')){
+        //针对云环境的数据目录搬移等操作
+        require_once(FRAME_PATH.'Initialise/adaptEnv.php');
         //编译设置
         require_once(FRAME_PATH.'Initialise/BuildItems/build.php');
     }
-    //应用路径
-    define('APP_PATH',realpath(ROOT_PATH.'App').DIRECTORY_SEPARATOR);
     //配置初始化
     Config::initialize(function($instance){
         //默认文件
@@ -58,16 +58,6 @@ KoalaCore::initialize(function(){
         $default_file_path = CONFIG_PATH.$default_file;
         $instance->loadConfig($default_file_path);
     });
-    //加载常量
-    file_exists(FRAME_PATH.'Initialise/Constant'.APPENGINE.'.php') AND include(FRAME_PATH.'Initialise/Constant'.APPENGINE.'.php');
-    //加载云服务类支持(如BAE类库)
-    file_exists(FRAME_PATH.'Initialise/Class'.APPENGINE.".php") AND  include(FRAME_PATH.'Initialise/Class'.APPENGINE.".php");
-
-
-    //加载常量
-    require_once(FRAME_PATH.'Initialise/Constant.php');
-    //针对云环境的数据目录搬移等操作
-    require_once(FRAME_PATH.'Initialise/adaptEnv.php');
     Request::standard();
     Request::UrlParser();
     //调度器初始化

@@ -32,6 +32,12 @@ Koala::initialize(function(){
             $instance->loadConfig($file_path);
         }
     });
+    //皮肤相关
+    define('STYLENAME',Config::getItem('style_name',"default"));
+    define('SKINNAME',Config::getItem('skin_name'),"default");
+    define('CSS_URL',str_replace('\\','/',SOURCE_URL."css".DS));
+    define('JS_URL',str_replace('\\','/',SOURCE_URL."js".DS));
+    define('IMG_URL',str_replace('\\','/',SOURCE_URL."img".DS));
     //视图初始化
     View::initialize(function($instance){
         $option = array(
@@ -52,12 +58,5 @@ Koala::initialize(function(){
             );
         $instance->setEngine(Config::getItem('Template.Engine'),$option);
         });
-    
-    //皮肤相关
-    define('STYLENAME',Config::getItem('style_name',"default"));
-    define('SKINNAME',Config::getItem('skin_name'),"default");
-    define('CSS_URL',str_replace('\\','/',SOURCE_URL."css".DS));
-    define('JS_URL',str_replace('\\','/',SOURCE_URL."js".DS));
-    define('IMG_URL',str_replace('\\','/',SOURCE_URL."img".DS));
 });
 class Koala extends KoalaCore{}

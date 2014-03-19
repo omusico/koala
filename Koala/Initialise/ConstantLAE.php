@@ -1,0 +1,21 @@
+<?php
+//控制器
+define('CONTRLLER_PATH',ROOT_PATH.'App/Controller'.DS);
+//模型目录
+define('MODEL_PATH',ROOT_PATH.'App/Model'.DS);
+//
+define('LANG_PATH',ROOT_PATH.'App/Language'.DS);
+//模板视图相关
+define('VIEW_PATH',ROOT_PATH.'App/View'.DS);
+//资源
+define('SOURCE_URL', WEB_URL.'App/Source/');
+//读数据目录
+define('DATA_PATH',FRAME_PATH.'Data'.DS);
+//存储目录
+define('STOR_PATH',RUNTIME_PATH.'Storage'.DS);
+define('STOR_URL','/'.ROOT_RELPATH.'Runtime/Storage/');
+//编译目录
+define('COMPILE_PATH',RUNTIME_PATH.'Compile'.DS);
+//缓存目录
+define('CACHE_PATH',RUNTIME_PATH.'Cache'.DS);
+?>

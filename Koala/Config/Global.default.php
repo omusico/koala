@@ -125,6 +125,7 @@ $cfg['CACHE'] = array(
     ),
   //更多...
   );
-return $cfg;
 
+
+return $cfg;
 ?>
