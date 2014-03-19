@@ -50,8 +50,7 @@ class ClassLoader extends Initial{
         if(strpos($class,$this->separator)!==false){
             //根据名称空间搜索
             if(isset($this->namespaces[$fnamespace])){
-                $file = $this->namespaces[$fnamespace].DIRECTORY_SEPARATOR.$path.'.php';
-                include $file;
+                include $this->namespaces[$fnamespace].DIRECTORY_SEPARATOR.$path.'.php';
             }
         }else{
             //根据目录搜索
@@ -66,5 +65,12 @@ class ClassLoader extends Initial{
             }
         }
         
+    }
+    //函数库加载
+    public function LoadFunc($namespace,$list){
+        $funcs = explode(',',$list);
+        foreach ($funcs as $file) {
+            include  $this->namespaces[$namespace].DIRECTORY_SEPARATOR.$namespace.DIRECTORY_SEPARATOR.$file.'.php';
+        }
     }
 }

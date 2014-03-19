@@ -8,9 +8,7 @@ Koala::initialize(function(){
     //注册_autoload函数
     $instance->register();
 
-    //注意:loadClass语句不能在下面代码之后,否则将导致某些问题(例如无法获取正确常量值等,原因未明)
-    $instance->loadClass('Custom_Func');
-
+    $instance->LoadFunc('Func','Custom');
     $instance->registerNamespaces(array(
         'AppCache' => ROOT_PATH.'Koala/Addons',
         'Engine' => ROOT_PATH.'Koala/Addons',

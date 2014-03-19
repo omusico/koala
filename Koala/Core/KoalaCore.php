@@ -34,19 +34,15 @@ KoalaCore::initialize(function(){
         ));
     //-----------加载系统函数库-----------
     //系统内置函数库
-    $instance->loadClass('Func_Common');
-    $instance->loadClass('Func_Special');
-
+    $instance->LoadFunc('Func','Common,Special');
     //加载差异函数库
     defined('APPENGINE')&&(APPENGINE!=='LAE')&&$instance->loadClass('Func_'.APPENGINE);
     });
-    
     //++++++++++++++++++++++++系统调试及错误设置++++++++++++++++++++++++++++
     $log = Log::factory();
     ErrorHandler::register($log);
     $log->pushHandler(new AEStreamHandler('Log/'.date('Y-m-d')."/ERROR.log", Log::ERROR));
     $log->pushHandler(new AEStreamHandler('Log/'.date('Y-m-d')."/WARN.log", Log::WARNING));
-
     //检查环境
     require_once(FRAME_PATH.'Initialise/checkEnv.php');
     if(!file_exists(ROOT_PATH.'App')){
