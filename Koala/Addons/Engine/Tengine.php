@@ -1,35 +1,12 @@
 <?php
 class Engine_Tengine{
-	public function __construct($option=array()){
-
+	static $ins='';
+	public static function factory($option){
+		//self::$ins = new Tengine();
+		//return $ins;
+		return new static();
 	}
-	/**
-	 * 注册变量
-	 * @param  string $key
-	 * @param  mixed $value
-	 */
-	public function assign($key,$value){
-		echo 'key:'.$key.'=>value:'.$value.'<br>';
-	}
-	/**
-	 * 模板输出
-	 * @param  string $tpl 模板名
-	 */
-	public function show($tpl=''){
-		echo 'tpl:'.$tpl.'<br>';
-	}
-	/**
-	 * 模板输出
-	 * @param  string $tpl 模板名
-	 */
-	public function display($tpl=''){
-		echo 'tpl:'.$tpl.'<br>';
-	}
-	/**
-	 * 返回模板
-	 * @param  string $tpl 模板名
-	 */
-	public function fetch($tpl=''){
-		echo 'tpl:'.$tpl.'<br>';
+	public function __call($method,$args){
+		echo 'Koala框架成功运行!<br>欢迎使用。';
 	}
 }

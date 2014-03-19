@@ -9,9 +9,17 @@ $cfg['time_zone'] = 'PRC';
 $cfg["version"] = '1.0.0';
 
 //模板引擎
-$cg['Template_Engine']=array(
-  'default'=>'Tengine',
-  'Tengine'=>array()
+$cfg['Template_Engine']=array(
+  'default'=>'twig',
+  'Tengine'=>array(),
+  'twig'=>array(
+    'template_path'=>'./View',//or array(path1,$path2,...)
+    'cache_path'=>'./Cache',
+    'debug'=>false,
+    'charset'=>'UTF-8',
+    'autoescape'=>'html',
+    'optimizations'=>-1
+    )
   );
 
 //PATHINFO相关配置

@@ -5,7 +5,7 @@ class View extends Initial{
 	//设置视图引擎
 	public function setEngine($type,$option){
 		$class = 'Engine_'.$type;
-		self::$engine = new $class($option);
+		self::$engine = $class::factory($option);
 	}
 	/**
 	 * 注册变量
