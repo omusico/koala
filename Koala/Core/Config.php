@@ -1,5 +1,4 @@
 <?php
-defined('IN_Koala') or exit();
 class Config extends Initial{
 	static $config = array();
 	/**
