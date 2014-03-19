@@ -10,15 +10,11 @@ define('ROOT_PATH',realpath(dirname(__FILE__)).DIRECTORY_SEPARATOR);
 define('FRAME_PATH',realpath(ROOT_PATH.'Koala').DIRECTORY_SEPARATOR);
 
 if (!defined('START_TIME')){
-	define('START_TIME', microtime(TRUE));
+	define('START_TIME', $_SERVER['REQUEST_TIME_FLOAT']);
 }
 //引导应用程序
 require ROOT_PATH.'App/bootstrap.php';
-//引导结束时间
-$init_end_time = microtime(true);
-
-env::$items['INIT_TIME'] = (($init_end_time-START_TIME)*1000).'ms';
-//echo env::$items['INIT_TIME'];exit;
+echo (( microtime(true)-START_TIME)*1000).'ms';exit;
 //执行应用
 Koala::execute();
 ?>

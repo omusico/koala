@@ -43,26 +43,15 @@ class ClassLoader extends Initial{
     }
     //类加载
     public function loadClass($class){
-        //分割
+        $class = str_replace('_',$this->separator,$class);
         $parts = explode($this->separator, $class);
-
-        $parts[] = str_replace('_',$this->separator, array_pop($parts));
-        
-        $path = implode(DIRECTORY_SEPARATOR, $parts);
-        $path = str_replace($this->separator,DIRECTORY_SEPARATOR,$path);
-        
-        $class = implode($this->separator, $parts);
-        $namespace = substr($class, 0,strripos($class,$this->separator));
-
-        if($namespace!=''){
+        $fnamespace = $parts[0];
+        $path = implode($this->separator, $parts);
+        if(strpos($class,$this->separator)!==false){
             //根据名称空间搜索
-            foreach ($this->namespaces as $ns => $dir) {
-                if (0 === strpos($namespace, $ns)) {
-                    $file = $dir.DIRECTORY_SEPARATOR.$path.'.php';
-                    if (file_exists($file)) {
-                        require_once $file;
-                    }
-                }
+            if(isset($this->namespaces[$fnamespace])){
+                $file = $this->namespaces[$fnamespace].DIRECTORY_SEPARATOR.$path.'.php';
+                include $file;
             }
         }else{
             //根据目录搜索
@@ -70,9 +59,9 @@ class ClassLoader extends Initial{
                 $file = $dir.DIRECTORY_SEPARATOR.$path.'.php';//dir/class.php
                 $file1 = $dir.DIRECTORY_SEPARATOR.$path."/$class.php";//dir/class/class.php
                 if (file_exists($file)) {
-                    require_once $file;
+                    include $file;break;
                 }elseif(file_exists($file1)){
-                    include_once $file1;
+                    include $file1;break;
                 }
             }
         }

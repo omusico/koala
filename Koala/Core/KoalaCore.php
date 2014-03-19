@@ -1,7 +1,5 @@
 <?php
 
-session_start();
-
 define('DS',DIRECTORY_SEPARATOR);
 //配置路径
 define("CONFIG_PATH", FRAME_PATH.'Config'.DS);
@@ -42,11 +40,13 @@ KoalaCore::initialize(function(){
     //加载差异函数库
     defined('APPENGINE')&&(APPENGINE!=='LAE')&&$instance->loadClass('Func_'.APPENGINE);
     });
+    
     //++++++++++++++++++++++++系统调试及错误设置++++++++++++++++++++++++++++
     $log = Log::factory();
     ErrorHandler::register($log);
     $log->pushHandler(new AEStreamHandler('Log/'.date('Y-m-d')."/ERROR.log", Log::ERROR));
     $log->pushHandler(new AEStreamHandler('Log/'.date('Y-m-d')."/WARN.log", Log::WARNING));
+
     //检查环境
     require_once(FRAME_PATH.'Initialise/checkEnv.php');
     if(!file_exists(ROOT_PATH.'App')){
