@@ -1,14 +1,9 @@
 <?php
-
-define('DS',DIRECTORY_SEPARATOR);
-//配置路径
-define("CONFIG_PATH", FRAME_PATH.'Config'.DS);
 //运行时目录//写数据目录
-define('RUNTIME_PATH',ROOT_PATH.'Runtime'.DS);
+define('RUNTIME_PATH',ROOT_PATH.'Runtime'.DIRECTORY_SEPARATOR);
 //日志目录
-define('LOG_PATH',RUNTIME_PATH.'Storage'.DS);
+define('LOG_PATH',RUNTIME_PATH.'Storage'.DIRECTORY_SEPARATOR);
 //初始化类库
-//set_include_path(get_include_path() . PATH_SEPARATOR . implode(PATH_SEPARATOR,array(FRAME_PATH.'Core')));
 include_once(__DIR__.'/ClassLoader.php');
 //内核初始化进程
 KoalaCore::initialize(function(){
@@ -54,15 +49,11 @@ KoalaCore::initialize(function(){
     //配置初始化
     Config::initialize(function($instance){
         //默认文件
-        $default_file = 'Global.default.php';
-        $default_file_path = CONFIG_PATH.$default_file;
+        $default_file_path = FRAME_PATH.'Config'.DIRECTORY_SEPARATOR.'Global.default.php';
         $instance->loadConfig($default_file_path);
     });
     Request::standard();
     Request::UrlParser();
-    //调度器初始化
-    Dispatcher::initialize(function($instance){});
-    View::initialize(function($instance){});
 });
 class Initial{
     static $instance=array();
