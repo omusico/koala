@@ -1,12 +1,26 @@
 {	"name": "Koala/KoalaFrame",
     "description": "PHP Koala框架",
+    "keywords": ["Koala", "框架", "psr-3"],
+    "homepage": "https://github.com/lunnlew/koala",
+    "type": "framework",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "LunnLew",
+            "email": "lunnlew@gmail.com"
+        }
+    ],
 	"config": {
         "vendor-dir": "Koala/Addons/Vendor"
     },
     "require": {
     	"php": ">=5.3.0",
         "monolog/monolog": "1.7.*@dev",
-        "psr/log": "1.0.*@dev",
-        "twig/twig": "1.15.*@dev"
+        "psr/log": "1.0.*@dev"
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-master": "1.0.*dev"
+        }
     }
 }
