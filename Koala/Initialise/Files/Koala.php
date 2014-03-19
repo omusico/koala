@@ -14,8 +14,12 @@ Koala::initialize(function(){
         'AppCache' => ROOT_PATH.'Koala/Addons',
         'Engine' => ROOT_PATH.'Koala/Addons',
         ));
-    $instance->loadFunc('Custom','Func');
     //More Coding
+    $instance->loadFunc('Custom','Func');
+    //加载模块
+    $instance->registerNamespaces(array(
+        'UFM' => ROOT_PATH.'Koala/Addons/Module',
+        ));
     //
     });
     //配置初始化

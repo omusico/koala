@@ -11,7 +11,7 @@
 
 namespace Monolog\Formatter;
 
-use Monolog\Logger;
+use Exception;
 
 /**
  * Formats incoming records into a one-line string
@@ -21,22 +21,23 @@ use Monolog\Logger;
  * @author Jordi Boggiano <j.boggiano@seld.be>
  * @author Christophe Coevoet <stof@notk.org>
  */
-class LineFormatter implements FormatterInterface
+class LineFormatter extends NormalizerFormatter
 {
     const SIMPLE_FORMAT = "[%datetime%] %channel%.%level_name%: %message% %context% %extra%\n";
-    const SIMPLE_DATE = "Y-m-d H:i:s";
 
     protected $format;
-    protected $dateFormat;
+    protected $allowInlineLineBreaks;
 
     /**
-     * @param string $format The format of the message
-     * @param string $dateFormat The format of the timestamp: one supported by DateTime::format
+     * @param string $format                The format of the message
+     * @param string $dateFormat            The format of the timestamp: one supported by DateTime::format
+     * @param bool   $allowInlineLineBreaks Whether to allow inline line breaks in log entries
      */
-    public function __construct($format = null, $dateFormat = null)
+    public function __construct($format = null, $dateFormat = null, $allowInlineLineBreaks = false)
     {
         $this->format = $format ?: static::SIMPLE_FORMAT;
-        $this->dateFormat = $dateFormat ?: static::SIMPLE_DATE;
+        $this->allowInlineLineBreaks = $allowInlineLineBreaks;
+        parent::__construct($dateFormat);
     }
 
     /**
@@ -44,18 +45,19 @@ class LineFormatter implements FormatterInterface
      */
     public function format(array $record)
     {
-        $vars = $record;
-        $vars['datetime'] = $vars['datetime']->format($this->dateFormat);
+        $vars = parent::format($record);
 
         $output = $this->format;
         foreach ($vars['extra'] as $var => $val) {
             if (false !== strpos($output, '%extra.'.$var.'%')) {
-                $output = str_replace('%extra.'.$var.'%', $this->convertToString($val), $output);
+                $output = str_replace('%extra.'.$var.'%', $this->replaceNewlines($this->convertToString($val)), $output);
                 unset($vars['extra'][$var]);
             }
         }
         foreach ($vars as $var => $val) {
-            $output = str_replace('%'.$var.'%', $this->convertToString($val), $output);
+            if (false !== strpos($output, '%'.$var.'%')) {
+                $output = str_replace('%'.$var.'%', $this->replaceNewlines($this->convertToString($val)), $output);
+            }
         }
 
         return $output;
@@ -71,35 +73,41 @@ class LineFormatter implements FormatterInterface
         return $message;
     }
 
+    protected function normalizeException(Exception $e)
+    {
+        $previousText = '';
+        if ($previous = $e->getPrevious()) {
+            do {
+                $previousText .= ', '.get_class($previous).': '.$previous->getMessage().' at '.$previous->getFile().':'.$previous->getLine();
+            } while ($previous = $previous->getPrevious());
+        }
+
+        return '[object] ('.get_class($e).': '.$e->getMessage().' at '.$e->getFile().':'.$e->getLine().$previousText.')';
+    }
+
     protected function convertToString($data)
     {
-        if (null === $data || is_scalar($data)) {
+        if (null === $data || is_bool($data)) {
+            return var_export($data, true);
+        }
+
+        if (is_scalar($data)) {
             return (string) $data;
         }
 
-        return stripslashes(json_encode($this->normalize($data)));
+        if (version_compare(PHP_VERSION, '5.4.0', '>=')) {
+            return $this->toJson($data, true);
+        }
+
+        return str_replace('\\/', '/', @json_encode($data));
     }
 
-    protected function normalize($data)
+    protected function replaceNewlines($str)
     {
-        if (null === $data || is_scalar($data)) {
-            return $data;
+        if ($this->allowInlineLineBreaks) {
+            return $str;
         }
 
-        if (is_array($data) || $data instanceof \Traversable) {
-            $normalized = array();
-
-            foreach ($data as $key => $value) {
-                $normalized[$key] = $this->normalize($value);
-            }
-
-            return $normalized;
-        }
-
-        if (is_resource($data)) {
-            return '[resource]';
-        }
-
-        return sprintf("[object] (%s: %s)", get_class($data), json_encode($data));
+        return preg_replace('{[\r\n]+}', ' ', $str);
     }
 }

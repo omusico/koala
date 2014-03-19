@@ -20,8 +20,6 @@ KoalaCore::initialize(function(){
         'Core' => ROOT_PATH.'Koala',
         'Server' => ROOT_PATH.'Koala/Core',
         'Minion' => ROOT_PATH.'Koala/Addons',
-        'Psr' => ROOT_PATH.'Koala/Addons/Vendor',
-        'Monolog' => ROOT_PATH.'Koala/Addons/Vendor'
         ));
     $instance->registerDirs(array(
         ROOT_PATH.'Koala/Core',
@@ -31,15 +29,18 @@ KoalaCore::initialize(function(){
     //系统内置函数库
     $instance->LoadFunc('Func','Common,Special');
     });
+    //检查环境
+    require_once(FRAME_PATH.'Initialise/checkEnv.php');
+    //加载常量
+    include(FRAME_PATH.'Initialise/Constant'.APPENGINE.'.php');
+    //composer第三方库加载支持
+    require ADDONS_PATH.'vendor/autoload.php';
     //++++++++++++++++++++++++系统调试及错误设置++++++++++++++++++++++++++++
     $log = Log::factory();
     ErrorHandler::register($log);
     $log->pushHandler(new AEStreamHandler('Log/'.date('Y-m-d')."/ERROR.log", Log::ERROR));
     $log->pushHandler(new AEStreamHandler('Log/'.date('Y-m-d')."/WARN.log", Log::WARNING));
-    //检查环境
-    require_once(FRAME_PATH.'Initialise/checkEnv.php');
-    //加载常量
-    include(FRAME_PATH.'Initialise/Constant'.APPENGINE.'.php');
+    
     //加载云服务类支持(如BAE类库)
     (APPENGINE!="LAE") AND include(FRAME_PATH.'Initialise/Class'.APPENGINE.".php");
     
@@ -54,8 +55,6 @@ KoalaCore::initialize(function(){
         //默认文件
         $instance->loadConfig(FRAME_PATH.'Config'.DIRECTORY_SEPARATOR.'Global.default.php');
     });
-    //引入第三方库
-    require ADDONS_PATH.'vendor/autoload.php';
     //请求处理
     Request::standard();
     Request::UrlParser();

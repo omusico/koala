@@ -61,7 +61,7 @@ class Log{
      */
     const API = 1;
     //日志实例表
-	static $objects = null;
+	static $objects;
 	//实例化日志
 	public static function factory($type=''){
 		if(empty($type)||!is_string($type)){

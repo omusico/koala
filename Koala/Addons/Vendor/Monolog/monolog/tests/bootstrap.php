@@ -9,13 +9,7 @@
  * file that was distributed with this source code.
  */
 
-require_once __DIR__.'/Monolog/TestCase.php';
+$loader = require __DIR__ . "/../vendor/autoload.php";
+$loader->addPsr4('Monolog\\', __DIR__.'/Monolog');
 
-spl_autoload_register(function($class)
-{
-    $file = __DIR__.'/../src/'.strtr($class, '\\', '/').'.php';
-    if (file_exists($file)) {
-        require $file;
-        return true;
-    }
-});
+date_default_timezone_set('UTC');

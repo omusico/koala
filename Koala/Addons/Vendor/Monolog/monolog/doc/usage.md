@@ -4,12 +4,16 @@ Using Monolog
 Installation
 ------------
 
-To install Monolog, simply get the code (from github or through PEAR) and
-configure an autoloader for the Monolog namespace.
+Monolog is available on Packagist ([monolog/monolog](http://packagist.org/packages/monolog/monolog))
+and as such installable via [Composer](http://getcomposer.org/).
 
-Monolog does not provide its own autoloader but follows the PSR-0 convention,
-thus allowing you to use any compatible autoloader. You could for instance use
-the [Symfony2 ClassLoader component](https://github.com/symfony/ClassLoader).
+```bash
+php composer.phar require monolog/monolog '~1.7'
+```
+
+If you do not use Composer, you can grab the code from GitHub, and use any
+PSR-0 compatible autoloader (e.g. the [Symfony2 ClassLoader component](https://github.com/symfony/ClassLoader))
+to load Monolog classes.
 
 Configuring a logger
 --------------------
@@ -84,7 +88,7 @@ $logger->pushProcessor(function ($record) {
 ```
 
 Monolog provides some built-in processors that can be used in your project.
-Look at the README file for the list.
+Look at the [README file](https://github.com/Seldaek/monolog/blob/master/README.mdown) for the list.
 
 > Tip: processors can also be registered on a specific handler instead of
   the logger to apply only for this handler.
@@ -94,12 +98,11 @@ Leveraging channels
 
 Channels are a great way to identify to which part of the application a record
 is related. This is useful in big applications (and is leveraged by
-MonologBundle in Symfony2). You can then easily grep through log files for
-example to filter this or that type of log record.
+MonologBundle in Symfony2).
 
-Using different loggers with the same handlers allow to identify the logger
-that issued the record (through the channel name) by keeping the same handlers
-(for instance to use a single log file).
+Picture two loggers sharing a handler that writes to a single log file.
+Channels would allow you to identify the logger that issued every record.
+You can easily grep through the log files filtering this or that channel.
 
 ```php
 <?php
@@ -122,3 +125,38 @@ $securityLogger = new Logger('security');
 $securityLogger->pushHandler($stream);
 $securityLogger->pushHandler($firephp);
 ```
+
+Customizing log format
+----------------------
+
+In Monolog it's easy to customize the format of the logs written into files,
+sockets, mails, databases and other handlers. Most of the handlers use the
+
+```php
+$record['formatted']
+```
+
+value to be automatically put into the log device. This value depends on the
+formatter settings. You can choose between predefined formatter classes or
+write your own (e.g. a multiline text file for human-readable output).
+
+To configure a predefined formatter class, just set it as the handler's field:
+
+```php
+// the default date format is "Y-m-d H:i:s"
+$dateFormat = "Y n j, g:i a";
+// the default output format is "[%datetime%] %channel%.%level_name%: %message% %context% %extra%\n"
+$output = "%datetime% > %level_name% > %message% %context% %extra%\n";
+// finally, create a formatter
+$formatter = new LineFormatter($output, $dateFormat);
+
+// Create a handler
+$stream = new StreamHandler(__DIR__.'/my_app.log', Logger::DEBUG);
+$stream->setFormatter($formatter);
+// bind it to a logger object
+$securityLogger = new Logger('security');
+$securityLogger->pushHandler($stream);
+```
+
+You may also reuse the same formatter between multiple handlers and share those
+handlers between multiple loggers.

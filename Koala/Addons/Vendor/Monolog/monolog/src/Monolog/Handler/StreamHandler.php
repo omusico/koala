@@ -11,7 +11,6 @@
 
 namespace Monolog\Handler;
 
-use Monolog\Formatter\SimpleFormatter;
 use Monolog\Logger;
 
 /**
@@ -25,10 +24,11 @@ class StreamHandler extends AbstractProcessingHandler
 {
     protected $stream;
     protected $url;
+    private $errorMessage;
 
     /**
-     * @param string $stream
-     * @param integer $level The minimum logging level at which this handler will be triggered
+     * @param string  $stream
+     * @param integer $level  The minimum logging level at which this handler will be triggered
      * @param Boolean $bubble Whether the messages that are handled can bubble up the stack or not
      */
     public function __construct($stream, $level = Logger::DEBUG, $bubble = true)
@@ -61,12 +61,20 @@ class StreamHandler extends AbstractProcessingHandler
             if (!$this->url) {
                 throw new \LogicException('Missing stream url, the stream can not be opened. This may be caused by a premature call to close().');
             }
-            $this->stream = @fopen($this->url, 'a');
+            $this->errorMessage = null;
+            set_error_handler(array($this, 'customErrorHandler'));
+            $this->stream = fopen($this->url, 'a');
+            restore_error_handler();
             if (!is_resource($this->stream)) {
                 $this->stream = null;
-                throw new \UnexpectedValueException(sprintf('The stream or file "%s" could not be opened; it may be invalid or not writable.', $this->url));
+                throw new \UnexpectedValueException(sprintf('The stream or file "%s" could not be opened: '.$this->errorMessage, $this->url));
             }
         }
         fwrite($this->stream, (string) $record['formatted']);
+    }
+
+    private function customErrorHandler($code, $msg)
+    {
+        $this->errorMessage = preg_replace('{^fopen\(.*?\): }', '', $msg);
     }
 }
