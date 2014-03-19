@@ -5,7 +5,7 @@
  * $py = new Spell();
  * $r = $py->getInitial($str,'utf-8','utf-8');
  */
-class Spell{
+class Helper_Spell{
 	//当前字符
 	protected $word='';
 	//资源

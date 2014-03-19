@@ -8,31 +8,12 @@ $cfg['charset'] = 'utf-8';
 $cfg['time_zone'] = 'PRC';
 $cfg["version"] = '1.0.0';
 
- /* 默认设定 */
-$cfg["DEFAULT_M_LAYER"]=  'Model'; // 默认的模型层名称
-$cfg["DEFAULT_C_LAYER"]=  'Action'; // 默认的控制器层名称
-$cfg["DEFAULT_V_LAYER"]=  'Tpl'; // 默认的视图层名称
-$cfg["DEFAULT_APP"]= '@';     // 默认项目名称，@表示当前项目
+//模板引擎
+$cg['Template_Engine']=array(
+  'default'=>'Tengine',
+  'Tengine'=>array()
+  );
 
-//引擎
-$cfg["Template.Engine"] = 'Smarty';
-
-
-
-$cfg['TMPL_ACTION_SUCCESS'] = 'dispatch_jump';
-$cfg['TMPL_ACTION_ERROR'] = 'dispatch_jump';
-
-$cfg['Template']['TemplateDir'] = "[VIEW_PATH][STYLENAME][DS][GROUP_NAME][DS]";
-$cfg['Template']['CompileDir'] = "[COMPILE_PATH][STYLENAME][DS][GROUP_NAME][DS][MODULE_NAME][DS]";
-$cfg['Template']['PluginDir'] = "[ADDONS_PATH]Smarty/plugin[DS]";
-$cfg['Template']['ConfigDir'] = "[ROOT_PATH]Config[DS]";
-$cfg['Template']['Debug'] = false;
-$cfg['Template']['left_delimiter'] = "{%";
-$cfg['Template']['right_delimiter'] = "%}";
-$cfg['Template']['compile_locking'] = false;
-$cfg['Template']['plugins']=array(
-                    'function'=>array('L'=>'L','U'=>'U','PU'=>'PU','cats'=>'cats'),
-                    );
 //PATHINFO相关配置
 $cfg['URLMODE']=1;
 $cfg['URL_PATHINFO_DEPR'] = '/';

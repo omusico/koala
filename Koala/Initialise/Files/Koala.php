@@ -1,4 +1,5 @@
 <?php
+session_start();
 /**
  * 用户应用自定义初始化加载
  *
@@ -23,9 +24,14 @@ Koala::initialize(function(){
     //
     });
     //配置初始化
-     Config::initialize(function($instance){
+    Config::initialize(function($instance){
         //用户文件
         $instance->loadConfig(Config::getPath('Config/'.APPENGINE.'Global.user.php'));
+    });
+    //视图初始化
+    View::initialize(function($instance){
+        $type = C('Template_Engine:DEFAULT','Tengine');
+        $instance->setEngine($type,C('Template_Engine:'.$type));
     });
     //More Coding
     //

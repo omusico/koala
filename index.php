@@ -16,7 +16,6 @@ if (!defined('START_TIME')){
 }
 //引导应用程序
 require FRAME_PATH.'Initialise/bootstrap.php';
-echo (( microtime(true)-START_TIME)*1000).'ms';exit;
 //执行应用
 Koala::execute();
 ?>

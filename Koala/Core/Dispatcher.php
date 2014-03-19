@@ -1,5 +1,4 @@
 <?php
-defined('IN_Koala') or exit();
 //调度器
 class Dispatcher extends Initial{
 	//执行应用
@@ -7,9 +6,7 @@ class Dispatcher extends Initial{
     	$action = array_pop($options['paths']);
         $ins = self::loadController($options['paths']);
         //调用控制器
-        $controller = Controller::getProxy($ins)->addAddonsList(
-            array(new UFM\InputFilter(),array(),1,1)
-            );
+        $controller = Controller::getProxy($ins);
         try{
             if(!preg_match('/^[_A-Za-z](\w)*$/',$action)){
                 // 非法操作
