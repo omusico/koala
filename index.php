@@ -1,7 +1,7 @@
 <?php
 define('IN_Koala',true);
 //调试
-define('DEBUG',0);
+define('DEBUG',1);
 //主版本
 define('APP_VERSION','1');
 //根路径
@@ -16,7 +16,6 @@ if (!defined('START_TIME')){
 }
 //引导应用程序
 require FRAME_PATH.'Initialise/bootstrap.php';
-echo (( microtime(true)-START_TIME)*1000).'ms';exit;
 //执行应用
 Koala::execute();
 ?>

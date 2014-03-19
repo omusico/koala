@@ -1,10 +1,13 @@
 <?php
+if (!defined('DS')) {
+    define('DS', DIRECTORY_SEPARATOR);
+}
 //运行时目录//写数据目录
 define('RUNTIME_PATH',ROOT_PATH.'Runtime'.DIRECTORY_SEPARATOR);
 //日志目录
 define('LOG_PATH',RUNTIME_PATH.'Storage'.DIRECTORY_SEPARATOR);
 //初始化类库
-include_once(__DIR__.'/ClassLoader.php');
+include(__DIR__.'/ClassLoader.php');
 //内核初始化进程
 KoalaCore::initialize(function(){
     ClassLoader::initialize(function($instance){
@@ -38,7 +41,7 @@ KoalaCore::initialize(function(){
     //加载常量
     include(FRAME_PATH.'Initialise/Constant'.APPENGINE.'.php');
     //加载云服务类支持(如BAE类库)
-    include(FRAME_PATH.'Initialise/Class'.APPENGINE.".php");
+    (APPENGINE!="LAE") AND include(FRAME_PATH.'Initialise/Class'.APPENGINE.".php");
     
     if(!file_exists(ROOT_PATH.'App')){
         //针对云环境的数据目录搬移等操作
@@ -49,9 +52,11 @@ KoalaCore::initialize(function(){
     //配置初始化
     Config::initialize(function($instance){
         //默认文件
-        $default_file_path = FRAME_PATH.'Config'.DIRECTORY_SEPARATOR.'Global.default.php';
-        $instance->loadConfig($default_file_path);
+        $instance->loadConfig(FRAME_PATH.'Config'.DIRECTORY_SEPARATOR.'Global.default.php');
     });
+    //引入第三方库
+    require ADDONS_PATH.'vendor/autoload.php';
+    //请求处理
     Request::standard();
     Request::UrlParser();
 });

@@ -66,20 +66,12 @@ class Request{
 		define('APP_NAME',$app_name);
 		//是否启用了多分组//默认多分组
 		if(C('MULTIPLE_GROUP',1)){
-			//如果在已有的分组列表中
-			if(in_array($_REQUEST[C('VAR_GROUP','g')],C('GROUP:LIST',array('Home')))){
-				$group_name = self::$_paths[] = ucfirst($_REQUEST[C('VAR_GROUP','g')]);
-			}else{
-				$group_name = self::$_paths[] = C('GROUP:DEFAULT','Home');
-			}
-			define('GROUP_NAME',$group_name);
+			$group_name = self::$_paths[] = isset($_REQUEST[C('VAR_GROUP','g')])?ucfirst($_REQUEST[C('VAR_GROUP','g')]):C('GROUP:DEFAULT','Home');
 		}
+		define('GROUP_NAME',$group_name);
 		//模块
-		if(isset($_REQUEST[C('VAR_MODULE','m')])){
-			$module_name = self::$_paths[] = ucfirst($_REQUEST[C('VAR_MODULE','m')]);
-		}else{
-			$module_name = self::$_paths[] = ucfirst(C('MODULE:DEFAULT','Index'));
-		}
+		$module_name = self::$_paths[] =  isset($_REQUEST[C('VAR_MODULE','m')])?ucfirst($_REQUEST[C('VAR_MODULE','m')]):ucfirst(C('MODULE:DEFAULT','Index'));
+		
 		define('MODULE_NAME',$module_name);
 		//action
 		if(isset($_REQUEST[C('VAR_ACTION','a')])){

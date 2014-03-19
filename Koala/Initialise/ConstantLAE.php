@@ -18,4 +18,6 @@ define('STOR_URL','/'.ROOT_RELPATH.'Runtime/Storage/');
 define('COMPILE_PATH',RUNTIME_PATH.'Compile'.DS);
 //缓存目录
 define('CACHE_PATH',RUNTIME_PATH.'Cache'.DS);
+//
+define('ADDONS_PATH',FRAME_PATH.'Addons'.DS);
 ?>

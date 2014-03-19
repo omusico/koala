@@ -6,10 +6,10 @@ mkdir(ROOT_PATH.'App/Custom',0777,true);
 mkdir(ROOT_PATH.'App/Config',0777,true);
 
 copy(FRAME_PATH.'Initialise/Files/Koala.php',ROOT_PATH.'App/Custom/Koala.php');
-
+file_put_contents(ROOT_PATH.'App/Custom/Func.php',"<?php\t\n");
 copy(FRAME_PATH.'Initialise/Files/Config/LAEGlobal.user.php',ROOT_PATH.'App/Config/LAEGlobal.user.php');
-
 copy(FRAME_PATH.'Initialise/Files/bootstrap.php',ROOT_PATH.'App/bootstrap.php');
+
 
 mkdir(ROOT_PATH.'App/Controller',0777,true);
 mkdir(ROOT_PATH.'App/Controller/Home',0777,true);

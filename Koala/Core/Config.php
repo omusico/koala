@@ -17,7 +17,12 @@ class Config extends Initial{
 	 * @return fixed          配置项值
 	 */
 	public static function getItem($key,$defv=''){
-		list($key,$subkey) = explode(':',$key);
+		$arr = explode(':',$key);
+		if(count($arr)>1){
+			list($key,$subkey) = $arr;
+		}else{
+			$key = $arr[0];
+		}
 		if(isset($subkey)){
 			$subkey = strtolower($subkey);
 			switch ($subkey) {
