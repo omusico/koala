@@ -1,6 +1,6 @@
 {	"name": "lunnlew/koala",
-    "description": "PHP Koala框架",
-    "keywords": ["Koala", "框架", "psr-3"],
+    "description": "Koala Framework for PHP",
+    "keywords": ["Koala", "framework", "psr-3"],
     "homepage": "https://github.com/lunnlew/koala",
     "type": "framework",
     "license": "MIT",
