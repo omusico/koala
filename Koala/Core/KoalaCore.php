@@ -59,13 +59,15 @@ KoalaCore::initialize(function(){
         $instance->loadConfig($default_file_path);
     });
     //加载常量
-    file_exists(FRAME_PATH.'Initialise/Constant'.APPENGINE.'.php')&&require_once(FRAME_PATH.'Initialise/Constant'.APPENGINE.'.php');
+    file_exists(FRAME_PATH.'Initialise/Constant'.APPENGINE.'.php') AND include(FRAME_PATH.'Initialise/Constant'.APPENGINE.'.php');
     //加载云服务类支持(如BAE类库)
-    file_exists(FRAME_PATH.'Initialise/Class'.APPENGINE.".php")&&require_once(FRAME_PATH.'Initialise/Class'.APPENGINE.".php");
+    file_exists(FRAME_PATH.'Initialise/Class'.APPENGINE.".php") AND  include(FRAME_PATH.'Initialise/Class'.APPENGINE.".php");
+
+
     //加载常量
     require_once(FRAME_PATH.'Initialise/Constant.php');
     //针对云环境的数据目录搬移等操作
-    require_once(FRAME_PATH.'Initialise/adaptEnv.php');//如何分离仅使用一次的代码呢
+    require_once(FRAME_PATH.'Initialise/adaptEnv.php');
     Request::standard();
     Request::UrlParser();
     //调度器初始化

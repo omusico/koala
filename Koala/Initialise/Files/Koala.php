@@ -3,17 +3,13 @@
 //应用自定义初始化
 Koala::initialize(function(){
     ClassLoader::initialize(function($instance){
-
-    //用户自定义函数库
     //注册_autoload函数
     $instance->register();
-
-    $instance->LoadFunc('Func','Custom');
     $instance->registerNamespaces(array(
-        'AppCache' => ROOT_PATH.'Koala/Addons',
-        'Engine' => ROOT_PATH.'Koala/Addons',
         'Controller' => APP_PATH,
         'Custom' => APP_PATH,
+        'AppCache' => ROOT_PATH.'Koala/Addons',
+        'Engine' => ROOT_PATH.'Koala/Addons',
         ));
     $instance->registerDirs(array(
         ROOT_PATH.'Koala/Addons/Vendor/Everzet',
@@ -25,8 +21,10 @@ Koala::initialize(function(){
         'USM' => ROOT_PATH.'Koala/Addons/Module',
         'UFM' => ROOT_PATH.'Koala/Addons/Module',
         ));
-	});
-    Config::initialize(function($instance){
+    $instance->loadFunc('Custom','Func');
+    });
+    //配置初始化
+     Config::initialize(function($instance){
         //用户文件
         $file = APPENGINE.'Global.user.php';
         $file_path = Config::getPath('Config/'.$file);
@@ -34,9 +32,7 @@ Koala::initialize(function(){
             $instance->loadConfig($file_path);
         }
     });
-    !defined('STYLENAME')&&define('STYLENAME',Config::getItem('style_name',"default"));
-    !defined('SKINNAME')&&define('SKINNAME',Config::getItem('skin_name'),"default");
-	//视图初始化
+    //视图初始化
     View::initialize(function($instance){
         $option = array(
             array(
@@ -56,7 +52,10 @@ Koala::initialize(function(){
             );
         $instance->setEngine(Config::getItem('Template.Engine'),$option);
         });
+    
     //皮肤相关
+    define('STYLENAME',Config::getItem('style_name',"default"));
+    define('SKINNAME',Config::getItem('skin_name'),"default");
     define('CSS_URL',str_replace('\\','/',SOURCE_URL."css".DS));
     define('JS_URL',str_replace('\\','/',SOURCE_URL."js".DS));
     define('IMG_URL',str_replace('\\','/',SOURCE_URL."img".DS));
