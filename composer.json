@@ -1,4 +1,4 @@
-{	"name": "Koala/KoalaFrame",
+{	"name": "koala/koala",
     "description": "PHP Koala框架",
     "keywords": ["Koala", "框架", "psr-3"],
     "homepage": "https://github.com/lunnlew/koala",
