@@ -45,10 +45,10 @@ KoalaCore::initialize(function(){
     (APPENGINE!="LAE") AND include(FRAME_PATH.'Initialise/Class'.APPENGINE.".php");
     
     if(!file_exists(ROOT_PATH.'App')){
-        //针对云环境的数据目录搬移等操作
-        require_once(FRAME_PATH.'Initialise/adaptEnv.php');
         //编译设置
         require_once(FRAME_PATH.'Initialise/BuildItems/build.php');
+        //针对云环境的数据目录搬移等操作
+        require_once(FRAME_PATH.'Initialise/adaptEnv.php');
     }
     //配置初始化
     Config::initialize(function($instance){

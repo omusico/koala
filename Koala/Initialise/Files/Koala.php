@@ -21,7 +21,6 @@ Koala::initialize(function(){
     $instance->registerNamespaces(array(
         'UFM' => ROOT_PATH.'Koala/Addons/Module',
         ));
-    //
     });
     //配置初始化
     Config::initialize(function($instance){

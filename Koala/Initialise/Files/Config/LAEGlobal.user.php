@@ -12,7 +12,7 @@ $cfg["DB_CHARSET"] = 'UTF8';
 
 //模板引擎
 $cfg['Template_Engine']=array(
-  'default'=>'Smarty',
+  'default'=>'Tengine',
   'tengine'=>array(),
   'smarty'=>array(
                 'TemplateDir'=>'[VIEW_PATH]/[STYLENAME]',
