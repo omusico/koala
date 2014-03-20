@@ -171,6 +171,7 @@ return array(
     'PHP_CodeCoverage_Exception' => $vendorDir . '/phpunit/php-code-coverage/src/CodeCoverage/Exception.php',
     'PHP_CodeCoverage_Exception_UnintentionallyCoveredCode' => $vendorDir . '/phpunit/php-code-coverage/src/CodeCoverage/Exception/UnintentionallyCoveredCode.php',
     'PHP_CodeCoverage_Filter' => $vendorDir . '/phpunit/php-code-coverage/src/CodeCoverage/Filter.php',
+    'PHP_CodeCoverage_Parser' => $vendorDir . '/phpunit/php-code-coverage/src/CodeCoverage/Parser.php',
     'PHP_CodeCoverage_Report_Clover' => $vendorDir . '/phpunit/php-code-coverage/src/CodeCoverage/Report/Clover.php',
     'PHP_CodeCoverage_Report_Crap4j' => $vendorDir . '/phpunit/php-code-coverage/src/CodeCoverage/Report/Crap4j.php',
     'PHP_CodeCoverage_Report_Factory' => $vendorDir . '/phpunit/php-code-coverage/src/CodeCoverage/Report/Factory.php',
@@ -389,5 +390,10 @@ return array(
     'SebastianBergmann\\Exporter\\Exception' => $vendorDir . '/sebastian/exporter/src/Exception.php',
     'SebastianBergmann\\Exporter\\Exporter' => $vendorDir . '/sebastian/exporter/src/Exporter.php',
     'SebastianBergmann\\Version' => $vendorDir . '/sebastian/version/src/Version.php',
+    'Smarty' => $vendorDir . '/smarty/smarty/distribution/libs/Smarty.class.php',
+    'SmartyBC' => $vendorDir . '/smarty/smarty/distribution/libs/SmartyBC.class.php',
+    'SmartyCompilerException' => $vendorDir . '/smarty/smarty/distribution/libs/Smarty.class.php',
+    'SmartyException' => $vendorDir . '/smarty/smarty/distribution/libs/Smarty.class.php',
+    'Smarty_Security' => $vendorDir . '/smarty/smarty/distribution/libs/sysplugins/smarty_security.php',
     'Text_Template' => $vendorDir . '/phpunit/php-text-template/Text/Template.php',
 );

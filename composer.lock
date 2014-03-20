@@ -3,7 +3,7 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "5c8c8ac62ba89d1226d6edfd64287784",
+    "hash": "4ab07118287f5e4568d505ca48684336",
     "packages": [
         {
             "name": "monolog/monolog",
@@ -117,6 +117,50 @@
             "time": "2014-01-18 15:33:09"
         },
         {
+            "name": "smarty/smarty",
+            "version": "dev-trunk",
+            "source": {
+                "type": "svn",
+                "url": "http://smarty-php.googlecode.com/svn",
+                "reference": "/trunk/@4824"
+            },
+            "require": {
+                "php": ">=5.2"
+            },
+            "type": "library",
+            "autoload": {
+                "classmap": [
+                    "distribution/libs/Smarty.class.php",
+                    "distribution/libs/SmartyBC.class.php",
+                    "distribution/libs/sysplugins/smarty_security.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "LGPL-3.0"
+            ],
+            "authors": [
+                {
+                    "name": "Monte Ohrt",
+                    "email": "monte@ohrt.com"
+                },
+                {
+                    "name": "Uwe Tews",
+                    "email": "uwe.tews@googlemail.com"
+                },
+                {
+                    "name": "Rodney Rehm",
+                    "email": "rodney.rehm@medialize.de"
+                }
+            ],
+            "description": "Smarty - the compiling PHP template engine",
+            "homepage": "http://www.smarty.net",
+            "keywords": [
+                "templating"
+            ],
+            "time": "2014-03-18 19:24:28"
+        },
+        {
             "name": "twig/twig",
             "version": "v1.15.1",
             "source": {
@@ -181,12 +225,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/php-code-coverage.git",
-                "reference": "de3b3dded309fbefce73ce8f6ee81b811c73d857"
+                "reference": "f75186110012859f64ed143e426f02ce164f7b81"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/php-code-coverage/zipball/de3b3dded309fbefce73ce8f6ee81b811c73d857",
-                "reference": "de3b3dded309fbefce73ce8f6ee81b811c73d857",
+                "url": "https://api.github.com/repos/sebastianbergmann/php-code-coverage/zipball/f75186110012859f64ed143e426f02ce164f7b81",
+                "reference": "f75186110012859f64ed143e426f02ce164f7b81",
                 "shasum": ""
             },
             "require": {
@@ -237,7 +281,7 @@
                 "testing",
                 "xunit"
             ],
-            "time": "2014-03-19 17:05:18"
+            "time": "2014-03-20 08:53:42"
         },
         {
             "name": "phpunit/php-file-iterator",
@@ -879,6 +923,7 @@
     "stability-flags": {
         "monolog/monolog": 20,
         "psr/log": 20,
+        "smarty/smarty": 20,
         "phpunit/phpunit": 20,
         "phpunit/php-code-coverage": 20,
         "phpunit/phpunit-mock-objects": 20,

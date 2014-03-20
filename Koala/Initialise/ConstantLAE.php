@@ -20,4 +20,7 @@ define('COMPILE_PATH',RUNTIME_PATH.'Compile'.DS);
 define('CACHE_PATH',RUNTIME_PATH.'Cache'.DS);
 //
 define('ADDONS_PATH',FRAME_PATH.'Addons'.DS);
+//其他
+define('WIDGET_PATH',FRAME_PATH.'Source/Widget/');
+define('WIDGET_URL',WEB_URL.'Koala/Source/Widget/');
 ?>

@@ -20,20 +20,42 @@ class View extends Initial{
 	 * @param  string $tpl 模板名
 	 */
 	public static function show($tpl=''){
-		return self::$engine->show($tpl);
+		if(empty($tpl)){
+			$pre = MODULE_NAME.'/page/';
+			$tpl = ACTION_NAME;
+		}else{
+			$pre = '';
+		}
+		View::assign('tpl',$style.$pre.$tpl);
+		call_user_func(array(self::$engine,'display'),$pre.$tpl);exit;
+		return 1;
 	}
 	/**
 	 * 模板输出
 	 * @param  string $tpl 模板名
 	 */
 	public static function display($tpl=''){
-		return self::$engine->display($tpl);
+		if(empty($tpl)){
+			$pre = GROUP_NAME.'/'.MODULE_NAME.'/page/';
+			$tpl = ACTION_NAME;
+		}else{
+			$pre = '';
+		}
+		View::assign('tpl',$style.$pre.$tpl);
+		call_user_func(array(self::$engine,'display'),$pre.$tpl.'.html');exit;
+		return 1;
 	}
 	/**
 	 * 返回模板
 	 * @param  string $tpl 模板名
 	 */
 	public static function fetch($tpl=''){
-		return self::$engine->fetch($tpl);
+		if(empty($tpl)){
+			$pre = GROUP_NAME.'/'.MODULE_NAME.'/page/';
+			$tpl = ACTION_NAME;
+		}else{
+			$pre = '';
+		}
+		return call_user_func(array(self::$engine,'fetch'),$pre.$tpl);
 	}
 }

@@ -707,12 +707,12 @@
         "source": {
             "type": "git",
             "url": "https://github.com/sebastianbergmann/php-code-coverage.git",
-            "reference": "de3b3dded309fbefce73ce8f6ee81b811c73d857"
+            "reference": "f75186110012859f64ed143e426f02ce164f7b81"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/sebastianbergmann/php-code-coverage/zipball/de3b3dded309fbefce73ce8f6ee81b811c73d857",
-            "reference": "de3b3dded309fbefce73ce8f6ee81b811c73d857",
+            "url": "https://api.github.com/repos/sebastianbergmann/php-code-coverage/zipball/f75186110012859f64ed143e426f02ce164f7b81",
+            "reference": "f75186110012859f64ed143e426f02ce164f7b81",
             "shasum": ""
         },
         "require": {
@@ -731,7 +731,7 @@
             "ext-dom": "*",
             "ext-xdebug": ">=2.2.1"
         },
-        "time": "2014-03-19 17:05:18",
+        "time": "2014-03-20 08:53:42",
         "type": "library",
         "extra": {
             "branch-alias": {
@@ -893,6 +893,52 @@
             "phpunit",
             "testing",
             "xunit"
+        ]
+    },
+    {
+        "name": "smarty/smarty",
+        "version": "dev-trunk",
+        "version_normalized": "9999999-dev",
+        "source": {
+            "type": "svn",
+            "url": "http://smarty-php.googlecode.com/svn",
+            "reference": "/trunk/@4824"
+        },
+        "require": {
+            "php": ">=5.2"
+        },
+        "time": "2014-03-18 19:24:28",
+        "type": "library",
+        "installation-source": "source",
+        "autoload": {
+            "classmap": [
+                "distribution/libs/Smarty.class.php",
+                "distribution/libs/SmartyBC.class.php",
+                "distribution/libs/sysplugins/smarty_security.php"
+            ]
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "LGPL-3.0"
+        ],
+        "authors": [
+            {
+                "name": "Monte Ohrt",
+                "email": "monte@ohrt.com"
+            },
+            {
+                "name": "Uwe Tews",
+                "email": "uwe.tews@googlemail.com"
+            },
+            {
+                "name": "Rodney Rehm",
+                "email": "rodney.rehm@medialize.de"
+            }
+        ],
+        "description": "Smarty - the compiling PHP template engine",
+        "homepage": "http://www.smarty.net",
+        "keywords": [
+            "templating"
         ]
     }
 ]
