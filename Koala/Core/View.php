@@ -26,7 +26,7 @@ class View extends Initial{
 		}else{
 			$pre = '';
 		}
-		View::assign('tpl',$style.$pre.$tpl);
+		View::assign('tpl',$pre.$tpl);
 		call_user_func(array(self::$engine,'display'),$pre.$tpl);exit;
 		return 1;
 	}
@@ -41,7 +41,7 @@ class View extends Initial{
 		}else{
 			$pre = '';
 		}
-		View::assign('tpl',$style.$pre.$tpl);
+		View::assign('tpl',$pre.$tpl);
 		call_user_func(array(self::$engine,'display'),$pre.$tpl.'.html');exit;
 		return 1;
 	}

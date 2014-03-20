@@ -9,4 +9,5 @@ return array(
     'Twig_' => array($vendorDir . '/twig/twig/lib'),
     'Symfony\\Component\\Yaml\\' => array($vendorDir . '/symfony/yaml'),
     'Psr\\Log\\' => array($vendorDir . '/psr/log'),
+    'Hautelook' => array($vendorDir . '/hautelook/phpass/src'),
 );

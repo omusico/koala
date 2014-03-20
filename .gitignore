@@ -226,3 +226,4 @@ Koala/Addons/Vendor/composer/autoload_classmap.php
 Koala/Addons/Vendor/composer/autoload_namespaces.php
 Koala/Addons/Vendor/composer/autoload_real.php
 Koala/Addons/Vendor/composer/installed.json
+/Koala/Addons/Vendor/monolog

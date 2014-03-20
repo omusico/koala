@@ -5,6 +5,7 @@ class Engine_Smarty{
 			if(is_string($value)){
 				preg_match_all('/(?<=\[)([^\]]*?)(?=\])/',$value, $res);
 		        foreach ($res[0] as $v) {
+		        	if(defined($v))
 					$option[$key] = str_replace("[$v]",constant($v),$option[$key]);
 		        }
 		    }
