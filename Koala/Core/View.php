@@ -26,9 +26,7 @@ class View extends Initial{
 		}else{
 			$pre = '';
 		}
-		View::assign('tpl',$pre.$tpl);
-		call_user_func(array(self::$engine,'display'),$pre.$tpl);exit;
-		return 1;
+		return self::$engine->display($pre.$tpl.'.html');
 	}
 	/**
 	 * 模板输出
@@ -41,9 +39,7 @@ class View extends Initial{
 		}else{
 			$pre = '';
 		}
-		View::assign('tpl',$pre.$tpl);
-		call_user_func(array(self::$engine,'display'),$pre.$tpl.'.html');exit;
-		return 1;
+		return self::$engine->display($pre.$tpl.'.html');
 	}
 	/**
 	 * 返回模板
@@ -56,6 +52,6 @@ class View extends Initial{
 		}else{
 			$pre = '';
 		}
-		return call_user_func(array(self::$engine,'fetch'),$pre.$tpl);
+		return self::$engine->fetch($pre.$tpl.'.html');
 	}
 }
