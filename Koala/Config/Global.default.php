@@ -10,7 +10,7 @@ $cfg["version"] = '1.0.0';
 
 //模板引擎
 $cfg['Template_Engine']=array(
-  'default'=>'twig',
+  'default'=>'Tengine',
   'Tengine'=>array(),
   'twig'=>array(
     'template_path'=>'./View',//or array(path1,$path2,...)

@@ -9,6 +9,6 @@ class Counter{
 		if(!isset(self::$objects[$type])){
 			self::$objects[$type] = Server_Counter_Factory::getInstance($type,C('Counter:'.$type));
 		}
-		returnself::$objects[$type];
+		return self::$objects[$type];
 	}
 }
