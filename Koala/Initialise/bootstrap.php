@@ -3,10 +3,8 @@
 //
 //加载框架核心
 require FRAME_PATH.'Core/KoalaCore.php';
-
-if(Config::getItem('site_disable')){die('网站维护中...');}
 //应用路径
-define('APP_PATH',realpath(ROOT_PATH.'App').DIRECTORY_SEPARATOR);
+!defined('APP_PATH') AND define('APP_PATH',realpath(ROOT_PATH.'App').DIRECTORY_SEPARATOR);
 	
 if(is_file(APP_PATH.'Custom/Koala.php')){
 	//加载应用核心
