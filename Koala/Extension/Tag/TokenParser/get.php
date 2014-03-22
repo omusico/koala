@@ -1,6 +1,11 @@
 <?php
+
 /**
  * get 标签解析
+ * {% get field='id,username' order="id DESC" num=10 call='UUM_Logic_Test::getList'%}
+ *  {% for user in list%}
+ *       <li>{{ user.username }}</li>
+ *  {% endfor %}
  */
 class Tag_TokenParser_get extends Twig_TokenParser{
     

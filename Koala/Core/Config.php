@@ -5,9 +5,9 @@ class Config extends Initial{
 	 * 加载配置
 	 * @param  string $file_path 配置文件路路径
 	 */
-	public  function loadConfig($file_path){
-		$cfg = include_once($file_path);
-		static::$config = array_merge(static::$config,$cfg);
+	public function loadConfig($file_path){
+		$cfg = require($file_path);
+		self::$config = array_merge(self::$config,$cfg);
 	}
 	/**
 	 * 获得配置项

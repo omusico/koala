@@ -39,15 +39,15 @@ class View extends Initial{
 		if($rec){
 			return $tpl;
 		}
+		$options = Request::options();
 		if(!empty($tpl)){
-			list($action,$module,$group) =array_reverse(explode($depr,$tpl));
+			list($a[],$a[],$a[]) =array_reverse(explode($depr,$tpl));
 		}else{
-			list($action,$module,$group) =array(ACTION_NAME,MODULE_NAME,GROUP_NAME);
+			list($a[],$a[],$a[]) =array_reverse($options['paths']);
 		}
-		if(empty($group)){$group=GROUP_NAME;}
-		if(empty($module)){$module=MODULE_NAME;}
-		if(empty($action)){$action=ACTION_NAME;}
-		return $group.'/'.$module.'/page/'.$action.'.html';
+		$a = array_filter($a);
+		$end = '/page/'.array_pop($a);
+		return implode($depr,$a).$end.'.html';
 	}
 	public static function test(){
 		return self::$engine->test();

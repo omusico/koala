@@ -12,7 +12,7 @@ $cfg['Template_Engine']=array(
   'default'=>'Tengine',
   'tengine'=>array(),
   'smarty'=>array(
-                'TemplateDir'=>'[VIEW_PATH]/[STYLENAME]',
+                'TemplateDir'=>'[VIEW_PATH][STYLENAME]',
                 'CompileDir'=>'[COMPILE_PATH]',
                 'PluginDir'=>'[ADDONS_PATH]Smarty/plugin',
                 'ConfigDir'=>'[ROOT_PATH]Config',
@@ -28,7 +28,7 @@ $cfg['Template_Engine']=array(
                     ),
                 ),
   'twig'=>array(
-    'template_path'=>'[VIEW_PATH]/[STYLENAME]',//or array(path1,$path2,...)
+    'template_path'=>'[VIEW_PATH][STYLENAME]',//or array(path1,$path2,...)
     'cache'=>false,
     'cache_path'=>'[COMPILE_PATH]',
     'debug'=>false,

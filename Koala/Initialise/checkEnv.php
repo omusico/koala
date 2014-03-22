@@ -34,14 +34,19 @@ env::reg('ABSOLUTETDIR',function($key){
 });
 //应用相对目录路径
 env::reg('RELATIVEDIR',function($key){
-	//应用目录名,以服务器根目录到应用首页所在目录的相对目录。
+	if(RUNCLI)//cli $_SERVER['SERVER_NAME'] 无效
+	return;
 	$pathname = str_replace(str_replace('\\', '/', $_SERVER['DOCUMENT_ROOT']),'', str_replace('\\', '/',ROOT_PATH));
+	//站点
+	define('SITE_URL','http://'.$_SERVER['SERVER_NAME'].$pathname);
+	//应用目录名,以服务器根目录到应用首页所在目录的相对目录。
+	$pathname .= str_replace(ROOT_PATH,'',APP_PATH);
 	if(APPENGINE=='BAE'){//BAE $_SERVER['DOCUMENT_ROOT'] 与 ROOT_PATH 不在同一路径分支。
 		$pathname = basename($pathname).DIRECTORY_SEPARATOR;
 	}
 	define('ROOT_RELPATH',$pathname);
-	if(!RUNCLI)//cli $_SERVER['SERVER_NAME'] 无效
-	define('WEB_URL','http://'.$_SERVER['SERVER_NAME'].$pathname);
+	//应用
+	define('APP_URL','http://'.$_SERVER['SERVER_NAME'].$pathname);
 	return $pathname;
 });
 

@@ -67,17 +67,17 @@ class Request{
 		//是否启用了多分组//默认多分组
 		if(C('MULTIPLE_GROUP',1)){
 			$group_name = self::$_paths[] = isset($_REQUEST[C('VAR_GROUP','g')])?ucfirst($_REQUEST[C('VAR_GROUP','g')]):C('GROUP:DEFAULT','Home');
+			define('GROUP_NAME',$group_name);
 		}
-		define('GROUP_NAME',$group_name);
 		//模块
 		$module_name = self::$_paths[] =  isset($_REQUEST[C('VAR_MODULE','m')])?ucfirst($_REQUEST[C('VAR_MODULE','m')]):ucfirst(C('MODULE:DEFAULT','Index'));
-		
+
 		define('MODULE_NAME',$module_name);
 		//action
 		if(isset($_REQUEST[C('VAR_ACTION','a')])){
-			$action_name = self::$_paths[] = ucfirst($_REQUEST[C('VAR_ACTION','a')]);
+			$action_name = self::$_paths[] = $_REQUEST[C('VAR_ACTION','a')];
 		}else{
-			$action_name = self::$_paths[] = ucfirst(C('ACTION:DEFAULT','index'));
+			$action_name = self::$_paths[] = C('ACTION:DEFAULT','index');
 		}
 		define('ACTION_NAME',$action_name);
 

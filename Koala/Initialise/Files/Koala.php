@@ -25,7 +25,7 @@ Koala::initialize(function(){
     //配置初始化
     Config::initialize(function($instance){
         //用户文件
-        $instance->loadConfig(Config::getPath('Config/'.APPENGINE.'Global.user.php'));
+       $instance->loadConfig(Config::getPath('Config/'.APPENGINE.'Global.user.php'));
     });
     define('STYLENAME', 'default');
     //视图初始化
@@ -34,7 +34,9 @@ Koala::initialize(function(){
         $instance->setEngine($type,C('Template_Engine:'.$type));
     });
 
-    
+    //请求处理
+    Request::standard();
+    Request::UrlParser();
     //More Coding
     //
 });

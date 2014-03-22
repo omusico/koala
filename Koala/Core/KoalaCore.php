@@ -55,9 +55,6 @@ KoalaCore::initialize(function(){
         //默认文件
         $instance->loadConfig(FRAME_PATH.'Config'.DIRECTORY_SEPARATOR.'Global.default.php');
     });
-    //请求处理
-    Request::standard();
-    Request::UrlParser();
 });
 class Initial{
     static $instance=array();
