@@ -1,5 +1,4 @@
 <?php
-defined('IN_Koala') or exit();
 class View extends Initial{
 	static $engine = null;
 	//设置视图引擎
@@ -19,39 +18,38 @@ class View extends Initial{
 	 * 模板输出
 	 * @param  string $tpl 模板名
 	 */
-	public static function show($tpl=''){
-		if(empty($tpl)){
-			$pre = MODULE_NAME.'/page/';
-			$tpl = ACTION_NAME;
-		}else{
-			$pre = '';
-		}
-		return self::$engine->display($pre.$tpl.'.html');
-	}
-	/**
-	 * 模板输出
-	 * @param  string $tpl 模板名
-	 */
-	public static function display($tpl=''){
-		if(empty($tpl)){
-			$pre = GROUP_NAME.'/'.MODULE_NAME.'/page/';
-			$tpl = ACTION_NAME;
-		}else{
-			$pre = '';
-		}
-		return self::$engine->display($pre.$tpl.'.html');
+	public static function display($tpl='',$rec=false){
+		return self::$engine->display(self::getTemplateName($tpl,$rec));
 	}
 	/**
 	 * 返回模板
 	 * @param  string $tpl 模板名
 	 */
-	public static function fetch($tpl=''){
-		if(empty($tpl)){
-			$pre = GROUP_NAME.'/'.MODULE_NAME.'/page/';
-			$tpl = ACTION_NAME;
-		}else{
-			$pre = '';
+	public static function fetch($tpl='',$rec=false){
+		return self::$engine->fetch(self::getTemplateName($tpl,$rec));
+	}
+	/**
+	 * 获得模板文件名
+	 * @param  string  $tpl  模板名
+	 * @param  boolean $rec  是否原样返回
+	 * @param  string  $depr 分隔符
+	 * @return string        模板文件完整名
+	 */
+	protected static function getTemplateName($tpl='',$rec=false,$depr='/'){
+		if($rec){
+			return $tpl;
 		}
-		return self::$engine->fetch($pre.$tpl.'.html');
+		if(!empty($tpl)){
+			list($action,$module,$group) =array_reverse(explode($depr,$tpl));
+		}else{
+			list($action,$module,$group) =array(ACTION_NAME,MODULE_NAME,GROUP_NAME);
+		}
+		if(empty($group)){$group=GROUP_NAME;}
+		if(empty($module)){$module=MODULE_NAME;}
+		if(empty($action)){$action=ACTION_NAME;}
+		return $group.'/'.$module.'/page/'.$action.'.html';
+	}
+	public static function test(){
+		return self::$engine->test();
 	}
 }

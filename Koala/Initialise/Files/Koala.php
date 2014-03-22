@@ -27,11 +27,14 @@ Koala::initialize(function(){
         //用户文件
         $instance->loadConfig(Config::getPath('Config/'.APPENGINE.'Global.user.php'));
     });
+    define('STYLENAME', 'default');
     //视图初始化
     View::initialize(function($instance){
         $type = C('Template_Engine:DEFAULT','Tengine');
         $instance->setEngine($type,C('Template_Engine:'.$type));
     });
+
+    
     //More Coding
     //
 });

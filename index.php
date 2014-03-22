@@ -6,6 +6,8 @@ define('DEBUG',1);
 define('APP_VERSION','1');
 //根路径
 define('ROOT_PATH',realpath(dirname(__FILE__)).DIRECTORY_SEPARATOR);
+//根路径
+define('APP_PATH',realpath(ROOT_PATH.'App').DIRECTORY_SEPARATOR);
 //框架路径
 define('FRAME_PATH',realpath(ROOT_PATH.'Koala').DIRECTORY_SEPARATOR);
 
