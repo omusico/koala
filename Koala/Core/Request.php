@@ -22,9 +22,14 @@ class Request{
 		//脚本文件名
 		self::$_items['script'] = $_SERVER['SCRIPT_NAME'];
 		//pathinfo路径
-		isset($_SERVER['PATH_INFO']) AND (self::$_items['pathinfo'] = $_SERVER['PATH_INFO']);
-		//查询串
-		isset($_SERVER['QUERY_STRING']) AND (self::$_items['query_string'] = $_SERVER['QUERY_STRING']);
+		if(isset($_SERVER['PATH_INFO'])){
+			self::$_items['pathinfo'] = $_SERVER['PATH_INFO'];
+			isset($_SERVER['QUERY_STRING']) AND (self::$_items['query_string'] = $_SERVER['QUERY_STRING']);
+		}else{
+			$part = explode('&',$_SERVER['QUERY_STRING']);
+			self::$_items['pathinfo'] = array_shift($part);
+			self::$_items['query_string'] = implode('&',$part);
+		}
 	}
 	public static function getUrl(){
 		//规范URL
@@ -32,6 +37,7 @@ class Request{
 		self::$_items['host'].":".
 		self::$_items['port'].self::$_items['script'].
 		self::$_items['pathinfo']."?".self::$_items['query_string'];
+
 
 	}
 	//URL分析器
@@ -122,7 +128,6 @@ class Request{
 			$module_name = $result[] = ucfirst(array_shift($_paths));
 		}
 		define('MODULE_NAME',$module_name);
-
 		//action
 		if(empty($_paths)){
 			$action_name = $result[] = ucfirst(C('ACTION:DEFAULT','index'));
@@ -130,7 +135,6 @@ class Request{
 			$action_name = $result[] = ucfirst(array_shift($_paths));
 		}
 		define('ACTION_NAME',$action_name);
-
 		//剩余参数
 		if(!empty($_paths)){
 			if(count($_paths)%2!=0){

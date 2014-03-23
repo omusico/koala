@@ -6,6 +6,10 @@ if (!defined('DS')) {
 define('RUNTIME_PATH',ROOT_PATH.'Runtime'.DIRECTORY_SEPARATOR);
 //日志目录
 define('LOG_PATH',RUNTIME_PATH.'Storage'.DIRECTORY_SEPARATOR);
+//框架核心版本
+define("FRAME_VERSION",'1.0');
+//框架发布时间
+define('FRAME_RELEASE','20140323');
 //初始化类库
 include(__DIR__.'/ClassLoader.php');
 //内核初始化进程

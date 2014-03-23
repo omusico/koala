@@ -5,7 +5,6 @@
 $cfg['site_disable'] = 0;
 $cfg['charset'] = 'utf-8';
 $cfg['time_zone'] = 'PRC';
-$cfg["version"] = '1.0.0';
 
 //模板引擎
 $cfg['Template_Engine']=array(
@@ -38,7 +37,7 @@ $cfg['Template_Engine']=array(
     )
   );
 //PATHINFO相关配置
-$cfg['URLMODE']=1;
+$cfg['URLMODE']=1;//1普通,2pathinfo,3兼容
 $cfg['URL_PATHINFO_DEPR'] = '/';
 $cfg["URL_HTML_SUFFIX"]='html';
 
