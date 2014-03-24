@@ -41,7 +41,7 @@ class View extends Initial{
 		}
 		$options = Request::options();
 		if(!empty($tpl)){
-			list($a[],$b[],$a[]) =array_reverse(explode($depr,$tpl));
+			list($a[],$b[],$a[],$a[]) =array_reverse(explode($depr,$tpl));
 		}else{
 			list($a[],$a[],$a[]) =array_reverse($options['paths']);
 		}

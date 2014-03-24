@@ -24,6 +24,7 @@ KoalaCore::initialize(function(){
         'Core' => ROOT_PATH.'Koala',
         'Server' => ROOT_PATH.'Koala/Core',
         'Minion' => ROOT_PATH.'Koala/Addons',
+        'Resource'=>ROOT_PATH.'Koala/Addons',
         ));
     $instance->registerDirs(array(
         ROOT_PATH.'Koala/Core',
@@ -44,7 +45,6 @@ KoalaCore::initialize(function(){
     ErrorHandler::register($log);
     $log->pushHandler(new AEStreamHandler('Log/'.date('Y-m-d')."/ERROR.log", Log::ERROR));
     $log->pushHandler(new AEStreamHandler('Log/'.date('Y-m-d')."/WARN.log", Log::WARNING));
-    
     //加载云服务类支持(如BAE类库)
     (APPENGINE!="LAE") AND include(FRAME_PATH.'Initialise/Class'.APPENGINE.".php");
     
