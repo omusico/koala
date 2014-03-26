@@ -10,6 +10,22 @@ define('LOG_PATH',RUNTIME_PATH.'Storage'.DIRECTORY_SEPARATOR);
 define("FRAME_VERSION",'1.0');
 //框架发布时间
 define('FRAME_RELEASE','20140323');
+
+include(__DIR__.'/Initial.php');
+class KoalaCore extends Initial{
+    //执行应用
+    public static function execute(){
+        //判断运行模式
+        if(RUNCLI){
+            //使用命令行解析器
+            Task::factory(KoalaCLI::options())->execute();
+        }else{
+            //分发
+            Dispatcher::execute(Request::options());
+        }
+       
+    }
+}
 //初始化类库
 include(__DIR__.'/ClassLoader.php');
 //内核初始化进程
@@ -28,6 +44,7 @@ KoalaCore::initialize(function(){
         ));
     $instance->registerDirs(array(
         ROOT_PATH.'Koala/Core',
+        ROOT_PATH.'Koala/Tests',
         ROOT_PATH.'Koala/Core/Server',
         ROOT_PATH.'Koala/Addons/Compatible',
         ));
@@ -60,39 +77,4 @@ KoalaCore::initialize(function(){
         $instance->loadConfig(FRAME_PATH.'Config'.DIRECTORY_SEPARATOR.'Global.default.php');
     });
 });
-class Initial{
-    static $instance=array();
-    /**
-     * 配置初始化
-     * @param  Closure $initializer 匿名函数
-     */
-    public static function initialize(Closure $initializer,$option=array()){
-        $initializer(self::getInstance(),$option);
-    }
-    /**
-     * 获得实例
-     * @return object        对象实例
-     */
-    public static function getInstance(){
-        $class = get_called_class();
-        $md5_class = MD5($class);
-        if(!isset(static::$instance[$md5_class])){
-            static::$instance[$md5_class] = new static();
-        }
-        return static::$instance[$md5_class];
-    }
-}
-class KoalaCore extends Initial{
-    //执行应用
-    public static function execute(){
-        //判断运行模式
-        if(RUNCLI){
-            //使用命令行解析器
-            Task::factory(KoalaCLI::options())->execute();
-        }else{
-            //分发
-            Dispatcher::execute(Request::options());
-        }
-       
-    }
-}
+

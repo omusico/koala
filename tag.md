@@ -1,1 +1,0 @@
-get field="*" order="id AEC" num="10"
