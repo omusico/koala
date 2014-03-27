@@ -1,24 +1,35 @@
 <?php
-//pathinfo
-$cfg['URLMODE']=2;//1普通,2pathinfo,3兼容
-$cfg['URL_PATHINFO_DEPR'] = '/';
-$cfg["URL_HTML_SUFFIX"]='.html';
+//数据库
+//'DB_DSN' => 'mysql://root:root@localhost:3306/candy',
+$cfg["DB_TYPE"]='mysql'; // 数据库类型
+$cfg["DB_HOST_M"]='localhost'; // 服务器地址
+$cfg["DB_NAME"]='candy'; // 数据库名
+$cfg["DB_USER"]='root'; // 用户名
+$cfg["DB_PASS"]=''; // 密码
+$cfg["DB_PORT"]= 3306; // 端口
+$cfg["DB_PREFIX"]='candy_'; // 数据库表前缀
+$cfg["DB_CHARSET"] = 'UTF8';
 
-//多分组相关配置
-$cfg['MULTIPLE_GROUP']=1;
-$cfg['GROUP']=array(
-  //允许分组列表
-  'list'=>'Manage,Home,Admin',
-  //默认分组
-  'default' => 'Admin'
-  );
-//默认模块
-$cfg['MODULE']=array('default'=>'Index');
-//默认方法
-$cfg['ACTION']=array('default'=>'index');
 //模板引擎
 $cfg['Template_Engine']=array(
   'default'=>'twig',
+  'tengine'=>array(),
+  'smarty'=>array(
+                'TemplateDir'=>'[VIEW_PATH][STYLENAME]',
+                'CompileDir'=>'[COMPILE_PATH]',
+                'PluginDir'=>'[PLUGIN_PATH]Smarty/plugin',
+                'ConfigDir'=>'[PLUGIN_PATH]Smarty/config',
+                'CacheDir'=>'[COMPILE_PATH]',
+                'debugging'=>false,
+                'caching'=>true,
+                'cache_lifetime'=>3600,
+                'left_delimiter'=>'{%',
+                'right_delimiter' =>'%}',
+                'compile_locking'=>false,
+                'plugins'=>array(
+                    'function'=>array('L'=>'L','U'=>'U','PU'=>'PU','cats'=>'cats'),
+                    ),
+                ),
   'twig'=>array(
     'template_path'=>'[VIEW_PATH][STYLENAME]',//or array(path1,$path2,...)
     'cache'=>false,
@@ -29,13 +40,4 @@ $cfg['Template_Engine']=array(
     'optimizations'=>-1
     )
   );
-//数据库
-$cfg["DB_TYPE"]='mysql'; // 数据库类型
-$cfg["DB_HOST_M"]='localhost'; // 服务器地址
-$cfg["DB_NAME"]='koalacms'; // 数据库名
-$cfg["DB_USER"]='root'; // 用户名
-$cfg["DB_PASS"]=''; // 密码
-$cfg["DB_PORT"]= 3306; // 端口
-$cfg["DB_PREFIX"]='candy_'; // 数据库表前缀
-$cfg["DB_CHARSET"] = 'UTF8';
 return $cfg;

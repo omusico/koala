@@ -13,8 +13,8 @@ $cfg['Template_Engine']=array(
   'smarty'=>array(
                 'TemplateDir'=>'[VIEW_PATH][STYLENAME]',
                 'CompileDir'=>'[COMPILE_PATH]',
-                'PluginDir'=>'[ADDONS_PATH]Smarty/plugin',
-                'ConfigDir'=>'[ADDONS_PATH]Smarty/config',
+                'PluginDir'=>'[PLUGIN_PATH]Smarty/plugin',
+                'ConfigDir'=>'[PLUGIN_PATH]Smarty/config',
                 'CacheDir'=>'[COMPILE_PATH]',
                 'debugging'=>false,
                 'caching'=>true,
@@ -127,10 +127,16 @@ $cfg['CACHE'] = array(
     ),
   //更多...
   );
+
 //模板标签
 $cfg['TAG']=array(
   'get'=>array('field','where','order','num','data','call')
   );
 
+//编辑器
+$cfg['EDITOR']=array(
+  'default'=>'ueditor',
+  'ueditor'=>array(),
+  );
 return $cfg;
 ?>
