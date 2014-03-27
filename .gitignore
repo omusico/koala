@@ -219,6 +219,7 @@ pip-log.txt
 #############
 App/
 Runtime/
+KoalaCMS/
 panel/
 Koala/Addons/Vendor
 Koala/Addons/Vendor/autoload.php
