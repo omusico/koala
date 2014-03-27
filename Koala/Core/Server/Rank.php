@@ -1,20 +1,23 @@
 <?php
-defined('IN_Koala') or exit();
 /**
  * 
- *对不同云计算平台的Rank服务API支持
+ *Rank服务
  *
  */
 class Rank{
-	static $objects = null;
+    /**
+    * 操作句柄数组
+    * @var array
+    */
+    static protected $handlers = array();
 	public function __construct(){}
 	public static function factory($type=''){
 		if(empty($type)||!is_string($type)){
 			$type = C('Rank:DEFAULT','Rank');
 		}
-		if(!isset(self::$objects[$type])){
-			self::$objects[$type] = Server_Rank_Factory::getInstance($type,C('Rank:'.$type));
+		if(!isset(self::$handlers[$type])){
+			self::$handlers[$type] = Server_Rank_Factory::getInstance($type,C('Rank:'.$type));
 		}
-		return self::$objects[$type];
+		return self::$handlers[$type];
 	}
 }

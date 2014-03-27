@@ -1,7 +1,7 @@
 <?php
 /**
  * 
- *分词服务API支持
+ *分词服务
  *
  */
 class Segment{

@@ -1,15 +1,22 @@
 <?php
+/**
+ * 支付服务
+ */
 class Payment{
-	static $objects = null;
+    /**
+    * 操作句柄数组
+    * @var array
+    */
+    static protected $handlers = array();
 	public function __construct(){}
 	public static function factory($type=''){
 		if(empty($type)||!is_string($type)){
 			$type = C('Payment:DEFAULT','LAEPayment');
 		}
-		if(!isset(self::$objects[$type])){
-			self::$objects[$type] = Server_Payment_Factory::getInstance($type,C('Payment:'.$type));
+		if(!isset(self::$handlers[$type])){
+			self::$handlers[$type] = Server_Payment_Factory::getInstance($type,C('Payment:'.$type));
 		}
-		return self::$objects[$type];
+		return self::$handlers[$type];
 	}
 	
 }

@@ -1,15 +1,21 @@
 <?php
-//缓存
+/**
+ * 缓存服务
+ */
 class Cache{
-	static $objects = null;
+  	/**
+   	* 操作句柄数组
+   	* @var array
+   	*/
+  	static protected $handlers = array();
 	public function __construct(){}
 	public static function factory($type=''){
 		if(empty($type)||!is_string($type)){
 			$type = C('CACHE:DEFAULT','LAEMemcache');
 		}
-		if(!isset(self::$objects[$type])){
-			self::$objects[$type] = Server_Cache_Factory::getInstance($type,C('CACHE:'.$type));
+		if(!isset(self::$handlers[$type])){
+			self::$handlers[$type] = Server_Cache_Factory::getInstance($type,C('CACHE:'.$type));
 		}
-		return self::$objects[$type];
+		return self::$handlers[$type];
 	}
 }

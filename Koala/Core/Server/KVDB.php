@@ -1,19 +1,23 @@
 <?php
 /**
  * 
- *对不同云计算平台的KVDB服务API支持
+ *KVDB服务
  *
  */
 class KVDB{
-	static $objects = null;
+  	/**
+   	* 操作句柄数组
+   	* @var array
+   	*/
+  	static protected $handlers = array();
 	public function __construct(){}
 	public static function factory($type=''){
 		if(empty($type)||!is_string($type)){
 			$type = C('KVDB:DEFAULT','LAEKVDB');
 		}
-		if(!isset(self::$objects[$type])){
-			self::$objects[$type] = Server_KVDB_Factory::getInstance($type,C('KVDB:'.$type));
+		if(!isset(self::$handlers[$type])){
+			self::$handlers[$type] = Server_KVDB_Factory::getInstance($type,C('KVDB:'.$type));
 		}
-		return self::$objects[$type];
+		return self::$handlers[$type];
 	}
 }

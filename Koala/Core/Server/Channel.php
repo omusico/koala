@@ -1,19 +1,23 @@
 <?php
 /**
  * 
- *对不同云计算平台的Channel服务API支持
+ *Channel服务
  *
  */
 class Channel{
-	static $objects = null;
+  	/**
+   	* 操作句柄数组
+   	* @var array
+   	*/
+  	static protected $handlers = array();
 	public function __construct(){}
 	public static function factory($type=''){
 		if(empty($type)||!is_string($type)){
 			$type = C('Channel:DEFAULT','LAEChannel');
 		}
-		if(!isset(self::$objects[$type])){
-			self::$objects[$type] = Server_Channel_Factory::getInstance($type,C('Channel:'.$type));
+		if(!isset(self::$handlers[$type])){
+			self::$handlers[$type] = Server_Channel_Factory::getInstance($type,C('Channel:'.$type));
 		}
-		return self::$objects[$type];
+		return self::$handlers[$type];
 	}
 }

@@ -13,7 +13,7 @@ define('SOURCE_URL', APP_URL.'Source/');
 define('DATA_PATH',FRAME_PATH.'Data'.DS);
 //存储目录
 define('STOR_PATH',RUNTIME_PATH.'Storage'.DS);
-define('STOR_URL','/'.ROOT_RELPATH.'Runtime/Storage/');
+define('STOR_URL','/'.APP_RELPATH.'Runtime/Storage/');
 //编译目录
 define('COMPILE_PATH',RUNTIME_PATH.'Compile'.DS);
 //缓存目录

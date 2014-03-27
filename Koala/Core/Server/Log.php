@@ -1,5 +1,7 @@
 <?php
-//日志
+/**
+ * 日志服务
+ */
 class Log{
 	/**
      * Detailed debug information
@@ -60,16 +62,19 @@ class Log{
      * @var int
      */
     const API = 1;
-    //日志实例表
-	static $objects;
+    /**
+    * 操作句柄数组
+    * @var array
+    */
+    static protected $handlers = array();
 	//实例化日志
 	public static function factory($type=''){
 		if(empty($type)||!is_string($type)){
 			$type = C('Log:DEFAULT','Monolog');
 		}
-		if(!isset(self::$objects[$type])){
-			self::$objects[$type] = Server_Log_Factory::getInstance($type,C('Log:'.$type));
+		if(!isset(self::$handlers[$type])){
+			self::$handlers[$type] = Server_Log_Factory::getInstance($type,C('Log:'.$type));
 		}
-		return self::$objects[$type];
+		return self::$handlers[$type];
 	}
 }

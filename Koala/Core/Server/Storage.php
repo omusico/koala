@@ -1,19 +1,23 @@
 <?php
 /**
  * 
- *对不同云计算平台的Storage服务API支持
+ *存储服务
  *
  */
 class Storage{
-  static $objects = null;
+  /**
+   * 操作句柄数组
+   * @var array
+   */
+  static protected $handlers = array();
   public function __construct(){}
   public static function factory($type=''){
     if(empty($type)||!is_string($type)){
       $type = C('Storage:DEFAULT','LAEStorage');
     }
-    if(!isset(self::$objects[$type])){
-      self::$objects[$type] = Server_Storage_Factory::getInstance($type,C('Storage:'.$type));
+    if(!isset(self::$handlers[$type])){
+      self::$handlers[$type] = Server_Storage_Factory::getInstance($type,C('Storage:'.$type));
     }
-    return self::$objects[$type];
+    return self::$handlers[$type];
   }
 }
