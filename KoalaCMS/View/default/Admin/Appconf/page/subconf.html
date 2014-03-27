@@ -1,0 +1,36 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <title>Koala框架管理首页</title>
+    {%include 'Public/page/source.html'%}
+    </head>
+    <body>
+        <div class="wrap">
+              {%include 'Public/page/header.html'%}
+            <div class="mainBody">
+                {%include 'Public/page/left.html'%}
+                <div id="Right">
+                    <div class="Item hr">
+                        <div class="current">应用配置信息</div>
+                    </div>
+                    <table width="100%" border="0" cellspacing="0" cellpadding="0" class="tab">
+                        {% for info in cfg%}
+                                {% if loop.index%2==1%}
+                                    <tr>
+                                {% endif %}
+                                <td width="120" align="right">{{info.item}}：</td>
+                                <td>{{info.value}}</td>
+                                 {% if loop.index%2==0%}
+                                    </tr>
+                                {% endif %}
+                        {% endfor %}
+                    </table>
+                </div>
+
+            </div>
+        </div>
+        <div class="clear"></div>
+        {%include 'Public/page/footer.html'%}
+    </body>
+</html>

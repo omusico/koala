@@ -39,7 +39,7 @@ $cfg['Template_Engine']=array(
 //PATHINFO相关配置
 $cfg['URLMODE']=1;//1普通,2pathinfo,3兼容
 $cfg['URL_PATHINFO_DEPR'] = '/';
-$cfg["URL_HTML_SUFFIX"]='html';
+$cfg["URL_HTML_SUFFIX"]='.html';
 
 //多应用相关配置
 $cfg['MULTIPLE_APP']=0;

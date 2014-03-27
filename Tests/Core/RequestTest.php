@@ -52,7 +52,7 @@ class RequestTest extends PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers Request::UrlParser
+     * @covers Router::UrlParser
      * @todo   Implement testUrlParser().
      */
     public function testUrlParser()
@@ -76,7 +76,7 @@ class RequestTest extends PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers Request::UrlAssembler
+     * @covers Router::UrlAssembler
      * @todo   Implement testUrlAssembler().
      */
     public function testUrlAssembler()

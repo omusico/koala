@@ -39,7 +39,7 @@ class View extends Initial{
 		if($rec){
 			return $tpl;
 		}
-		$options = Request::options();
+		$options = Dispatcher::$options;
 		if(!empty($tpl)){
 			list($a[],$b[],$a[],$a[]) =array_reverse(explode($depr,$tpl));
 		}else{

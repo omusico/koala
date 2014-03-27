@@ -86,7 +86,7 @@ function createGuid($namespace = '') {
  * @return string
  */
 function U($url='',$vars='',$suffix=true,$redirect=false,$domain=false){
-    return Request::UrlAssembler($url,$vars,$suffix,$redirect,$domain);
+    return URL::Assembler($url,$vars,$suffix,$redirect,$domain);
 }
 /**
  * 语言项加载

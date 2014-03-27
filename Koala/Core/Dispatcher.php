@@ -1,10 +1,12 @@
 <?php
 //调度器
 class Dispatcher extends Initial{
+    static $options = array();
 	//执行应用
     public static function execute($options){
+        self::$options = $options;
     	$action = array_pop($options['paths']);
-        $ins = self::loadController($options['paths']);
+        $ins = self::loadController();
         //调用控制器
         $controller = Controller::getProxy($ins);
         try{
@@ -19,8 +21,11 @@ class Dispatcher extends Initial{
             echo '方法异常';
         }
     }
-    protected static function loadController($options){
-    	$class_m = implode("\\",$options);
+    protected static function loadController(){
+        $paths = self::$options['paths'];
+        //去除action
+        array_pop($paths);
+    	$class_m = implode("\\",$paths);
     	$filename = str_replace("\\",DIRECTORY_SEPARATOR,$class_m);
         $file = CONTRLLER_PATH.$filename.'.php';
         $class = 'Controller\\'.$class_m;

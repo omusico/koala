@@ -36,7 +36,7 @@ Koala::initialize(function(){
 
     //请求处理
     Request::standard();
-    Request::UrlParser();
+    Router::UrlParser();
     //More Coding
     //
 });
