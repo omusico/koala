@@ -60,7 +60,7 @@
                 'TemplateDir'=>'[VIEW_PATH][STYLENAME]',
                 'CompileDir'=>'[COMPILE_PATH]',
                 'PluginDir'=>'[ADDONS_PATH]Smarty/plugin',
-                'ConfigDir'=>'[ROOT_PATH]Config',
+                'ConfigDir'=>'[ADDONS_PATH]Smarty/config',
                 'CacheDir'=>'[COMPILE_PATH]',
                 'debugging'=>false,
                 'caching'=>true,

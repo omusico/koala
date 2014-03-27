@@ -34,19 +34,19 @@ KoalaCore::initialize(function(){
     //注册_autoload函数
     $instance->register();
     $instance->registerNamespaces(array(
-        'Func' => ROOT_PATH.'Koala/Core',
+        'Func' => FRAME_PATH.'Core',
         'Helper' => ROOT_PATH.'Koala',
-        'Base' => ROOT_PATH.'Koala/Core',
+        'Base' => FRAME_PATH.'Core',
         'Core' => ROOT_PATH.'Koala',
-        'Server' => ROOT_PATH.'Koala/Core',
-        'Minion' => ROOT_PATH.'Koala/Addons',
-        'Resource'=>ROOT_PATH.'Koala/Addons',
+        'Server' => FRAME_PATH.'Core',
+        'Minion' => FRAME_PATH.'Addons',
+        'Resource'=>FRAME_PATH.'Addons',
         ));
     $instance->registerDirs(array(
-        ROOT_PATH.'Koala/Core',
-        ROOT_PATH.'Koala/Tests',
-        ROOT_PATH.'Koala/Core/Server',
-        ROOT_PATH.'Koala/Addons/Compatible',
+        FRAME_PATH.'Core',
+        FRAME_PATH.'Tests',
+        FRAME_PATH.'Core/Server',
+        FRAME_PATH.'Addons/Compatible',
         ));
     //系统内置函数库
     $instance->LoadFunc('Func','Common,Special');

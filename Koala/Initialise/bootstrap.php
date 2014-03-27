@@ -1,6 +1,6 @@
 <?php
 //应用引导程序
-//
+define('IN_Koala',true);
 //加载框架核心
 require FRAME_PATH.'Core/KoalaCore.php';
 //应用路径

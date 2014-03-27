@@ -4,7 +4,7 @@
 //加载框架核心
 require FRAME_PATH.'Core/KoalaCore.php';
 //应用路径
-!defined('APP_PATH') AND define('APP_PATH',realpath(ROOT_PATH.'App').DIRECTORY_SEPARATOR);
+!defined('APP_PATH') AND define('APP_PATH',ROOT_PATH.'App'.DIRECTORY_SEPARATOR);
 	
 if(is_file(FRAME_PATH.'Core/KoalaTest.php')){
 	//加载应用核心
