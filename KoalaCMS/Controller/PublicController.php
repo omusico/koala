@@ -12,12 +12,8 @@ class Controller_PublicController extends Core_Controller_Base{
 				'url'=>U('Appconf')
 				),
 			array(
-				'name'=>'应用开发',
-				'url'=>U('Appconf')
-				),
-			array(
-				'name'=>'数据管理',
-				'url'=>U('Appconf')
+				'name'=>'资源库',
+				'url'=>U('Resource')
 				)
 			);
 		View::assign('topnav',$top_nav);
@@ -32,8 +28,14 @@ class Controller_PublicController extends Core_Controller_Base{
 				array(
 				'name'=>'模板引擎配置',
 				'url'=>U('Appconf/subconf/type/template')
-				),
 				)
+				),
+			'Resource'=>array(
+				array(
+				'name'=>'视频',
+				'url'=>U('Resource/subMenu/type/video')
+				)
+				),
 			);
 		View::assign('menu',$menu[MODULE_NAME]);
 	}

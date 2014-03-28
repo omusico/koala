@@ -36,6 +36,6 @@ $cfg["DB_NAME"]='koalacms'; // 数据库名
 $cfg["DB_USER"]='root'; // 用户名
 $cfg["DB_PASS"]=''; // 密码
 $cfg["DB_PORT"]= 3306; // 端口
-$cfg["DB_PREFIX"]='candy_'; // 数据库表前缀
+$cfg["DB_PREFIX"]='koala_'; // 数据库表前缀
 $cfg["DB_CHARSET"] = 'UTF8';
 return $cfg;

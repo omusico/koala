@@ -29,14 +29,15 @@ ActiveRecord\Config::initialize(function($cfg)
 {
    $cfg->set_model_directory(MODEL_PATH);
    $cfg->set_connections(array(
-        'development' => DB_TYPE.'://'.DB_USER.':'.DB_PASS.'@'.DB_HOST_M.':'.DB_PORT.'/'.DB_NAME.'?decode=true/&/charset='.DB_CHARSET));
+        'development' => C('DB_TYPE').'://'.C('DB_USER').':'.C('DB_PASS').'@'.C('DB_HOST_M').':'.C('DB_PORT').'/'.C('DB_NAME').'?decode=true/&/charset='.C('DB_CHARSET')));
    //$cfg->set_cache("Memcache://localhost");
 });
 
 class ActiveModel extends ActiveRecord\Model{
 	//全局表前缀//在子类可覆盖
-	static $tpr = 'candy_';
+	static $tpr = 'koala_';
 	public function __construct(array $attributes=array(), $guard_attributes=true, $instantiating_via_find=false, $new_record=true){
+		self::$tpr = C('DB_PREFIX');
 		parent::__construct($attributes, $guard_attributes, $instantiating_via_find, $new_record);
 	}
 	//将数据装换为非对象数组

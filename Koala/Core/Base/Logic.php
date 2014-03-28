@@ -3,9 +3,7 @@
 class Base_Logic{
 	//获得模型类
 	public static function getModel(){
-		$info = explode('_',get_called_class());
-		$info[1] = 'Model';
-		return implode('_',$info);
+		return str_replace('Logic', 'Model',get_called_class());
 	}
 	//数据列表
 	public static function getData($pagesize=20,$pageid=1,$fields='*',$where='',$order='id DESC',$style='Badoo'){

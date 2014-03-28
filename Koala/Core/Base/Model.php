@@ -1,11 +1,9 @@
 <?php
 //模块实体基类
-abstract class Base_Model extends ActiveModel{
+class Base_Model extends ActiveModel{
 	//获得模型类
 	public static function getModel(){
-		$info = explode('_',get_called_class());
-		$info[1] = 'Model';
-		return implode('_',$info);
+		return str_replace('Logic', 'Model',get_called_class());
 	}
 	/**
      * 供分页类的回调函数
@@ -53,11 +51,12 @@ abstract class Base_Model extends ActiveModel{
      * @param  string $fileds 字段
      * @return array          一维数据数组
      */
-    public  function getById($id,$fileds='*'){
+    public  function getById($id,$fileds='*',$where=''){
     	$model = static::getModel();
         $obj = $model::find($id,
             array(
-                'select' => $fileds
+                'select' => $fileds,
+                "conditions" => $where
             ));
         return $obj->to_array();
     }
