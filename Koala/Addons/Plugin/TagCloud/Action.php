@@ -1,9 +1,11 @@
 <?php
+namespace Plugin\TagCloud;
+use Plugin;
 /**
- * 标签云插件类
+ * 插件实现类
  */
-class Plugin_TagCloud_Action{
-    protected $name = 'TagCloud';//插件名
+class Action{
+    protected $name ='TagCloud';
     protected $smallest = 8;//定义标签的最小字号，默认为 8
     protected $largest = 22;//定义标签的最大字号，默认为 22
     protected $unit = 'pt';//设置字号类型，如 “pt” 或 “px” 等，默认为 “pt” 类型
@@ -18,13 +20,13 @@ class Plugin_TagCloud_Action{
     protected $apply_color = 1;//1字体彩色,2背景彩色,3
     protected $tag_style_id = 1;//样式id
 	//解析函数的参数是pluginManager的引用
-    function __construct(&$pluginManager='',$param=''){
+    function __construct($plugin){
         //注册这个插件
         //第一个参数是钩子的名称
         //第二个参数是plugin类的引用
         //第三个是插件所执行的方法
-        if($pluginManager!='')
-            $pluginManager->register($this->name, $this, 'getTagCloud');
+        if($plugin!='')
+            $plugin->register('TagCloud', array($this, 'getTagCloud'),array('tag'));
 
     }
     /**
@@ -33,8 +35,8 @@ class Plugin_TagCloud_Action{
      * @return string         标签云串
      */
     function getTagCloud($tag_id='tag'){
-        $cache = Factory_Cache::getInstance('memcache');
-        $tag = new AppCache_TagCloud($cache,'',$this->name);
+        $cache = \Cache::Factory('memcache');
+        $tag = new \AppCache_TagCloud($cache,'',$this->name);
         $tag_arr = $tag->getTagCloud($tag_id);
         if(is_string($tag_arr))
             $tag_arr = json_decode(base64_decode($tag_arr),true);

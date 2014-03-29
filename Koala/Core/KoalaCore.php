@@ -39,6 +39,7 @@ KoalaCore::initialize(function(){
         'Base' => FRAME_PATH.'Core',
         'Core' => ROOT_PATH.'Koala',
         'Server' => FRAME_PATH.'Core',
+        'Plugin' => FRAME_PATH.'Addons',
         'Minion' => FRAME_PATH.'Addons',
         'Resource'=>FRAME_PATH.'Addons',
         ));
@@ -76,5 +77,7 @@ KoalaCore::initialize(function(){
         //默认文件
         $instance->loadConfig(FRAME_PATH.'Config'.DIRECTORY_SEPARATOR.'Global.default.php');
     });
+    //插件支持
+    Plugin::loadPlugin();
 });
 

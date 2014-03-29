@@ -1,10 +1,11 @@
 <?php
+namespace Plugin\Focus;
+use Plugin;
 /**
- * 焦点图插件类
- * pluginTrigger('Focus');
+ * 插件实现类
  */
-class Plugin_Focus_Action{
-    protected $name = 'Focus';//插件名
+class Action{
+    protected $name = 'Focus';
     protected $focus_id = 1;//焦点图id
     protected $focus_style_id=1;//焦点图样式id
     protected $enable_arrow=1;//启用左右箭头
@@ -12,19 +13,16 @@ class Plugin_Focus_Action{
     protected $enable_contrl_smallpic = 1;//启用小图区
     protected $enable_contrl_btn = 0;//启用点按钮区
 	//解析函数的参数是pluginManager的引用
-    function __construct(&$pluginManager='',$param=''){
+    function __construct($plugin){
         //注册这个插件
-        //第一个参数是钩子的名称
-        //第二个参数是plugin类的引用
-        //第三个是插件所执行的方法
-        if($pluginManager!='')
-            $pluginManager->register($this->name, $this, 'getFocus');
+        if($plugin!='')
+            $plugin->register('focus',array($this, 'getFocus'),array('focus'));
 
     }
 
     function getFocus($focus_id='focus'){
-        $cache = Factory_Cache::getInstance('memcache');
-        $appcache = new AppCache_Content($cache,'',$this->name);
+        $cache = \Cache::Factory('memcache');
+        $appcache = new \AppCache_Content($cache,'',$this->name);
         $arr = $appcache->getContent($focus_id);
         if(!$arr){
             //重新从数据库得到数据并设置新的memcached缓存

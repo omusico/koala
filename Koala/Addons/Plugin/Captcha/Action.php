@@ -1,7 +1,10 @@
 <?php
-class Plugin_Captcha_Action{
-    //插件名
-    protected $name = 'Captcha';
+namespace Plugin\Captcha;
+use Plugin;
+/**
+ * 插件实现类
+ */
+class Action{
     //小图标长宽
     protected $ico_w = 20;
     protected $ico_h = 20;
@@ -12,14 +15,17 @@ class Plugin_Captcha_Action{
     protected $ico_list = array(
         'ico1.png','ico2.png','ico3.png','ico4.png','ico5.png','ico6.png'
         );
-	//解析函数的参数是pluginManager的引用
-    function __construct(&$pluginManager='',$param=''){
+	/**
+     * 供插件管理器主动加载的入口
+     * @param string $plugin 插件管理器
+     */
+    function __construct($plugin){
         //注册这个插件
         //第一个参数是钩子的名称
         //第二个参数是plugin类的引用
         //第三个是插件所执行的方法
-        if($pluginManager!='')
-            $pluginManager->register($this->name, $this, 'Display');
+        if($plugin!='')
+            $plugin->register('captcha', array($this, 'Display'));
 
     }
     function Display(){
