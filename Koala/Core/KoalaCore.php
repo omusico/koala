@@ -23,7 +23,7 @@ class KoalaCore extends Initial{
             Task::factory(KoalaCLI::options())->execute();
         }else{
             //分发
-            Dispatcher::execute(Request::options());
+            Dispatcher::execute(URL::Parser());
         }
        
     }
@@ -67,13 +67,6 @@ KoalaCore::initialize(function(){
     $log->pushHandler(new AEStreamHandler('Log/'.date('Y-m-d')."/WARN.log", Log::WARNING));
     //加载云服务类支持(如BAE类库)
     (APPENGINE!="LAE") AND include(FRAME_PATH.'Initialise/Class'.APPENGINE.".php");
-    
-    if(!file_exists(ROOT_PATH.'App')){
-        //编译设置
-        require_once(FRAME_PATH.'Initialise/BuildItems/build.php');
-        //针对云环境的数据目录搬移等操作
-        require_once(FRAME_PATH.'Initialise/adaptEnv.php');
-    }
     //配置初始化
     Config::initialize(function($instance){
         //默认文件

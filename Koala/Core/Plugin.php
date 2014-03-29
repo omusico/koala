@@ -18,7 +18,11 @@ class Plugin{
     public static function register($hook,$callable,$param=array()){
         self::$_listeners[$hook][] = $callable;
         if(is_array($callable)){
-            $string = implode(',',$callable);
+            if(is_object($callable[0])){
+                $string = get_class($callable[0]).$callable[1];
+            }else{
+                $string = implode(',',$callable);
+            }
         }else{
             $string = $callable;
         }
@@ -39,7 +43,11 @@ class Plugin{
             }else{//遍历所有
                 foreach (self::$_listeners[$hook] as $callable){
                     if(is_array($callable)){
-                        $string = implode(',',$callable);
+                       if(is_object($callable[0])){
+                            $string = get_class($callable[0]).$callable[1];
+                        }else{
+                            $string = implode(',',$callable);
+                        }
                     }else{
                         $string = $callable;
                     }
