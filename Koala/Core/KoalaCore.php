@@ -10,7 +10,9 @@ define('LOG_PATH',RUNTIME_PATH.'Storage'.DIRECTORY_SEPARATOR);
 define("FRAME_VERSION",'1.0');
 //框架发布时间
 define('FRAME_RELEASE','20140323');
-
+//默认应用插件路径
+!defined('APP_ADDONS_PATH') and define('APP_ADDONS_PATH',ROOT_PATH.'App/Addons'.DS);
+!defined('APP_PLUGIN_PATH') and define("APP_PLUGIN_PATH",APP_ADDONS_PATH.'Plugin'.DS);
 include(__DIR__.'/Initial.php');
 class KoalaCore extends Initial{
     //执行应用
@@ -39,7 +41,7 @@ KoalaCore::initialize(function(){
         'Base' => FRAME_PATH.'Core',
         'Core' => ROOT_PATH.'Koala',
         'Server' => FRAME_PATH.'Core',
-        'Plugin' => FRAME_PATH.'Addons',
+        'Plugin' => array(FRAME_PATH.'Addons',APP_ADDONS_PATH),
         'Minion' => FRAME_PATH.'Addons',
         'Resource'=>FRAME_PATH.'Addons',
         ));
@@ -57,7 +59,7 @@ KoalaCore::initialize(function(){
     //加载常量
     include(FRAME_PATH.'Initialise/Constant'.APPENGINE.'.php');
     //composer第三方库加载支持
-    require ADDONS_PATH.'vendor/autoload.php';
+    require CORE_ADDONS_PATH.'vendor/autoload.php';
     //++++++++++++++++++++++++系统调试及错误设置++++++++++++++++++++++++++++
     $log = Log::factory();
     ErrorHandler::register($log);

@@ -19,9 +19,9 @@ define('COMPILE_PATH',RUNTIME_PATH.'Compile'.DS);
 //缓存目录
 define('CACHE_PATH',RUNTIME_PATH.'Cache'.DS);
 //附件
-define('ADDONS_PATH',FRAME_PATH.'Addons'.DS);
-//插件目录
-define('PLUGIN_PATH',ADDONS_PATH.'Plugin'.DS);
+define('CORE_ADDONS_PATH',FRAME_PATH.'Addons'.DS);
+//内置插件目录
+define('CORE_PLUGIN_PATH',ADDONS_PATH.'Plugin'.DS);
 //内置资源库
 define('THIRD_PATH',FRAME_PATH.'Source');
 define('THIRD_URL',SITE_URL.'Koala/Source');

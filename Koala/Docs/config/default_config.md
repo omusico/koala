@@ -59,8 +59,8 @@
                 array(
                 'TemplateDir'=>'[VIEW_PATH][STYLENAME]',
                 'CompileDir'=>'[COMPILE_PATH]',
-                'PluginDir'=>'[ADDONS_PATH]Smarty/plugin',
-                'ConfigDir'=>'[ADDONS_PATH]Smarty/config',
+                'PluginDir'=>'[APP_ADDONS_PATH]Smarty/plugin',
+                'ConfigDir'=>'[APP_ADDONS_PATH]Smarty/config',
                 'CacheDir'=>'[COMPILE_PATH]',
                 'debugging'=>false,
                 'caching'=>true,

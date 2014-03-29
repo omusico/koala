@@ -53,16 +53,31 @@ class Plugin{
      * 用于插件管理器加载插件
      */
     public static function loadPlugin(){
-        //遍历插件
-        $handle  = opendir(PLUGIN_PATH);
+        //遍历核心插件
+        $handle  = opendir(CORE_PLUGIN_PATH);
         $arr = array();
         while($file = readdir($handle)){
             if($file=='.'||$file=='..'){
                 continue;
             }
-            $newpath=PLUGIN_PATH.$file;
+            $newpath=CORE_PLUGIN_PATH.$file;
             if(is_dir($newpath)) $arr[] = $file;
         }
+        //遍历应用插件
+        if(defined('APP_PLUGIN_PATH')){
+            //遍历插件
+            $handle  = opendir(APP_PLUGIN_PATH);
+            $arr = array();
+            while($file = readdir($handle)){
+                if($file=='.'||$file=='..'){
+                    continue;
+                }
+                $newpath=APP_PLUGIN_PATH.$file;
+                if(is_dir($newpath)) $arr[] = $file;
+            }
+        }
+        
+
         foreach ($arr as $value) {
             $class = 'Plugin\\'.$value.'\\Action';
             new $class('Plugin');

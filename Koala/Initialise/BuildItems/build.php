@@ -1,9 +1,9 @@
 <?php
 
 //新建项目文件
-mkdir(ROOT_PATH.'App',0777,true);
 mkdir(ROOT_PATH.'App/Custom',0777,true);
 mkdir(ROOT_PATH.'App/Config',0777,true);
+mkdir(ROOT_PATH.'App/Addons/Plugin',0777,true);
 
 copy(FRAME_PATH.'Initialise/Files/Koala.php',ROOT_PATH.'App/Custom/Koala.php');
 copy(FRAME_PATH.'Initialise/Files/Func.php',ROOT_PATH.'App/Custom/Func.php');

@@ -5,7 +5,10 @@ define('IN_Koala',true);
 require FRAME_PATH.'Core/KoalaCore.php';
 //应用路径
 !defined('APP_PATH') AND define('APP_PATH',realpath(ROOT_PATH.'App').DIRECTORY_SEPARATOR);
-	
+
+defined("APP_ADDONS_PATH",APP_PATH.'Addons'.DS);
+defined("APP_PLUGIN_PATH",APP_ADDONS_PATH.'Plugin'.DS);
+
 if(is_file(APP_PATH.'Custom/Koala.php')){
 	//加载应用核心
 	require APP_PATH.'Custom/Koala.php';

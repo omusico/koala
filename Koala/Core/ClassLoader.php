@@ -50,7 +50,18 @@ class ClassLoader extends Initial{
         if(strpos($class,$this->separator)!==false){
             //根据名称空间搜索
             if(isset($this->namespaces[$fnamespace])){
-                include $this->namespaces[$fnamespace].DIRECTORY_SEPARATOR.$path.'.php';
+                if(is_array($this->namespaces[$fnamespace])){
+                    foreach ($this->namespaces[$fnamespace] as $dir) {
+                        $file = $dir.DIRECTORY_SEPARATOR.$path.'.php';
+                        if(is_file($file)){
+                            include $file;
+                            break;
+                        }
+                        
+                    }
+                }else{
+                    include $this->namespaces[$fnamespace].DIRECTORY_SEPARATOR.$path.'.php';
+                }
             }
         }else{
             //根据目录搜索
