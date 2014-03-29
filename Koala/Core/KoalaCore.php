@@ -13,6 +13,7 @@ define('FRAME_RELEASE','20140323');
 //默认应用插件路径
 !defined('APP_ADDONS_PATH') and define('APP_ADDONS_PATH',ROOT_PATH.'App/Addons'.DS);
 !defined('APP_PLUGIN_PATH') and define("APP_PLUGIN_PATH",APP_ADDONS_PATH.'Plugin'.DS);
+
 include(__DIR__.'/Initial.php');
 class KoalaCore extends Initial{
     //执行应用
@@ -28,6 +29,7 @@ class KoalaCore extends Initial{
        
     }
 }
+
 //初始化类库
 include(__DIR__.'/ClassLoader.php');
 //内核初始化进程

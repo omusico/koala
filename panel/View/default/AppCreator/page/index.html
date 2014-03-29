@@ -1,0 +1,59 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <title>Koala框架管理首页</title>
+    {%include 'Public/page/source.html'%}
+    </head>
+    <body>
+        <div class="wrap">
+              {%include 'Public/page/header.html'%}
+            <div class="mainBody">
+                {%include 'Public/page/left.html'%}
+                <div id="Right">
+                    <div class="Item hr">
+                        <div class="current">应用信息总览</div>
+                    </div>
+                    <table width="100%" border="0" cellspacing="0" cellpadding="0" class="tab">
+                        {% for type,items in cfg%}
+                                <tr>
+                                <td width="120" align="right">主项:</td>
+                                <td>{{type}}</td>
+                                
+                                    {%if items is not iterable %}
+                                    <td width="120" align="right">值:</td>
+                                    <td>{{items}}</td>
+                                    {%endif%}
+                                
+                                </tr>
+                                {% for key,item in items%}
+                                    {% if loop.index%2==1%}
+                                        <tr>
+                                    {% endif %}
+                                    <td width="120" align="right">{{key}}：</td>
+                                    <td>{{item}}</td>
+                                     {% if loop.index%2==0%}
+                                        </tr>
+                                    {% endif %}
+                                {% endfor %}
+                        {% endfor %}
+
+                        {% if notbuild%}
+                            <tr>
+                                <td width="120" align="right"><button><a href="{{createApp}}">建立应用</a></button></td>
+                            </tr>
+                        {% else %}
+                            <tr>
+                                <td width="120" align="right">状态:</td>
+                                <td>开发中</td>
+                            </tr>
+                        {%endif%}
+                    </table>
+                </div>
+
+            </div>
+        </div>
+        <div class="clear"></div>
+        {%include 'Public/page/footer.html'%}
+    </body>
+</html>
