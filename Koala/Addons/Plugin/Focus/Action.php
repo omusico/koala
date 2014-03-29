@@ -16,7 +16,7 @@ class Action{
     function __construct($plugin){
         //注册这个插件
         if($plugin!='')
-            $plugin->register('focus',array($this, 'getFocus'),array('focus'));
+            $plugin::register('focus',array($this, 'getFocus'),array('focus'));
 
     }
 

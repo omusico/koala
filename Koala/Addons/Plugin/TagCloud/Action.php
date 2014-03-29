@@ -26,7 +26,7 @@ class Action{
         //第二个参数是plugin类的引用
         //第三个是插件所执行的方法
         if($plugin!='')
-            $plugin->register('TagCloud', array($this, 'getTagCloud'),array('tag'));
+            $plugin::register('TagCloud', array($this, 'getTagCloud'),array('tag'));
 
     }
     /**
