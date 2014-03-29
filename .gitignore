@@ -219,7 +219,6 @@ pip-log.txt
 #############
 App/
 Runtime/
-KoalaCMS/
 Koala/Addons/Vendor
 Koala/Addons/Vendor/autoload.php
 Koala/Addons/Vendor/composer/autoload_classmap.php
@@ -231,4 +230,3 @@ Koala/Addons/Vendor/composer/installed.json
 /*.psd
 /*.lock
 /KoalaCMS
-/panel
