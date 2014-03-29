@@ -1,0 +1,62 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <title>Koala框架管理首页</title>
+    {%include 'Public/page/source.html'%}
+    </head>
+    <body>
+        <div class="wrap">
+              {%include 'Public/page/header.html'%}
+            <div class="mainBody">
+                {%include 'Public/page/left.html'%}
+                <div id="Right">
+                    <div class="Item hr">
+                        <div class="current">新插件信息</div>
+                    </div>
+                    <form method='post' action='Plugin/newPluginProcess.html'>
+                    <table width="100%" border="0" cellspacing="0" cellpadding="0" class="tab">
+                        <tr>
+                           <td width="120" align="right">插件名</td>
+                            <td><input type='text' name='name'/></td>
+                            <td width="120" align="right">插件版本</td>
+                            <td><input type='text' name='version' value='1.0'/></td>
+                        </tr>
+                        <tr>
+                           <td width="120" align="right">插件挂载点</td>
+                            <td>
+                                <select name='hook'>
+                                    <option value='all'>全局</option>
+                                    <option value='hook1'>挂载点一</option>
+                                </select>
+                            </td>
+                            <td width="120" align="right">插件作者</td>
+                           <td><input type='text' name='author'/></td>
+                        </tr>
+                        <tr>
+                            <td width="120" align="right">插件类型</td>
+                            <td>
+                                <select name='type'>
+                                    <option value='class'>class</option>
+                                    <option value='function'>function</option>
+                                </select>
+                            </td>
+                           <td width="120" align="right">插件描述</td>
+                            <td>
+                                <textarea name='des'></textarea>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td align="right"><input type='submit' value='提交'/></td>
+                            
+                        </tr>
+                    </table>
+                    </form>
+                </div>
+
+            </div>
+        </div>
+        <div class="clear"></div>
+        {%include 'Public/page/footer.html'%}
+    </body>
+</html>
