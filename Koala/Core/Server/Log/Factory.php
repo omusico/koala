@@ -1,31 +1,22 @@
 <?php
-class Server_Log_Factory{
-    protected static $cache_type = 'Log';
-	public static function getInstance($type='Log',$option=array()){
-            Server_Log_Factory::setCacheType($type);
-            $class = 'Server\Log\Drive\\'.self::$cache_type;
-            if(class_exists($class)){
-                return new $class($option);
-            } 
-            else
-                return null;
-    }
-    public static function setCacheType($cacheType='Log'){
-        self::$cache_type=strtolower($cacheType);
-        switch(self::$cache_type){
+namespace Server\Log;
+class Factory extends \Server\Factory{
+    public static function getServerName($type){
+        $server_name = 'Monolog';
+        switch($type){
             case 'Log':
                 if(APPENGINE=='SAE'){
-                    if (function_exists('SAELog')) self::$cache_type = 'SAELog' ;
+                    if (function_exists('SAELog')) $server_name = 'SAELog' ;
                     else trigger_error('未发现 SAE Memcache 支持!');
                 }elseif(APPENGINE=='BAE'){
-                    if (class_exists('BaeLog')) self::$cache_type = 'BaeLog' ;
+                    if (class_exists('BaeLog')) $server_name = 'BaeLog' ;
                     else trigger_error('未发现 BAE Memcache 支持!');
                 }else{
-                    if (class_exists('Log')) self::$cache_type = 'LAELog' ;
+                    if (class_exists('Log')) $server_name = 'LAELog' ;
                     else trigger_error('未发现 Log 支持!');
                 }
             break;
         }
+        return self::getRealName('Log',$server_name);
     }
 }
-?>

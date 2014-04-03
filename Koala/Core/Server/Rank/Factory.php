@@ -1,7 +1,8 @@
 <?php
-namespace Server;
-class Rank\Factory extends Factory{
+namespace Server\Rank;
+class Factory extends \Server\Factory{
     public static function getServerName($type){
+        $server_name = 'LAERank';
         switch($type){
             case 'rank':
                 if(APPENGINE=='SAE'){

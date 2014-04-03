@@ -1,7 +1,8 @@
 <?php
-namespace Server;
-class Segment\Factory extends Factory{
+namespace Server\Segment;
+class Factory extends \Server\Factory{
     public static function getServerName($type){
+        $server_name = 'LAESegment';
         switch($type){
             case 'segment':
                 if(APPENGINE=='SAE'){
