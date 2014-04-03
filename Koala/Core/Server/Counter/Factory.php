@@ -17,4 +17,3 @@ class Factory extends \Server\Factory{
          return self::getRealName('Counter',$server_name);
     }
 }
-?>
