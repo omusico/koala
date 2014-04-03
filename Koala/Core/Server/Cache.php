@@ -14,7 +14,7 @@ class Cache{
 			$type = C('CACHE:DEFAULT','LAEMemcache');
 		}
 		if(!isset(self::$handlers[$type])){
-			self::$handlers[$type] = Server_Cache_Factory::getInstance($type,C('CACHE:'.$type));
+			self::$handlers[$type] = Server\Cache\Factory::getInstance($type,C('CACHE:'.$type));
 		}
 		return self::$handlers[$type];
 	}

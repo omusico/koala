@@ -14,7 +14,7 @@ class Counter{
 			$type = C('Counter:DEFAULT','LAECounter');
 		}
 		if(!isset(self::$handlers[$type])){
-			self::$handlers[$type] = Server_Counter_Factory::getInstance($type,C('Counter:'.$type));
+			self::$handlers[$type] = Server\Counter\Factory::getInstance($type,C('Counter:'.$type));
 		}
 		return self::$handlers[$type];
 	}

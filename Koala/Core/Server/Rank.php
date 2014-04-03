@@ -16,7 +16,7 @@ class Rank{
 			$type = C('Rank:DEFAULT','Rank');
 		}
 		if(!isset(self::$handlers[$type])){
-			self::$handlers[$type] = Server_Rank_Factory::getInstance($type,C('Rank:'.$type));
+			self::$handlers[$type] = Server\Rank\Factory::getInstance($type,C('Rank:'.$type));
 		}
 		return self::$handlers[$type];
 	}

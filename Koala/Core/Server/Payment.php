@@ -14,7 +14,7 @@ class Payment{
 			$type = C('Payment:DEFAULT','LAEPayment');
 		}
 		if(!isset(self::$handlers[$type])){
-			self::$handlers[$type] = Server_Payment_Factory::getInstance($type,C('Payment:'.$type));
+			self::$handlers[$type] = Server\Payment\Factory::getInstance($type,C('Payment:'.$type));
 		}
 		return self::$handlers[$type];
 	}

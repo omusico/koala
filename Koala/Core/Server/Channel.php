@@ -16,7 +16,7 @@ class Channel{
 			$type = C('Channel:DEFAULT','LAEChannel');
 		}
 		if(!isset(self::$handlers[$type])){
-			self::$handlers[$type] = Server_Channel_Factory::getInstance($type,C('Channel:'.$type));
+			self::$handlers[$type] = Server\Channel\Factory::getInstance($type,C('Channel:'.$type));
 		}
 		return self::$handlers[$type];
 	}
