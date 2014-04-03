@@ -1,5 +1,6 @@
 <?php
-interface Server_KVDB_Face{
+namespace Server\KVDB;
+interface Face{
     //初始化
     function __construct();
     //增加key-value对，如果key存在则返回失败

@@ -1,5 +1,6 @@
 <?php
-class Server_Cache_Base implements Server_Cache_Face{
+namespace Server\Cache;
+class Base implements Face{
     public function __construct(){}
     //获得指定key的值
     public function get($key){

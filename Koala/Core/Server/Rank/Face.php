@@ -1,5 +1,6 @@
 <?php
-interface Server_Rank_Face{
+namespace Server\Rank;
+interface Face{
 	function __construct();
 	//建立一个排行榜
 	public function create($name, $number, $expire = 0);

@@ -1,5 +1,6 @@
 <?php
-class Server_Counter_Base implements Server_Counter_Face{
+namespace Server\Counter;
+class ase implements Face{
     //初始化
     function __construct(){}
     /**

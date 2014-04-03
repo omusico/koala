@@ -1,12 +1,12 @@
 <?php
 namespace Server\Storage\Drive;
-use Server_Storage_Base;
+use Server\Storage\Base;
 /**
  * SAE的Storage驱动
  * 所有文件名使用相对于数据存储区域的路径
  * 
  */
-final class SAEStorage extends Server_Storage_Base{
+final class SAEStorage extends Base{
     //数据存储区
 	var $bucket = 'image';
 	//云服务对象

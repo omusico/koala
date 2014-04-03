@@ -16,7 +16,7 @@ class Storage{
       $type = C('Storage:DEFAULT','LAEStorage');
     }
     if(!isset(self::$handlers[$type])){
-      self::$handlers[$type] = Server_Storage_Factory::getInstance($type,C('Storage:'.$type));
+      self::$handlers[$type] = Server\Storage\Factory::getInstance($type,C('Storage:'.$type));
     }
     return self::$handlers[$type];
   }

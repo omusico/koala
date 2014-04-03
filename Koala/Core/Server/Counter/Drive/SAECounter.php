@@ -1,11 +1,11 @@
 <?php
 namespace Server\Counter\Drive;
-use Server_Counter_Base;
+use Server\Counter\Base;
 /**
  * SAE的Counter驱动
  * 
  */
-final class SAECounter extends Server_Counter_Base{
+final class SAECounter extends Base{
     //云服务对象
     var $object = '';
     public function __construct(){

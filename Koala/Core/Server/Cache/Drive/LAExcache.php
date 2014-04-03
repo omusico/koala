@@ -1,7 +1,7 @@
 <?php
 namespace Server\Cache\Drive;
-use Server_Cache_Base;
-class LAExcache extends Server_Cache_Base{
+use Server\Cache\Base;
+class LAExcache extends Base{
     var $option=array(
         'group'=>'[APP_NAME][APP_VERSION]',
         'expire'=>3600,

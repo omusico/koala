@@ -1,8 +1,8 @@
 <?php
 namespace Server\Cache\Drive;
-use Server_Cache_Base;
+use Server\Cache\Base;
 use Memcache;
-class LAEMemcache extends Server_Cache_Base{
+class LAEMemcache extends Base{
     var $option=array(
         'group'=>'[APP_NAME][APP_VERSION]',
         'expire'=>3600,

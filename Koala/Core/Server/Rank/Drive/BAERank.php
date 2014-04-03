@@ -1,10 +1,10 @@
 <?php
 namespace Server\Rank\Drive;
-use Server_Rank_Base;
+use Server\Rank\Base;
 /**
  * BAE环境下的Rank驱动
  */
-final class BAERank extends Server_Rank_Base{
+final class BAERank extends Base{
 	public function __construct(){}
 	//建立一个排行榜
 	public function create($name, $number, $expire = 0){

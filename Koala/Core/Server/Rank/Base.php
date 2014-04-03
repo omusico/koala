@@ -4,7 +4,8 @@
  *对不同云计算平台的Rank服务API支持
  *
  */
-class Server_Rank_Base implements Server_Rank_Face{
+namespace Server\Rank;
+class Base implements Face{
 	function __construct(){}
 	//建立一个排行榜
 	public function create($name, $number, $expire = 0);

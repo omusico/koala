@@ -1,5 +1,6 @@
 <?php
-class Server_KVDB_Base implements Server_KVDB_Face{
+namespace Server\KVDB;
+class Base implements Face{
 	//云服务对象
     var $object = '';
 	public function __construct(){

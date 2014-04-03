@@ -1,10 +1,10 @@
 <?php
 namespace Server\Counter\Drive;
-use Server_Counter_Base;
+use Server\Counter\Base;
 /**
  * SAE环境下的Channel驱动
  */
-final class SAEChannel extends Server_Channel_Base{
+final class SAEChannel extends Base{
 	//云服务对象
     var $object = '';
 	public function __construct(){

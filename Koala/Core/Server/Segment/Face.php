@@ -1,3 +1,4 @@
 <?php
-interface Server_Segment_Face{
+namespace Server\Segment;
+interface Face{
 }

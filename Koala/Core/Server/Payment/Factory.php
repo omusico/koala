@@ -1,17 +1,12 @@
 <?php
-class Server_Payment_Factory{
-	public static function getInstance($type,$option=array()){
-        $class = self::getAdapterClass($type);
-        $instance = new $class();
-        $instance->setConfig($option);
-        return $instance;
-    }
-     //获得适配器类
-    private static function getAdapterClass($type){
-        if(empty($type)){
-            return null;
+namespace Server;
+class Payment\Factory extends Factory{
+    public static function getServerName($type){
+        switch($type){
+            case 'alipay':
+                $server_name = 'Alipay' ;
+            break;
         }
         return 'Server_Payment_Adapter_'.$type;
     }
 }
-?>
