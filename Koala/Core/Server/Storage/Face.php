@@ -1,5 +1,6 @@
 <?php
-interface Server_Storage_Face{
+namespace Server\Storage;
+interface Face{
 	//构造函数
 	public function __construct();
 	/**

@@ -1,4 +1,5 @@
 <?php
-class Server_Segment_Base implements Server_Segment_Face{
+namespace Server\Segment;
+class Base implements Face{
 	
 }

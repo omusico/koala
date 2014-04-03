@@ -1,12 +1,12 @@
 <?php
 namespace Server\Segment\Drive;
-use Server_Segment_Base;
+use Server\Segment\Base;
 
 /**
  * 
  *本地分词服务
  *
  */
-class LAESegment extends Server_Segment_Base{
+class LAESegment extends Base{
 }
 ?>

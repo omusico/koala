@@ -1,10 +1,10 @@
 <?php
 namespace Server\Counter\Drive;
-use Server_Counter_Base;
+use Server\Counter\Base;
 /**
  * BAE环境下的Counter驱动
  */
-final class BAECounter extends Server_Counter_Base{
+final class BAECounter extends Base{
 	var $object = '';
 	public function __construct(){
 		$this->object = new \BaeCounter();

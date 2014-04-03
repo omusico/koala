@@ -1,7 +1,7 @@
 <?php
 namespace Server\Cache\Drive;
-use Server_Cache_Base;
-class SAEMemcache extends Server_Cache_Base{
+use Server\Cache\Base;
+class SAEMemcache extends Base{
     protected $version = 1; 
     /**
      *配置信息，servers支持配置多个服务器,servers=>array(array('host'=>'host1', 'port'=>11211),array('host'=>'host2', 'port'=>11211))

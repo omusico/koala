@@ -1,10 +1,10 @@
 <?php
 namespace Server\Rank\Drive;
-use Server_Rank_Base;
+use Server\Rank\Base;
 /**
  * 非云计算环境下的Rank驱动
  */
-final class LAERank extends Server_Rank_Base{
+final class LAERank extends Base{
 	//建立一个排行榜
 	public function create($name, $number, $expire = 0){}
 	//设置排行榜某一项的值

@@ -1,5 +1,6 @@
 <?php
-class Server_Storage_Base implements Server_Storage_Face{
+namespace Server\Storage;
+class Base implements Face{
 	var $bucket;
 	//构造函数
 	public function __construct(){}

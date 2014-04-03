@@ -1,5 +1,6 @@
 <?php
-interface Server_Cache_Face{
+namespace Server\Cache;
+interface Face{
     //初始化
     function __construct();
     //获得指定key的值

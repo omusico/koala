@@ -1,11 +1,11 @@
 <?php
 namespace Server\KVDB\Drive;
-use Server_KVDB_Base;
+use Server\KVDB\Base;
 /**
  * 云计算环境下的KVDB驱动
  * 所有文件名使用相对于数据存储区域的路径
  */
-final class SAEKVDB extends Server_KVDB_Base{
+final class SAEKVDB extends Base{
 	//云服务对象
     var $object = '';
 	public function __construct(){
