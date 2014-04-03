@@ -12,7 +12,7 @@ class Segment{
 	      $type = C('Segment:DEFAULT','LAESegment');
 	    }
 	    if(!isset(self::$objects[$type])){
-	      self::$objects[$type] = Server_Segment_Factory::getInstance($type,C('Segment:'.$type));
+	      self::$objects[$type] = Server\Segment\Factory::getInstance($type,C('Segment:'.$type));
 	    }
 	    return self::$objects[$type];
 	 }

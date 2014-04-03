@@ -73,7 +73,7 @@ class Log{
 			$type = C('Log:DEFAULT','Monolog');
 		}
 		if(!isset(self::$handlers[$type])){
-			self::$handlers[$type] = Server_Log_Factory::getInstance($type,C('Log:'.$type));
+			self::$handlers[$type] = Server\Log\Factory::getInstance($type,C('Log:'.$type));
 		}
 		return self::$handlers[$type];
 	}

@@ -16,7 +16,7 @@ class KVDB{
 			$type = C('KVDB:DEFAULT','LAEKVDB');
 		}
 		if(!isset(self::$handlers[$type])){
-			self::$handlers[$type] = Server_KVDB_Factory::getInstance($type,C('KVDB:'.$type));
+			self::$handlers[$type] = Server\KVDB\Factory::getInstance($type,C('KVDB:'.$type));
 		}
 		return self::$handlers[$type];
 	}
