@@ -1,7 +1,8 @@
 <?php
-namespace Server;
-class Channel\Factory extends Factory{
+namespace Server\Channel;
+class Factory extends \Server\Factory{
     public static function getServerName($type){
+        $server_name = 'LAEChannel';
         switch($type){
             case 'channel':
                 if(APPENGINE=='SAE'){

@@ -1,7 +1,8 @@
 <?php
-namespace Server;
-class Counter\Factory extends Factory{
+namespace Server\Counter;
+class Factory extends \Server\Factory{
     public static function getServerName($type){
+        $server_name = 'LAECounter';
         switch($type){
             case 'counter':
                 if(APPENGINE=='SAE'){

@@ -1,7 +1,8 @@
 <?php
-namespace Server;
-class Cache\Factory extends Factory{
+namespace Server\Cache;
+class Factory extends \Server\Factory{
     public static function getServerName($type){
+        $server_name = 'LAEMemcache';
         switch ($type) {
             case 'memcache':
                 if(APPENGINE=='SAE'){

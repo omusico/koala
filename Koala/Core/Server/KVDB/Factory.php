@@ -1,7 +1,8 @@
 <?php
-namespace Server;
-class KVDB\Factory extends Factory{
+namespace Server\KVDB;
+class Factory extends \Server\Factory{
     public static function getServerName($type){
+        $server_name = 'LAEKVDB';
         switch($type){
             case 'kvdb':
                 if(APPENGINE=='SAE'){
