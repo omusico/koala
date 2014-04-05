@@ -1,11 +1,11 @@
 <?php
 session_start();
 //调试
-define('DEBUG',1);
+define('DEBUG',0);
 //应用版本
 define('APP_VERSION','1');
 //根路径
-define('ROOT_PATH',realpath(dirname(__FILE__)).DIRECTORY_SEPARATOR);
+define('ROOT_PATH',dirname(__FILE__).DIRECTORY_SEPARATOR);
 //应用路径
 define('APP_PATH',realpath(dirname(__FILE__).'/App').DIRECTORY_SEPARATOR);
 //框架路径
