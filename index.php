@@ -1,4 +1,5 @@
 <?php
+session_start();
 //调试
 define('DEBUG',1);
 //应用版本

@@ -107,7 +107,8 @@ class URL{
 	protected static function ParserInPathinfo(){
 		$str = self::$_items['pathinfo'];
 		if($suffix = C('URL_HTML_SUFFIX','.html')){
-			$str = rtrim($str,$suffix);
+			if(stripos($suffix,$str)!==false)
+				$str = str_replace($suffix,'', $str);
 		}
 		//获取pathinfo并去除空值
 		$_paths = array_filter(explode(C('URL_PATHINFO_DEPR'),$str));
