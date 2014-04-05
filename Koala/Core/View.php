@@ -58,9 +58,11 @@ class View extends Initial{
 	public static function error($msg){
 		self::assign('error',$msg);
 		self::display(C('TMPL_ACTION_ERROR'));
+		exit;
 	}
 	public static function success($msg){
 		self::assign('message',$msg);
 		self::display(C('TMPL_ACTION_SUCCESS'));
+		exit;
 	}
 }
