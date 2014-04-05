@@ -52,4 +52,15 @@ class View extends Initial{
 	public static function test(){
 		return self::$engine->test();
 	}
+	public static function get($name){
+		return self::$engine->getTemplateVars($name);
+	}
+	public static function error($msg){
+		self::assign('error',$msg);
+		self::display(C('TMPL_ACTION_ERROR'));
+	}
+	public static function success($msg){
+		self::assign('message',$msg);
+		self::display(C('TMPL_ACTION_SUCCESS'));
+	}
 }
