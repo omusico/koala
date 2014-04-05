@@ -36,8 +36,8 @@ $cfg['Template_Engine']=array(
     'optimizations'=>-1
     )
   );
-$cfg['TMPL_ACTION_SUCCESS'] = 'Public/dispatch_jump';
-$cfg['TMPL_ACTION_ERROR'] = 'Public/dispatch_jump';
+$cfg['TMPL_ACTION_SUCCESS'] = 'Public/page/dispatch_jump';
+$cfg['TMPL_ACTION_ERROR'] = 'Public/page/dispatch_jump';
 //PATHINFO相关配置
 $cfg['URLMODE']=1;//1普通,2pathinfo,3兼容
 $cfg['URL_PATHINFO_DEPR'] = '/';
