@@ -6,7 +6,8 @@ class Dispatcher extends Initial{
     public static function execute($options){
         self::$options = $options;
         $action = array_pop($options['paths']);
-        $options['c_instance']  = self::loadController();
+        $class = 'Controller\\'.implode("\\",$options['paths']);
+        $options['c_instance']  = new $class();
         //调用控制器
         $controller = Controller::factory('',$options);
         $custom['const'] = get_defined_constants();
@@ -21,21 +22,6 @@ class Dispatcher extends Initial{
         } catch (ReflectionException $e) { 
             // 方法调用发生异常后
             echo '方法异常';
-        }
-    }
-    protected static function loadController(){
-        $paths = self::$options['paths'];
-        //去除action
-        array_pop($paths);
-        $class_m = implode("\\",$paths);
-        $filename = str_replace("\\",DIRECTORY_SEPARATOR,$class_m);
-        $file = CONTRLLER_PATH.$filename.'.php';
-        $class = 'Controller\\'.$class_m;
-        if (file_exists($file)) {
-            include $file;
-            return new $class();
-        } else {
-            exit('控制器不存在.');
         }
     }
 }
