@@ -68,12 +68,17 @@ class Log{
     */
     static protected $handlers = array();
 	//实例化日志
-	public static function factory($type=''){
+	public static function factory($type='',$options=array()){
 		if(empty($type)||!is_string($type)){
 			$type = C('Log:DEFAULT','Monolog');
 		}
 		if(!isset(self::$handlers[$type])){
-			self::$handlers[$type] = Server\Log\Factory::getInstance($type,C('Log:'.$type));
+            $c_options = C('Log:'.$type);
+            if(empty($c_options)){
+                $c_options = array();
+            }
+            $options = array_merge($c_options,$options);
+			self::$handlers[$type] = Server\Log\Factory::getInstance($type,$options);
 		}
 		return self::$handlers[$type];
 	}

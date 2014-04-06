@@ -14,11 +14,11 @@ class Controller{
 			$type = C('Controller:DEFAULT','Controller');
 		}
 		if(!isset(self::$handlers[$type])){
-			if(!empty($options)){
-				$cfg = C('Controller:'.$type);
-				if(!empty($cfg))
-				$options = array_merge($options,$cfg);
+			$c_options = C('Controller:'.$type);
+			if(empty($c_options)){
+				$c_options = array();
 			}
+			$options = array_merge($c_options,$options);
 			self::$handlers[$type] = Server\Controller\Factory::getInstance($type,$options);
 		}
 		return self::$handlers[$type];

@@ -18,11 +18,9 @@ class Dispatcher extends Initial{
                 throw new ReflectionException();
             }
             $controller->{$action}();
-            $status = $controller->getRets();
         } catch (ReflectionException $e) { 
             // 方法调用发生异常后
             echo '方法异常';
         }
     }
 }
-?>
