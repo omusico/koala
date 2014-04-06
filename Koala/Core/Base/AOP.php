@@ -11,7 +11,7 @@ abstract class Base_AOP{
 	//设置被代理对象
 	public function getProxy($instance){
 		self::$_proxy = $instance;
-		return new static();
+		return $this;
 	}
 	//加入附加业务
 	//addAddons('UFM\InputFilter')

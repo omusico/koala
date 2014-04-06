@@ -6,9 +6,9 @@ class Dispatcher extends Initial{
     public static function execute($options){
         self::$options = $options;
         $action = array_pop($options['paths']);
-        $ins = self::loadController();
+        $options['c_instance']  = self::loadController();
         //调用控制器
-        $controller = Controller::factory()->getProxy($ins);
+        $controller = Controller::factory('',$options);
         $custom['const'] = get_defined_constants();
         View::assign('Koala',$custom);
         try{

@@ -8,6 +8,13 @@ use ReflectionException;
  * 默认控制器
  */
 final class Controller extends Base_AOP{
+    public function __construct($options=array()){
+        if(isset($options['c_instance'])){
+            return $this->getProxy($options['c_instance']);
+        }else{
+            exit('缺少参数c_instance');
+        }
+    }
 	public function __call($method,$args){
 		//控制器调用前置操作
 		if(!$this->before()){
