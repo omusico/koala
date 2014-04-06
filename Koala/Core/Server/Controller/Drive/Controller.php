@@ -1,5 +1,13 @@
 <?php
-class Controller extends Base_AOP{
+namespace Server\Controller\Drive;
+use Base_AOP;
+use ReflectionMethod;
+use ReflectionClass;
+use ReflectionException;
+/**
+ * 默认控制器
+ */
+final class Controller extends Base_AOP{
 	public function __call($method,$args){
 		//控制器调用前置操作
 		if(!$this->before()){

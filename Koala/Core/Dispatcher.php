@@ -8,11 +8,9 @@ class Dispatcher extends Initial{
         $action = array_pop($options['paths']);
         $ins = self::loadController();
         //调用控制器
-        $controller = Controller::getProxy($ins);
-        
+        $controller = Controller::factory()->getProxy($ins);
         $custom['const'] = get_defined_constants();
         View::assign('Koala',$custom);
-
         try{
             if(!preg_match('/^[_A-Za-z](\w)*$/',$action)){
                 // 非法操作
