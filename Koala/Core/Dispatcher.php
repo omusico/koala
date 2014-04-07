@@ -23,4 +23,5 @@ class Dispatcher extends Initial{
             echo '方法异常';
         }
     }
+    
 }

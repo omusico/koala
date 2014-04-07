@@ -67,11 +67,11 @@ final class Route{
     }
     public function setOptions($options=array()){
 		// Initialize some properties (use our setters so we can validate param types)
-        $this->setCallback($options['callback']);
-        $this->setPath($options['path']);
-        $this->setMethod($options['method']);
-        $this->setCountMatch($options['count_match']);
-        $this->setName($options['name']);
+        $this->setCallback($options[0]);
+        $this->setPath($options[1]);
+        $this->setMethod($options[2]);
+        $this->setCountMatch($options[3]);
+        $this->setName($options[4]);
         return $this;
     }
 

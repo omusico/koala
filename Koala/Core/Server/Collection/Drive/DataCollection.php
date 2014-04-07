@@ -1,5 +1,5 @@
 <?php
-namespace Server\Collection;
+namespace Server\Collection\Drive;
 /**
  * DataCollection
  *

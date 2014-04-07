@@ -1,7 +1,6 @@
 <?php
 namespace Server\Collection\Drive;
 use Server\Route\Drive\Route;
-use Server\Collection\DataCollection;
 final class RouteCollection extends DataCollection{
 	/**
      * Methods

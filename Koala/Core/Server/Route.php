@@ -5,10 +5,124 @@
  *
  */
 class Route{
+
     /**
-     * Class constants
+     * Class properties
      */
 
+    /**
+     * Collection of the routes to match on dispatch
+     *
+     * @var RouteCollection
+     * @access protected
+     */
+    protected static $routes;
+
+    /**
+     * The Route factory object responsible for creating Route instances
+     *
+     * @var AbstractRouteFactory
+     * @access protected
+     */
+    protected static $route_factory;
+
+    /**
+     * An array of error callback callables
+     *
+     * @var array[callable]
+     * @access protected
+     */
+    protected static $errorCallbacks = array();
+
+    /**
+     * An array of HTTP error callback callables
+     *
+     * @var array[callable]
+     * @access protected
+     */
+    protected static $httpErrorCallbacks = array();
+
+    /**
+     * An array of callbacks to call after processing the dispatch loop
+     * and before the response is sent
+     *
+     * @var array[callable]
+     * @access protected
+     */
+    protected static $afterFilterCallbacks = array();
+
+
+    /**
+     * Route objects
+     */
+
+    /**
+     * The Request object passed to each matched route
+     *
+     * @var Request
+     * @access protected
+     */
+    protected static $request;
+
+    /**
+     * The Response object passed to each matched route
+     *
+     * @var Response
+     * @access protected
+     */
+    protected static $response;
+
+    /**
+     * The service provider object passed to each matched route
+     *
+     * @var ServiceProvider
+     * @access protected
+     */
+    protected static $service;
+    /**
+     * Dispatch route output handling
+     *
+     * Don't capture anything. Behave as normal.
+     *
+     * @const int
+     */
+    const DISPATCH_NO_CAPTURE = 0;
+
+    /**
+     * Dispatch route output handling
+     *
+     * Capture all output and return it from dispatch
+     *
+     * @const int
+     */
+    const DISPATCH_CAPTURE_AND_RETURN = 1;
+
+    /**
+     * Dispatch route output handling
+     *
+     * Capture all output and replace the response body with it
+     *
+     * @const int
+     */
+    const DISPATCH_CAPTURE_AND_REPLACE = 2;
+
+    /**
+     * Dispatch route output handling
+     *
+     * Capture all output and prepend it to the response body
+     *
+     * @const int
+     */
+    const DISPATCH_CAPTURE_AND_PREPEND = 3;
+
+    /**
+     * Dispatch route output handling
+     *
+     * Capture all output and append it to the response body
+     *
+     * @const int
+     */
+    const DISPATCH_CAPTURE_AND_APPEND = 4;
     /**
      * The regular expression used to compile and match URL's
      *
@@ -44,27 +158,42 @@ class Route{
     }
     //响应绑定
     public static function respond($method, $path = '*', $callback = null){
-        $route = Route::factory(self::parseLooseArgumentOrder(func_get_args()),'',true);
+        // Get the arguments in a very loose format
+        extract(
+            self::parseLooseArgumentOrder(func_get_args()),
+            EXTR_OVERWRITE
+        );
+        $route = Server\Route\Factory::build($callback, $path, $method);
+        
         Collection::factory('route')->add($route);
         return $route;
     }
     //
-    public static function dispat(){
-        $routeColl = Collection::factory('route');
-        $routeColl->prepareNamed();
-        //获取请求
+    public static function exe(Request $request = null,AbstractResponse $response = null,$send_response = true,$capture = self::DISPATCH_NO_CAPTURE){
+        
+        // Set/Initialize our objects to be sent in each callback
+        self::$request = $request ?: Request::createFromGlobals();
+        self::$response = $response ?: new Response();
+        self::$service = new ServiceProvider();
+        self::$routes = Collection::factory('route');
+
+        // Bind our objects to our service
+        self::$service->bind(self::$request, self::$response);
+
+        // Prepare any named routes
+        self::$routes->prepareNamed();
+
         // Grab some data from the request
-        $uri = '/hello-world';//$this->request->pathname();
-        $req_method = 'get';//$this->request->method();
-
-        $apc = function_exists('apc_fetch');
-
-        //获取一个空属性克隆
-        $matched =  Collection::factory('route')->cloneEmpty();
-        $skip_num=0;
+        $uri = self::$request->pathname();
+        $req_method = self::$request->method();
+        // Set up some variables for matching
+        $skip_num = 0;
+        $matched = self::$routes->cloneEmpty(); // Get a clone of the routes collection, as it may have been injected
         $methods_matched = array();
         $params = array();
-        foreach ((Array)$routeColl as $routes) {
+
+        $apc=false;//todo;
+        foreach ((Array)self::$routes as $routes) {
             foreach ($routes as $key => $route) {
                 if ($skip_num > 0) {
                     $skip_num--;
@@ -74,7 +203,6 @@ class Route{
                 $method = $route->getMethod();
                 $path = $route->getPath();
                 $count_match = $route->getCountMatch();
-
                 // Keep track of whether this specific request method was matched
                 $method_match = null;
                 // Was a method specified? If so, check it against the current request method
@@ -127,7 +255,7 @@ class Route{
 
                     // Easily handle 40x's
                     // TODO: Possibly remove in future, here for backwards compatibility
-                    $this->onHttpError($route);
+                    self::$onHttpError($route);
 
                     continue;
 
@@ -168,7 +296,7 @@ class Route{
                     if (false !== $apc) {
                         $regex = apc_fetch("route:$expression");
                         if (false === $regex) {
-                            $regex = $this->compileRoute($expression);
+                            $regex = self::$compileRoute($expression);
                             apc_store("route:$expression", $regex);
                         }
                     } else {
@@ -188,8 +316,7 @@ class Route{
                              * @link https://github.com/chriso/klein.php/issues/117#issuecomment-21093915
                              */
                             $params = array_map('rawurldecode', $params);
-                           //exit('请求合并!!');
-                            //$this->request->paramsNamed()->merge($params);
+                            self::$request->paramsNamed()->merge($params);
                         }
 
                         // Handle our response callback
@@ -222,12 +349,11 @@ class Route{
                     $methods_matched = array_unique($methods_matched);
                 }
             }
-            exit('没有符合路由规则的请求--httperror');
             // Handle our 404/405 conditions
             try {
                 if ($matched->isEmpty() && count($methods_matched) > 0) {
                     // Add our methods to our allow header
-                    $this->response->header('Allow', implode(', ', $methods_matched));
+                    self::$response->header('Allow', implode(', ', $methods_matched));
 
                     if (strcasecmp($req_method, 'OPTIONS') !== 0) {
                         throw HttpException::createFromCode(405);
@@ -237,20 +363,20 @@ class Route{
                 }
             } catch (HttpExceptionInterface $e) {
                 // Grab our original response lock state
-                $locked = $this->response->isLocked();
+                $locked = self::$response->isLocked();
 
                 // Call our http error handlers
-                $this->httpError($e, $matched, $methods_matched);
+                self::$httpError($e, $matched, $methods_matched);
 
                 // Make sure we return our response to its original lock state
                 if (!$locked) {
-                    $this->response->unlock();
+                    self::$response->unlock();
                 }
             }
 
             try {
-                if ($this->response->chunked) {
-                    $this->response->chunk();
+                if (self::$response->chunked) {
+                    self::$response->chunk();
 
                 } else {
                     // Output capturing behavior
@@ -264,17 +390,17 @@ class Route{
                             break;
                         case self::DISPATCH_CAPTURE_AND_REPLACE:
                             if (ob_get_level()) {
-                                $this->response->body(ob_get_clean());
+                                self::$response->body(ob_get_clean());
                             }
                             break;
                         case self::DISPATCH_CAPTURE_AND_PREPEND:
                             if (ob_get_level()) {
-                                $this->response->prepend(ob_get_clean());
+                                self::$response->prepend(ob_get_clean());
                             }
                             break;
                         case self::DISPATCH_CAPTURE_AND_APPEND:
                             if (ob_get_level()) {
-                                $this->response->append(ob_get_clean());
+                                self::$response->append(ob_get_clean());
                             }
                             break;
                         case self::DISPATCH_NO_CAPTURE:
@@ -288,7 +414,7 @@ class Route{
                 // Test for HEAD request (like GET)
                 if (strcasecmp($req_method, 'HEAD') === 0) {
                     // HEAD requests shouldn't return a body
-                    $this->response->body('');
+                    self::$response->body('');
 
                     if (ob_get_level()) {
                         ob_clean();
@@ -299,10 +425,10 @@ class Route{
             }
 
             // Run our after dispatch callbacks
-            $this->callAfterDispatchCallbacks();
+           // self::$callAfterDispatchCallbacks();
 
-            if ($send_response && !$this->response->isSent()) {
-                $this->response->send();
+            if ($send_response && !self::$response->isSent()) {
+                self::$response->send();
             }
         }
     }
@@ -418,7 +544,37 @@ class Route{
         if(!$route instanceof $Route){}
         if(!$matched instanceof $RouteCollection){
         }
-        //纸行路悠悠
-        exit('执行路由');
+        // Handle the callback
+        try {
+            $returned = call_user_func(
+                $route->getCallback(), // Instead of relying on the slower "invoke" magic
+                self::$request,
+                self::$response,
+                self::$service,
+                //self::$app,
+                //$this, // Pass the Klein instance
+                $matched,
+                $methods_matched
+            );
+            if ($returned instanceof AbstractResponse) {
+                self::$response = $returned;
+            } else {
+                // Otherwise, attempt to append the returned data
+                try {
+                    self::$response->append($returned);
+                } catch (LockedResponseException $e) {
+                    // Do nothing, since this is an automated behavior
+                }
+            }
+        } catch (DispatchHaltedException $e) {
+            throw $e;
+        } catch (HttpExceptionInterface $e) {
+            // Call our http error handlers
+            self::$httpError($e, $matched, $methods_matched);
+
+            throw new DispatchHaltedException();
+        } catch (Exception $e) {
+            self::$error($e);
+        }
     }
 }
