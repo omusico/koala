@@ -166,7 +166,7 @@ abstract class AbstractResponse
      * Returns the status object
      *
      * @access public
-     * @return \Klein\HttpStatus
+     * @return HttpStatus
      */
     public function status()
     {
@@ -177,7 +177,7 @@ abstract class AbstractResponse
      * Returns the headers collection
      *
      * @access public
-     * @return \Klein\DataCollection\HeaderDataCollection
+     * @return DataCollection\HeaderDataCollection
      */
     public function headers()
     {
@@ -188,7 +188,7 @@ abstract class AbstractResponse
      * Returns the cookies collection
      *
      * @access public
-     * @return \Klein\DataCollection\ResponseCookieDataCollection
+     * @return DataCollection\ResponseCookieDataCollection
      */
     public function cookies()
     {

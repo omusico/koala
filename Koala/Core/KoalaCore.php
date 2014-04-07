@@ -63,8 +63,8 @@ KoalaCore::initialize(function(){
     //composer第三方库加载支持
     require CORE_ADDONS_PATH.'vendor/autoload.php';
     //++++++++++++++++++++++++系统调试及错误设置++++++++++++++++++++++++++++
-    $log = Log::factory();
-    ErrorHandler::register($log);
+    $log = Log::factory('monolog');
+    ErrorHandler::factory('monolog',array($log));
     $log->pushHandler(new AEStreamHandler('Log/'.date('Y-m-d')."/ERROR.log", Log::ERROR));
     $log->pushHandler(new AEStreamHandler('Log/'.date('Y-m-d')."/WARN.log", Log::WARNING));
     //加载云服务类支持(如BAE类库)

@@ -56,7 +56,7 @@ class ServiceProvider
     /**
      * Shared data collection
      *
-     * @var \Klein\DataCollection\DataCollection
+     * @var DataCollection\DataCollection
      * @access protected
      */
     protected $shared_data;
@@ -103,7 +103,7 @@ class ServiceProvider
      * Returns the shared data collection object
      *
      * @access public
-     * @return \Klein\DataCollection\DataCollection
+     * @return DataCollection\DataCollection
      */
     public function sharedData()
     {

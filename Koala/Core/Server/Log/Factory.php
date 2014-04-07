@@ -4,7 +4,7 @@ class Factory extends \Server\Factory{
     public static function getServerName($type){
         $server_name = 'Monolog';
         switch($type){
-            case 'Log':
+            case 'log':
                 if(APPENGINE=='SAE'){
                     if (function_exists('SAELog')) $server_name = 'SAELog' ;
                 }elseif(APPENGINE=='BAE'){
@@ -12,6 +12,9 @@ class Factory extends \Server\Factory{
                 }else{
                     if (class_exists('Log')) $server_name = 'LAELog' ;
                 }
+            case 'monolog':
+            default:
+                $server_name = 'Monolog' ;
             break;
         }
         return self::getRealName('Log',$server_name);
