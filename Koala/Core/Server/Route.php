@@ -11,7 +11,7 @@ class Route{
     */
     static protected $handlers = array();
     public function __construct(){}
-    public static function factory($options=array(),$type='',$new=false){
+    public static function factory($options=array(),$type='',$new=true){
         if(empty($type)||!is_string($type)){
             $type = C('Route:DEFAULT','Route');
         }
