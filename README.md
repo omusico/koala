@@ -1,23 +1,25 @@
-Koala
-=====
-一个用于云引擎环境的框架
----------------------
-##云引擎支持说明
-###SAE
-    目前程序能在SAE上正常运行
-###文档
-    详细文档参考Docs目录
-##有问题反馈
+#Koala框架
+    Koala框架是立足于应用引擎环境的框架,支持简单应用的快速实现，支持REST应用，默认使用MVC.
+###开始使用
 
-在使用中有任何问题，欢迎反馈给我，可以用以下联系方式跟我交流
-
-* 邮件(lunnlew#gmail.com, 把#换成@)
-* QQ: 759169920
-
-##关于作者
-
-```javascript
-  var me = {
-    nickName  : "LunnLew"
-  }
-```
+1. [环境要求](start/environment.md)
+2. 获取Koala框架源码
+3. 解压源码到某个目录，例如:D:\www\project
+        目录结构类似
+            /project/
+                Koala/
+                    Core/
+                    //其他目录
+                index.php
+4. 浏览访问该目录，例如[http://localhost/project](http:://localhost/project),框架将自动建立完整的目录结构,详细参考[目录结构说明](Koala/Docs/start/directory.md)
+        目录结构类似
+            /project/
+                App/
+                    //子目录
+                Koala/
+                    //子目录
+                index.php
+5. 在第4步时,应该会在浏览器中输出类似的内容:
+        Koala成功运行!
+        欢饮使用.
+    这时，框架应用成功建立，之后就可以进行开发了.

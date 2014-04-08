@@ -97,7 +97,7 @@
                 'group'=>'[APP_NAME][APP_VERSION]',
                 'expire'=>3600,/* 缓存时间 */
                 'compress'=>1,/* 是否压缩存储 */
-                    'servers'=>array(
+                'servers'=>array(
                     'host'=>'127.0.0.1',
                     'port'=>11211
                 )
