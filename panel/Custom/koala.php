@@ -38,6 +38,6 @@ koala::initialize(function(){
 class koala extends KoalaCore{
     public static function execute(){
         //分发
-        Dispatcher::execute(URL::Parser());
+        Dispatcher::factory('mvc')->execute(URL::Parser());
     }
 }

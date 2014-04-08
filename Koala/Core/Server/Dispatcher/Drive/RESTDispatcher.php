@@ -1,18 +1,27 @@
 <?php
+namespace Server\Dispatcher\Drive;
+use Request;
+use AbstractResponse;
+use Response;
+use ServiceProvider;
+use Collection;
+use Route;
+use Server\Exception\DispatchHaltedException;
+use Server\Exception\LockedResponseException;
+use Server\Exception\HttpExceptionInterface;
+use Server\Exception\HttpException;
 //调度器
-class Dispatcher extends Initial{
+class RESTDispatcher{
     /**
      * Class properties
      */
-    
-    static $options = array();
     /**
      * Collection of the routes to match on dispatch
      *
      * @var RouteCollection
      * @access protected
      */
-    protected static $routes;
+    protected $routes;
 
     /**
      * The Route factory object responsible for creating Route instances
@@ -20,7 +29,7 @@ class Dispatcher extends Initial{
      * @var AbstractRouteFactory
      * @access protected
      */
-    protected static $route_factory;
+    protected $route_factory;
 
     /**
      * An array of error callback callables
@@ -28,7 +37,7 @@ class Dispatcher extends Initial{
      * @var array[callable]
      * @access protected
      */
-    protected static $errorCallbacks = array();
+    protected $errorCallbacks = array();
 
     /**
      * An array of HTTP error callback callables
@@ -36,7 +45,7 @@ class Dispatcher extends Initial{
      * @var array[callable]
      * @access protected
      */
-    protected static $httpErrorCallbacks = array();
+    protected $httpErrorCallbacks = array();
 
     /**
      * An array of callbacks to call after processing the dispatch loop
@@ -45,7 +54,7 @@ class Dispatcher extends Initial{
      * @var array[callable]
      * @access protected
      */
-    protected static $afterFilterCallbacks = array();
+    protected $afterFilterCallbacks = array();
 
 
     /**
@@ -58,7 +67,7 @@ class Dispatcher extends Initial{
      * @var Request
      * @access protected
      */
-    protected static $request;
+    protected $request;
 
     /**
      * The Response object passed to each matched route
@@ -66,7 +75,7 @@ class Dispatcher extends Initial{
      * @var Response
      * @access protected
      */
-    protected static $response;
+    protected $response;
 
     /**
      * The service provider object passed to each matched route
@@ -74,7 +83,7 @@ class Dispatcher extends Initial{
      * @var ServiceProvider
      * @access protected
      */
-    protected static $service;
+    protected $service;
     /**
      * Dispatch route output handling
      *
@@ -132,59 +141,38 @@ class Dispatcher extends Initial{
      * @const string
      */
     const ROUTE_ESCAPE_REGEX = '`(?<=^|\])[^\]\[\?]+?(?=\[|$)`';
-    //执行应用
-    public static function execute($options){
-        self::$options = $options;
-        $action = array_pop($options['paths']);
-        $class = 'Controller\\'.implode("\\",$options['paths']);
-        $options['c_instance']  = new $class();
-        //调用控制器
-        $controller = Controller::factory('',$options);
-        $custom['const'] = get_defined_constants();
-        View::assign('Koala',$custom);
-        try{
-            if(!preg_match('/^[_A-Za-z](\w)*$/',$action)){
-                // 非法操作
-                throw new ReflectionException();
-            }
-            $controller->{$action}();
-        } catch (ReflectionException $e) { 
-            // 方法调用发生异常后
-            echo '方法异常';
-        }
-    }
     //执行调度器
-    public static function exe(Request $request = null,AbstractResponse $response = null,$send_response = true,$capture = self::DISPATCH_NO_CAPTURE){
+    public function execute(Request $request = null,AbstractResponse $response = null,$send_response = true,$capture = self::DISPATCH_NO_CAPTURE){
         //设置和初始化
         //设置请求对象
-        self::$request = $request ?: Request::createFromGlobals();
+        $this->request = $request ?: Request::createFromGlobals();
         //设置响应对象
-        self::$response = $response ?: new Response();
+        $this->response = $response ?: new Response();
         //设置服务提供者对象
-        self::$service = new ServiceProvider();
+        $this->service = new ServiceProvider();
         //设置路由搜集器对象
-        self::$routes = Collection::factory('route');
-
+        $this->routes = Collection::factory('route');
         //绑定服务参数
-        self::$service->bind(self::$request, self::$response);
+        $this->service->bind($this->request, $this->response);
         //准备路由索引
-        self::$routes->prepareNamed();
+        $this->routes->prepareNamed();
 
         //获取当前请求信息
         //请求url;
-        $uri = self::$request->pathname();
+        $uri = $this->request->pathname();
         //请求方法
-        $req_method = self::$request->method();
+        $req_method = $this->request->method();
 
         //设置用于路由匹配的相关变量
         //跳过数
         $skip_num = 0;
         //设置一个 路由搜集器 空属性克隆 
-        $matched = self::$routes->cloneEmpty();
+        $matched = $this->routes->cloneEmpty();
         $methods_matched = array();
         $params = array();
+        ob_start();
         //遍历路由
-        foreach ((Array)self::$routes as $routes) {
+        foreach ((Array)$this->routes as $routes) {
             foreach ($routes as $key => $route) {
                 //跳过部分路由
                 if ($skip_num > 0) {
@@ -242,7 +230,7 @@ class Dispatcher extends Initial{
                 elseif (($path === '404' && $matched->isEmpty() && count($methods_matched) <= 0)
                        || ($path === '405' && $matched->isEmpty() && count($methods_matched) > 0)) {
                     // TODO 未来移除
-                    self::$onHttpError($route);
+                    $this->onHttpError($route);
                     continue;
 
                 } elseif (isset($path[$i]) && $path[$i] === '@') {
@@ -273,7 +261,7 @@ class Dispatcher extends Initial{
                         $expression .= $path[$i++];
                     }
 
-                    $regex = self::compileRoute($expression);
+                    $regex = $this->compileRoute($expression);
                     //匹配结果
                     $match = preg_match($regex, $uri, $params);
                 }
@@ -289,11 +277,11 @@ class Dispatcher extends Initial{
                              */
                             $params = array_map('rawurldecode', $params);
                             //合并参数
-                            self::$request->paramsNamed()->merge($params);
+                            $this->request->paramsNamed()->merge($params);
                         }
                         //执行响应回调函数
                         try {
-                            self::handleRouteCallback($route, $matched, $methods_matched);
+                            $this->handleRouteCallback($route, $matched, $methods_matched);
 
                         } catch (DispatchHaltedException $e) {
                             switch ($e->getCode()) {
@@ -326,7 +314,7 @@ class Dispatcher extends Initial{
         try {
             if ($matched->isEmpty() && count($methods_matched) > 0) {
                 //添加允许方法
-                self::$response->header('Allow', implode(', ', $methods_matched));
+                $this->response->header('Allow', implode(', ', $methods_matched));
                 if (strcasecmp($req_method, 'OPTIONS') !== 0) {
                     throw HttpException::createFromCode(405);
                 }
@@ -335,19 +323,19 @@ class Dispatcher extends Initial{
             }
         } catch (HttpExceptionInterface $e) {
             //原始响应的锁定状态
-            $locked = self::$response->isLocked();
+            $locked = $this->response->isLocked();
 
             //调用http 错误处理方法
-            self::$httpError($e, $matched, $methods_matched);
+            $this->httpError($e, $matched, $methods_matched);
             //确认在返回我们的响应结果时，重置为原始状态
             if (!$locked) {
-                self::$response->unlock();
+                $this->response->unlock();
             }
         }
 
         try {
-            if (self::$response->chunked) {
-                self::$response->chunk();
+            if ($this->response->chunked) {
+                $this->response->chunk();
             } else {
                 //输出行为结果
                 switch($capture) {
@@ -360,17 +348,17 @@ class Dispatcher extends Initial{
                         break;
                     case self::DISPATCH_CAPTURE_AND_REPLACE:
                         if (ob_get_level()) {
-                            self::$response->body(ob_get_clean());
+                            $this->response->body(ob_get_clean());
                         }
                         break;
                     case self::DISPATCH_CAPTURE_AND_PREPEND:
                         if (ob_get_level()) {
-                            self::$response->prepend(ob_get_clean());
+                            $this->response->prepend(ob_get_clean());
                         }
                         break;
                     case self::DISPATCH_CAPTURE_AND_APPEND:
                         if (ob_get_level()) {
-                            self::$response->append(ob_get_clean());
+                            $this->response->append(ob_get_clean());
                         }
                         break;
                     case self::DISPATCH_NO_CAPTURE:
@@ -383,7 +371,7 @@ class Dispatcher extends Initial{
             //测试是否是HEAD请求
             if (strcasecmp($req_method, 'HEAD') === 0) {
                 //不返回body
-                self::$response->body('');
+                $this->response->body('');
                 if (ob_get_level()) {
                     ob_clean();
                 }
@@ -393,10 +381,10 @@ class Dispatcher extends Initial{
         }
 
         //运行后置处理
-        //self::callAfterDispatchCallbacks();
+        //$this->callAfterDispatchCallbacks();
 
-        if ($send_response && !self::$response->isSent()) {
-            self::$response->send();
+        if ($send_response && !$this->response->isSent()) {
+            $this->response->send();
         }
     }
     /**
@@ -406,7 +394,7 @@ class Dispatcher extends Initial{
      * @access protected
      * @return void
      */
-    protected static function compileRoute($route){
+    protected function compileRoute($route){
         // First escape all of the non-named param (non [block]s) for regex-chars
         if (preg_match_all(static::ROUTE_ESCAPE_REGEX, $route, $escape_locations, PREG_SET_ORDER)) {
             foreach ($escape_locations as $locations) {
@@ -458,7 +446,7 @@ class Dispatcher extends Initial{
      * @access protected
      * @return void
      */
-    protected static function handleRouteCallback($route, $matched, $methods_matched){
+    protected function handleRouteCallback($route, $matched, $methods_matched){
         $Route = get_class(Route::factory());
         $RouteCollection = get_class(Collection::factory('Route'));
         if(!$route instanceof $Route){}
@@ -468,20 +456,20 @@ class Dispatcher extends Initial{
         try {
             $returned = call_user_func(
                 $route->getCallback(), // Instead of relying on the slower "invoke" magic
-                self::$request,
-                self::$response,
-                self::$service,
-                //self::$app,
+                $this->request,
+                $this->response,
+                $this->service,
+                //$this->app,
                 //$this, // Pass the Klein instance
                 $matched,
                 $methods_matched
             );
             if ($returned instanceof AbstractResponse) {
-                self::$response = $returned;
+                $this->response = $returned;
             } else {
                 // Otherwise, attempt to append the returned data
                 try {
-                    self::$response->append($returned);
+                    $this->response->append($returned);
                 } catch (LockedResponseException $e) {
                     // Do nothing, since this is an automated behavior
                 }
@@ -490,11 +478,72 @@ class Dispatcher extends Initial{
             throw $e;
         } catch (HttpExceptionInterface $e) {
             // Call our http error handlers
-            self::$httpError($e, $matched, $methods_matched);
+            $this->httpError($e, $matched, $methods_matched);
 
             throw new DispatchHaltedException();
         } catch (Exception $e) {
-            self::$error($e);
+            $this->error($e);
         }
+    }
+    /**
+     * Handles an HTTP error exception through our HTTP error callbacks
+     *
+     * @param HttpExceptionInterface $http_exception    The exception that occurred
+     * @param RouteCollection $matched                  The collection of routes that were matched in dispatch
+     * @param array $methods_matched                    The HTTP methods that were matched in dispatch
+     * @access protected
+     * @return void
+     */
+    protected function httpError(HttpExceptionInterface $http_exception,$matched, $methods_matched)
+    {
+        $matched_class = get_class(Collection::factory('Route'));
+        if(!$matched instanceof $matched_class){
+            exit('必须是'.$matched_class);
+        }
+        if (!$this->response->isLocked()) {
+            $this->response->code($http_exception->getCode());
+        }
+
+        if (count($this->httpErrorCallbacks) > 0) {
+            foreach (array_reverse($this->httpErrorCallbacks) as $callback) {
+                if ($callback instanceof Route) {
+                    $this->handleRouteCallback($callback, $matched, $methods_matched);
+                } elseif (is_callable($callback)) {
+                    if (is_string($callback)) {
+                        $callback(
+                            $http_exception->getCode(),
+                            $this,
+                            $matched,
+                            $methods_matched,
+                            $http_exception
+                        );
+                    } else {
+                        call_user_func(
+                            $callback,
+                            $http_exception->getCode(),
+                            $this,
+                            $matched,
+                            $methods_matched,
+                            $http_exception
+                        );
+                    }
+                }
+            }
+        }
+
+        // Lock our response, since we probably don't want
+        // anything else messing with our error code/body
+        $this->response->lock();
+    }
+    /**
+     * Adds an HTTP error callback to the stack of HTTP error handlers
+     *
+     * @param callable $callback            The callable function to execute in the error handling chain
+     * @access public
+     * @return void
+     */
+    public function onHttpError($callback)
+    {
+        $this->httpErrorCallbacks[] = $callback;
     }
 }

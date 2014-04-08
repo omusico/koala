@@ -1,3 +1,4 @@
 <?php
 namespace Server\Exception;
-class RuntimeException extends KoalaExceptionInterface{}
+use Exception;
+class RuntimeException extends Exception{}

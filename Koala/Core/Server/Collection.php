@@ -11,7 +11,7 @@ class Collection{
     */
     static protected $handlers = array();
 	public function __construct(){}
-	public static function factory($type='',$options=array(),$new=true){
+	public static function factory($type='',$options=array(),$new=false){
         if(empty($type)||!is_string($type)){
             $type = C('Collection:DEFAULT','data');
         }

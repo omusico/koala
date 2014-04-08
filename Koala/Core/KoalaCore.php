@@ -24,7 +24,7 @@ class KoalaCore extends Initial{
             Task::factory(KoalaCLI::options())->execute();
         }else{
             //分发
-            Dispatcher::execute(URL::Parser());
+            Dispatcher::factory('mvc')->execute(URL::Parser());
         }
        
     }

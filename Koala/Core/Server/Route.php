@@ -11,7 +11,7 @@ class Route{
     */
     static protected $handlers = array();
     public function __construct(){}
-    public static function factory($options=array(),$type='',$new=true){
+    public static function factory($options=array(),$type='',$new=false){
         if(empty($type)||!is_string($type)){
             $type = C('Route:DEFAULT','Route');
         }
@@ -33,7 +33,6 @@ class Route{
             EXTR_OVERWRITE
         );
         $route = Server\Route\Factory::build($callback, $path, $method);
-
         Collection::factory('route')->add($route);
         return $route;
     }
