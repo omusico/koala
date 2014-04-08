@@ -83,4 +83,22 @@
                 'autoescape'=>'html',
                 'optimizations'=>-1
                 )
-
+###核心Server配置
+    目前支持服务列表位于 FRAME_PATH.'Core/Server' 目录
+    
+    <<<配置示例>>>
+    
+    Cache:    缓存
+        default:    默认值
+            默认值: LAEMemcache
+        laememcache: 配置项
+            默认值:
+            array(
+                'group'=>'[APP_NAME][APP_VERSION]',
+                'expire'=>3600,/* 缓存时间 */
+                'compress'=>1,/* 是否压缩存储 */
+                    'servers'=>array(
+                    'host'=>'127.0.0.1',
+                    'port'=>11211
+                )
+            )
