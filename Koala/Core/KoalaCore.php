@@ -74,7 +74,6 @@ KoalaCore::initialize(function(){
         //默认文件
         $instance->loadConfig(FRAME_PATH.'Config'.DIRECTORY_SEPARATOR.'Global.default.php');
     });
-    Session::register('file');
     //插件支持
     Plugin::loadPlugin();
 });

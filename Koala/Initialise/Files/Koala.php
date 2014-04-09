@@ -26,6 +26,7 @@ koala::initialize(function(){
         //用户文件
         $instance->loadConfig(Config::getPath('Config/LAEGlobal.user.php'));
     });
+    Session::register(C('Session:default','file'));
     define('STYLENAME', 'default');
     //视图初始化
     View::initialize(function($instance){
