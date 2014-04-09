@@ -10,15 +10,15 @@ koala::initialize(function(){
     $instance->registerNamespaces(array(
         'Controller' => APP_PATH,
         'Custom' => APP_PATH,
-        'Engine' => ROOT_PATH.'Koala/Addons',
-        'Tag' => ROOT_PATH.'Koala/Extension',
+        'Engine' => ENTRANCE_PATH.'Koala/Addons',
+        'Tag' => ENTRANCE_PATH.'Koala/Extension',
         ));
     //More Coding
     $instance->loadFunc('Custom','Func');
     //加载模块
     $instance->registerNamespaces(array(
-        'UFM' => ROOT_PATH.'Koala/Addons/Module',
-        'UUM' => ROOT_PATH.'Koala/Addons/Module',
+        'UFM' => ENTRANCE_PATH.'Koala/Addons/Module',
+        'UUM' => ENTRANCE_PATH.'Koala/Addons/Module',
         ));
     });
     //配置初始化

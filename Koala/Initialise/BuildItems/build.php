@@ -1,12 +1,12 @@
 <?php
 
-copy(FRAME_PATH.'Initialise/Files/Koala.php',ROOT_PATH.C('appcfg:app_name','App').'/Custom/Koala.php');
-copy(FRAME_PATH.'Initialise/Files/Func.php',ROOT_PATH.C('appcfg:app_name','App').'/Custom/Func.php');
-copy(FRAME_PATH.'Initialise/Files/Config/LAEGlobal.user.php',ROOT_PATH.C('appcfg:app_name','App').'/Config/LAEGlobal.user.php');
-copy(FRAME_PATH.'Initialise/Files/bootstrap.php',ROOT_PATH.C('appcfg:app_name','App').'/bootstrap.php');
+copy(FRAME_PATH.'Initialise/Files/Koala.php',ENTRANCE_PATH.C('appcfg:app_name','App').'/Custom/Koala.php');
+copy(FRAME_PATH.'Initialise/Files/Func.php',ENTRANCE_PATH.C('appcfg:app_name','App').'/Custom/Func.php');
+copy(FRAME_PATH.'Initialise/Files/Config/LAEGlobal.user.php',ENTRANCE_PATH.C('appcfg:app_name','App').'/Config/LAEGlobal.user.php');
+copy(FRAME_PATH.'Initialise/Files/bootstrap.php',ENTRANCE_PATH.C('appcfg:app_name','App').'/bootstrap.php');
 
-mkdir(ROOT_PATH.C('appcfg:app_name','App').'/Controller/Home',0777,true);
-mkdir(ROOT_PATH.C('appcfg:app_name','App').'/View/default/Home/Index/page',0777,true);
+mkdir(ENTRANCE_PATH.C('appcfg:app_name','App').'/Controller/Home',0777,true);
+mkdir(ENTRANCE_PATH.C('appcfg:app_name','App').'/View/default/Home/Index/page',0777,true);
 
 $content = "<?php
 namespace Controller\Home;
@@ -27,7 +27,7 @@ class Index extends Controller_PublicController{
 		//echo __METHOD__.'<br>';
 	}
 }";
-file_put_contents(ROOT_PATH.C('appcfg:app_name','App').'/Controller/Home/Index.php',$content);
+file_put_contents(ENTRANCE_PATH.C('appcfg:app_name','App').'/Controller/Home/Index.php',$content);
 
 $content = "<?php
 defined('IN_Koala') or exit();
@@ -37,9 +37,9 @@ class Controller_PublicController extends Core_Controller_Base{
 		// coding
 	}
 }";
-file_put_contents(ROOT_PATH.C('appcfg:app_name','App').'/Controller/PublicController.php',$content);
+file_put_contents(ENTRANCE_PATH.C('appcfg:app_name','App').'/Controller/PublicController.php',$content);
 
 
 $content = "Koala框架成功运行!<br>欢迎使用。";
-file_put_contents(ROOT_PATH.C('appcfg:app_name','App').'/View/default/Home/Index/page/index.html', $content);
+file_put_contents(ENTRANCE_PATH.C('appcfg:app_name','App').'/View/default/Home/Index/page/index.html', $content);
 ?>

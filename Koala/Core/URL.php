@@ -10,7 +10,7 @@ class URL{
 		if($url!=''){
 			self::$_items = parse_url($url);
 			$path = self::$_items['path'];
-			self::$_items['pathinfo'] = str_replace(str_replace('\\','/',APP_RELPATH),'',$path);
+			self::$_items['pathinfo'] = str_replace(str_replace('\\','/',APP_RELATIVE_URL),'',$path);
 			unset(self::$_items['path']);
 		}else{
 			//请求协议
@@ -77,7 +77,7 @@ class URL{
 				$app_name = $_paths[] = C('APP:DEFAULT','APP1');
 			}
 		}else{
-			$app_name = basename(APP_RELPATH);
+			$app_name = basename(APP_RELATIVE_URL);
 		}
 		define('APP_NAME',$app_name);
 		//是否启用了多分组//默认多分组
@@ -242,7 +242,7 @@ class URL{
         $var[C('VAR_MODULE','m')]       =   array_shift($options['paths']);
         $var[C('VAR_ACTION','a')]       =   array_shift($options['paths']);
 
-		$url        =   APP_RELPATH.'?'.http_build_query(array_reverse($var));
+		$url        =   APP_RELATIVE_URL.'?'.http_build_query(array_reverse($var));
         if(!empty($vars)) {
             $vars   =   urldecode(http_build_query($vars));
             $url   .=   '&'.$vars;
@@ -300,7 +300,7 @@ class URL{
         $var[C('VAR_MODULE','m')]       =   array_shift($options['paths']);
         $var[C('VAR_ACTION','a')]       =   array_shift($options['paths']);
 
-        $url = rtrim(APP_RELPATH,$depr).implode($depr,$var);
+        $url = rtrim(APP_RELATIVE_URL,$depr).implode($depr,$var);
         $url = rtrim($url,$depr);
         if(!empty($vars)) { // 添加参数
             foreach ($vars as $var => $val){

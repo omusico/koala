@@ -2,22 +2,9 @@
 //+++++++++++++运行模式及环境检查++++++++++++
 //-------------------信息注册--------------
 //php运行版本
-env::reg('PHPVERSION',function($key){return PHP_VERSION;});
-//php运行环境
-env::reg('ISCLI',function($key){
-	$is_cli = false;
-	if(stripos(php_sapi_name(),'cli')!==false){$is_cli = true;}
-	//cli模式下,$_SERVER['OS']有效
-	if($is_cli&&stripos($_SERVER['OS'],'Win')!==false){
-		define('CONSOLE_CHARSET','GBK');
-	}else{
-		define('CONSOLE_CHARSET','UTF-8');
-	}
-	define("RUNCLI",$is_cli);
-	return RUNCLI;
-});
+env::reg('PHP_VERSION',function($key){return PHP_VERSION;});
 //应用引擎环境
-env::reg('APPENGINE',function($key){
+env::reg('APP_ENGINE',function($key){
 	//新浪SAE检测
 	if(defined('SAE_ACCESSKEY')){
 		define("APPENGINE","SAE");
@@ -28,38 +15,33 @@ env::reg('APPENGINE',function($key){
 	}
 	return APPENGINE;
 });
-//应用绝对路径
-env::reg('ABSOLUTETDIR',function($key){
-	return realpath('.');
-});
-//应用相对目录路径
-env::reg('RELATIVEDIR',function($key){
+//应用相对URL路径
+env::reg('APP_RELATIVE_URL',function($key){
 	if(RUNCLI)//cli $_SERVER['SERVER_NAME'] 无效
 	return;
-	$pathname = str_replace(str_replace('\\', '/', $_SERVER['DOCUMENT_ROOT']),'', str_replace('\\', '/',ROOT_PATH));
+	$pathname = str_replace(str_replace('\\', '/', $_SERVER['DOCUMENT_ROOT']),'', str_replace('\\', '/',ENTRANCE_PATH));
 	//站点
 	define('SITE_URL','http://'.$_SERVER['SERVER_NAME'].$pathname);
-	define('SITE_RELPATH',$pathname);
-	//应用目录名,以服务器根目录到应用首页所在目录的相对目录。
-	$pathname .= str_replace(ROOT_PATH,'',APP_PATH);
-	if(APPENGINE=='BAE'){//BAE $_SERVER['DOCUMENT_ROOT'] 与 ROOT_PATH 不在同一路径分支。
+	define('SITE_RELATIVE_URL',$pathname);
+	if(APPENGINE=='BAE'){//BAE $_SERVER['DOCUMENT_ROOT'] 与 ENTRANCE_PATH 不在同一路径分支。
 		$pathname = basename($pathname).DIRECTORY_SEPARATOR;
 	}
 	//应用
 	define('APP_URL','http://'.$_SERVER['SERVER_NAME'].$pathname);
-	define('APP_RELPATH',$pathname);
+	define('APP_RELATIVE_URL',$pathname);
+
 	return $pathname;
 });
 
 //php最低版本
-env::reg('MINPHPVERSION',function($key){return "5.3";});
+env::reg('MIN_PHP_VERSION',function($key){return "5.3";});
 env::reg("DEBUG",function($key){
 		return DEBUG;
 	});
 //--------------------信息检查---------------------
-env::check("PHPVERSION",function($value,$key){
-	if(version_compare($value,env::get("MIN".$key),"<")){
-		echo '当前PHP运行版本['.$value."]低于最低需求版本[".env::get("MIN".$key)."]";
+env::check("PHP_VERSION",function($value,$key){
+	if(version_compare($value,env::get("MIN_".$key),"<")){
+		echo '当前PHP运行版本['.$value."]低于最低需求版本[".env::get("MIN_".$key)."]";
 		exit;
 	}
 	if(version_compare($value,"4.2.3","<=")){

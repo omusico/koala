@@ -16,7 +16,7 @@ class Plugin extends Controller_PublicController{
 			//建立插件目录
 			mkdir(APP_PLUGIN_PATH.$_POST['name'],0777,true);
 			//建立插件实现框架
-			$content = file_get_contents(CORE_ADDONS_PATH.'Data/PluginAction.txt');
+			$content = file_get_contents(FRAME_PATH.'Addons/Data/PluginAction.txt');
 			$content = str_replace('[PLUGIN_NAME]',ucwords($_POST['name']),$content);
 			file_put_contents($file_path.'Action.php',$content);
 			//建立插件配置

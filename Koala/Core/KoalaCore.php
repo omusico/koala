@@ -3,7 +3,7 @@ if (!defined('DS')) {
     define('DS', DIRECTORY_SEPARATOR);
 }
 //运行时目录//写数据目录
-define('RUNTIME_PATH',ROOT_PATH.'Runtime'.DIRECTORY_SEPARATOR);
+define('RUNTIME_PATH',ENTRANCE_PATH.'Runtime'.DIRECTORY_SEPARATOR);
 //日志目录
 define('LOG_PATH',RUNTIME_PATH.'Storage'.DIRECTORY_SEPARATOR);
 //框架核心版本
@@ -11,7 +11,7 @@ define("FRAME_VERSION",'1.0');
 //框架发布时间
 define('FRAME_RELEASE','20140323');
 //默认应用插件路径
-!defined('APP_ADDONS_PATH') and define('APP_ADDONS_PATH',ROOT_PATH.'App/Addons'.DS);
+!defined('APP_ADDONS_PATH') and define('APP_ADDONS_PATH',ENTRANCE_PATH.'App/Addons'.DS);
 !defined('APP_PLUGIN_PATH') and define("APP_PLUGIN_PATH",APP_ADDONS_PATH.'Plugin'.DS);
 
 include(__DIR__.'/Initial.php');
@@ -39,9 +39,9 @@ KoalaCore::initialize(function(){
     $instance->register();
     $instance->registerNamespaces(array(
         'Func' => FRAME_PATH.'Core',
-        'Helper' => ROOT_PATH.'Koala',
+        'Helper' => ENTRANCE_PATH.'Koala',
         'Base' => FRAME_PATH.'Core',
-        'Core' => ROOT_PATH.'Koala',
+        'Core' => ENTRANCE_PATH.'Koala',
         'Server' => FRAME_PATH.'Core',
         'Plugin' => array(FRAME_PATH.'Addons',APP_ADDONS_PATH),
         'Minion' => FRAME_PATH.'Addons',
@@ -61,7 +61,7 @@ KoalaCore::initialize(function(){
     //加载常量
     include(FRAME_PATH.'Initialise/Constant'.APPENGINE.'.php');
     //composer第三方库加载支持
-    require CORE_ADDONS_PATH.'vendor/autoload.php';
+    require FRAME_PATH.'Addons/vendor/autoload.php';
     //++++++++++++++++++++++++系统调试及错误设置++++++++++++++++++++++++++++
     $log = Log::factory('monolog');
     ErrorHandler::factory('monolog',array($log));
@@ -74,6 +74,7 @@ KoalaCore::initialize(function(){
         //默认文件
         $instance->loadConfig(FRAME_PATH.'Config'.DIRECTORY_SEPARATOR.'Global.default.php');
     });
+    Session::register('file');
     //插件支持
     Plugin::loadPlugin();
 });
