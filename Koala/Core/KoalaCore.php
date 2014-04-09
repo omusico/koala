@@ -11,7 +11,7 @@ define("FRAME_VERSION",'1.0');
 //框架发布时间
 define('FRAME_RELEASE','20140323');
 //默认应用插件路径
-!defined('APP_ADDONS_PATH') and define('APP_ADDONS_PATH',ENTRANCE_PATH.'App/Addons'.DS);
+!defined('APP_ADDONS_PATH') and define('APP_ADDONS_PATH',APP_PATH.'Addons'.DS);
 !defined('APP_PLUGIN_PATH') and define("APP_PLUGIN_PATH",APP_ADDONS_PATH.'Plugin'.DS);
 
 include(__DIR__.'/Initial.php');
@@ -39,9 +39,9 @@ KoalaCore::initialize(function(){
     $instance->register();
     $instance->registerNamespaces(array(
         'Func' => FRAME_PATH.'Core',
-        'Helper' => ENTRANCE_PATH.'Koala',
+        'Helper' => FRAME_PATH,
         'Base' => FRAME_PATH.'Core',
-        'Core' => ENTRANCE_PATH.'Koala',
+        'Core' => FRAME_PATH,
         'Server' => FRAME_PATH.'Core',
         'Plugin' => array(FRAME_PATH.'Addons',APP_ADDONS_PATH),
         'Minion' => FRAME_PATH.'Addons',

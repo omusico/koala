@@ -10,15 +10,15 @@ koala::initialize(function(){
     $instance->registerNamespaces(array(
         'Controller' => APP_PATH,
         'Custom' => APP_PATH,
-        'Engine' => ENTRANCE_PATH.'Koala/Addons',
-        'Tag' => ENTRANCE_PATH.'Koala/Extension',
+        'Engine' => FRAME_PATH.'Addons',
+        'Tag' => FRAME_PATH.'Extension',
         ));
     //More Coding
     $instance->loadFunc('Custom','Func');
     //加载模块
     $instance->registerNamespaces(array(
-        'UFM' => ENTRANCE_PATH.'Koala/Addons/Module',
-        'UUM' => ENTRANCE_PATH.'Koala/Addons/Module',
+        'UFM' => FRAME_PATH.'Addons/Module',
+        'UUM' => FRAME_PATH.'Addons/Module',
         ));
     });
     //配置初始化
@@ -27,6 +27,7 @@ koala::initialize(function(){
         $instance->loadConfig(Config::getPath('Config/LAEGlobal.user.php'));
     });
     Session::register(C('Session:default','file'));
+    
     define('STYLENAME', 'default');
     //视图初始化
     View::initialize(function($instance){
@@ -36,7 +37,6 @@ koala::initialize(function(){
 });
 class koala extends KoalaCore{
     public static function execute(){
-        //分发
         Dispatcher::factory('mvc')->execute(URL::Parser());
     }
 }

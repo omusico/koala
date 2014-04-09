@@ -3,8 +3,6 @@
 copy(FRAME_PATH.'Initialise/Files/Koala.php',ENTRANCE_PATH.C('appcfg:app_name','App').'/Custom/Koala.php');
 copy(FRAME_PATH.'Initialise/Files/Func.php',ENTRANCE_PATH.C('appcfg:app_name','App').'/Custom/Func.php');
 copy(FRAME_PATH.'Initialise/Files/Config/LAEGlobal.user.php',ENTRANCE_PATH.C('appcfg:app_name','App').'/Config/LAEGlobal.user.php');
-copy(FRAME_PATH.'Initialise/Files/bootstrap.php',ENTRANCE_PATH.C('appcfg:app_name','App').'/bootstrap.php');
-
 mkdir(ENTRANCE_PATH.C('appcfg:app_name','App').'/Controller/Home',0777,true);
 mkdir(ENTRANCE_PATH.C('appcfg:app_name','App').'/View/default/Home/Index/page',0777,true);
 

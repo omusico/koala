@@ -35,6 +35,3 @@ setlocale(LC_ALL,"chs");
 
 //不输出可替代字符
 mb_substitute_character('none');
-
-//定义页面输出字符串
-define('CHARSET',Config::getItem('charset'));

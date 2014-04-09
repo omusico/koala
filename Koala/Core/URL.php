@@ -107,7 +107,7 @@ class URL{
 	protected static function ParserInPathinfo(){
 		$str = self::$_items['pathinfo'];
 		if($suffix = C('URL_HTML_SUFFIX','.html')){
-			if(stripos($suffix,$str)!==false)
+			if(stripos($str,$suffix)!==false)
 				$str = str_replace($suffix,'', $str);
 		}
 		//获取pathinfo并去除空值
@@ -300,7 +300,8 @@ class URL{
         $var[C('VAR_MODULE','m')]       =   array_shift($options['paths']);
         $var[C('VAR_ACTION','a')]       =   array_shift($options['paths']);
 
-        $url = rtrim(APP_RELATIVE_URL,$depr).implode($depr,$var);
+        $url = rtrim(APP_RELATIVE_URL,$depr).$depr.implode($depr,$var);
+
         $url = rtrim($url,$depr);
         if(!empty($vars)) { // 添加参数
             foreach ($vars as $var => $val){
