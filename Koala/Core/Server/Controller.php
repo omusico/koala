@@ -23,4 +23,19 @@ class Controller{
 		}
 		return self::$handlers[$type];
 	}
+	/**
+	 * 自定义控制器加载方案
+	 */
+	public function register($closure=null){
+		if($closure==null){
+			ClassLoader::initialize(function($instance){
+		        //注册_autoload函数
+			    $instance->register();
+			    $instance->registerNamespaces(array(
+			        'Controller' => APP_PATH));
+			});
+		}else{
+			$closure();
+		}
+	}
 }

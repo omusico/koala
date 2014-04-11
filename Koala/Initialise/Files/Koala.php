@@ -8,7 +8,6 @@ koala::initialize(function(){
         //注册_autoload函数
     $instance->register();
     $instance->registerNamespaces(array(
-        'Controller' => APP_PATH,
         'Custom' => APP_PATH,
         'Engine' => FRAME_PATH.'Addons',
         'Tag' => FRAME_PATH.'Extension',
@@ -27,7 +26,8 @@ koala::initialize(function(){
         $instance->loadConfig(Config::getPath('Config/LAEGlobal.user.php'));
     });
     Session::register(C('Session:default','file'));
-    
+    //控制器加载
+    Controller::register();
     define('STYLENAME', 'default');
     //视图初始化
     View::initialize(function($instance){

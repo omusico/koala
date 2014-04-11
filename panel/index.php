@@ -16,4 +16,3 @@ if (!defined('START_TIME')){
 require FRAME_PATH.'Initialise/bootstrap.php';
 //执行应用
 Koala::execute();
-?>
