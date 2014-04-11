@@ -3,7 +3,7 @@ if (!defined('DS')) {
     define('DS', DIRECTORY_SEPARATOR);
 }
 //运行时目录//写数据目录
-define('RUNTIME_PATH',ROOT_PATH.'Runtime'.DIRECTORY_SEPARATOR);
+define('RUNTIME_PATH',ENTRANCE_PATH.'Runtime'.DIRECTORY_SEPARATOR);
 //日志目录
 define('LOG_PATH',RUNTIME_PATH.'Storage'.DIRECTORY_SEPARATOR);
 //框架核心版本
@@ -11,7 +11,7 @@ define("FRAME_VERSION",'1.0');
 //框架发布时间
 define('FRAME_RELEASE','20140323');
 //默认应用插件路径
-!defined('APP_ADDONS_PATH') and define('APP_ADDONS_PATH',ROOT_PATH.'App/Addons'.DS);
+!defined('APP_ADDONS_PATH') and define('APP_ADDONS_PATH',APP_PATH.'Addons'.DS);
 !defined('APP_PLUGIN_PATH') and define("APP_PLUGIN_PATH",APP_ADDONS_PATH.'Plugin'.DS);
 
 include(__DIR__.'/Initial.php');
@@ -24,7 +24,7 @@ class KoalaCore extends Initial{
             Task::factory(KoalaCLI::options())->execute();
         }else{
             //分发
-            Dispatcher::execute(URL::Parser());
+            Dispatcher::factory('mvc')->execute(URL::Parser());
         }
        
     }
@@ -39,10 +39,10 @@ KoalaCore::initialize(function(){
     $instance->register();
     $instance->registerNamespaces(array(
         'Func' => FRAME_PATH.'Core',
-        'Helper' => ROOT_PATH.'Koala',
+        'Helper' => FRAME_PATH,
         'Base' => FRAME_PATH.'Core',
-        'Core' => ROOT_PATH.'Koala',
-        'Server' => FRAME_PATH.'Core',
+        'Core' => FRAME_PATH,
+        'Server' => FRAME_PATH,
         'Plugin' => array(FRAME_PATH.'Addons',APP_ADDONS_PATH),
         'Minion' => FRAME_PATH.'Addons',
         'Resource'=>FRAME_PATH.'Addons',
@@ -50,7 +50,7 @@ KoalaCore::initialize(function(){
     $instance->registerDirs(array(
         FRAME_PATH.'Core',
         FRAME_PATH.'Tests',
-        FRAME_PATH.'Core/Server',
+        FRAME_PATH.'Server',
         FRAME_PATH.'Addons/Compatible',
         ));
     //系统内置函数库
@@ -61,10 +61,10 @@ KoalaCore::initialize(function(){
     //加载常量
     include(FRAME_PATH.'Initialise/Constant'.APPENGINE.'.php');
     //composer第三方库加载支持
-    require CORE_ADDONS_PATH.'vendor/autoload.php';
+    require FRAME_PATH.'Addons/vendor/autoload.php';
     //++++++++++++++++++++++++系统调试及错误设置++++++++++++++++++++++++++++
-    $log = Log::factory();
-    ErrorHandler::register($log);
+    $log = Log::factory('monolog');
+    ErrorHandler::factory('monolog',array($log));
     $log->pushHandler(new AEStreamHandler('Log/'.date('Y-m-d')."/ERROR.log", Log::ERROR));
     $log->pushHandler(new AEStreamHandler('Log/'.date('Y-m-d')."/WARN.log", Log::WARNING));
     //加载云服务类支持(如BAE类库)

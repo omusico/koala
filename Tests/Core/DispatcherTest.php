@@ -28,7 +28,7 @@ class DispatcherTest extends PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers Dispatcher::execute
+     * @covers Dispatcher::factory('mvc')->execute
      * @todo   Implement testExecute().
      */
     public function testExecute()

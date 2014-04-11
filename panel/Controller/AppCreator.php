@@ -4,7 +4,7 @@ use Controller_PublicController;
 use View;
 class AppCreator extends Controller_PublicController{
 	public function index(){
-		$app_path = ROOT_PATH.C('appcfg:app_name');
+		$app_path = ENTRANCE_PATH.C('appcfg:app_name');
 		if(!is_dir($app_path))
 		{
 			View::assign('notbuild',true);
@@ -29,7 +29,7 @@ class AppCreator extends Controller_PublicController{
 	 * 创建应用目录结构
 	 */
 	protected function createDir(){
-		$app_path = ROOT_PATH.C('appcfg:app_name','App').'/';
+		$app_path = ENTRANCE_PATH.C('appcfg:app_name','App').'/';
 		$dirs = C('appcfg:app_dir');
 		foreach ($dirs as $dirname) {
 			mkdir($app_path.$dirname,0777,true);

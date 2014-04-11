@@ -1,11 +1,22 @@
 <?php
 //应用引导程序
 define('IN_Koala',true);
+
+//运行模式
+$is_cli = false;
+if(stripos(php_sapi_name(),'cli')!==false){$is_cli = true;}
+//cli模式下,$_SERVER['OS']有效
+if($is_cli&&stripos($_SERVER['OS'],'Win')!==false){
+	define('CONSOLE_CHARSET','GBK');
+}else{
+	define('CONSOLE_CHARSET','UTF-8');
+}
+define("RUNCLI",$is_cli);
+
 //加载框架核心
 require FRAME_PATH.'Core/KoalaCore.php';
 //应用路径
-!defined('APP_PATH') AND define('APP_PATH',realpath(ROOT_PATH.'App').DIRECTORY_SEPARATOR);
-
+!defined('APP_PATH') AND define('APP_PATH',ENTRANCE_PATH.'App'.DIRECTORY_SEPARATOR);
 !defined("APP_ADDONS_PATH") and define("APP_ADDONS_PATH",APP_PATH.'Addons'.DS);
 !defined("APP_PLUGIN_PATH") and define("APP_PLUGIN_PATH",APP_ADDONS_PATH.'Plugin'.DS);
 
@@ -24,15 +35,3 @@ setlocale(LC_ALL,"chs");
 
 //不输出可替代字符
 mb_substitute_character('none');
-
-//定义页面输出字符串
-define('CHARSET',Config::getItem('charset'));
-//定义数据库配置
-define('DB_TYPE',Config::getItem('DB_TYPE'));
-define('DB_HOST_M',Config::getItem('DB_HOST_M'));
-define('DB_PORT',Config::getItem('DB_PORT'));
-define('DB_NAME',Config::getItem('DB_NAME'));
-define('DB_USER',Config::getItem('DB_USER'));
-define('DB_PASS',Config::getItem('DB_PASS'));
-define('DB_PREFIX',Config::getItem('DB_PREFIX'));
-define('DB_CHARSET',Config::getItem('DB_CHARSET'));

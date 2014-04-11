@@ -230,3 +230,5 @@ Koala/Addons/Vendor/composer/installed.json
 /*.psd
 /*.lock
 /KoalaCMS
+/Koala/Addons/Vendor
+/Koala/Addons/Vendor

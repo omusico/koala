@@ -1,4 +1,5 @@
 <?php
+define("CORE_PLUGIN_PATH",FRAME_PATH.'Addons/Plugin'.DS);
 /**
  * 插件管理器
  */

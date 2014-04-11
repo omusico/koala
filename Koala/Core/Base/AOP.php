@@ -9,9 +9,9 @@ abstract class Base_AOP{
 	//错误状态
 	static $_iserror = false;
 	//设置被代理对象
-	public static function getProxy($instance){
+	public function getProxy($instance){
 		self::$_proxy = $instance;
-		return new static();
+		return $this;
 	}
 	//加入附加业务
 	//addAddons('UFM\InputFilter')

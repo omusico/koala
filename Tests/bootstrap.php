@@ -2,9 +2,9 @@
 define('IN_Koala', true);
 define('DEBUG', 0);
 //根路径
-define('ROOT_PATH',realpath(dirname(dirname(__FILE__))).DIRECTORY_SEPARATOR);
+define('ENTRANCE_PATH',realpath(dirname(dirname(__FILE__))).DIRECTORY_SEPARATOR);
 //框架路径
-define('FRAME_PATH',realpath(ROOT_PATH.'Koala').DIRECTORY_SEPARATOR);
+define('FRAME_PATH',realpath(ENTRANCE_PATH.'Koala').DIRECTORY_SEPARATOR);
 //路径
 define('APP_PATH',realpath(dirname(__FILE__)).DIRECTORY_SEPARATOR);
 //加载框架核心
