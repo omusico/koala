@@ -1,28 +1,43 @@
 <?php
 /**
- * 
- *Rank服务
+ * Koala - A PHP Framework For Web
  *
+ * @package  Koala
+ * @author   Lunnlew <Lunnlew@gmail.com>
+ */
+/**
+ * Rank服务类
+ * 
+ * @package  Koala
+ * @subpackage  Server
+ * @author    Lunnlew <Lunnlew@gmail.com>
  */
 class Rank{
-    /**
-    * 操作句柄数组
-    * @var array
-    */
-    static protected $handlers = array();
-	public function __construct(){}
-	public static function factory($type='',$options=array()){
-		if(empty($type)||!is_string($type)){
-			$type = C('Rank:DEFAULT','Rank');
+  	/**
+   	* 操作句柄数组
+   	* @var array
+   	* @access protected
+   	*/
+  	protected static $handlers = array();
+  	/**
+  	 * 访问控制实例化函数
+  	 * 
+  	 * @param  string $name    驱动名
+  	 * @param  array  $options 驱动构造参数
+  	 * @return object          驱动实例
+  	 */
+	public static function factory($name='',$options=array()){
+		if(empty($name)||!is_string($name)){
+			$name = C('Rank:DEFAULT','Rank');
 		}
-		if(!isset(self::$handlers[$type])){
-			$c_options = C('Rank:'.$type);
+		if(!isset(self::$handlers[$name])){
+			$c_options = C('Rank:'.$name);
             if(empty($c_options)){
                 $c_options = array();
             }
             $options = array_merge($c_options,$options);
-			self::$handlers[$type] = Server\Rank\Factory::getInstance($type,$options);
+			self::$handlers[$name] = Server\Rank\Factory::getInstance($name,$options);
 		}
-		return self::$handlers[$type];
+		return self::$handlers[$name];
 	}
 }
