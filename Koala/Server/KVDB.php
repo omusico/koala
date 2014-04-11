@@ -20,7 +20,7 @@ class KVDB{
    	*/
   	protected static $handlers = array();
   	/**
-  	 * 访问控制实例化函数
+  	 * 服务实例化函数
   	 * 
   	 * @param  string $name    驱动名
   	 * @param  array  $options 驱动构造参数
