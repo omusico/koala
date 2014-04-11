@@ -1,9 +1,9 @@
 <?php
 namespace Server\ErrorHandler;
 class Factory extends \Server\Factory{
-    public static function getServerName($type){
+    public static function getServerName($name){
         $server_name = 'ErrorHandler';
-        switch($type){
+        switch($name){
             case 'monolog':
                 $server_name = 'MonologErrorHandler';
             break;

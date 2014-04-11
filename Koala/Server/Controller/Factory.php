@@ -1,9 +1,9 @@
 <?php
 namespace Server\Controller;
 class Factory extends \Server\Factory{
-    public static function getServerName($type){
+    public static function getServerName($name){
         $server_name = 'Controller';
-        switch($type){
+        switch($name){
             case 'controller':
                 $server_name = 'Controller';
             break;

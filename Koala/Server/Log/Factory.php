@@ -1,9 +1,9 @@
 <?php
 namespace Server\Log;
 class Factory extends \Server\Factory{
-    public static function getServerName($type){
+    public static function getServerName($name){
         $server_name = 'Monolog';
-        switch($type){
+        switch($name){
             case 'log':
                 if(APPENGINE=='SAE'){
                     if (function_exists('SAELog')) $server_name = 'SAELog' ;

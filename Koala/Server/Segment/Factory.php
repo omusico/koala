@@ -1,9 +1,9 @@
 <?php
 namespace Server\Segment;
 class Factory extends \Server\Factory{
-    public static function getServerName($type){
+    public static function getServerName($name){
         $server_name = 'LAESegment';
-        switch($type){
+        switch($name){
             case 'segment':
                 if(APPENGINE=='SAE'){
                     if (function_exists('SAESegment')) $server_name = 'SAESegment' ;

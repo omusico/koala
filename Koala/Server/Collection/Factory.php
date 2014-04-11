@@ -1,9 +1,9 @@
 <?php
 namespace Server\Collection;
 class Factory extends \Server\Factory{
-    public static function getServerName($type){
+    public static function getServerName($name){
         $server_name = 'DataCollection';
-        switch($type){
+        switch($name){
             case 'route':
                $server_name = 'RouteCollection';
                 break;

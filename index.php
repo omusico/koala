@@ -1,6 +1,6 @@
 <?php
 //调试
-define('DEBUG',0);
+define('DEBUG',1);
 //应用版本
 define('APP_VERSION','1');
 //入口绝对路径

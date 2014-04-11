@@ -1,7 +1,7 @@
 <?php
 namespace Server\ACM;
 class Factory extends \Server\Factory{
-    public static function getServerName($type){
+    public static function getServerName($name){
     	$server_name = 'Authority';
         switch ($type) {
             case 'authority':

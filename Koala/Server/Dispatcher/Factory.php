@@ -1,9 +1,9 @@
 <?php
 namespace Server\Dispatcher;
 class Factory extends \Server\Factory{
-    public static function getServerName($type){
+    public static function getServerName($name){
         $server_name = 'Dispatcher';
-        switch($type){
+        switch($name){
             case 'rest':
                 $server_name = 'RESTDispatcher';
                 break;

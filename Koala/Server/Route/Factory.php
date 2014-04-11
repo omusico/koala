@@ -36,9 +36,9 @@ class Factory extends \Server\Factory{
      * @param  string $type 类型
      * @return string       类名
      */
-    public static function getServerName($type){
+    public static function getServerName($name){
         $server_name = 'Route';
-        switch($type){
+        switch($name){
             case 'route':
                 $server_name = 'Route';
             break;

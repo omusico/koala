@@ -1,9 +1,9 @@
 <?php
 namespace Server\Storage;
 class Factory extends \Server\Factory{
-    public static function getServerName($type){
+    public static function getServerName($name){
         $server_name = 'LAEStorage';
-        switch($type){
+        switch($name){
             case 'storage':
                 if(APPENGINE=='SAE'){
                     if (function_exists('SAEStorage')) $server_name = 'SAEStorage' ;

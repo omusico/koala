@@ -1,9 +1,9 @@
 <?php
 namespace Server\Channel;
 class Factory extends \Server\Factory{
-    public static function getServerName($type){
+    public static function getServerName($name){
         $server_name = 'LAEChannel';
-        switch($type){
+        switch($name){
             case 'channel':
                 if(APPENGINE=='SAE'){
                     if (function_exists('SAEChannel')) $server_name = 'SAEChannel' ;
@@ -17,4 +17,3 @@ class Factory extends \Server\Factory{
          return self::getRealName('Channel',$server_name);
     }
 }
-?>

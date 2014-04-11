@@ -1,9 +1,9 @@
 <?php
 namespace Server\Rank;
 class Factory extends \Server\Factory{
-    public static function getServerName($type){
+    public static function getServerName($name){
         $server_name = 'LAERank';
-        switch($type){
+        switch($name){
             case 'rank':
                 if(APPENGINE=='SAE'){
                     if (function_exists('SAERank')) self::$cache_type = 'SAERank' ;

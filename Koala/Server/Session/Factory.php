@@ -1,9 +1,9 @@
 <?php
 namespace Server\Session;
 class Factory extends \Server\Factory{
-    public static function getServerName($type){
+    public static function getServerName($name){
         $server_name = 'FileStream';
-        switch($type){
+        switch($name){
             case 'file':
             default:
                 $server_name = 'FileStream';

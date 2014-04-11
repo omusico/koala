@@ -46,9 +46,10 @@ class Controller{
 	 * 自定义控制器加载方案
 	 * 
 	 * @param  String/Closure $closure 闭包函数 默认为空
+	 * @static
 	 * @return 
 	 */
-	public function register($closure=null){
+	public static function register($closure=null){
 		if($closure==null){
 			ClassLoader::initialize(function($instance){
 		        //注册_autoload函数
