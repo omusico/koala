@@ -10,10 +10,11 @@
  * 
  * @package  Koala
  * @subpackage  Server
+ * @abstract
  * @author    Lunnlew <Lunnlew@gmail.com>
  */
 namespace Server;
-class Factory implements interf{
+abstract class Factory implements interf{
     /**
      * 获得服务驱动实例
      * 

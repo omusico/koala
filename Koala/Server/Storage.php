@@ -30,16 +30,16 @@ class Storage{
   	 */
 	public static function factory($name='',$options=array()){
 	    if(empty($name)||!is_string($name)){
-			$name = C('Storage:DEFAULT','LAEStorage');
-		}
-		if(!isset(self::$handlers[$name])){
-			$c_options = C('Storage:'.$name);
-		if(empty($c_options)){
-		    $c_options = array();
-		}
-			$options = array_merge($c_options,$options);
-			self::$handlers[$name] = Server\Storage\Factory::getInstance($name,$options);
-		}
+  			$name = C('Storage:DEFAULT','LAEStorage');
+  		}
+  		if(!isset(self::$handlers[$name])){
+  			$c_options = C('Storage:'.$name);
+  		if(empty($c_options)){
+  		    $c_options = array();
+  		}
+  			$options = array_merge($c_options,$options);
+  			self::$handlers[$name] = Server\Storage\Factory::getInstance($name,$options);
+  		}
 	    return self::$objects[$name];
 	 }
 }
