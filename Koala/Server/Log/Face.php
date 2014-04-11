@@ -1,5 +1,6 @@
 <?php
-interface Server_Log_Face{
+namespace Server\Log;
+interface Face{
 	/**
      * System is unusable.
      *

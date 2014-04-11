@@ -1,5 +1,6 @@
 <?php
-class Server_Log_Base implements Server_Log_Face{
+namespace Server\Log;
+class Base implements Face{
 	/**
      * System is unusable.
      *
