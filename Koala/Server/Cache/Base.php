@@ -1,4 +1,15 @@
 <?php
+/**
+ * Koala - A PHP Framework For Web
+ *
+ * @package  Koala
+ * @author   Lunnlew <Lunnlew@gmail.com>
+ */
+/**
+ * 缓存基类
+ * @package  Koala\Server\Cache
+ * @author    Lunnlew <Lunnlew@gmail.com>
+ */
 namespace Server\Cache;
 class Base implements Face{
     /**
