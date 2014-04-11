@@ -42,7 +42,7 @@ KoalaCore::initialize(function(){
         'Helper' => FRAME_PATH,
         'Base' => FRAME_PATH.'Core',
         'Core' => FRAME_PATH,
-        'Server' => FRAME_PATH.'Core',
+        'Server' => FRAME_PATH,
         'Plugin' => array(FRAME_PATH.'Addons',APP_ADDONS_PATH),
         'Minion' => FRAME_PATH.'Addons',
         'Resource'=>FRAME_PATH.'Addons',
@@ -50,7 +50,7 @@ KoalaCore::initialize(function(){
     $instance->registerDirs(array(
         FRAME_PATH.'Core',
         FRAME_PATH.'Tests',
-        FRAME_PATH.'Core/Server',
+        FRAME_PATH.'Server',
         FRAME_PATH.'Addons/Compatible',
         ));
     //系统内置函数库
