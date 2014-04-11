@@ -13,13 +13,14 @@
  * @author    Lunnlew <Lunnlew@gmail.com>
  */
 namespace Server;
-abstract class Factory implements interf{
+class Factory implements interf{
     /**
      * 获得服务驱动实例
      * 
      * @param  string $name 服务驱动名
      * @param  array  $option 配置数组
      * @final
+     * @static
      * @return object  实例
      */
 	final public static function getInstance($name,$option=array()){
@@ -35,6 +36,7 @@ abstract class Factory implements interf{
      * 
 	 * @param  string $server_name 服务驱动名
      * @access protected
+     * @static
 	 * @return string              完整服务驱动类名
 	 */
     protected static function getRealName($name,$server_name){

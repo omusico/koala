@@ -16,6 +16,7 @@ class Collection{
     /**
     * 操作句柄数组
     * @var array
+    * @static
     * @access protected
     */
     protected static $handlers = array();
@@ -25,6 +26,7 @@ class Collection{
      * @param  string $name    驱动名
      * @param  array  $options 驱动构造参数
      * @param  boolean $new    是否初始化新实例 默认false
+     * @static
      * @return object          驱动实例
      */
 	public static function factory($name='',$options=array(),$new=false){

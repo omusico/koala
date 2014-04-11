@@ -16,6 +16,7 @@ class Cache{
   	/**
    	* 操作句柄数组
    	* @var array
+   	* @static
    	* @access protected
    	*/
   	protected static $handlers = array();
@@ -24,6 +25,7 @@ class Cache{
   	 * 
   	 * @param  string $name    驱动名
   	 * @param  array  $options 驱动构造参数
+  	 * @static
   	 * @return object          驱动实例
   	 */
 	public static function factory($name='',$options=array()){
