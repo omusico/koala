@@ -1,14 +1,29 @@
 <?php
+/**
+ * Koala - A PHP Framework For Web
+ *
+ * @package  Koala
+ * @author   Lunnlew <Lunnlew@gmail.com>
+ */
+/**
+ * 服务工厂类
+ * 
+ * @package  Koala
+ * @subpackage  Server
+ * @author    Lunnlew <Lunnlew@gmail.com>
+ */
 namespace Server;
 abstract class Factory implements interf{
     /**
      * 获得服务驱动实例
-     * @param  string $type 服务类型
+     * 
+     * @param  string $name 服务驱动名
      * @param  array  $option 配置数组
+     * @final
      * @return object  实例
      */
-	public static function getInstance($type,$option=array()){
-		$class = static::getServerName(strtolower($type));
+	final public static function getInstance($name,$option=array()){
+		$class = static::getServerName(strtolower($name));
 		if(class_exists($class)){
             return new $class($option);
         } 
@@ -17,10 +32,12 @@ abstract class Factory implements interf{
 	}
 	/**
 	 * 组装完整服务类名
+     * 
 	 * @param  string $server_name 服务驱动名
+     * @access protected
 	 * @return string              完整服务驱动类名
 	 */
-    protected static function getRealName($type,$server_name){
-    	return 'Server\\'.ucwords($type).'\Drive\\'.$server_name;
+    protected static function getRealName($name,$server_name){
+    	return 'Server\\'.ucwords($name).'\Drive\\'.$server_name;
     }
 }
