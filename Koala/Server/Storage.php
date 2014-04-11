@@ -1,28 +1,43 @@
 <?php
 /**
- * 
- *存储服务
+ * Koala - A PHP Framework For Web
  *
+ * @package  Koala
+ * @author   Lunnlew <Lunnlew@gmail.com>
+ */
+/**
+ * Storage服务类
+ * 
+ * @package  Koala
+ * @subpackage  Server
+ * @author    Lunnlew <Lunnlew@gmail.com>
  */
 class Storage{
-  /**
-   * 操作句柄数组
-   * @var array
-   */
-  static protected $handlers = array();
-    public function __construct(){}
-    public static function factory($type='',$options=array()){
-      if(empty($type)||!is_string($type)){
-        $type = C('Storage:DEFAULT','LAEStorage');
-      }
-      if(!isset(self::$handlers[$type])){
-        $c_options = C('Storage:'.$type);
-        if(empty($c_options)){
-            $c_options = array();
-        }
-        $options = array_merge($c_options,$options);
-        self::$handlers[$type] = Server\Storage\Factory::getInstance($type,$options);
-      }
-      return self::$handlers[$type];
-    }
+  	/**
+   	* 操作句柄数组
+   	* @var array
+   	* @access protected
+   	*/
+  	protected static $handlers = array();
+  	/**
+  	 * 访问控制实例化函数
+  	 * 
+  	 * @param  string $name    驱动名
+  	 * @param  array  $options 驱动构造参数
+  	 * @return object          驱动实例
+  	 */
+	public static function factory($name='',$options=array()){
+	    if(empty($name)||!is_string($name)){
+			$name = C('Storage:DEFAULT','LAEStorage');
+		}
+		if(!isset(self::$handlers[$name])){
+			$c_options = C('Storage:'.$name);
+		if(empty($c_options)){
+		    $c_options = array();
+		}
+			$options = array_merge($c_options,$options);
+			self::$handlers[$name] = Server\Storage\Factory::getInstance($name,$options);
+		}
+	    return self::$objects[$name];
+	 }
 }

@@ -1,24 +1,43 @@
 <?php
 /**
- * 
- *分词服务
+ * Koala - A PHP Framework For Web
  *
+ * @package  Koala
+ * @author   Lunnlew <Lunnlew@gmail.com>
+ */
+/**
+ * 分词服务类
+ * 
+ * @package  Koala
+ * @subpackage  Server
+ * @author    Lunnlew <Lunnlew@gmail.com>
  */
 class Segment{
-	static $objects = null;
-  	public function __construct(){}
-	public static function factory($type='',$options=array()){
-	    if(empty($type)||!is_string($type)){
-	      $type = C('Segment:DEFAULT','LAESegment');
-	    }
-	    if(!isset(self::$objects[$type])){
-	    	$c_options = C('Segment:'.$type);
-        if(empty($c_options)){
-            $c_options = array();
-        }
-        $options = array_merge($c_options,$options);
-	      self::$objects[$type] = Server\Segment\Factory::getInstance($type,C('Segment:'.$type));
-	    }
-	    return self::$objects[$type];
+  	/**
+   	* 操作句柄数组
+   	* @var array
+   	* @access protected
+   	*/
+  	protected static $handlers = array();
+  	/**
+  	 * 访问控制实例化函数
+  	 * 
+  	 * @param  string $name    驱动名
+  	 * @param  array  $options 驱动构造参数
+  	 * @return object          驱动实例
+  	 */
+	public static function factory($name='',$options=array()){
+	    if(empty($name)||!is_string($name)){
+			$name = C('Segment:DEFAULT','Segment');
+		}
+		if(!isset(self::$handlers[$name])){
+			$c_options = C('Segment:'.$name);
+		if(empty($c_options)){
+		    $c_options = array();
+		}
+			$options = array_merge($c_options,$options);
+			self::$handlers[$name] = Server\Segment\Factory::getInstance($name,$options);
+		}
+	    return self::$objects[$name];
 	 }
 }
