@@ -1,9 +1,28 @@
 <?php
+/**
+ * Koala - A PHP Framework For Web
+ *
+ * @package  Koala
+ * @author   Lunnlew <Lunnlew@gmail.com>
+ */
+/**
+ * 缓存工厂实现
+ * 
+ * @package  Koala\Server\Cache
+ * @author    Lunnlew <Lunnlew@gmail.com>
+ * @final
+ */
 namespace Server\Cache;
-class Factory extends \Server\Factory{
-    public static function getServerName($type){
+final class Factory extends \Server\Factory{
+    /**
+     * 获取正式服务名
+     * @param  string $name 服务名
+     * @static
+     * @return string       正式服务名
+     */
+    public static function getServerName($name){
         $server_name = 'LAEMemcache';
-        switch ($type) {
+        switch ($name) {
             case 'memcache':
                 if(APPENGINE=='SAE'){
                     if (function_exists('memcache_init')) $server_name = 'SAEMemcache' ;
@@ -39,4 +58,3 @@ class Factory extends \Server\Factory{
         return self::getRealName('Cache',$server_name);
     }
 }
-?>

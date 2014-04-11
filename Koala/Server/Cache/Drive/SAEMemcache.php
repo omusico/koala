@@ -1,12 +1,25 @@
 <?php
+/**
+ * Koala - A PHP Framework For Web
+ *
+ * @package  Koala
+ * @author   Lunnlew <Lunnlew@gmail.com>
+ */
+/**
+ * SAE Memcache缓存实现
+ * 
+ * @package  Koala\Server\Cache
+ * @subpackage  Drive
+ * @author    Lunnlew <Lunnlew@gmail.com>
+ * @final
+ */
 namespace Server\Cache\Drive;
 use Server\Cache\Base;
-class SAEMemcache extends Base{
-    protected $version = 1; 
-    /**
-     *配置信息，servers支持配置多个服务器,servers=>array(array('host'=>'host1', 'port'=>11211),array('host'=>'host2', 'port'=>11211))
+final class SAEMemcache extends Base{
+     /**
+     * 构造函数
+     * @param array $options 配置选项
      */
-    public $option = array();
     function __construct($option=array()){
         if(!empty($option)){
             $this->option = $option + $this->option;//合并配置
@@ -26,6 +39,12 @@ class SAEMemcache extends Base{
         }
         
     } 
+    /**
+     * 设置缓存值
+     * @param string  $key    缓存key
+     * @param string  $var    缓存值
+     * @param integer $expire 过期时间
+     */
     function set($key, $var,$compress='',$expire=3600){ 
         if(!$this->mmc)return; 
         if(!$expire){
@@ -36,27 +55,59 @@ class SAEMemcache extends Base{
         }
         return $this->mmc->set($this->key($key), $var,$this->option['compress'] ? MEMCACHE_COMPRESSED : 0, $expire); 
     } 
+    /**
+     * 获取缓存值
+     * @param string  $key    缓存key
+     * @return fixed      缓存值
+     */
     function get($key){
         if(!$this->mmc)return;
         return $this->mmc->get($this->key($key)); 
-    } 
+    }
+    /**
+     * 增值操作
+     * @param  string  $key    缓存key
+     * @param  integer $value 整数值 默认为1
+     * @return bool          value/false
+     */
     function incr($key, $value=1){ 
         if(!$this->mmc)return; 
         return $this->mmc->increment($this->key($key), $value); 
     } 
+    /**
+     * 减值操作
+     * @param  string  $key    缓存key
+     * @param  integer $value 整数值 默认为1
+     * @return bool         value/false
+     */
     function decr($key, $value=1){ 
         if(!$this->mmc)return; 
         return $this->mmc->decrement($this->key($key), $value); 
     } 
+    /**
+     * 删除缓存项
+     * @param  string  $key    缓存key
+     * @return bool         true/false
+     */
     function delete($key){ 
         if(!$this->mmc)return; 
         return $this->mmc->delete($this->key($key)); 
     }
+    /**
+     * 压缩缓存项
+     *
+     * 默认大于2k以0.2压缩比压缩.
+     * @param  integer $threshold   数据大小
+     * @param  float   $min_savings 压缩比
+     */
     function compress($threshold=2000,$min_savings=0.2){
-        //大于2k以0.2压缩比压缩.
         if(!$this->mmc)return; 
         $this->mmc->setCompressThreshold($threshold,$min_savings); 
     }
+    /**
+     * 缓存过期
+     * @return
+     */
     function flush(){ 
         if(!$this->mmc)return;
         if( FALSE === $this->version){ 
@@ -66,9 +117,12 @@ class SAEMemcache extends Base{
         }
         $this->mmc->set('version_'.$this->group(), $this->version); 
     }
+    /**
+     * 缓存清空
+     * @return
+     */
     function flushAll(){ 
         if(!$this->mmc)return; 
          return $this->mmc->flush();
     }
-} 
-?>
+}

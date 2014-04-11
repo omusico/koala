@@ -1,30 +1,35 @@
 <?php
 namespace Server\Cache;
 class Base implements Face{
-    public function __construct(){}
-    //获得指定key的值
-    public function get($key){
-        return $this->get($key);
-    }
-    //设置key的值为value,并设置过期时间
-    public function set($key,$value,$expire=3600){
-        return $this->set($key,$value,$expire);
-    }
-    //删除指定key
-    public function delete($key){
-        return $this->delete($key);
-    }
-    //缓存清空
-    public function flush(){
-        return $this->flush($key);
-    }
-
-
+    /**
+     * 配置项
+     * @var array
+     * @access protected
+     */
+    protected $options=array(
+        'group'=>'[APP_NAME][APP_VERSION]',
+        'expire'=>3600,
+        'compress'=>1
+    );
+    /**
+     * 缓存数据版本,用于缓存立即失效
+     * @var integer
+     * @access protected
+     */
+    protected $version = 1;
+    /**
+     * 生成完整缓存key
+     * @param  string $key 缓存key
+     * @return string $key 完整缓存key
+     */
     function key($key){
         return $this->option['group'].'_'.$this->version.'_'.$key;
     }
+    /**
+     * 缓存组
+     * @return string 缓存组
+     */
     function group(){
         return $this->option['group'];
     }
 }
-?>
