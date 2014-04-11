@@ -30,16 +30,16 @@ class Segment{
   	 */
 	public static function factory($name='',$options=array()){
 	    if(empty($name)||!is_string($name)){
-			$name = C('Segment:DEFAULT','Segment');
-		}
-		if(!isset(self::$handlers[$name])){
-			$c_options = C('Segment:'.$name);
-		if(empty($c_options)){
-		    $c_options = array();
-		}
-			$options = array_merge($c_options,$options);
-			self::$handlers[$name] = Server\Segment\Factory::getInstance($name,$options);
-		}
+    			$name = C('Segment:DEFAULT','Segment');
+    		}
+    		if(!isset(self::$handlers[$name])){
+    			$c_options = C('Segment:'.$name);
+    		if(empty($c_options)){
+    		    $c_options = array();
+    		}
+    			$options = array_merge($c_options,$options);
+    			self::$handlers[$name] = Server\Segment\Factory::getInstance($name,$options);
+    		}
 	    return self::$objects[$name];
 	 }
 }
