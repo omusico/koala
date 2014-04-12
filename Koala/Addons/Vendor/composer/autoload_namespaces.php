@@ -6,8 +6,10 @@ $vendorDir = dirname(dirname(__FILE__));
 $baseDir = dirname(dirname(dirname($vendorDir)));
 
 return array(
+    'Ubench' => array($vendorDir . '/devster/ubench/src'),
     'Twig_' => array($vendorDir . '/twig/twig/lib'),
     'Symfony\\Component\\Yaml\\' => array($vendorDir . '/symfony/yaml'),
     'Psr\\Log\\' => array($vendorDir . '/psr/log'),
+    'Monolog' => array($vendorDir . '/monolog/monolog/src'),
     'Hautelook' => array($vendorDir . '/hautelook/phpass/src'),
 );

@@ -56,12 +56,15 @@ KoalaCore::initialize(function(){
     //系统内置函数库
     $instance->LoadFunc('Func','Common,Special');
     });
+    //配置初始化
+    Config::initialize(function($instance){
+        //默认文件
+        $instance->loadConfig(FRAME_PATH.'Config'.DIRECTORY_SEPARATOR.'Global.default.php');
+    });
     //检查环境
     require_once(FRAME_PATH.'Initialise/checkEnv.php');
     //加载常量
     include(FRAME_PATH.'Initialise/Constant'.APPENGINE.'.php');
-    //composer第三方库加载支持
-    is_file(FRAME_PATH.'Addons/vendor/autoload.php') AND require FRAME_PATH.'Addons/vendor/autoload.php';
     //++++++++++++++++++++++++调试及错误设置++++++++++++++++++++++++++++
     $log = Log::factory('monolog');
     ErrorHandler::register('monolog',array($log),function()use($log){
@@ -87,11 +90,7 @@ KoalaCore::initialize(function(){
     });
     //加载云服务类支持(如BAE类库)
     (APPENGINE!="LAE") AND include(FRAME_PATH.'Initialise/Class'.APPENGINE.".php");
-    //配置初始化
-    Config::initialize(function($instance){
-        //默认文件
-        $instance->loadConfig(FRAME_PATH.'Config'.DIRECTORY_SEPARATOR.'Global.default.php');
-    });
+    
     //插件支持
     Plugin::loadPlugin();
 });
