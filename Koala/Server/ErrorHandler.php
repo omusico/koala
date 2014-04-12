@@ -14,6 +14,13 @@
  */
 class ErrorHandler{
   	/**
+   	* 服务驱动实例数组
+   	* @var array
+   	* @static
+   	* @access protected
+   	*/
+  	protected static $instances = array();
+  	/**
    	* 操作句柄数组
    	* @var array
    	* @static
@@ -32,15 +39,27 @@ class ErrorHandler{
 		if(empty($name)||!is_string($name)){
 			$name = C('ErrorHandler:DEFAULT','ErrorHandler');
 		}
-		if(!isset(self::$handlers[$name])){
+		if(!isset(self::$instances[$name])){
 			$c_options = C('ErrorHandler:'.$name);
 			if(empty($c_options)){
 				$c_options = array();
 			}
 			$options = array_merge($c_options,$options);
 			$class = Server\ErrorHandler\Factory::getServerName($name);
-			self::$handlers[$name] = call_user_func_array("$class::register",$options);
+			self::$instances[$name] = call_user_func_array("$class::register",$options);
 		}
-		return self::$handlers[$name];
+		return self::$instances[$name];
+	}
+	/**
+  	 * 注册句柄
+  	 * 
+  	 * @param  string $name    驱动名
+  	 * @param  array  $options 驱动构造参数
+  	 * @param  Closure  $closure 闭包函数
+  	 * @static
+  	 */
+	public static function register($name='',$options=array(),Closure $closure){
+		$errorhandler = self::factory($name,$options);
+		$closure($errorhandler);
 	}
 }

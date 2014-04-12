@@ -51,19 +51,6 @@ env::check("PHP_VERSION",function($value,$key){
 		});
 	}
 });
-//调试模式的全局设置
-env::check("DEBUG",function($key){
-	//调试模式显示所有错误信息
-	if(DEBUG){
-		ini_set("display_errors","On");
-	}else{
-		//关掉错误提示
-		error_reporting(0);
-		ini_set("display_errors","Off");
-	}
-	
-});
-
 /**
  * 环境信息
  */

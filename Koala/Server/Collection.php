@@ -14,12 +14,12 @@
  */
 class Collection{
     /**
-    * 操作句柄数组
+    * 服务驱动实例数组
     * @var array
     * @static
     * @access protected
     */
-    protected static $handlers = array();
+    protected static $instances = array();
     /**
      * 服务实例化函数
      * 
@@ -33,14 +33,14 @@ class Collection{
         if(empty($name)||!is_string($name)){
             $name = C('Collection:DEFAULT','data');
         }
-        if($new || !isset(self::$handlers[$name])){
+        if($new || !isset(self::$instances[$name])){
             $c_options = C('Collection:'.$name);
             if(empty($c_options)){
                 $c_options = array();
             }
             $options = array_merge($c_options,$options);
-            self::$handlers[$name] = Server\Collection\Factory::getInstance($name,$options);
+            self::$instances[$name] = Server\Collection\Factory::getInstance($name,$options);
         }
-        return self::$handlers[$name];
+        return self::$instances[$name];
     }
 }

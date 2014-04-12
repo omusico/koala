@@ -6,24 +6,24 @@
  */
 class Route{
     /**
-    * 操作句柄数组
+    * 服务驱动实例数组
     * @var array
     */
-    static protected $handlers = array();
+    static protected $instances = array();
     public function __construct(){}
     public static function factory($options=array(),$type='',$new=false){
         if(empty($type)||!is_string($type)){
             $type = C('Route:DEFAULT','Route');
         }
-        if($new || !isset(self::$handlers[$type])){
+        if($new || !isset(self::$instances[$type])){
             $c_options = C('Route:'.$type);
             if(empty($c_options)){
                 $c_options = array();
             }
             $options = array_merge($c_options,$options);
-            self::$handlers[$type] = Server\Route\Factory::getInstance($type,$options);
+            self::$instances[$type] = Server\Route\Factory::getInstance($type,$options);
         }
-        return self::$handlers[$type];
+        return self::$instances[$type];
     }
     //响应绑定
     public static function respond($method, $path = '*', $callback = null){

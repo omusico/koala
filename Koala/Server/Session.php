@@ -14,12 +14,12 @@
  */
 class Session{
     /**
-    * 操作句柄数组
+    * 服务驱动实例数组
     * @var array
     * @static
     * @access protected
     */
-    protected static $handlers = array();
+    protected static $instances = array();
     /**
      * 服务实例化函数
      * 
@@ -33,15 +33,15 @@ class Session{
         if(empty($stream_name)||!is_string($stream_name)){
             $stream_name = C('Session:DEFAULT','file');
         }
-        if($new || !isset(self::$handlers[$stream_name])){
+        if($new || !isset(self::$instances[$stream_name])){
             $c_options = C('Session:'.$stream_name);
             if(empty($c_options)){
                 $c_options = array();
             }
             $options = array_merge($c_options,$options);
-            self::$handlers[$stream_name] = Server\Session\Factory::getInstance($stream_name,$options);
+            self::$instances[$stream_name] = Server\Session\Factory::getInstance($stream_name,$options);
         }
-        $sess = self::$handlers[$stream_name];
+        $sess = self::$instances[$stream_name];
         session_write_close();
         session_set_save_handler(
             array(&$sess,"open"),
@@ -52,6 +52,6 @@ class Session{
             array(&$sess,"gc"));
         register_shutdown_function('session_write_close');
         session_start();
-        return self::$handlers[$stream_name];
+        return self::$instances[$stream_name];
     }
 }

@@ -64,9 +64,21 @@ KoalaCore::initialize(function(){
     require FRAME_PATH.'Addons/vendor/autoload.php';
     //++++++++++++++++++++++++系统调试及错误设置++++++++++++++++++++++++++++
     $log = Log::factory('monolog');
-    ErrorHandler::factory('monolog',array($log));
-    $log->pushHandler(new AEStreamHandler('Log/'.date('Y-m-d')."/ERROR.log", Log::ERROR));
-    $log->pushHandler(new AEStreamHandler('Log/'.date('Y-m-d')."/WARN.log", Log::WARNING));
+    ErrorHandler::register('monolog',array($log),function()use($log){
+        switch (C('DEBUGLEVEL',1)) {
+            case 2://调试模式
+                ini_set("display_errors","On");
+                break;
+            case 1://默认模式
+            default:
+                //关掉错误提示
+                error_reporting(0);
+                ini_set("display_errors","Off");
+                break;
+        }
+        $log->pushHandler(new AEStreamHandler('Log/'.date('Y-m-d')."/ERROR.log", Log::ERROR));
+        $log->pushHandler(new AEStreamHandler('Log/'.date('Y-m-d')."/WARN.log", Log::WARNING));
+    });
     //加载云服务类支持(如BAE类库)
     (APPENGINE!="LAE") AND include(FRAME_PATH.'Initialise/Class'.APPENGINE.".php");
     //配置初始化
@@ -77,4 +89,3 @@ KoalaCore::initialize(function(){
     //插件支持
     Plugin::loadPlugin();
 });
-

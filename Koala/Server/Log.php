@@ -14,12 +14,12 @@
  */
 class Log{
     /**
-    * 操作句柄数组
+    * 服务驱动实例数组
     * @var array
     * @static
     * @access protected
     */
-    protected static $handlers = array();
+    protected static $instances = array();
 	/**
      * 详细调试信息
      */
@@ -80,14 +80,14 @@ class Log{
 		if(empty($name)||!is_string($name)){
 			$name = C('Log:DEFAULT','Monolog');
 		}
-		if(!isset(self::$handlers[$name])){
+		if(!isset(self::$instances[$name])){
             $c_options = C('Log:'.$name);
             if(empty($c_options)){
                 $c_options = array();
             }
             $options = array_merge($c_options,$options);
-			self::$handlers[$name] = Server\Log\Factory::getInstance($name,$options);
+			self::$instances[$name] = Server\Log\Factory::getInstance($name,$options);
 		}
-		return self::$handlers[$name];
+		return self::$instances[$name];
 	}
 }

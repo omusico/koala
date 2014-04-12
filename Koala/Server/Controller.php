@@ -14,12 +14,12 @@
  */
 class Controller{
   	/**
-   	* 操作句柄数组
+   	* 服务驱动实例数组
    	* @var array
    	* @static
    	* @access protected
    	*/
-  	protected static $handlers = array();
+  	protected static $instances = array();
   	/**
   	 * 服务实例化函数
   	 * 
@@ -32,15 +32,15 @@ class Controller{
 		if(empty($name)||!is_string($name)){
 			$name = C('Controller:DEFAULT','Controller');
 		}
-		if(!isset(self::$handlers[$name])){
+		if(!isset(self::$instances[$name])){
 			$c_options = C('Controller:'.$name);
 			if(empty($c_options)){
 				$c_options = array();
 			}
 			$options = array_merge($c_options,$options);
-			self::$handlers[$name] = Server\Controller\Factory::getInstance($name,$options);
+			self::$instances[$name] = Server\Controller\Factory::getInstance($name,$options);
 		}
-		return self::$handlers[$name];
+		return self::$instances[$name];
 	}
 	/**
 	 * 自定义控制器加载方案

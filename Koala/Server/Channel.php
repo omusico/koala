@@ -14,12 +14,12 @@
  */
 class Channel{
   	/**
-   	* 操作句柄数组
+   	* 服务驱动实例数组
    	* @var array
    	* @static
    	* @access protected
    	*/
-  	protected static $handlers = array();
+  	protected static $instances = array();
   	/**
   	 * 服务实例化函数
   	 * 
@@ -32,14 +32,14 @@ class Channel{
 		if(empty($name)||!is_string($name)){
 			$name = C('Channel:DEFAULT','LAEChannel');
 		}
-		if(!isset(self::$handlers[$name])){
+		if(!isset(self::$instances[$name])){
 			$c_options = C('Channel:'.$name);
 			if(empty($c_options)){
 				$c_options = array();
 			}
 			$options = array_merge($c_options,$options);
-			self::$handlers[$name] = Server\Channel\Factory::getInstance($name,$options);
+			self::$instances[$name] = Server\Channel\Factory::getInstance($name,$options);
 		}
-		return self::$handlers[$name];
+		return self::$instances[$name];
 	}
 }
