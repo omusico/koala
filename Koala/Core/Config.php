@@ -13,9 +13,13 @@ class Config extends Initial{
 	 * 获得配置项
 	 * @param  string $key    配置项
 	 * @param  string $config 配置数组
+	 * @param  bool $runtime  运行时设置 true/false
 	 * @return fixed          配置项值
 	 */
-	public static function getItem($key,$defv=''){
+	public static function getItem($key,$defv='',$runtime=false){
+		if($runtime && $defv!=''){
+			return $defv;
+		}
 		$arr = explode(':',$key);
 		if(count($arr)>1){
 			list($key,$subkey) = $arr;
@@ -40,9 +44,13 @@ class Config extends Initial{
 	 * 获得配置项
 	 * @param  array $keys   配置项数组
 	 * @param  string $config 配置数组
+	 * @param  bool $runtime  运行时设置 true/false
 	 * @return fixed          配置项值数组
 	 */
-	public static function getItems($keys,$defvs=array()){
+	public static function getItems($keys,$defvs=array(),$runtime=false){
+		if($runtime && !empty($defvs)){
+			return $defvs;
+		}
 		$cfgs = array();
 		if(is_string($keys)){
 			//字符参数默认以,号作为间隔符
