@@ -38,10 +38,11 @@ $cfg['Template_Engine']=array(
   );
 $cfg['TMPL_ACTION_SUCCESS'] = 'Public/page/dispatch_jump';
 $cfg['TMPL_ACTION_ERROR'] = 'Public/page/dispatch_jump';
-//PATHINFO相关配置
+
 $cfg['URLMODE']=1;//1普通,2pathinfo,3兼容
 $cfg['URL_PATHINFO_DEPR'] = '/';
 $cfg["URL_HTML_SUFFIX"]='.html';
+$cfg["URL_VAR"]='s';
 
 //多应用相关配置
 $cfg['MULTIPLE_APP']=0;

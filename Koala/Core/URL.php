@@ -105,6 +105,7 @@ class URL{
 	}
 	//PATHINFO模式URL解析
 	protected static function ParserInPathinfo(){
+		$one = $two = $_params = array();
 		$str = self::$_items['pathinfo'];
 		if($suffix = C('URL_HTML_SUFFIX','.html')){
 			if(stripos($str,$suffix)!==false)
@@ -112,40 +113,9 @@ class URL{
 		}
 		//获取pathinfo并去除空值
 		$_paths = array_filter(explode(C('URL_PATHINFO_DEPR'),$str));
-		//是否启用了多应用模式//默认单应用
-		if(C('MULTIPLE_APP',0)){
-			//如果在已有的应用列表中
-			if(in_array(current($_paths),C('APP:LIST',array('APP1')))){
-				$app_name = $result[] = ucwords(array_shift($_paths));
-			}else{
-				$app_name = $result[] = C('APP:DEFAULT','APP1');
-			}
-			define('APP_NAME',$app_name);
-		}
-		//是否启用了多分组//默认多分组
-		if(C('MULTIPLE_GROUP',1)){
-			//如果在已有的分组列表中
-			if(in_array(current($_paths),C('GROUP:LIST',array('Home')))){
-				$group_name = $result[] = ucfirst(array_shift($_paths));
-			}else{
-				$group_name = $result[] = C('GROUP:DEFAULT','Home');
-			}
-			define('GROUP_NAME',$group_name);
-		}
-		//模块
-		if(empty($_paths)){
-			$module_name = $result[] = ucfirst(C('MODULE:DEFAULT','Index'));
-		}else{
-			$module_name = $result[] = ucfirst(array_shift($_paths));
-		}
-		define('MODULE_NAME',$module_name);
-		//action
-		if(empty($_paths)){
-			$action_name =$result[] =  C('ACTION:DEFAULT','index');
-		}else{
-			$action_name = $result[] = array_shift($_paths);
-		}
-		define('ACTION_NAME',$action_name);
+
+		self::ParserPaths($_paths,$result);
+
 		//剩余参数
 		if(!empty($_paths)){
 			if(count($_paths)%2!=0){
@@ -160,16 +130,87 @@ class URL{
 			}
 			$_params = array_combine($one,$two);
 		}
-		//可能存在的?后的参数进行合并
-		$queryParts = explode('&',self::$_items['query_string']);
-		$params = array();
-		foreach ($queryParts as $param){
-			$item = explode('=', $param);
-			$params[$item[0]] = $item[1];
-		}
+		parse_str(self::$_items['query_string'],$params);
+		$_params = array_merge($_params,$params);
 		//组装URL选项
 		$_options = array('paths'=>$result,'params'=>$_params);
 		return $_options;
+	}
+	protected static function ParserInCompatible(){
+		$one = $two = $_params = array();
+		$str = self::$_items['pathinfo'];
+
+		if($suffix = C('URL_HTML_SUFFIX','.html')){
+			if(stripos($str,$suffix)!==false)
+				$str = str_replace($suffix,'', $str);
+		}
+		parse_str($str,$param);
+		//获取pathinfo并去除空值
+		$_paths = array_filter(explode(C('URL_PATHINFO_DEPR','/'),$param[C('URL_VAR','s')]));
+
+		self::ParserPaths($_paths,$result);
+
+		//剩余参数
+		if(!empty($_paths)){
+			if(count($_paths)%2!=0){
+				array_pop($_paths);
+			}
+			//组装参数
+			foreach ($_paths as $key => $value) {
+				if($key%2==0)
+					$one[] = $value;
+				else
+					$two[] = $value;
+			}
+			$_params = array_combine($one,$two);
+		}
+		parse_str(self::$_items['query_string'],$params);
+		$_params = array_merge($_params,$params);
+		//组装URL选项
+		$_options = array('paths'=>$result,'params'=>$_params);
+		return $_options;
+	}
+	/**
+	 * 解析path 到 控制器 参数
+	 * 
+	 * @param array $paths path参数
+	 * @access protected
+	 */
+	protected static function ParserPaths(&$paths=array(),&$result=array()){
+		//是否启用了多应用模式//默认单应用
+		if(C('MULTIPLE_APP',0)){
+			//如果在已有的应用列表中
+			if(in_array(current($paths),C('APP:LIST',array('APP1')))){
+				$app_name = $result[] = ucwords(array_shift($paths));
+			}else{
+				$app_name = $result[] = C('APP:DEFAULT','APP1');
+			}
+			define('APP_NAME',$app_name);
+		}
+		//是否启用了多分组//默认多分组
+		if(C('MULTIPLE_GROUP',1)){
+			//如果在已有的分组列表中
+			if(in_array(current($paths),C('GROUP:LIST',array('Home')))){
+				$group_name = $result[] = ucfirst(array_shift($paths));
+			}else{
+				$group_name = $result[] = C('GROUP:DEFAULT','Home');
+			}
+			define('GROUP_NAME',$group_name);
+		}
+		//模块
+		if(empty($paths)){
+			$module_name = $result[] = ucfirst(C('MODULE:DEFAULT','Index'));
+		}else{
+			$module_name = $result[] = ucfirst(array_shift($paths));
+		}
+		define('MODULE_NAME',$module_name);
+		//action
+		if(empty($paths)){
+			$action_name =$result[] =  C('ACTION:DEFAULT','index');
+		}else{
+			$action_name = $result[] = array_shift($paths);
+		}
+		define('ACTION_NAME',$action_name);
 	}
 	/**
 	 * URL组装 支持不同URL模式 // Assembler('BlogAdmin/Index/Index#top@localhost?id=1');

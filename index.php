@@ -7,8 +7,16 @@ define('APP_VERSION','1');
 define('ENTRANCE_PATH',dirname(__FILE__).DIRECTORY_SEPARATOR);
 //应用绝对路径
 define('APP_PATH',ENTRANCE_PATH.'App'.DIRECTORY_SEPARATOR);
+
+//安装检测
+if(!is_file(APP_PATH . 'Custom/koala.php')){
+	header('Location: ./install.php?s=Install');
+	exit;
+}
+
 //框架绝对路径
 define('FRAME_PATH',ENTRANCE_PATH.'Koala'.DIRECTORY_SEPARATOR);
+
 if (!defined('START_TIME')){
 	define('START_TIME', $_SERVER['REQUEST_TIME_FLOAT']);
 }
