@@ -40,6 +40,6 @@ class Storage{
   			$options = array_merge($c_options,$options);
   			self::$instances[$name] = Server\Storage\Factory::getInstance($name,$options);
   		}
-	    return self::$objects[$name];
+	    return self::$instances[$name];
 	 }
 }

@@ -78,6 +78,7 @@ KoalaCore::initialize(function(){
         }
         $log->pushHandler(new AEStreamHandler('Log/'.date('Y-m-d')."/ERROR.log", Log::ERROR));
         $log->pushHandler(new AEStreamHandler('Log/'.date('Y-m-d')."/WARN.log", Log::WARNING));
+        $log->pushHandler(new Monolog\Handler\ChromePHPHandler(Log::ERROR));
     });
     //加载云服务类支持(如BAE类库)
     (APPENGINE!="LAE") AND include(FRAME_PATH.'Initialise/Class'.APPENGINE.".php");

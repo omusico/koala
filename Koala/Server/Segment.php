@@ -40,6 +40,6 @@ class Segment{
     			$options = array_merge($c_options,$options);
     			self::$instances[$name] = Server\Segment\Factory::getInstance($name,$options);
     		}
-	    return self::$objects[$name];
+	    return self::$instances[$name];
 	 }
 }
