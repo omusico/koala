@@ -21,8 +21,10 @@ class Engine_Smarty{
 			$smarty->setConfigDir($option['ConfigDir'],0);
 		if(isset($option['debugging']))
 			$smarty->debugging = $option['debugging'];
-		if(isset($option['caching']))
+		if(isset($option['caching'])){
 			$smarty->caching = $option['caching'];
+			$smarty->cache_dir = $option['CacheDir'];
+		}
 		else $smarty->caching = false;
 		if(isset($option['cache_lifetime']))
 			$smarty->cache_lifetime = $option['cache_lifetime'];

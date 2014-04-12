@@ -145,7 +145,7 @@ class URL{
 				$str = str_replace($suffix,'', $str);
 		}
 		parse_str($str,$param);
-		//获取pathinfo并去除空值
+		if(isset($param[C('URL_VAR','s')]))
 		$_paths = array_filter(explode(C('URL_PATHINFO_DEPR','/'),$param[C('URL_VAR','s')]));
 
 		self::ParserPaths($_paths,$result);
@@ -190,7 +190,7 @@ class URL{
 		//是否启用了多分组//默认多分组
 		if(C('MULTIPLE_GROUP',1)){
 			//如果在已有的分组列表中
-			if(in_array(current($paths),C('GROUP:LIST',array('Home')))){
+			if(is_array($paths)&&in_array(current($paths),C('GROUP:LIST',array('Home')))){
 				$group_name = $result[] = ucfirst(array_shift($paths));
 			}else{
 				$group_name = $result[] = C('GROUP:DEFAULT','Home');

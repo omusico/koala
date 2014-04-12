@@ -390,5 +390,10 @@ return array(
     'SebastianBergmann\\Exporter\\Exception' => $vendorDir . '/sebastian/exporter/src/Exception.php',
     'SebastianBergmann\\Exporter\\Exporter' => $vendorDir . '/sebastian/exporter/src/Exporter.php',
     'SebastianBergmann\\Version' => $vendorDir . '/sebastian/version/src/Version.php',
+    'Smarty' => $vendorDir . '/smarty/smarty/distribution/libs/Smarty.class.php',
+    'SmartyBC' => $vendorDir . '/smarty/smarty/distribution/libs/SmartyBC.class.php',
+    'SmartyCompilerException' => $vendorDir . '/smarty/smarty/distribution/libs/Smarty.class.php',
+    'SmartyException' => $vendorDir . '/smarty/smarty/distribution/libs/Smarty.class.php',
+    'Smarty_Security' => $vendorDir . '/smarty/smarty/distribution/libs/sysplugins/smarty_security.php',
     'Text_Template' => $vendorDir . '/phpunit/php-text-template/Text/Template.php',
 );
