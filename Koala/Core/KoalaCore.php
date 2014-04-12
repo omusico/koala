@@ -61,8 +61,8 @@ KoalaCore::initialize(function(){
     //加载常量
     include(FRAME_PATH.'Initialise/Constant'.APPENGINE.'.php');
     //composer第三方库加载支持
-    require FRAME_PATH.'Addons/vendor/autoload.php';
-    //++++++++++++++++++++++++系统调试及错误设置++++++++++++++++++++++++++++
+    is_file(FRAME_PATH.'Addons/vendor/autoload.php') AND require FRAME_PATH.'Addons/vendor/autoload.php';
+    //++++++++++++++++++++++++调试及错误设置++++++++++++++++++++++++++++
     $log = Log::factory('monolog');
     ErrorHandler::register('monolog',array($log),function()use($log){
         switch (C('DEBUGLEVEL',1)) {
