@@ -1,6 +1,6 @@
 <?php
 //调试级别
-define('DEBUGLEVEL',2);
+define('DEBUGLEVEL',4);
 //应用版本
 define('APP_VERSION','1');
 //入口绝对路径

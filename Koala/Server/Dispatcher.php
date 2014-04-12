@@ -19,7 +19,7 @@ class Dispatcher{
    	* @static
    	* @access protected
    	*/
-  	protected static $instances = array();
+  	protected static $instances = array();s
   	/**
   	 * 服务实例化函数
   	 * 

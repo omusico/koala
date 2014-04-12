@@ -66,10 +66,15 @@ KoalaCore::initialize(function(){
     $log = Log::factory('monolog');
     ErrorHandler::register('monolog',array($log),function()use($log){
         switch (C('DEBUGLEVEL',defined('DEBUGLEVEL')?DEBUGLEVEL:1)) {
-            case 2://调试模式
+            case 4://development//线下开发环境
                 ini_set("display_errors","On");
                 $log->pushHandler(new Monolog\Handler\ChromePHPHandler(Log::ERROR));
                 break;
+            case 3://test//线上测试环境
+                ini_set("display_errors","Off");
+                $log->pushHandler(new Monolog\Handler\ChromePHPHandler(Log::ERROR));
+                break;
+            case 2://production//线上生产环境
             case 1://默认模式
             default:
                 //关掉错误提示

@@ -35,8 +35,8 @@ env::reg('APP_RELATIVE_URL',function($key){
 
 //php最低版本
 env::reg('MIN_PHP_VERSION',function($key){return "5.3";});
-env::reg("DEBUG",function($key){
-		return DEBUG;
+env::reg("DEBUGLEVEL",function($key){
+		return defined('DEBUGLEVEL')?DEBUGLEVEL:C('DEBUGLEVEL',1);
 	});
 //--------------------信息检查---------------------
 env::check("PHP_VERSION",function($value,$key){
