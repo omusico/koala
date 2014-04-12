@@ -68,6 +68,7 @@ KoalaCore::initialize(function(){
         switch (C('DEBUGLEVEL',1)) {
             case 2://调试模式
                 ini_set("display_errors","On");
+                $log->pushHandler(new Monolog\Handler\ChromePHPHandler(Log::ERROR));
                 break;
             case 1://默认模式
             default:
@@ -78,7 +79,6 @@ KoalaCore::initialize(function(){
         }
         $log->pushHandler(new AEStreamHandler('Log/'.date('Y-m-d')."/ERROR.log", Log::ERROR));
         $log->pushHandler(new AEStreamHandler('Log/'.date('Y-m-d')."/WARN.log", Log::WARNING));
-        $log->pushHandler(new Monolog\Handler\ChromePHPHandler(Log::ERROR));
     });
     //加载云服务类支持(如BAE类库)
     (APPENGINE!="LAE") AND include(FRAME_PATH.'Initialise/Class'.APPENGINE.".php");
