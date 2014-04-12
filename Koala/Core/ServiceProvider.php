@@ -1,20 +1,18 @@
 <?php
 /**
+ * Koala - A PHP Framework For Web
+ *
+ * @package  Koala
+ * @author   Lunnlew <Lunnlew@gmail.com>
+ */
+/**
  * ServiceProvider 
  *
- * Service provider class for handling logic extending between
- * a request's data and a response's behavior
- * 
+ * 处理基于请求数据和响应行为的逻辑服务提供类
  */
-class ServiceProvider
-{
-
+class ServiceProvider{
     /**
-     * Class properties
-     */
-
-    /**
-     * The Request instance containing HTTP request data and behaviors
+     * 包含请求数据和请求行为的请求实例
      *
      * @var Request
      * @access protected
@@ -22,7 +20,7 @@ class ServiceProvider
     protected $request;
 
     /**
-     * The Response instance containing HTTP response data and behaviors
+     * 包含响应数据和响应行为的响应实例
      *
      * @var Response
      * @access protected
@@ -30,7 +28,7 @@ class ServiceProvider
     protected $response;
 
     /**
-     * The id of the current PHP session
+     * 当前请求的PHP SESSION ID
      *
      * @var string
      * @access protected
@@ -38,7 +36,7 @@ class ServiceProvider
     protected $session_id;
 
     /**
-     * The view layout
+     * 视图布局文件
      *
      * @var string
      * @access protected
@@ -46,7 +44,7 @@ class ServiceProvider
     protected $layout;
 
     /**
-     * The view to render
+     * 视图文件
      *
      * @var string
      * @access protected
@@ -54,39 +52,33 @@ class ServiceProvider
     protected $view;
 
     /**
-     * Shared data collection
+     * 数据搜集
      *
      * @var DataCollection\DataCollection
      * @access protected
      */
-    protected $shared_data;
-
-
-    /**
-     * Methods
-     */
+    protected $shared_data
 
     /**
-     * Constructor
+     * 构造器
      *
-     * @param Request $request              Object containing all HTTP request data and behaviors
-     * @param AbstractResponse $response    Object containing all HTTP response data and behaviors
+     * @param Request $request              包含所有请求数据和请求行为的请求对象
+     * @param AbstractResponse $response    包含所有响应数据和响应行为的响应对象
      * @access public
      */
     public function __construct(Request $request = null, AbstractResponse $response = null)
     {
-        // Bind our objects
+        //绑定数据对象
         $this->bind($request, $response);
-
-        // Instantiate our shared data collection
+        //实例化数据搜集器
         $this->shared_data = Collection::factory('data');
     }
 
     /**
-     * Bind object instances to this service
+     * 绑定对象数据到当前服务
      *
-     * @param Request $request              Object containing all HTTP request data and behaviors
-     * @param AbstractResponse $response    Object containing all HTTP response data and behaviors
+     * @@param Request $request              包含所有请求数据和请求行为的请求对象
+     * @param AbstractResponse $response    包含所有响应数据和响应行为的响应对象
      * @access public
      * @return ServiceProvider
      */
@@ -100,7 +92,7 @@ class ServiceProvider
     }
 
     /**
-     * Returns the shared data collection object
+     * 返回搜集器对象
      *
      * @access public
      * @return DataCollection\DataCollection
@@ -111,9 +103,9 @@ class ServiceProvider
     }
 
     /**
-     * Get the current session's ID
+     * 获取当前session id
      *
-     * This will start a session if the current session id is null
+     * 如果session id 为null则会启动session
      *
      * @access public
      * @return string|false
@@ -121,21 +113,19 @@ class ServiceProvider
     public function startSession()
     {
         if (session_id() === '') {
-            // Attempt to start a session
+            //尝试启动会话
             session_start();
-
             $this->session_id = session_id() ?: false;
         }
-
         return $this->session_id;
     }
 
     /**
-     * Stores a flash message of $type
+     * 存放$type类型的紧急信息
      *
-     * @param string $msg       The message to flash
-     * @param string $type      The flash message type
-     * @param array $params     Optional params to be parsed by markdown
+     * @param string $msg       紧急信息
+     * @param string $type      紧急类型
+     * @param array $params     markdown格式的可解析参数
      * @access public
      * @return void
      */
@@ -155,9 +145,9 @@ class ServiceProvider
     }
 
     /**
-     * Returns and clears all flashes of optional $type
+     * 返回并清空$type类型的紧急信息
      *
-     * @param string $type  The name of the flash message type
+     * @param string $type  紧急类型
      * @access public
      * @return array
      */
@@ -181,57 +171,41 @@ class ServiceProvider
     }
 
     /**
-     * Render a text string as markdown
+     * 渲染markdown文本
      *
-     * Supports basic markdown syntax
-     *
-     * Also, this method takes in EITHER an array of optional arguments (as the second parameter)
-     * ... OR this method will simply take a variable number of arguments (after the initial str arg)
-     *
-     * @param string $str   The text string to parse
-     * @param array $args   Optional arguments to be parsed by markdown
+     * 
+     * @param string $str   需要解析的文本
+     * @param array $args   markdown文本中需替换的参数
      * @static
      * @access public
      * @return string
      */
     public static function markdown($str, $args = null)
     {
-        // Create our markdown parse/conversion regex's
+        // 分析正则
         $md = array(
             '/\[([^\]]++)\]\(([^\)]++)\)/' => '<a href="$2">$1</a>',
             '/\*\*([^\*]++)\*\*/'          => '<strong>$1</strong>',
             '/\*([^\*]++)\*/'              => '<em>$1</em>'
         );
-
-        // Let's make our arguments more "magical"
-        $args = func_get_args(); // Grab all of our passed args
-        $str = array_shift($args); // Remove the initial arg from the array (and set the $str to it)
+        $args = func_get_args();
+        $str = array_shift($args);
         if (isset($args[0]) && is_array($args[0])) {
-            /**
-             * If our "second" argument (now the first array item is an array)
-             * just use the array as the arguments and forget the rest
-             */
             $args = $args[0];
         }
 
-        // Encode our args so we can insert them into an HTML string
+        //编码以便于插入html中
         foreach ($args as &$arg) {
             $arg = htmlentities($arg, ENT_QUOTES, 'UTF-8');
         }
-
-        // Actually do our markdown conversion
         return vsprintf(preg_replace(array_keys($md), $md, $str), $args);
     }
 
     /**
-     * Escapes a string for UTF-8 HTML displaying
+     * 忽略无法被utf-8识别的字符
      *
-     * This is a quick macro for escaping strings designed
-     * to be shown in a UTF-8 HTML environment. Its options
-     * are otherwise limited by design
-     *
-     * @param string $str   The string to escape
-     * @param int $flags    A bitmask of `htmlentities()` compatible flags
+     * @param string $str   要处理得字符串
+     * @param int $flags    兼容htmlentities()的flags参数
      * @static
      * @access public
      * @return string
@@ -242,7 +216,7 @@ class ServiceProvider
     }
 
     /**
-     * Redirects the request to the current URL
+     * 重新请求当前
      *
      * @access public
      * @return ServiceProvider
@@ -257,7 +231,7 @@ class ServiceProvider
     }
 
     /**
-     * Redirects the request back to the referrer
+     * 返回上一个请求
      *
      * @access public
      * @return ServiceProvider
@@ -276,12 +250,9 @@ class ServiceProvider
     }
 
     /**
-     * Get (or set) the view's layout
+     * 获取或者设置视图布局
      *
-     * Simply calling this method without any arguments returns the current layout.
-     * Calling with an argument, however, sets the layout to what was provided by the argument.
-     *
-     * @param string $layout    The layout of the view
+     * @param string $layout    视图布局
      * @access public
      * @return string|ServiceProvider
      */
@@ -297,7 +268,7 @@ class ServiceProvider
     }
 
     /**
-     * Renders the current view
+     * 渲染当前视图
      *
      * @access public
      * @return void
@@ -308,10 +279,10 @@ class ServiceProvider
     }
 
     /**
-     * Renders a view + optional layout
+     * 渲染视图和布局
      *
-     * @param string $view  The view to render
-     * @param array $data   The data to render in the view
+     * @param string $view  要渲染的视图
+     * @param array $data   视图数据
      * @access public
      * @return void
      */
@@ -334,16 +305,15 @@ class ServiceProvider
         if (false !== $this->response->chunked) {
             $this->response->chunk();
         }
-
-        // restore state for parent render()
+        //复原父render()状态
         $this->view = $original_view;
     }
 
     /**
-     * Renders a view without a layout
+     * 渲染无布局视图
      *
-     * @param string $view  The view to render
-     * @param array $data   The data to render in the view
+     * @param string $view  要渲染的视图
+     * @param array $data   视图数据
      * @access public
      * @return void
      */
@@ -356,10 +326,10 @@ class ServiceProvider
     }
 
     /**
-     * Add a custom validator for our validation method
+     * 增加自定义校验方法
      *
-     * @param string $method        The name of the validator method
-     * @param callable $callback    The callback to perform on validation
+     * @param string $method        校验器方法名
+     * @param callable $callback    回调内容
      * @access public
      * @return void
      */
@@ -369,10 +339,10 @@ class ServiceProvider
     }
 
     /**
-     * Start a validator chain for the specified string
+     * 为字符串开启校验
      *
-     * @param string $string    The string to validate
-     * @param string $err       The custom exception message to throw
+     * @param string $string    要校验的字符串
+     * @param string $err       自定义错误
      * @access public
      * @return Validator
      */
@@ -382,10 +352,10 @@ class ServiceProvider
     }
 
     /**
-     * Start a validator chain for the specified parameter
+     * 针对请求参数的校验
      *
-     * @param string $param     The name of the parameter to validate
-     * @param string $err       The custom exception message to throw
+     * @param string $param     要校验的参数名
+     * @param string $err       自定义错误
      * @access public
      * @return Validator
      */
@@ -396,12 +366,9 @@ class ServiceProvider
 
 
     /**
-     * Magic "__isset" method
+     * 魔术方法 "__isset" 
      *
-     * Allows the ability to arbitrarily check the existence of shared data
-     * from this instance while treating it as an instance property
-     *
-     * @param string $key     The name of the shared data
+     * @param string $key     数据字段名
      * @access public
      * @return boolean
      */
@@ -411,12 +378,9 @@ class ServiceProvider
     }
 
     /**
-     * Magic "__get" method
+     * 魔术方法 "__get" 
      *
-     * Allows the ability to arbitrarily request shared data from this instance
-     * while treating it as an instance property
-     *
-     * @param string $key     The name of the shared data
+     * @param string $key     数据字段名
      * @access public
      * @return string
      */
@@ -426,13 +390,11 @@ class ServiceProvider
     }
 
     /**
-     * Magic "__set" method
+     * 魔术方法 "__set" 
      *
-     * Allows the ability to arbitrarily set shared data from this instance
-     * while treating it as an instance property
      *
-     * @param string $key     The name of the shared data
-     * @param mixed $value      The value of the shared data
+     * @param string $key    数据字段名
+     * @param mixed $value    数据值
      * @access public
      * @return void
      */
@@ -442,12 +404,9 @@ class ServiceProvider
     }
 
     /**
-     * Magic "__unset" method
+     * 魔术方法 "__unset"
      *
-     * Allows the ability to arbitrarily remove shared data from this instance
-     * while treating it as an instance property
-     *
-     * @param string $key     The name of the shared data
+     * @param string $key     数据字段名
      * @access public
      * @return void
      */
