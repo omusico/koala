@@ -65,7 +65,7 @@ KoalaCore::initialize(function(){
     //++++++++++++++++++++++++调试及错误设置++++++++++++++++++++++++++++
     $log = Log::factory('monolog');
     ErrorHandler::register('monolog',array($log),function()use($log){
-        switch (C('DEBUGLEVEL',1)) {
+        switch (C('DEBUGLEVEL',defined('DEBUGLEVEL')?DEBUGLEVEL:1)) {
             case 2://调试模式
                 ini_set("display_errors","On");
                 $log->pushHandler(new Monolog\Handler\ChromePHPHandler(Log::ERROR));
