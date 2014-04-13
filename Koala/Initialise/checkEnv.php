@@ -31,17 +31,18 @@ env::reg('APP_RELATIVE_URL',function($key){
 	if(APPENGINE=='BAE'){//BAE $_SERVER['DOCUMENT_ROOT'] 与 ENTRANCE_PATH 不在同一路径分支。
 		$pathname = basename($pathname).DIRECTORY_SEPARATOR;
 	}
+    $pathname = $pathname.basename(APP_PATH).'/'；
 	//应用
 	define('APP_URL','http://'.$_SERVER['SERVER_NAME'].$pathname);
 	define('APP_RELATIVE_URL',$pathname);
-
+    define('SOURCE_RELATIVE_URL',$pathname.'/Source/');
 	return $pathname;
 });
 
 //--------------------运行环境检查---------------------
 env::check("PHP_OS",function($key){
     $result = array(
-        'require'=>'不限制',
+        'require'=>'不限',
         'current'=>PHP_OS
         );
     return $result;
@@ -68,28 +69,28 @@ env::check("PHP_VERSION",function($key){
 });
 env::check("PHP_RUNMODE",function($key){
     $result = array(
-        'require'=>'不限制',
+        'require'=>'不限',
         'current'=>php_sapi_name()
         );
     return $result;
 });
 env::check("PHP_UPLOADSIZE",function($key){
     $result = array(
-            'require'=>'不限制',
+            'require'=>'不限',
             'current'=>ini_get('upload_max_filesize'),
             );
     return $result;
 });
 env::check("PHP_MAXTIME",function($key){
     $result = array(
-            'require'=>'不限制',
+            'require'=>'不限',
             'current'=>ini_get('max_execution_time') . "秒",
             );
     return $result;
 });
 env::check("PHP_SPACE",function($key){
     $result = array(
-            'require'=>'不限制',
+            'require'=>'不限',
             'current'=>round((@disk_free_space(".") / (1024 * 1024)), 2) . 'M',
             );
     return $result;

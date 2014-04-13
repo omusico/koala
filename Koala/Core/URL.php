@@ -260,7 +260,7 @@ class URL{
 	        list($url,$host)    =   explode('@',$info['path'], 2);
 	    }
 	    if(isset($host)) {
-    		$domain = $host.(strpos($host,'.')?'':strstr($_SERVER['HTTP_HOST'],'.'));
+    		$domain = $host.(strpos($host,'.')?'':strstr(self::$_items['host'],'.'));
 		}
 	    // 解析参数// aaa=1&bbb=2 转换成数组
 	    if(is_string($vars)) { parse_str($vars,$vars);}
@@ -286,12 +286,11 @@ class URL{
         $var[C('VAR_MODULE','m')]       =   array_shift($options['paths']);
         $var[C('VAR_ACTION','a')]       =   array_shift($options['paths']);
 
-		$url        =   APP_RELATIVE_URL.'?'.http_build_query(array_reverse($var));
+		$url        =   SITE_RELATIVE_URL.'?'.http_build_query(array_reverse($var));
         if(!empty($vars)) {
             $vars   =   urldecode(http_build_query($vars));
             $url   .=   '&'.$vars;
         };
-        
 	    unset($options);
 	    if(isset($anchor)){$url  .= '#'.$anchor;}
 
@@ -318,7 +317,7 @@ class URL{
 	        list($url,$host)    =   explode('@',$info['path'], 2);
 	    }
 	    if(isset($host)) {
-    		$domain = $host.(strpos($host,'.')?'':strstr($_SERVER['HTTP_HOST'],'.'));
+    		$domain = $host.(strpos($host,'.')?'':strstr(self::$_items['host'],'.'));
 		}
 	    // 解析参数// aaa=1&bbb=2 转换成数组
 	    if(is_string($vars)) { parse_str($vars,$vars);}
@@ -344,7 +343,7 @@ class URL{
         $var[C('VAR_MODULE','m')]       =   array_shift($options['paths']);
         $var[C('VAR_ACTION','a')]       =   array_shift($options['paths']);
 
-        $url = rtrim(APP_RELATIVE_URL,$depr).$depr.implode($depr,$var);
+        $url = rtrim(SITE_RELATIVE_URL,$depr).$depr.implode($depr,$var);
 
         $url = rtrim($url,$depr);
         if(!empty($vars)) { // 添加参数
@@ -385,7 +384,7 @@ class URL{
 	        list($url,$host)    =   explode('@',$info['path'], 2);
 	    }
 	    if(isset($host)) {
-    		$domain = $host.(strpos($host,'.')?'':strstr($_SERVER['HTTP_HOST'],'.'));
+    		$domain = $host.(strpos($host,'.')?'':strstr(self::$_items['host'],'.'));
 		}
 	    // 解析参数// aaa=1&bbb=2 转换成数组
 	    if(is_string($vars)) { parse_str($vars,$vars);}
@@ -411,7 +410,7 @@ class URL{
         $var[C('VAR_MODULE','m')]       =   array_shift($options['paths']);
         $var[C('VAR_ACTION','a')]       =   array_shift($options['paths']);
 
-        $url = rtrim(APP_RELATIVE_URL,$depr).$depr.'?'.C('URL_VAR','s').'='.implode($depr,$var);
+        $url = rtrim(SITE_RELATIVE_URL,$depr).$depr.'?'.C('URL_VAR','s').'='.implode($depr,$var);
 
         $url = rtrim($url,$depr);
         if(!empty($vars)) { // 添加参数
