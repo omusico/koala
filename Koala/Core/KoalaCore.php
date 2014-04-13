@@ -61,6 +61,8 @@ KoalaCore::initialize(function(){
         //默认文件
         $instance->loadConfig(FRAME_PATH.'Config'.DIRECTORY_SEPARATOR.'Global.default.php');
     });
+    //加载通用常量
+    include(FRAME_PATH.'Initialise/Constant.php');
     //检查环境
     require_once(FRAME_PATH.'Initialise/checkEnv.php');
     //加载常量
