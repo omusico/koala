@@ -79,23 +79,23 @@ class URL{
 		}else{
 			$app_name = basename(APP_RELATIVE_URL);
 		}
-		define('APP_NAME',$app_name);
+		!defined('APP_NAME') AND define('APP_NAME',$app_name);
 		//是否启用了多分组//默认多分组
 		if(C('MULTIPLE_GROUP',1)){
 			$group_name = $_paths[] = isset($_REQUEST[C('VAR_GROUP','g')])?ucfirst($_REQUEST[C('VAR_GROUP','g')]):C('GROUP:DEFAULT','Home');
-			define('GROUP_NAME',$group_name);
+			!defined('GROUP_NAME') AND define('GROUP_NAME',$group_name);
 		}
 		//模块
 		$module_name = $_paths[] =  isset($_REQUEST[C('VAR_MODULE','m')])?ucfirst($_REQUEST[C('VAR_MODULE','m')]):ucfirst(C('MODULE:DEFAULT','Index'));
 
-		define('MODULE_NAME',$module_name);
+		!defined('MODULE_NAME') AND define('MODULE_NAME',$module_name);
 		//action
 		if(isset($_REQUEST[C('VAR_ACTION','a')])){
 			$action_name = $_paths[] = $_REQUEST[C('VAR_ACTION','a')];
 		}else{
 			$action_name = $_paths[] = C('ACTION:DEFAULT','index');
 		}
-		define('ACTION_NAME',$action_name);
+		!defined('ACTION_NAME') AND define('ACTION_NAME',$action_name);
 
 		//参数进行合并
 		$_params = $_REQUEST;
@@ -130,8 +130,10 @@ class URL{
 			}
 			$_params = array_combine($one,$two);
 		}
-		parse_str(self::$_items['query_string'],$params);
-		$_params = array_merge($_params,$params);
+		if(isset(self::$_items['query_string'])){
+			parse_str(self::$_items['query_string'],$params);
+			$_params = array_merge($_params,$params);
+		}
 		//组装URL选项
 		$_options = array('paths'=>$result,'params'=>$_params);
 		return $_options;
@@ -139,7 +141,6 @@ class URL{
 	protected static function ParserInCompatible(){
 		$one = $two = $_params = array();
 		$str = self::$_items['pathinfo'];
-
 		if($suffix = C('URL_HTML_SUFFIX','.html')){
 			if(stripos($str,$suffix)!==false)
 				$str = str_replace($suffix,'', $str);
@@ -164,8 +165,10 @@ class URL{
 			}
 			$_params = array_combine($one,$two);
 		}
-		parse_str(self::$_items['query_string'],$params);
-		$_params = array_merge($_params,$params);
+		if(isset(self::$_items['query_string'])){
+			parse_str(self::$_items['query_string'],$params);
+			$_params = array_merge($_params,$params);
+		}
 		//组装URL选项
 		$_options = array('paths'=>$result,'params'=>$_params);
 		return $_options;
@@ -185,7 +188,7 @@ class URL{
 			}else{
 				$app_name = $result[] = C('APP:DEFAULT','APP1');
 			}
-			define('APP_NAME',$app_name);
+			!defined('APP_NAME') AND define('APP_NAME',$app_name);
 		}
 		//是否启用了多分组//默认多分组
 		if(C('MULTIPLE_GROUP',1)){
@@ -195,7 +198,7 @@ class URL{
 			}else{
 				$group_name = $result[] = C('GROUP:DEFAULT','Home');
 			}
-			define('GROUP_NAME',$group_name);
+			!defined('GROUP_NAME') AND define('GROUP_NAME',$group_name);
 		}
 		//模块
 		if(empty($paths)){
@@ -203,14 +206,14 @@ class URL{
 		}else{
 			$module_name = $result[] = ucfirst(array_shift($paths));
 		}
-		define('MODULE_NAME',$module_name);
+		!defined('MODULE_NAME') AND define('MODULE_NAME',$module_name);
 		//action
 		if(empty($paths)){
 			$action_name =$result[] =  C('ACTION:DEFAULT','index');
 		}else{
 			$action_name = $result[] = array_shift($paths);
 		}
-		define('ACTION_NAME',$action_name);
+		!defined('ACTION_NAME') AND define('ACTION_NAME',$action_name);
 	}
 	/**
 	 * URL组装 支持不同URL模式 // Assembler('BlogAdmin/Index/Index#top@localhost?id=1');
@@ -229,7 +232,7 @@ class URL{
 				break;
 			case 3://兼容模式//index.php?s=Admin~Index~index
 				//self::PreAssemblerInCompatible($url);
-				return self::AssemblerInPathinfo($url,$vars,$suffix,$redirect,$domain);
+				return self::AssemblerInCompatible($url,$vars,$suffix,$redirect,$domain);
 				break;
 			case 2:
 			default://默认使用PATHINFO组装器模式//index.php/admin/index
@@ -342,6 +345,73 @@ class URL{
         $var[C('VAR_ACTION','a')]       =   array_shift($options['paths']);
 
         $url = rtrim(APP_RELATIVE_URL,$depr).$depr.implode($depr,$var);
+
+        $url = rtrim($url,$depr);
+        if(!empty($vars)) { // 添加参数
+            foreach ($vars as $var => $val){
+                if('' !== trim($val))   $url .= $depr . $var . $depr . urlencode($val);
+            }                
+        }
+    	if($suffix) {
+            $suffix   =  $suffix===true?C('URL_HTML_SUFFIX','.html'):$suffix;
+            if($pos = strpos($suffix, '|')){
+                $suffix = substr($suffix, 0, $pos);
+            }
+            if($suffix && '/' != substr($url,-1)){
+                $url  .=  '.'.ltrim($suffix,'.');
+            }
+        };
+	    if(isset($anchor)){$url  .= '#'.$anchor;}
+	    if($domain) {
+	        $url   =  (is_ssl()?'https://':'http://').$domain.$url;
+	    }
+	    return $url;
+	}
+	protected static function AssemblerInCompatible($url,$vars='',$suffix=true,$redirect=false,$domain=false){
+		// 解析URL
+		$info   =  parse_url($url);
+		//开始组装
+		//如果为空则默认为当前方法
+		$url    =  !empty($info['path'])?$info['path']:ACTION_NAME;
+	    if(isset($info['fragment'])) { // 解析锚点
+	        $anchor =   $info['fragment'];
+	        if(false !== strpos($anchor,'?')) { // 解析参数
+	            list($anchor,$info['query']) = explode('?',$anchor,2);
+	        }        
+	        if(false !== strpos($anchor,'@')) { // 解析域名
+	            list($anchor,$host)    =   explode('@',$anchor, 2);
+	        }
+	    }elseif(false !== strpos($url,'@')) { // 解析域名
+	        list($url,$host)    =   explode('@',$info['path'], 2);
+	    }
+	    if(isset($host)) {
+    		$domain = $host.(strpos($host,'.')?'':strstr($_SERVER['HTTP_HOST'],'.'));
+		}
+	    // 解析参数// aaa=1&bbb=2 转换成数组
+	    if(is_string($vars)) { parse_str($vars,$vars);}
+	    if(isset($info['query'])) { // 解析地址里面参数 合并到vars
+	        parse_str($info['query'],$params);
+	        $vars = array_merge($params,$vars);
+	    }
+	    $depr = C('URL_PATHINFO_DEPR','/');
+	    // 解析分组、模块和操作
+        $url        =   trim($url,$depr);
+        $var        =   array();
+        $options = self::Parser($url,2);
+        $vars = array_merge($vars,$options['params']);
+        //是否启用了多应用模式
+		if(C('MULTIPLE_APP',0)){
+			$var[C('VAR_APP','app')] = array_shift($options['paths']);
+		}
+		//是否启用了多分组
+		if(C('MULTIPLE_GROUP',1)){
+			$var[C('VAR_GROUP','g')] = array_shift($options['paths']);
+		}
+		
+        $var[C('VAR_MODULE','m')]       =   array_shift($options['paths']);
+        $var[C('VAR_ACTION','a')]       =   array_shift($options['paths']);
+
+        $url = rtrim(APP_RELATIVE_URL,$depr).$depr.'?'.C('URL_VAR','s').'='.implode($depr,$var);
 
         $url = rtrim($url,$depr);
         if(!empty($vars)) { // 添加参数

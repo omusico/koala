@@ -18,6 +18,7 @@ class Config extends Initial{
 	 */
 	public static function getItem($key,$defv='',$runtime=false){
 		if($runtime && $defv!=''){
+			self::$config[$key] = $defv;
 			return $defv;
 		}
 		$arr = explode(':',$key);

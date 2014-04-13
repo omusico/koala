@@ -233,8 +233,8 @@ function get_ip(){
  * @param string $key  配置项
  * @param string $defv 默认值
  */
-function C($key,$defv=''){
-    return Config::getItem($key,$defv);
+function C($key,$defv='',$runtime=false){
+    return Config::getItem($key,$defv,$runtime);
 }
 
 
