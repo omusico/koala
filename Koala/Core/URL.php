@@ -24,11 +24,11 @@ class URL{
 			//pathinfo路径
 			if(isset($_SERVER['PATH_INFO'])){
 				self::$_items['pathinfo'] = $_SERVER['PATH_INFO'];
-				isset($_SERVER['QUERY_STRING']) AND (self::$_items['query_string'] = $_SERVER['QUERY_STRING']);
+				isset($_SERVER['QUERY_STRING']) AND (self::$_items['query'] = $_SERVER['QUERY_STRING']);
 			}else{
 				$part = explode('&',$_SERVER['QUERY_STRING']);
 				self::$_items['pathinfo'] = array_shift($part);
-				self::$_items['query_string'] = implode('&',$part);
+				self::$_items['query'] = implode('&',$part);
 			}
 		}
 		
@@ -38,7 +38,7 @@ class URL{
 		return self::$_items['scheme']."://".
 		self::$_items['host'].":".
 		self::$_items['port'].self::$_items['script'].
-		self::$_items['pathinfo']."?".self::$_items['query_string'];
+		self::$_items['pathinfo']."?".self::$_items['query'];
 
 
 	}
@@ -130,8 +130,8 @@ class URL{
 			}
 			$_params = array_combine($one,$two);
 		}
-		if(isset(self::$_items['query_string'])){
-			parse_str(self::$_items['query_string'],$params);
+		if(isset(self::$_items['query'])){
+			parse_str(self::$_items['query'],$params);
 			$_params = array_merge($_params,$params);
 		}
 		//组装URL选项
@@ -140,7 +140,7 @@ class URL{
 	}
 	protected static function ParserInCompatible(){
 		$one = $two = $_params = array();
-		$str = self::$_items['pathinfo'];
+		$str = self::$_items['query'];
 		if($suffix = C('URL_HTML_SUFFIX','.html')){
 			if(stripos($str,$suffix)!==false)
 				$str = str_replace($suffix,'', $str);
@@ -150,7 +150,6 @@ class URL{
 		$_paths = array_filter(explode(C('URL_PATHINFO_DEPR','/'),$param[C('URL_VAR','s')]));
 
 		self::ParserPaths($_paths,$result);
-
 		//剩余参数
 		if(!empty($_paths)){
 			if(count($_paths)%2!=0){
@@ -164,10 +163,6 @@ class URL{
 					$two[] = $value;
 			}
 			$_params = array_combine($one,$two);
-		}
-		if(isset(self::$_items['query_string'])){
-			parse_str(self::$_items['query_string'],$params);
-			$_params = array_merge($_params,$params);
 		}
 		//组装URL选项
 		$_options = array('paths'=>$result,'params'=>$_params);
