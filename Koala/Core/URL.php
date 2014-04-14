@@ -140,7 +140,11 @@ class URL{
 	}
 	protected static function ParserInCompatible(){
 		$one = $two = $_params = array();
-		$str = self::$_items['query'];
+		if(isset(self::$_items['pathinfo'])){
+			$str = self::$_items['pathinfo'];
+		}else{
+			$str = self::$_items['query'];
+		}
 		if($suffix = C('URL_HTML_SUFFIX','.html')){
 			if(stripos($str,$suffix)!==false)
 				$str = str_replace($suffix,'', $str);
@@ -163,6 +167,12 @@ class URL{
 					$two[] = $value;
 			}
 			$_params = array_combine($one,$two);
+		}
+		if(isset(self::$_items['pathinfo'])){
+			if(isset(self::$_items['query'])){
+				parse_str(self::$_items['query'],$params);
+				$_params = array_merge($_params,$params);
+			}
 		}
 		//组装URL选项
 		$_options = array('paths'=>$result,'params'=>$_params);
