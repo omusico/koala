@@ -6,6 +6,7 @@
  * {'url'|PU:'id':1:'page':1}   =>   url?id=1&page=1
  */
 function PU(){
+    $param = $one =$two =array();
     $args = func_get_args();
     $param[] = array_shift($args);
     if(count($args)%2!=0){
@@ -18,6 +19,7 @@ function PU(){
             $two[] = $value;
     }
     $param = array_merge($param,array(array_combine($one,$two)));
+
     return call_user_func_array('U',$param);
 }
 /**

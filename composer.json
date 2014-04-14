@@ -13,14 +13,12 @@
         }
     ],
 	"config": {
-        "vendor-dir": "Koala/Addons/Vendor"
+        "vendor-dir": "Addons/Vendor"
     },
     "require": {
     	"php": ">=5.3.0",
         "monolog/monolog": "1.7.*@dev",
         "psr/log": "1.0.*@dev",
-        "hautelook/phpass": "dev-master",
-        "smarty/smarty": "v3.1.17"
     },
     "require-dev": {
         "phpunit/phpunit": "dev-master",

@@ -1,7 +1,8 @@
 <?php
 //应用引导程序
 define('IN_Koala',true);
-
+//composer第三方库加载支持
+is_file(FRAME_PATH.'Addons/vendor/autoload.php') AND require FRAME_PATH.'Addons/vendor/autoload.php';
 //运行模式
 $is_cli = false;
 if(stripos(php_sapi_name(),'cli')!==false){$is_cli = true;}
