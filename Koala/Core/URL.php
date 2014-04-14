@@ -5,6 +5,8 @@
 class URL{
 	//URL各部分
 	static $_items=array();
+	//
+	static $_result=array();
 	//统一化不同环境的原始请求URL
 	public static function standard($url=''){
 		if($url!=''){
@@ -64,6 +66,7 @@ class URL{
 				$option =self::ParserInPathinfo();
 				break;
 		}
+		self::$_result = $option;
 		return $option;
 	}
 	//普通模式URL解析
