@@ -31,11 +31,15 @@ env::reg('APP_RELATIVE_URL',function($key){
 	if(APPENGINE=='BAE'){//BAE $_SERVER['DOCUMENT_ROOT'] 与 ENTRANCE_PATH 不在同一路径分支。
 		$pathname = basename($pathname).DIRECTORY_SEPARATOR;
 	}
-    $pathname = $pathname.basename(APP_PATH).'/';
+    if(ENTRANCE_PATH==APP_PATH)
+        $pathname = $pathname;
+    else
+        $pathname = $pathname.basename($pathname).DIRECTORY_SEPARATOR;
 	//应用
 	define('APP_URL','http://'.$_SERVER['SERVER_NAME'].$pathname);
 	define('APP_RELATIVE_URL',$pathname);
-    define('SOURCE_RELATIVE_URL',$pathname.'/Source/');
+    define('SOURCE_RELATIVE_URL',$pathname.'Source/');
+
 	return $pathname;
 });
 
