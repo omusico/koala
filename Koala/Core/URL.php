@@ -12,7 +12,7 @@ class URL{
 		if($url!=''){
 			self::$_items = parse_url($url);
 			$path = self::$_items['path'];
-			self::$_items['pathinfo'] = str_replace(str_replace('\\','/',APP_RELATIVE_URL),'',$path);
+			self::$_items['pathinfo'] = str_replace(str_replace('\\','/',APP_RELATIVE_URL),'/',$path);
 			unset(self::$_items['path']);
 
 			//请求协议
