@@ -5,13 +5,24 @@
 class URL{
 	//URL各部分
 	static $_items=array();
+	//
+	static $_result=array();
 	//统一化不同环境的原始请求URL
 	public static function standard($url=''){
 		if($url!=''){
 			self::$_items = parse_url($url);
 			$path = self::$_items['path'];
-			self::$_items['pathinfo'] = str_replace(str_replace('\\','/',APP_RELATIVE_URL),'',$path);
+			self::$_items['pathinfo'] = str_replace(str_replace('\\','/',APP_RELATIVE_URL),'/',$path);
 			unset(self::$_items['path']);
+
+			//请求协议
+			!isset(self::$_items['scheme']) and (list(self::$_items['scheme'])=explode('/', strtolower($_SERVER['SERVER_PROTOCOL'])));
+			//域名
+			!isset(self::$_items['host']) AND isset($_SERVER['HTTP_HOST']) AND (self::$_items['host'] = $_SERVER['HTTP_HOST']);
+			//端口
+			!isset(self::$_items['port']) AND (self::$_items['port'] = $_SERVER['SERVER_PORT']);
+			//脚本文件名
+			!isset(self::$_items['script']) AND (self::$_items['script'] = $_SERVER['SCRIPT_NAME']);
 		}else{
 			//请求协议
 			list(self::$_items['scheme'])=explode('/', strtolower($_SERVER['SERVER_PROTOCOL']));
@@ -24,21 +35,20 @@ class URL{
 			//pathinfo路径
 			if(isset($_SERVER['PATH_INFO'])){
 				self::$_items['pathinfo'] = $_SERVER['PATH_INFO'];
-				isset($_SERVER['QUERY_STRING']) AND (self::$_items['query_string'] = $_SERVER['QUERY_STRING']);
+				isset($_SERVER['QUERY_STRING']) AND (self::$_items['query'] = $_SERVER['QUERY_STRING']);
 			}else{
 				$part = explode('&',$_SERVER['QUERY_STRING']);
 				self::$_items['pathinfo'] = array_shift($part);
-				self::$_items['query_string'] = implode('&',$part);
+				self::$_items['query'] = implode('&',$part);
 			}
 		}
-		
 	}
 	public static function getUrl(){
 		//规范URL
 		return self::$_items['scheme']."://".
 		self::$_items['host'].":".
 		self::$_items['port'].self::$_items['script'].
-		self::$_items['pathinfo']."?".self::$_items['query_string'];
+		self::$_items['pathinfo']."?".self::$_items['query'];
 
 
 	}
@@ -64,6 +74,7 @@ class URL{
 				$option =self::ParserInPathinfo();
 				break;
 		}
+		self::$_result = $option;
 		return $option;
 	}
 	//普通模式URL解析
@@ -130,8 +141,8 @@ class URL{
 			}
 			$_params = array_combine($one,$two);
 		}
-		if(isset(self::$_items['query_string'])){
-			parse_str(self::$_items['query_string'],$params);
+		if(isset(self::$_items['query'])){
+			parse_str(self::$_items['query'],$params);
 			$_params = array_merge($_params,$params);
 		}
 		//组装URL选项
@@ -140,7 +151,11 @@ class URL{
 	}
 	protected static function ParserInCompatible(){
 		$one = $two = $_params = array();
-		$str = self::$_items['pathinfo'];
+		if(isset(self::$_items['pathinfo'])){
+			$str = self::$_items['pathinfo'];
+		}else{
+			$str = self::$_items['query'];
+		}
 		if($suffix = C('URL_HTML_SUFFIX','.html')){
 			if(stripos($str,$suffix)!==false)
 				$str = str_replace($suffix,'', $str);
@@ -150,7 +165,6 @@ class URL{
 		$_paths = array_filter(explode(C('URL_PATHINFO_DEPR','/'),$param[C('URL_VAR','s')]));
 
 		self::ParserPaths($_paths,$result);
-
 		//剩余参数
 		if(!empty($_paths)){
 			if(count($_paths)%2!=0){
@@ -165,9 +179,11 @@ class URL{
 			}
 			$_params = array_combine($one,$two);
 		}
-		if(isset(self::$_items['query_string'])){
-			parse_str(self::$_items['query_string'],$params);
-			$_params = array_merge($_params,$params);
+		if(isset(self::$_items['pathinfo'])){
+			if(isset(self::$_items['query'])){
+				parse_str(self::$_items['query'],$params);
+				$_params = array_merge($_params,$params);
+			}
 		}
 		//组装URL选项
 		$_options = array('paths'=>$result,'params'=>$_params);
@@ -225,6 +241,7 @@ class URL{
 	 * @return string
 	 */
 	public static function Assembler($url='',$vars='',$suffix=true,$redirect=false,$domain=false){
+		self::standard($url);
 		switch (C('URLMODE',2)) {
 			case 1://使用普通url组装器//index.php?group=admin&module=index
 				//self::ParserInPathinfo($url);
@@ -259,8 +276,13 @@ class URL{
 	    }elseif(false !== strpos($url,'@')) { // 解析域名
 	        list($url,$host)    =   explode('@',$info['path'], 2);
 	    }
+
 	    if(isset($host)) {
     		$domain = $host.(strpos($host,'.')?'':strstr(self::$_items['host'],'.'));
+		}else{
+			if($domain){
+				$domain = self::$_items['host'];
+			}
 		}
 	    // 解析参数// aaa=1&bbb=2 转换成数组
 	    if(is_string($vars)) { parse_str($vars,$vars);}
@@ -293,7 +315,6 @@ class URL{
         };
 	    unset($options);
 	    if(isset($anchor)){$url  .= '#'.$anchor;}
-
 	    if($domain) {
 	        $url   =  (is_ssl()?'https://':'http://').$domain.$url;
 	    }
@@ -318,6 +339,10 @@ class URL{
 	    }
 	    if(isset($host)) {
     		$domain = $host.(strpos($host,'.')?'':strstr(self::$_items['host'],'.'));
+		}else{
+			if($domain){
+				$domain = self::$_items['host'];
+			}
 		}
 	    // 解析参数// aaa=1&bbb=2 转换成数组
 	    if(is_string($vars)) { parse_str($vars,$vars);}
@@ -385,6 +410,10 @@ class URL{
 	    }
 	    if(isset($host)) {
     		$domain = $host.(strpos($host,'.')?'':strstr(self::$_items['host'],'.'));
+		}else{
+			if($domain){
+				$domain = self::$_items['host'];
+			}
 		}
 	    // 解析参数// aaa=1&bbb=2 转换成数组
 	    if(is_string($vars)) { parse_str($vars,$vars);}

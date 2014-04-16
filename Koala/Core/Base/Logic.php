@@ -5,6 +5,21 @@ class Base_Logic{
 	public static function getModel(){
 		return str_replace('Logic', 'Model',get_called_class());
 	}
+    /**
+     * 是否存在记录
+     * @param  array  $where 查询条件
+     * @return boolean       true/false
+     */
+    public static function isExist($where){
+        $model = static::getModel();
+        $obj = $model::count(
+            array('conditions' =>$where)
+            );
+        if($obj){
+            return array('code'=>1,'msg'=>'存在');
+        }
+        return array('code'=>0,'msg'=>'不存在');
+    }
 	//数据列表
 	public static function getData($pagesize=20,$pageid=1,$fields='*',$where='',$order='id DESC',$style='Badoo'){
 		$model = static::getModel();
