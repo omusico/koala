@@ -74,7 +74,11 @@ class URL{
 				$option =self::ParserInPathinfo();
 				break;
 		}
-		self::$_result = $option;
+		if(empty(self::$_result)){
+		 	self::$_result= $option;
+		 }
+		$_GET = array_merge($_GET,$option['params']);
+		$_POST = array_merge($_POST,$option['params']);
 		return $option;
 	}
 	//普通模式URL解析
@@ -114,6 +118,9 @@ class URL{
 		$_options = array('paths'=>$_paths,'params'=>$_params);
 		return $_options;
 	}
+	public static function getParam($key){
+		return self::$_result['params'][$key];
+	}
 	//PATHINFO模式URL解析
 	protected static function ParserInPathinfo(){
 		$one = $two = $_params = array();
@@ -126,7 +133,6 @@ class URL{
 		$_paths = array_filter(explode(C('URL_PATHINFO_DEPR'),$str));
 
 		self::ParserPaths($_paths,$result);
-
 		//剩余参数
 		if(!empty($_paths)){
 			if(count($_paths)%2!=0){
@@ -143,7 +149,7 @@ class URL{
 		}
 		if(isset(self::$_items['query'])){
 			parse_str(self::$_items['query'],$params);
-			$_params = array_merge($_params,$params);
+			$_params = array_merge($params,$_params);
 		}
 		//组装URL选项
 		$_options = array('paths'=>$result,'params'=>$_params);
@@ -182,7 +188,7 @@ class URL{
 		if(isset(self::$_items['pathinfo'])){
 			if(isset(self::$_items['query'])){
 				parse_str(self::$_items['query'],$params);
-				$_params = array_merge($_params,$params);
+				$_params = array_merge($params,$_params);
 			}
 		}
 		//组装URL选项

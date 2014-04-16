@@ -7,9 +7,7 @@ class Dispatcher{
         $this->options = $options;
         $action = array_pop($options['paths']);
         $class = 'Controller\\'.implode("\\",$options['paths']);
-        $options['c_instance']  = new $class();
-        //调用控制器
-        $controller = \Controller::factory('',$options);
+        $controller = \Core\AOP\Aop::getInstance($class);
         $custom['const'] = get_defined_constants();
         \View::assign('Koala',$custom);
         try{

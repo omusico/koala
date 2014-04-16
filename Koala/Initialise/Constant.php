@@ -13,3 +13,5 @@ define('DATA_PATH',FRAME_PATH.'Data'.DS);
 define('COMPILE_PATH',RUNTIME_PATH.'Compile'.DS);
 //缓存目录
 define('CACHE_PATH',RUNTIME_PATH.'Cache'.DS);
+//
+define('ADVICE_PATH', FRAME_PATH.'Core/AOP/Advice/');
