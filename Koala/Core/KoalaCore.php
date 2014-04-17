@@ -78,6 +78,8 @@ KoalaCore::initialize(function(){
             case 3://test//线上测试环境
                 ini_set("display_errors","Off");
                 $log->pushHandler(new Monolog\Handler\ChromePHPHandler(Log::ERROR));
+                $log->pushHandler(new Monolog\Handler\ChromePHPHandler(Log::INFO));
+                $log->pushHandler(new Monolog\Handler\ChromePHPHandler(Log::WARNING));
                 break;
             case 2://production//线上生产环境
             case 1://默认模式
