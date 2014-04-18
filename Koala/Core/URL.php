@@ -171,6 +171,10 @@ class URL{
 		$_paths = array_filter(explode(C('URL_PATHINFO_DEPR','/'),$param[C('URL_VAR','s')]));
 
 		self::ParserPaths($_paths,$result);
+		if(false !== strpos($result[2],'?')) { // 解析参数
+            list($result[2],$query) = explode('?',$result[2],2);
+        }
+
 		//剩余参数
 		if(!empty($_paths)){
 			if(count($_paths)%2!=0){
@@ -191,6 +195,8 @@ class URL{
 				$_params = array_merge($params,$_params);
 			}
 		}
+		parse_str($query,$param);
+		$_params = array_merge($_params,$param);
 		//组装URL选项
 		$_options = array('paths'=>$result,'params'=>$_params);
 		return $_options;

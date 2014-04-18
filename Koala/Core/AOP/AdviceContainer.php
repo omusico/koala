@@ -178,9 +178,12 @@ class AdviceContainer{
      * @param fix $val 值
      */
     function setAdviceResult($key, $val){
-        $key = str_replace('.', '', $key);
-        $prefix = $this->adviceResultPrefix();
-        $this->advice_result[$prefix . $key] = $val;
+        if (false === strpos($key, '.')){
+            $prefix = $this->adviceResultPrefix();
+            $this->advice_result[$prefix . $key] = $val;
+        }else{
+           $this->advice_result[$key] = $val;
+        }
     }
     /**
      * 获取切面结果
