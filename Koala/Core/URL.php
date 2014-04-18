@@ -450,7 +450,7 @@ class URL{
         $url = rtrim($url,$depr);
         if(!empty($vars)) { // 添加参数
             foreach ($vars as $var => $val){
-                if('' !== trim($val))   $url .= $depr . $var . $depr . urlencode($val);
+                $url .= $depr . $var . $depr . urlencode($val);
             }                
         }
     	if($suffix) {

@@ -9,6 +9,7 @@
  * Advice对象链实现
  */
 namespace Core\AOP;
+use Exception;
 
 class AdviceContainer{
     /**
@@ -85,7 +86,10 @@ class AdviceContainer{
         if (method_exists($this->target, $this->method) && ! $this->target instanceof AdviceContainer){
             //是否执行原始方法
             if ($this->original_method){
-                $this->ret = call_user_func_array(array($this->target, $this->method), $this->getParamValues());
+                //增加主方法与次方法通信
+                $params = $this->getParamValues();
+                array_unshift($params,$this);
+                $this->ret = call_user_func_array(array($this->target, $this->method), $params);
             }
             return $this->ret;
         }else// AdviceContainer Object
@@ -299,7 +303,7 @@ class AdviceContainer{
      * @return fix
      */
     function getParamValues(){
-        return array_values($this->params);
+        return $this->params;
     }
 
     /**
