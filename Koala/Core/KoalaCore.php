@@ -38,6 +38,7 @@ KoalaCore::initialize(function(){
     //注册_autoload函数
     $instance->register();
     $instance->registerNamespaces(array(
+        'Advice' => FRAME_PATH.'Addons',
         'Func' => FRAME_PATH.'Core',
         'Helper' => FRAME_PATH,
         'Base' => FRAME_PATH.'Core',
