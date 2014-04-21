@@ -1,9 +1,10 @@
 <?php
 namespace Server\Dispatcher\Drive;
+use Core\AOP\AdviceContainer;
 class Dispatcher{
 	protected $options = array();
 	//执行应用
-    public function execute($options){
+    public function execute($options,AdviceContainer $Container){
         $this->options = $options;
         $action = array_pop($options['paths']);
         $class = 'Controller\\'.implode("\\",$options['paths']);

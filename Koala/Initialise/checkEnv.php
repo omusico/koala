@@ -19,11 +19,8 @@ env::check('APP_ENGINE',function($key){
             );
     return $result;
 });
-
 //应用相对URL路径
 env::reg('APP_RELATIVE_URL',function($key){
-	if(RUNCLI)//cli $_SERVER['SERVER_NAME'] 无效
-	return;
 	$pathname = str_replace(str_replace('\\', '/', $_SERVER['DOCUMENT_ROOT']),'', str_replace('\\', '/',ENTRANCE_PATH));
 	//站点
 	define('SITE_URL','http://'.$_SERVER['SERVER_NAME'].$pathname);

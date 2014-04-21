@@ -23,8 +23,9 @@ class KoalaCore extends Initial{
             //使用命令行解析器
             Task::factory(KoalaCLI::options())->execute();
         }else{
+            $dispatcher = \Core\AOP\Aop::getInstance(Dispatcher::factory('mvc'));
             //分发
-            Dispatcher::factory('mvc')->execute(URL::Parser());
+            $dispatcher->execute(URL::Parser());
         }
        
     }

@@ -384,6 +384,25 @@ class Request
     {
         return ($this->server->get('HTTPS') == true);
     }
+    
+    /**
+     * Is the request ajax?
+     *
+     * @access public
+     * @return boolean
+     */
+    public function isAjax()
+    {     
+        $is_ajax = false;
+        //针对jq等常用框架
+        if(!empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest') {
+            $is_ajax = true;
+        }elseif(isset($_SERVER['HTTP_REQUEST_TYPE'])&&$_SERVER['HTTP_REQUEST_TYPE']=='ajax'){
+            //建议在使用ajax时发送header变量 request_type=ajax
+            $is_ajax = true;
+        }
+        return ($is_ajax == true);
+    }
 
     /**
      * Gets the request IP address

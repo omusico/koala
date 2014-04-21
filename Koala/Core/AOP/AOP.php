@@ -26,6 +26,9 @@ class AOP{
      * @param string $class 业务类
      */
     function __construct($class){
+        if(is_object($class)){
+            $this->class = $class;
+        }else
         $this->class = ucwords($class);
     }
     /**
@@ -44,17 +47,21 @@ class AOP{
      * @return array         配置
      */
     public function getAdvices($class, $method){
+        if(is_object($class))
+            $class = get_class($class);
         //合并配置
         $aop_config = array_reverse(array_merge(self::$aop_config, $this->config, $this->call_config));
         //重置本次调用配置
         $this->call_config = array();
+        list($class_pre) = explode('/',str_replace('\\','/', $class));
+        $class_pre = ucwords($class_pre);
         //匹配后的配置
         $advice_configs = array();
         foreach ($aop_config as $config){
             //首字母大写
             $point_class = ucwords($config['point']['class']);
             //匹配
-            if (( $point_class== $class || $config['point']['class'] == '*') && 
+            if (( $point_class== $class || in_array($class_pre, explode(',',$config['point']['class']))) && 
                 ($config['point']['method'] == $method || $config['point']['method'] == '*')
             ){
                 $advice_configs[] = $config;
@@ -117,7 +124,10 @@ class AOP{
      */
     function __call($method, $params){
         $advice_configs = $this->getAdvices($this->class, $method);
-        $advice_container = new AdviceContainer(new $this->class());
+        if(is_object($this->class)){
+           $advice_container = new AdviceContainer($this->class);
+        }else
+            $advice_container = new AdviceContainer(new $this->class());
         //根据配置生成关系
         foreach ($advice_configs as $config){
             //方面方法参数
@@ -135,17 +145,20 @@ class AOP{
                 $advice_container = $advice_container->addAdvice($advice_proxy);
             }
         }
+        if(is_object($this->class))
+            $class = get_class($this->class);
+        else
+            $class = $this->class;
         //缓存方法
-        if (!isset(self::$method_reflection[$this->class][$method])){
-            $callee = new \ReflectionMethod($this->class, $method);
-            self::$method_reflection[$this->class][$method] = $callee;
+        if (!isset(self::$method_reflection[$class][$method])){
+            $callee = new \ReflectionMethod($class, $method);
+            self::$method_reflection[$class][$method] = $callee;
         }else
         {
-            $callee = self::$method_reflection[$this->class][$method];
+            $callee = self::$method_reflection[$class][$method];
         }
-
         //调用执行对象链
-        $ret = call_user_func(array($advice_container, $method), $this->class, $params, $callee->getParameters());
+        $ret = call_user_func(array($advice_container, $method), $class, $params, $callee->getParameters());
         return $ret;
     }
     /**
@@ -179,9 +192,14 @@ class AOP{
      * @return object   
      */
     private function event($advice, $event){
+        if(is_object($this->class))
+            $class = get_class($this->class);
+        else
+            $class = $this->class;
+
         $this->call_config[] = array(
                     'event'	 => $event,
-                    'point' => array('class'=>$this->class, 'method'=>'*'),
+                    'point' => array('class'=>$class, 'method'=>'*'),
                     'advice'=> $advice,
         );
         return $this;

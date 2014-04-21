@@ -88,7 +88,6 @@ class AdviceContainer{
             if ($this->original_method){
                 //增加主方法与次方法通信
                 $params = $this->getParamValues();
-                array_unshift($params,$this);
                 $this->ret = call_user_func_array(array($this->target, $this->method), $params);
             }
             return $this->ret;
@@ -139,8 +138,11 @@ class AdviceContainer{
         $this->method = $method;
         // 得到业务类名 和 业务方法参数
         list ($this->class, $_params, $this->method_reflection) = $params;
-        
+       
         $this->params = array();
+        if(count($_params)!=count($params[2])){
+            array_push($_params,$this);
+        }
         if ($_params){
             /**
              * @var ReflectionParameter $param
