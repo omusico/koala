@@ -68,6 +68,9 @@ class Base_Model extends ActiveModel{
                 'select' => $fileds,
             ));
         $obj = array_shift($objlist);
+        if(!is_object($obj)){
+            return null;
+        }
         return $obj->to_array();
     }
 	/**
