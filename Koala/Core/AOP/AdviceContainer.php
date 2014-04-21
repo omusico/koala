@@ -88,6 +88,8 @@ class AdviceContainer{
             if ($this->original_method){
                 //增加主方法与次方法通信
                 $params = $this->getParamValues();
+                array_pop($params);
+                array_push($params,$this);
                 $this->ret = call_user_func_array(array($this->target, $this->method), $params);
             }
             return $this->ret;
@@ -138,18 +140,14 @@ class AdviceContainer{
         $this->method = $method;
         // 得到业务类名 和 业务方法参数
         list ($this->class, $_params, $this->method_reflection) = $params;
-       
         $this->params = array();
-        if(count($_params)!=count($params[2])){
-            array_push($_params,$this);
-        }
         if ($_params){
             /**
              * @var ReflectionParameter $param
              */
             foreach ($params[2] as $k => $param)
             {
-                $this->params[$param->getName()] = $_params[$k];
+                $this->params[$param->getName()] = isset($_params[$k])?$_params[$k]:($param->isDefaultValueAvailable()?$param->getDefaultValue():null);
             }
         }
         //处理延迟调用

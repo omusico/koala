@@ -4,7 +4,7 @@ use Core\AOP\AdviceContainer;
 class Dispatcher{
 	protected $options = array();
 	//执行应用
-    public function execute($options,AdviceContainer $Container){
+    public function execute($options=array(),AdviceContainer $Container){
         $this->options = $options;
         $action = array_pop($options['paths']);
         $class = 'Controller\\'.implode("\\",$options['paths']);
