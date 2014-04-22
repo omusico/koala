@@ -6,6 +6,7 @@
  * @author   Lunnlew <Lunnlew@gmail.com>
  */
 namespace Core\AOP;
+use Exception;
 
 class AdviceProxy{
     /**
@@ -48,6 +49,7 @@ class AdviceProxy{
     function exception(Exception $e){
         if ($this->exception)
         {
+            
             return $this->exception->{$this->method}($e);
         }
         else

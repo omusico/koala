@@ -55,6 +55,7 @@ env::reg('APP_RELATIVE_URL',function($key){
     define('APP_URL','http://'.$_SERVER['HTTP_HOST'].$test_path);
     define('APP_RELATIVE_URL',$test_path);
     define('SOURCE_RELATIVE_URL',$test_path.'Source/');
+
     return $test_path;
 });
 //--------------------运行环境检查---------------------

@@ -86,7 +86,8 @@ function createGuid($namespace = '') {
  * @return string
  */
 function U($url='',$vars='',$suffix=true,$redirect=false,$domain=false){
-    return URL::Assembler($url,$vars,$suffix,$redirect,$domain);
+    $u = \Core\AOP\Aop::getInstance('URL');
+    return $u->Assembler($url,$vars,$suffix,$redirect,$domain);
 }
 /**
  * 语言项加载
@@ -293,5 +294,15 @@ function cmp_func($a, $b) {
         }
     }
 }
-
+//解析/id/1/name/2 格式 到 array('id'=>1,'name'=>2)
+function parse_varstr($var_str,$del='/'){
+    $args = explode($del,$var_str);
+    foreach ($args as $key => $value) {
+        if($key%2==0)
+            $one[] = $value;
+        else
+            $two[] = $value;
+    }
+    return array_combine($one,$two);
+}
 

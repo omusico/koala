@@ -43,7 +43,7 @@ class View extends Initial{
 		if(!empty($tpl)){
 			list($a[],$b[],$a[],$a[]) =array_reverse(explode($depr,$tpl));
 		}else{
-			list($a[],$a[],$a[]) =array_reverse($options['paths']);
+			list($a[],$a[],$a[]) =array_reverse($options['path']);
 		}
 		$a = array_filter($a);
 		$end = '/page/'.array_pop($a);

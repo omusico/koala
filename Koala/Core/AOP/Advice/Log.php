@@ -7,6 +7,8 @@
  */
 namespace Core\AOP\Advice;
 use Core\AOP\AdviceContainer;
+use Core\AOP\LazyAdviceException;
+use View;
 /**
  * 日志记录类
  */

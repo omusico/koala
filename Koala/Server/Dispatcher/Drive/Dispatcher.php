@@ -6,8 +6,12 @@ class Dispatcher{
 	//执行应用
     public function execute($options=array(),AdviceContainer $Container){
         $this->options = $options;
-        $action = array_pop($options['paths']);
-        $class = 'Controller\\'.implode("\\",$options['paths']);
+        list($group,$module,$action) = $options['path'];
+        $action = array_pop($options['path']);
+        !defined('GROUP_NAME') AND define('GROUP_NAME',$group);
+        !defined('MODULE_NAME') AND define('MODULE_NAME',$module);
+        !defined('ACTION_NAME') AND define('ACTION_NAME',$action);
+        $class = 'Controller\\'.implode("\\",$options['path']);
         $controller = \Core\AOP\Aop::getInstance($class);
         $custom['const'] = get_defined_constants();
         \View::assign('Koala',$custom);
