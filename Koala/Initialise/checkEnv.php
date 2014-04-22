@@ -38,11 +38,13 @@ env::reg('APP_RELATIVE_URL',function($key){
         }
     }
     $test_path = $test_path.'/';
+
     //站点
     define('SITE_URL','http://'.$_SERVER['HTTP_HOST'].$test_path);
     define('SITE_RELATIVE_URL',$test_path);
-    //BAE
+    
     $pathname = str_replace(str_replace('\\', '/', $_SERVER['DOCUMENT_ROOT']),'', str_replace('\\', '/',ENTRANCE_PATH));
+    //BAE
     if(APPENGINE=='BAE'){//BAE $_SERVER['DOCUMENT_ROOT'] 与 ENTRANCE_PATH 不在同一路径分支。
         $pathname = basename($pathname).DIRECTORY_SEPARATOR;
     }
