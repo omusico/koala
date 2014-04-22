@@ -66,6 +66,9 @@ $cfg['MODULE']=array('default'=>'Index');
 //默认方法
 $cfg['ACTION']=array('default'=>'index');
 
+//多入口
+$cfg['MULTIPLE_ENTRY']=0;
+
 //变量
 $cfg['VAR_APP']='app';
 $cfg["VAR_GROUP"]='g';

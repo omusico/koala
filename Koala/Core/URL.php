@@ -74,14 +74,18 @@ class URL{
 		$url_parts['path'] = $this->parserPaths($paths,$overwite);
 
 		$url = '';
+		$baseurl = rtrim(APP_RELATIVE_URL,'/');
+		if(C('MULTIPLE_ENTRY',0)){
+			$baseurl .= '/'.basename($_SERVER["SCRIPT_NAME"]);
+		}
 		switch (C('URLMODE',2)) {
 			case 1://使用普通url组装器//index.php?group=admin&module=index
 				list($url_params[C('VAR_GROUP','g')],$url_params[C('VAR_MODULE','m')],$url_params[C('VAR_ACTION','a')]) = $url_parts['path'];
-				$url=APP_RELATIVE_URL.'?'.http_build_query(array_reverse($url_params));
+				$url=$baseurl.'?'.http_build_query(array_reverse($url_params));
 				break;
 			case 3://兼容模式//index.php?s=Admin-Index-index-id-1.html
 				$depr = C('URL_PATHINFO_DEPR','/');
-				$url = rtrim(APP_RELATIVE_URL,'/').'/'.basename($_SERVER["SCRIPT_NAME"]).'?'.C('URL_VAR','s').'='.implode($depr,$url_parts['path']);
+				$url = $baseurl.'?'.C('URL_VAR','s').'='.implode($depr,$url_parts['path']);
 				foreach ($url_params as $var => $val){
                 	$url .= $depr . $var . $depr . urlencode($val);
             	}   
@@ -94,7 +98,7 @@ class URL{
 				//other.php/admin/index
 				//
 				$depr = C('URL_PATHINFO_DEPR','/');
-				$url = rtrim(APP_RELATIVE_URL,'/').'/'.basename($_SERVER["SCRIPT_NAME"]).'/'.implode($depr,$url_parts['path']);
+				$url = $baseurl.'/'.implode($depr,$url_parts['path']);
 				foreach ($url_params as $var => $val){
                 	$url .= $depr . $var . $depr . urlencode($val);
             	}   
