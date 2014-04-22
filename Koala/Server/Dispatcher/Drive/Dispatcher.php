@@ -7,7 +7,7 @@ class Dispatcher{
     public function execute($options=array(),AdviceContainer $Container){
         $this->options = $options;
         list($group,$module,$action) = $options['path'];
-        $action = array_pop($options['path']);
+        array_pop($options['path']);
         !defined('GROUP_NAME') AND define('GROUP_NAME',$group);
         !defined('MODULE_NAME') AND define('MODULE_NAME',$module);
         !defined('ACTION_NAME') AND define('ACTION_NAME',$action);

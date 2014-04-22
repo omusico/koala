@@ -24,7 +24,7 @@ class URL{
 				if(!isset($url_parts['path']))$url_parts['path']='';
 				$url_parts['path'] = trim($url_parts['path'],'/');
 				$paths = array_filter(explode('/',$url_parts['path']));
-				$url_parts['path'] = $this->parserPaths($paths,$overwite);
+				$parts = $this->parserPaths($paths,$overwite);
 				break;
 			case 3://兼容模式
 				$url_parts = parse_url($url);
@@ -35,16 +35,23 @@ class URL{
 				}
 				$url_parts['path'] = trim($url_parts['path'],'/');
 				$paths = array_filter(explode('/',$url_parts['path']));
-				$url_parts['path'] = $this->parserPaths($paths,$overwite);
+				$parts = $this->parserPaths($paths,$overwite);
+				
 				break;
 			case 2:
 			default:
 				//默认使用PATHINFO模式
 				$url_parts['path'] = trim($url,'/');
 				$paths = array_filter(explode('/',$url_parts['path']));
-				$url_parts['path'] = $this->parserPaths($paths,$overwite);
+				$parts = $this->parserPaths($paths,$overwite);
 				break;
 		}
+		$url_parts['path'] = array_slice($parts,0,3);
+		$url_parts['params'] = parse_varstr(implode('/',array_slice($parts,3)));
+		
+		$_GET=array_merge($_GET,$url_parts['params']);
+		$_POST=array_merge($_POST,$url_parts['params']);
+		$_REQUEST=array_merge($_REQUEST,$url_parts['params']);
 		return $url_parts;
 	}
 	/**
