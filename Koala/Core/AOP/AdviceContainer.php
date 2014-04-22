@@ -141,6 +141,8 @@ class AdviceContainer{
         // 得到业务类名 和 业务方法参数
         list ($this->class, $_params, $this->method_reflection) = $params;
         $this->params = array();
+        //该行代码在对象链中 保持 参数正确
+        $_params = array_values($_params);
         if ($_params){
             /**
              * @var ReflectionParameter $param
