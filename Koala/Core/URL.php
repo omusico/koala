@@ -81,7 +81,7 @@ class URL{
 				break;
 			case 3://兼容模式//index.php?s=Admin-Index-index-id-1.html
 				$depr = C('URL_PATHINFO_DEPR','/');
-				$url = rtrim(APP_RELATIVE_URL,'/').'/?'.C('URL_VAR','s').'='.implode($depr,$url_parts['path']);
+				$url = rtrim(APP_RELATIVE_URL,'/').'/'.basename($_SERVER["SCRIPT_NAME"]).'?'.C('URL_VAR','s').'='.implode($depr,$url_parts['path']);
 				foreach ($url_params as $var => $val){
                 	$url .= $depr . $var . $depr . urlencode($val);
             	}   
