@@ -6,10 +6,14 @@ class Dispatcher{
 	//执行应用
     public function execute($options=array(),AdviceContainer $Container){
         $this->options = $options;
-        list($group,$module,$action) = $options['path'];
+        if(C('MULTIPLE_GROUP')){
+            list($group,$module,$action) = $options['path'];
+            !defined('GROUP_NAME') AND define('GROUP_NAME',$group);
+        }
+        else
+            list($module,$action) = $options['path'];
         array_pop($options['path']);
-        !defined('GROUP_NAME') AND define('GROUP_NAME',$group);
-        !defined('MODULE_NAME') AND define('MODULE_NAME',$module);
+        !defined('MODULE_NAME') AND define('MODULE_NAME',ucwords($module));
         !defined('ACTION_NAME') AND define('ACTION_NAME',$action);
         $class = 'Controller\\'.implode("\\",$options['path']);
         $controller = \Core\AOP\Aop::getInstance($class);

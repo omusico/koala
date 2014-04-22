@@ -33,16 +33,16 @@ class URL{
 					parse_str($url_parts['query'],$vars);
 					$url_parts['path'] = $vars[C('URL_VAR','s')];
 				}
-				$url_parts['path'] = trim($url_parts['path'],'/');
-				$paths = array_filter(explode('/',$url_parts['path']));
+				$url_parts['path'] = trim($url_parts['path'],C('URL_PATHINFO_DEPR','/'));
+				$paths = array_filter(explode(C('URL_PATHINFO_DEPR','/'),$url_parts['path']));
 				$parts = $this->parserPaths($paths,$overwite);
 				
 				break;
 			case 2:
 			default:
 				//默认使用PATHINFO模式
-				$url_parts['path'] = trim($url,'/');
-				$paths = array_filter(explode('/',$url_parts['path']));
+				$url_parts['path'] = trim($url,C('URL_PATHINFO_DEPR','/'));
+				$paths = array_filter(explode(C('URL_PATHINFO_DEPR','/'),$url_parts['path']));
 				$parts = $this->parserPaths($paths,$overwite);
 				break;
 		}
@@ -115,7 +115,7 @@ class URL{
 		//是否启用了多应用模式//默认单应用
 		if(C('MULTIPLE_APP',0)){
 			//如果在已有的应用列表中
-			if(!in_array(current($paths),C('APP:LIST',array('APP1')))){
+			if(!in_array(cwords(current($paths)),C('APP:LIST',array('APP1')))){
 				if($overwite){
 					array_unshift($paths,C('APP:DEFAULT','APP1'));
 					if(next($paths)===false)end($paths);
@@ -126,7 +126,7 @@ class URL{
 		//是否启用了多分组//默认多分组
 		if(C('MULTIPLE_GROUP',1)){
 			//如果在已有的分组列表中
-			if(!in_array(current($paths),C('GROUP:LIST',array('Home')))){
+			if(!in_array(ucwords(current($paths)),C('GROUP:LIST',array('Home')))){
 				if($overwite){
 					array_splice($paths,key($paths)-1,0,array(C('GROUP:DEFAULT','Home')));
 					if(next($paths)===false)end($paths);
@@ -143,6 +143,7 @@ class URL{
 		}else{
 			prev($paths);
 		}
+		$paths[key($paths)] = ucwords(current($paths));
 		//方法
 		if(next($paths)===false){
 			end($paths);

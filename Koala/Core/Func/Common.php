@@ -296,7 +296,9 @@ function cmp_func($a, $b) {
 }
 //解析/id/1/name/2 格式 到 array('id'=>1,'name'=>2)
 function parse_varstr($var_str,$del='/'){
+    $one = $two = array();
     $args = explode($del,$var_str);
+    if(count($args)/2!=0)array_pop($args);
     foreach ($args as $key => $value) {
         if($key%2==0)
             $one[] = $value;
@@ -305,4 +307,3 @@ function parse_varstr($var_str,$del='/'){
     }
     return array_combine($one,$two);
 }
-
