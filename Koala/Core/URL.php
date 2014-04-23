@@ -117,45 +117,50 @@ class URL{
 	 * @return array $result 结果
 	 */
 	protected function parserPaths(&$paths=array(),$overwite=false){
+		//处理计数
+		$num=0;
 		//是否启用了多应用模式//默认单应用
 		if(C('MULTIPLE_APP',0)){
-			//如果在已有的应用列表中
-			if(!in_array(cwords(current($paths)),C('APP:LIST',array('APP1')))){
+			//如果不在已有的应用列表中
+			if(!in_array(ucwords(current($paths)),C('APP:LIST',array('APP1')))){
+				//是否用默认值
 				if($overwite){
+					//插入头
 					array_unshift($paths,C('APP:DEFAULT','APP1'));
-					if(next($paths)===false)end($paths);
+					++$num;
 				}
 					
 			}
 		}
 		//是否启用了多分组//默认多分组
 		if(C('MULTIPLE_GROUP',1)){
-			//如果在已有的分组列表中
-			if(!in_array(ucwords(current($paths)),C('GROUP:LIST',array('Home')))){
+			//如果不在已有的分组列表中
+			if(!in_array(ucwords($paths[$num]),C('GROUP:LIST',array('Home')))){
+				//是否用默认值
 				if($overwite){
-					array_splice($paths,key($paths)-1,0,array(C('GROUP:DEFAULT','Home')));
-					if(next($paths)===false)end($paths);
+					array_splice($paths,$num,0,array(C('GROUP:DEFAULT','Home')));
+					++$num;
 				}
+			}else{
+				$paths[$num] = ucwords($paths[$num]);
+				++$num;
 			}
 		}
-		//模块
-		if(next($paths)===false){
-			end($paths);
+		if(!isset($paths[$num])){
+			//模块//是否用默认值
 			if($overwite){
-				array_splice($paths,key($paths)+1,0,array(C('MODULE:DEFAULT','Index')));
-				if(next($paths)===false)end($paths);
+				array_splice($paths,$num,0,array(C('MODULE:DEFAULT','Home')));
+				++$num;
 			}
 		}else{
-			$paths[key($paths)] = ucwords(current($paths));
+			$paths[$num] = ucwords($paths[$num]);
+			++$num;
 		}
-		$paths[key($paths)] = ucwords(current($paths));
-		//方法
-		if(next($paths)===false){
-			end($paths);
-			if($overwite){
-				array_splice($paths,key($paths)+1,0,array(C('ACTION:DEFAULT','index')));
-				if(next($paths)===false)end($paths);
-			}
+		if(!isset($paths[$num]))
+		//方法//是否用默认值
+		if($overwite){
+			array_splice($paths,$num,0,array(C('ACTION:DEFAULT','index')));
+			++$num;
 		}
 		return $paths;
 	}
