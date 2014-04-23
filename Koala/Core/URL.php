@@ -15,7 +15,7 @@ class URL{
 	 * @param  AdviceContainer $container 
 	 * @return array
 	 */
-	public function requestOption($url='',$overwite=false,AdviceContainer $container){
+	public function requestOption($url='',$overwite=true,AdviceContainer $container){
 		if(strpos($url,C('URL_HTML_SUFFIX','.html'))!==false)
 			$url = substr($url,0,strpos($url,C('URL_HTML_SUFFIX','.html')));
 		switch (C('URLMODE',2)) {
@@ -147,7 +147,6 @@ class URL{
 			}
 		}else{
 			$paths[key($paths)] = ucwords(current($paths));
-			prev($paths);
 		}
 		$paths[key($paths)] = ucwords(current($paths));
 		//方法
