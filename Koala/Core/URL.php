@@ -144,6 +144,7 @@ class URL{
 				if(next($paths)===false)end($paths);
 			}
 		}else{
+			$paths[key($paths)] = ucwords(current($paths));
 			prev($paths);
 		}
 		$paths[key($paths)] = ucwords(current($paths));

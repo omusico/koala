@@ -54,7 +54,6 @@ class AOP{
         //重置本次调用配置
         $this->call_config = array();
         list($class_pre) = explode('/',str_replace('\\','/', $class));
-        $class_pre = ucwords($class_pre);
         //匹配后的配置
         $advice_configs = array();
         foreach ($aop_config as $config){
