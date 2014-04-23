@@ -44,7 +44,12 @@ class koala extends KoalaCore{
     public static function execute(){
         $dispatcher = \Core\AOP\Aop::getInstance(Dispatcher::factory('mvc'));
         $u = \Core\AOP\Aop::getInstance('URLS');
+        $test_url = rtrim(APP_RELATIVE_URL,'/');
+        if(!empty($test_url))
+            $url = str_replace(strtolower(APP_RELATIVE_URL),'',strtolower($_SERVER['REQUEST_URI']));
+        else
+            $url = strtolower($_SERVER['REQUEST_URI']);
         //分发
-        $dispatcher->execute($u->requestOption(ltrim($_SERVER['REQUEST_URI'],APP_RELATIVE_URL),1));
+         $dispatcher->execute($u->requestOption($url,1));
     }
 }

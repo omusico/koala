@@ -48,9 +48,11 @@ class URL{
 		}
 		$url_parts['path'] = array_slice($parts,0,3);
 		$url_parts['params'] = parse_varstr(implode('/',array_slice($parts,3)));
-		$_GET=array_merge($_GET,$url_parts['params']);
-		$_POST=array_merge($_POST,$url_parts['params']);
-		$_REQUEST=array_merge($_REQUEST,$url_parts['params']);
+		if(!empty($url_parts['params'])){
+			$_GET=array_merge($_GET,$url_parts['params']);
+			$_POST=array_merge($_POST,$url_parts['params']);
+			$_REQUEST=array_merge($_REQUEST,$url_parts['params']);
+		}
 		return $url_parts;
 	}
 	/**
