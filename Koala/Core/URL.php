@@ -48,7 +48,6 @@ class URL{
 		}
 		$url_parts['path'] = array_slice($parts,0,3);
 		$url_parts['params'] = parse_varstr(implode('/',array_slice($parts,3)));
-		
 		$_GET=array_merge($_GET,$url_parts['params']);
 		$_POST=array_merge($_POST,$url_parts['params']);
 		$_REQUEST=array_merge($_REQUEST,$url_parts['params']);
@@ -74,7 +73,7 @@ class URL{
 		$url_parts['path'] = $this->parserPaths($paths,$overwite);
 
 		$url = '';
-		$baseurl = rtrim(APP_RELATIVE_URL,'/');
+		$baseurl = rtrim(APP_RELATIVE_URL,'/').'/';
 		if(C('MULTIPLE_ENTRY',0)){
 			$baseurl .= '/'.basename($_SERVER["SCRIPT_NAME"]);
 		}
