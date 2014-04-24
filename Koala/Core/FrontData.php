@@ -13,8 +13,8 @@
  * @author    Lunnlew <Lunnlew@gmail.com>
  */
 class FrontData{
-    protected $alert = -1;
-    protected $msg = '';
+    protected static $alert = -1;
+    protected static $msg = '';
     public static function assign($key,$value){
         return Collection::factory('Front')->set($key,$value);
     }
