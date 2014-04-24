@@ -16,6 +16,9 @@ class Factory extends \Server\Factory{
             case 'response':
                $server_name = 'ResponseCookieDataCollection';
                break;
+            case 'front':
+               $server_name = 'FrontDataCollection';
+               break;
             default:
               $server_name = 'DataCollection';
               break;

@@ -18,7 +18,7 @@ class Dispatcher{
         $class = 'Controller\\'.implode("\\",$options['path']);
         $controller = \Core\AOP\Aop::getInstance($class);
         $custom['const'] = get_defined_constants();
-        \View::assign('Koala',$custom);
+        \FrontData::assign('Koala',$custom);
         try{
             if(!preg_match('/^[_A-Za-z](\w)*$/',$action)){
                 // 非法操作

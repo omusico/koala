@@ -241,7 +241,7 @@ abstract class Task {
 
 		if ( $this->_method != '_help' AND ! $validation->check())
 		{
-			echo View::factory('minion/error/validation')
+			echo \FrontData::factory('minion/error/validation')
 				->set('task', Task::convert_class_to_task($this))
 				->set('errors', $validation->errors($this->get_errors_file()));
 		}
@@ -268,7 +268,7 @@ abstract class Task {
 
 		list($description, $tags) = $this->_parse_doccomment($inspector->getDocComment());
 
-		$view = View::factory('minion/help/task')
+		$view = \FrontData::factory('minion/help/task')
 			->set('description', $description)
 			->set('tags', (array) $tags)
 			->set('task', Task::convert_class_to_task($this));

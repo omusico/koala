@@ -298,7 +298,7 @@ function cmp_func($a, $b) {
 function parse_varstr($var_str,$del='/'){
     $one = $two = array();
     $args = explode($del,$var_str);
-    if(count($args)/2!=0)array_pop($args);
+    if(count($args)%2!=0)array_pop($args);
     foreach ($args as $key => $value) {
         if($key%2==0)
             $one[] = $value;

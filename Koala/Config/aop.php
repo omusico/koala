@@ -19,5 +19,10 @@ return array(
         'event'	    => 'after',
         'point'     => array('class'=>'URL', 'method'=>'Assembler'),
         'advice'    => array('class'=>'Core\AOP\Advice\Url', 'method'=>'redirect'),
+    ),
+    array(
+        'event'     => 'after',
+        'point'     => array('class'=>'Server\Dispatcher\Drive\Dispatcher', 'method'=>'execute'),
+        'advice'    => array('class'=>'Core\AOP\Advice\Front', 'method'=>'output'),
     )
 );
