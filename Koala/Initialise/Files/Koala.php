@@ -46,9 +46,9 @@ class koala extends KoalaCore{
         $u = \Core\AOP\Aop::getInstance('URLS');
         $test_url = rtrim(APP_RELATIVE_URL,'/');
         if(!empty($test_url))
-            $url = str_replace(strtolower(APP_RELATIVE_URL),'',strtolower($_SERVER['REQUEST_URI']));
+            $url = str_replace(APP_RELATIVE_URL,'',$_SERVER['REQUEST_URI']);
         else
-            $url = strtolower($_SERVER['REQUEST_URI']);
+            $url = $_SERVER['REQUEST_URI'];
         //分发
          $dispatcher->execute($u->requestOption($url,1));
     }
