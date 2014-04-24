@@ -18,6 +18,9 @@ class FrontData{
     public static function assign($key,$value){
         return Collection::factory('Front')->set($key,$value);
     }
+    public static function get($key,$value=''){
+        return Collection::factory('Front')->get($key,$value);
+    }
     public static function toJson(){
         return json_encode(Collection::factory('Front')->all());
     }
@@ -37,9 +40,9 @@ class FrontData{
       self::$msg=$msg;
     }
     public static function getAlert(){
-      return selg::$alert;
+      return self::$alert;
     }
     public static function getMsg(){
-      return selg::$msg;
+      return self::$msg;
     }
 }

@@ -29,7 +29,16 @@ class Front{
 			foreach ($data as $key => $value) {
 				\View::assign($key,$value);
 			}
-			\View::display($tpl);
+			if(\FrontData::getAlert()===-1){
+				\View::display($tpl);
+			}elseif(\FrontData::getAlert()===0){
+				\View::error(\FrontData::getMsg());
+			}elseif(\FrontData::getAlert()===1){
+				\View::success(\FrontData::getMsg());
+			}elseif(\FrontData::getAlert()===3){
+				\View::success(\FrontData::getMsg());
+			}
+			
 		}
 	}
 }
