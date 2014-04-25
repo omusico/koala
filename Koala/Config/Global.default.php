@@ -144,5 +144,9 @@ $cfg['EDITOR']=array(
   'default'=>'ueditor',
   'ueditor'=>array(),
   );
+
+
+$cfg["SKIN_NAME"] = 'default';
+$cfg["THEME_NAME"] = 'default';
 return $cfg;
 ?>
