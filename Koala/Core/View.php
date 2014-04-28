@@ -46,7 +46,7 @@ class View extends Initial{
 			list($a[],$a[],$a[]) =array_reverse($options['path']);
 		}
 		$a = array_filter($a);
-		if(!in_array($type,array('content','page')))
+		if(!in_array($type,array('content','page','widget')))
 			$type='page';
 		$end = '/'.$type.'/'.array_pop($a);
 		return implode($depr,$a).$end.'.html';
