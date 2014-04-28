@@ -57,7 +57,7 @@
         smarty : Smarty引擎配置项
             默认值:
                 array(
-                'TemplateDir'=>'[VIEW_PATH][STYLENAME]',
+                'TemplateDir'=>'[VIEW_PATH][THEME_NAME]',
                 'CompileDir'=>'[COMPILE_PATH]',
                 'PluginDir'=>'[APP_ADDONS_PATH]Smarty/plugin',
                 'ConfigDir'=>'[APP_ADDONS_PATH]Smarty/config',
@@ -75,7 +75,7 @@
         twig : Twig引擎配置项
             默认值:
                 array(
-                'template_path'=>'[VIEW_PATH][STYLENAME]',//or array(path1,$path2,...)
+                'template_path'=>'[VIEW_PATH][THEME_NAME]',//or array(path1,$path2,...)
                 'cache'=>false,
                 'cache_path'=>'[COMPILE_PATH]',
                 'debug'=>false,

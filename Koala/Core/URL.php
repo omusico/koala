@@ -77,7 +77,7 @@ class URL{
 		$url = '';
 		$baseurl = rtrim(APP_RELATIVE_URL,'/').'/';
 		if(C('MULTIPLE_ENTRY',0)){
-			$baseurl .= '/'.basename($_SERVER["SCRIPT_NAME"]);
+			$baseurl .= basename($_SERVER["SCRIPT_NAME"]);
 		}
 		switch (C('URLMODE',2)) {
 			case 1://使用普通url组装器//index.php?group=admin&module=index
@@ -99,7 +99,7 @@ class URL{
 				//other.php/admin/index
 				//
 				$depr = C('URL_PATHINFO_DEPR','/');
-				$url = $baseurl.'/'.implode($depr,$url_parts['path']);
+				$url = $baseurl.implode($depr,$url_parts['path']);
 				foreach ($url_params as $var => $val){
                 	$url .= $depr . $var . $depr . urlencode($val);
             	}   

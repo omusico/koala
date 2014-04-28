@@ -2,9 +2,9 @@
 defined('IN_Koala') or exit();
 /**
  * 分页类
- * ===> $this->styleDir/$this->styleName/style.css
- * ===> $this->styleDir/$this->styleName/style.php
- * ===> $this->styleDir/$this->styleName/container.php
+ * ===> $this->styleDir/$this->THEME_NAME/style.css
+ * ===> $this->styleDir/$this->THEME_NAME/style.php
+ * ===> $this->styleDir/$this->THEME_NAME/container.php
  * 
  * //使用示例
  * $page = new Pagination(Article::getItemNum(),20,intval($_GET['pageid']));
@@ -35,7 +35,7 @@ class Helper_Pagination{
 	//分页类的样式目录
 	var $styleDir = "pagination/";
 	//当前分页样式名
-	var $styleName = 'default';
+	var $THEME_NAME = 'default';
 	//分页容器
 	protected $container = array(
 		'page'=>'<div class="pagination">%s</div>',
@@ -101,7 +101,7 @@ class Helper_Pagination{
 	}
 	//设置样式名
 	public function setTemplate($name='default'){
-		$this->styleName = $name;
+		$this->THEME_NAME = $name;
 	}
 	//增加前端参数
 	public function addParam($key,$value){
@@ -274,7 +274,7 @@ class Helper_Pagination{
 	}
 	//获取样式模版
 	function getTemplate($name='style.php'){
-		$filename = $this->styleDir.'/'.$this->styleName.'/'.$name;
+		$filename = $this->styleDir.'/'.$this->THEME_NAME.'/'.$name;
 		if(file_exists($filename)){
 			$style = include_once($filename);
 		}else{
@@ -284,7 +284,7 @@ class Helper_Pagination{
 	}
 	//获取容器模版
 	function getContainer($name='container.php'){
-		$filename = $this->styleDir.'/'.$this->styleName.'/'.$name;
+		$filename = $this->styleDir.'/'.$this->THEME_NAME.'/'.$name;
 		if(file_exists($filename)){
 			$style = include_once($filename);
 		}else{
@@ -294,6 +294,6 @@ class Helper_Pagination{
 	}
 	//返回样式url
 	function geStyleUrl($styleUrl,$name='style.css'){
-		return $styleUrl.$this->styleName.'/'.$name;
+		return $styleUrl.$this->THEME_NAME.'/'.$name;
 	}
 }

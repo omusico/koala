@@ -18,7 +18,7 @@ class Front{
 			if(\FrontData::getAlert()!==-1){
 				echo \FrontData::getMsg();
 			}else{
-				echo \FrontData::toJosn();
+				echo \FrontData::toJson();
 			}
 		}else{
 			$data = \FrontData::getAll();

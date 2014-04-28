@@ -11,10 +11,10 @@ $cfg['Template_Engine']=array(
   'default'=>'Tengine',
   'tengine'=>array(),
   'smarty'=>array(
-                'TemplateDir'=>'[VIEW_PATH][STYLENAME]',
+                'TemplateDir'=>'[VIEW_PATH][THEME_NAME]',
                 'CompileDir'=>'[COMPILE_PATH]',
                 'PluginDir'=>'[PLUGIN_PATH]Smarty/plugin',
-                'ConfigDir'=>'[VIEW_PATH][STYLENAME]',
+                'ConfigDir'=>'[VIEW_PATH][THEME_NAME]',
                 'CacheDir'=>'[COMPILE_PATH]',
                 'debugging'=>false,
                 'caching'=>true,
@@ -27,7 +27,7 @@ $cfg['Template_Engine']=array(
                     ),
                 ),
   'twig'=>array(
-    'template_path'=>'[VIEW_PATH][STYLENAME]',//or array(path1,$path2,...)
+    'template_path'=>'[VIEW_PATH][THEME_NAME]',//or array(path1,$path2,...)
     'cache'=>false,
     'cache_path'=>'[COMPILE_PATH]',
     'debug'=>false,
@@ -146,7 +146,6 @@ $cfg['EDITOR']=array(
   );
 
 
-$cfg["SKIN_NAME"] = 'default';
 $cfg["THEME_NAME"] = 'default';
 return $cfg;
 ?>

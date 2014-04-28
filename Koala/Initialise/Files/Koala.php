@@ -33,7 +33,7 @@ koala::initialize(function(){
     });
     //控制器加载
     Controller::register();
-    define('STYLENAME', 'default');
+    define('THEME_NAME',C('THEME_NAME',"default"));
     //视图初始化
     View::initialize(function($instance){
         $type = C('Template_Engine:DEFAULT','Tengine');
