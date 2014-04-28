@@ -14,7 +14,7 @@ use Core\AOP\LazyAdviceException;
 class Front{
 	function output(AdviceContainer $container){
 		$rq = new \Request();
-		if($rq->isAjax()){
+		if(\FrontData::get('showpage')!==true&&$rq->isAjax()){
 			if(\FrontData::getAlert()!==-1){
 				echo \FrontData::getMsg();
 			}else{

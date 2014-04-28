@@ -41,12 +41,14 @@ class View extends Initial{
 		}
 		$options =  Dispatcher::factory('mvc')->getOptions();
 		if(!empty($tpl)){
-			list($a[],$b[],$a[],$a[]) =array_reverse(explode($depr,$tpl));
+			list($a[],$type,$a[],$a[]) =array_reverse(explode($depr,$tpl));
 		}else{
 			list($a[],$a[],$a[]) =array_reverse($options['path']);
 		}
 		$a = array_filter($a);
-		$end = '/page/'.array_pop($a);
+		if(!in_array($type,array('content','page')))
+			$type='page';
+		$end = '/'.$type.'/'.array_pop($a);
 		return implode($depr,$a).$end.'.html';
 	}
 	public static function test(){
