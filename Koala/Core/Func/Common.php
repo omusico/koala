@@ -193,7 +193,15 @@ function is_ajax(){
     }
     return $is_ajax;
 }
+/**
+ * pajax请求判断
+ * @link https://github.com/defunkt/jquery-pjax pajax
+ * @return boolean
+ */
 
+function is_pjax(){
+    return array_key_exists('HTTP_X_PJAX', $_SERVER) && $_SERVER['HTTP_X_PJAX'];
+}
 /**
  * 判断是否是 https 连接
  * @return boolean

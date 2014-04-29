@@ -1,6 +1,7 @@
 <?php
 class View extends Initial{
 	static $engine = null;
+	static $options = array();
 	//设置视图引擎
 	public function setEngine($type,$option){
 		$class = 'Engine_'.$type;
@@ -29,6 +30,13 @@ class View extends Initial{
 		return self::$engine->fetch(self::getTemplateName($tpl,$rec));
 	}
 	/**
+	 * 设置请求行为
+	 * @param array $options 请求行为参数
+	 */
+	public static function setTemplateOptions($options=array()){
+		self::$options = $options;
+	}
+	/**
 	 * 获得模板文件名
 	 * @param  string  $tpl  模板名
 	 * @param  boolean $rec  是否原样返回
@@ -39,11 +47,13 @@ class View extends Initial{
 		if($rec){
 			return $tpl;
 		}
-		$options =  Dispatcher::factory('mvc')->getOptions();
+		if(empty(self::$options)){
+			exit('[View]未设置请求参数');
+		}
 		if(!empty($tpl)){
 			list($a[],$type,$a[],$a[]) =array_reverse(explode($depr,$tpl));
 		}else{
-			list($a[],$a[],$a[]) =array_reverse($options['path']);
+			list($a[],$a[],$a[]) =array_reverse(self::$options);
 		}
 		$a = array_filter($a);
 		if(!in_array($type,array('content','page','widget')))

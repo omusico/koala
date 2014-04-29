@@ -13,6 +13,7 @@
  * @author    Lunnlew <Lunnlew@gmail.com>
  */
 class Controller{
+	static $loader;
 	/**
 	 * 自定义控制器加载方案
 	 * 
@@ -32,4 +33,5 @@ class Controller{
 			$closure();
 		}
 	}
+
 }

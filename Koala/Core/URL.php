@@ -8,6 +8,7 @@
 use Core\AOP\AdviceContainer;
 
 class URL{
+	public $request_option = array();
 	/**
 	 * 获取本次请求url参数
 	 * @param  string          $url
@@ -53,6 +54,7 @@ class URL{
 			$_POST=array_merge($_POST,$url_parts['params']);
 			$_REQUEST=array_merge($_REQUEST,$url_parts['params']);
 		}
+		$this->request_option = $url_parts;
 		return $url_parts;
 	}
 	/**

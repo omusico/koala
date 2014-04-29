@@ -49,7 +49,29 @@ class koala extends KoalaCore{
             $url = str_replace(APP_RELATIVE_URL,'',$_SERVER['REQUEST_URI']);
         else
             $url = $_SERVER['REQUEST_URI'];
-        //分发
-         $dispatcher->execute($u->requestOption($url,1));
+        //请求选项
+        $options = $u->requestOption($url,1);
+        //视图文件
+        View::setTemplateOptions($options['path']);
+        //控制器分发
+        $dispatcher->execute(
+            //获取控制器类
+            function($options)use($options){
+                if(C('MULTIPLE_GROUP')){
+                    list($group,$module,$action) = $options['path'];
+                    !defined('GROUP_NAME') AND define('GROUP_NAME',$group);
+                    $class = $group.'\Controller\\'.$module;
+                }
+                else{
+                    list($module,$action) = $options['path'];
+                    $class = 'Controller\\'.$module;
+                }
+                !defined('MODULE_NAME') AND define('MODULE_NAME',ucwords($module));
+                !defined('ACTION_NAME') AND define('ACTION_NAME',$action);
+                return $class;
+            },
+            //获取控制器方法
+            function($options)use($options){return array_pop($options['path']);}
+        );
     }
 }

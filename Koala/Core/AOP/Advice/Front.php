@@ -13,6 +13,10 @@ use Core\AOP\LazyAdviceException;
  */
 class Front{
 	function output(AdviceContainer $container){
+
+        $custom['const'] = get_defined_constants();
+        \FrontData::assign('Koala',$custom);
+        
 		$rq = new \Request();
 		if(\FrontData::get('showpage')!==true&&$rq->isAjax()){
 			if(\FrontData::getAlert()!==-1){
