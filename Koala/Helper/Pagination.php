@@ -2,9 +2,9 @@
 defined('IN_Koala') or exit();
 /**
  * 分页类
- * ===> $this->styleDir/$this->THEME_NAME/style.css
- * ===> $this->styleDir/$this->THEME_NAME/style.php
- * ===> $this->styleDir/$this->THEME_NAME/container.php
+ * ===> $this->styleDir/$this->styleName/style.css
+ * ===> $this->styleDir/$this->styleName/style.php
+ * ===> $this->styleDir/$this->styleName/container.php
  * 
  * //使用示例
  * $page = new Pagination(Article::getItemNum(),20,intval($_GET['pageid']));
@@ -35,7 +35,7 @@ class Helper_Pagination{
 	//分页类的样式目录
 	var $styleDir = "pagination/";
 	//当前分页样式名
-	var $THEME_NAME = 'default';
+	var $styleName = 'default';
 	//分页容器
 	protected $container = array(
 		'page'=>'<div class="pagination">%s</div>',
@@ -61,10 +61,10 @@ class Helper_Pagination{
 		);
 	//默认模板
 	protected $defaultTemplate = array(
-		'first_last'=>'<a href="%s%s" title="%s">%s</a>',
-		'prev'=>'<a href="%s%s" title="%s" class="prev">%s</a>',
-		'next'=>'<a href="%s%s" title="%s" class="next">%s</a>',
-		'link'=>'<a href="%s%s" title="%s" >%s</a>',
+		'first_last'=>'<a href="%s%s" title="%s" data-pjax=".content-body">%s</a>',
+		'prev'=>'<a href="%s%s" title="%s" class="prev" data-pjax=".content-body">%s</a>',
+		'next'=>'<a href="%s%s" title="%s" class="next" data-pjax=".content-body">%s</a>',
+		'link'=>'<a href="%s%s" title="%s" data-pjax=".content-body">%s</a>',
 		'current'=>'<span title="%s" class="current">%s</span>',
 		'jump'=>'<option value="%s" %s>%s</option>',
 		);
@@ -101,7 +101,7 @@ class Helper_Pagination{
 	}
 	//设置样式名
 	public function setTemplate($name='default'){
-		$this->THEME_NAME = $name;
+		$this->styleName = $name;
 	}
 	//增加前端参数
 	public function addParam($key,$value){
@@ -175,13 +175,12 @@ class Helper_Pagination{
 	}
 	//处理分页数据
 	protected function _makePaginationData(){
+		$this->container  = $this->getContainer();
 		$templates = $this->getTemplate();
 		foreach ($this->show as $item => $value) {
 			$method = '_make'.$item;
 			$pageData[$item] = self::$method($templates[$value]);
 		}
-
-		$this->container  = $this->getContainer();
 		$this->pagin = sprintf($this->container['page'],implode('',$pageData));
 	}
 	/**
@@ -274,7 +273,7 @@ class Helper_Pagination{
 	}
 	//获取样式模版
 	function getTemplate($name='style.php'){
-		$filename = $this->styleDir.'/'.$this->THEME_NAME.'/'.$name;
+		$filename = $this->styleDir.'/'.$this->styleName.'/'.$name;
 		if(file_exists($filename)){
 			$style = include_once($filename);
 		}else{
@@ -284,7 +283,7 @@ class Helper_Pagination{
 	}
 	//获取容器模版
 	function getContainer($name='container.php'){
-		$filename = $this->styleDir.'/'.$this->THEME_NAME.'/'.$name;
+		$filename = $this->styleDir.$this->styleName.'/'.$name;
 		if(file_exists($filename)){
 			$style = include_once($filename);
 		}else{
@@ -294,6 +293,6 @@ class Helper_Pagination{
 	}
 	//返回样式url
 	function geStyleUrl($styleUrl,$name='style.css'){
-		return $styleUrl.$this->THEME_NAME.'/'.$name;
+		return $styleUrl.$this->styleName.'/'.$name;
 	}
 }
