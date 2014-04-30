@@ -26,6 +26,8 @@ class Base_Logic{
 		$page = new Helper_Pagination($model::count(array('conditions' =>$where)),$pagesize,$pageid);
 		//获取数据
 		$page->setSourceCall("$model::getPagin",array($fields,$where,$order));
+        //分页模板目录
+        $page->setTemplateDir(WIDGET_PATH.'pagination/');
 		//设置分页样式
 		$page->setTemplate($style);
 		return $page;
