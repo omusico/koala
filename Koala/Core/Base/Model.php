@@ -53,11 +53,14 @@ class Base_Model extends ActiveModel{
      */
     public  function getById($id,$fileds='*',$where=''){
     	$model = static::getModel();
-        $obj = $model::find($id,
-            array(
+        $map = array(
                 'select' => $fileds,
                 "conditions" => $where
-            ));
+            );
+        if($where==''){
+            unset($map['conditions']);
+        }
+        $obj = $model::find($id,$map);        
         return $obj->to_array();
     }
 	public  function getOne($fileds='*',$where=''){
