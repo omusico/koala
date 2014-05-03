@@ -85,9 +85,9 @@ function createGuid($namespace = '') {
  * @param boolean $domain 是否显示域名
  * @return string
  */
-function U($url='',$vars='',$suffix=true,$redirect=false,$domain=false){
+function U($url='',$vars='',$suffix=true,$redirect=false,$domain=false,$overwite=false){
     $u = \Core\AOP\Aop::getInstance('URL');
-    return $u->Assembler($url,$vars,$suffix,$redirect,$domain);
+    return $u->Assembler($url,$vars,$suffix,$redirect,$domain,$overwite);
 }
 /**
  * 语言项加载

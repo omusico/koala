@@ -9,6 +9,7 @@ use Core\AOP\AdviceContainer;
 
 class URL{
 	public $request_option = array();
+	public static $param = array();
 	/**
 	 * 获取本次请求url参数
 	 * @param  string          $url
@@ -54,7 +55,9 @@ class URL{
 			$_POST=array_merge($_POST,$url_parts['params']);
 			$_REQUEST=array_merge($_REQUEST,$url_parts['params']);
 		}
-		$this->request_option = $url_parts;
+		
+		self::$param=$this->request_option = $url_parts;
+
 		return $url_parts;
 	}
 	/**
@@ -66,7 +69,7 @@ class URL{
 	 * @param boolean $overwite 是否用默认值覆写
 	 * @return string
 	 */
-	public function Assembler($url='',$vars='',$suffix=true,$redirect=false,$overwite=false,AdviceContainer $container){
+	public function Assembler($url='',$vars='',$suffix=true,$redirect=false,$domain=false,$overwite=false,AdviceContainer $container){
 
 		$url_parts = $container->getAdviceResult('Core\AOP\Advice\Url.url_parts');
 		$url_params = $url_parts['params'];unset($url_parts['params']);
@@ -106,6 +109,9 @@ class URL{
                 	$url .= $depr . $var . $depr . urlencode($val);
             	}   
 				break;
+		}
+		if($domain){
+			return 'http://'.$_SERVER['HTTP_HOST'].$url.$url_suffix;
 		}
 		//组装
 		return $url.$url_suffix;
