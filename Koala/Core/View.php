@@ -1,5 +1,5 @@
 <?php
-class View extends Initial{
+class View extends Singleton{
 	static $engine = null;
 	static $options = array();
 	//设置视图引擎

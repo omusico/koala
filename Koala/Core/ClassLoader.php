@@ -1,7 +1,7 @@
 <?php
 //类加载器
 //参考 PSR0规范 https://github.com/hfcorriez/fig-standards/blob/zh_CN/%E6%8E%A5%E5%8F%97/PSR-0.md
-class ClassLoader extends Initial{
+class ClassLoader extends Singleton{
     //名称空间map
     protected $namespaces = array();
     //前缀map

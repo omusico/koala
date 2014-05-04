@@ -1,5 +1,5 @@
 <?php
-class Config extends Initial{
+class Config extends Singleton{
 	static $config = array();
 	/**
 	 * 加载配置

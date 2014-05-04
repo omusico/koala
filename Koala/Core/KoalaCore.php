@@ -14,8 +14,8 @@ define('FRAME_RELEASE','20140323');
 !defined('APP_ADDONS_PATH') and define('APP_ADDONS_PATH',APP_PATH.'Addons'.DS);
 !defined('APP_PLUGIN_PATH') and define("APP_PLUGIN_PATH",APP_ADDONS_PATH.'Plugin'.DS);
 
-include(__DIR__.'/Initial.php');
-class KoalaCore extends Initial{
+include(__DIR__.'/Singleton.php');
+class KoalaCore extends Singleton{
     //执行应用
     public static function execute(){
         //判断运行模式
