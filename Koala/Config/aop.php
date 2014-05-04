@@ -23,6 +23,6 @@ return array(
     array(
         'event'     => 'after',
         'point'     => array('class'=>'Server\Dispatcher\Drive\Dispatcher', 'method'=>'execute'),
-        'advice'    => array('class'=>'Core\AOP\Advice\Front', 'method'=>'output'),
+        'advice'    => array('class'=>'Core\Front\Advice\FrontAdvice', 'method'=>'output'),
     )
 );
