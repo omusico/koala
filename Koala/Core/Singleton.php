@@ -17,12 +17,12 @@ class Singleton{
 	/**
 	 * Closure 初始化支持
 	 * @param  Closure $initializer Closure
-	 * @param  array   $option      选项
+	 * @param  array   $options      选项
 	 */
-	public static function initialize(Closure $initializer,$option=array()){
+	public static function initialize(Closure $initializer,$options=array()){
 		$object = new static();
 		self::setInstance(get_class($object),$object);
-        $initializer($object,$option);
+        $initializer($object,$options);
     }
 	/**
 	 * 获得类单例
