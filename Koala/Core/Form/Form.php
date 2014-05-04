@@ -12,6 +12,12 @@ namespace Core\Form;
  */
 /*
 $f = new Core\Form\Form();
+$f->setForm(
+array(
+    'action'=>'index.php',
+    'method'=>'post'
+    )
+);
 $f->addElement('input',array(
     'id'=>'name',
     'name'=>'name',
@@ -52,20 +58,36 @@ class Form{
 	 */
 	private $elements = array();
 	/**
+	 * 表单属性串
+	 */
+	private $form_attr = '';
+	/**
 	 * 处理模板
 	 * @var array
 	 */
 	protected $template = array(
+		'form'=>'<form %s>[FORM]</form>',
 		'input'=>'<input %s>',
 		'select'=>'<select %s> %s</select>',
 		'textarea'=>'<textarea %s> %s</textarea>',
 		'button'=>'<button %s> %s</button>',
 		'option'=>'<option value="%s">%s</option>',
 		);
+	/**
+	 * 构造函数
+	 * @param string $template 模板
+	 */
 	public function __construct($template=''){
 		if(!empty($template)){
-			$this->template = $template;
+			$this->template = array_merge($this->template,$template);
 		}
+	}
+	/**
+	 * 设置表单属性
+	 * @param array $attributes 元素属性
+	 */
+	public function setForm($attributes=array()){
+		$this->form_attr = $this->buildAttributes('form',$attributes);
 	}
 	/**
 	 * 添加表单元素
@@ -82,13 +104,13 @@ class Form{
 	 */
 	public function render($template=''){
 		if(!empty($template)){
-			$this->template = $template;
+			$this->template = array_merge($this->template,$template);
 		}
 		$html = '';
 		foreach ($this->elements as $key => $element) {
 				$html .= $this->buildAttributes($element[0],$element[1]);
 		}
-		return $html;
+		return str_replace('[FORM]',$html,$this->form_attr);
 	}
 	public function __toString(){
 		return $this->render();
