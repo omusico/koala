@@ -5,13 +5,13 @@
  * @package  Koala
  * @author   Lunnlew <Lunnlew@gmail.com>
  */
-namespace Core\Form;
+namespace Helper;
 /**
  * 表单生成器
  * 
  */
 /*
-$f = new Core\Form\Form();
+$f = new \Helper\Form();
 $f->setForm(
 array(
     'action'=>'index.php',
