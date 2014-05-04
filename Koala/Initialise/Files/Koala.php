@@ -37,7 +37,8 @@ koala::initialize(function(){
     //视图初始化
     View::initialize(function($instance){
         $type = C('Template_Engine:DEFAULT','Tengine');
-        $instance->setEngine($type,C('Template_Engine:'.$type));
+        $class = 'Engine_'.$type;
+        View::$engine = $class::factory(C('Template_Engine:'.$type));
     });
 });
 class koala extends KoalaCore{

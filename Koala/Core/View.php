@@ -2,11 +2,6 @@
 class View extends Singleton{
 	static $engine = null;
 	static $options = array();
-	//设置视图引擎
-	public function setEngine($type,$option){
-		$class = 'Engine_'.$type;
-		self::$engine = $class::factory($option);
-	}
 	/**
 	 * 注册变量
 	 * @param  string $key
