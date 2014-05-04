@@ -42,12 +42,12 @@ class Singleton{
 	}
 	/**
 	 * 设置单例
-	 * @param string $key    key
+	 * @param string $class    class
 	 * @param object $object 类实例
 	 */
-	public static function setInstance($key,$object){
+	public static function setInstance($class,$object){
 		if(is_object($object)){
-			self::$instances[$key] = $object;
+			self::$instances[$class] = $object;
 			return true;
 		}
 		return false;
