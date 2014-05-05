@@ -63,15 +63,15 @@ class Plugin{
      */
     public static function loadPlugin(){
         //遍历核心插件
-        $handle  = opendir(CORE_PLUGIN_PATH);
+       // $handle  = opendir(CORE_PLUGIN_PATH);
         $arr = array();
-        while($file = readdir($handle)){
-            if($file=='.'||$file=='..'){
-                continue;
-            }
-            $newpath=CORE_PLUGIN_PATH.$file;
-            if(is_dir($newpath)) $arr[] = $file;
-        }
+       // while($file = readdir($handle)){
+        //    if($file=='.'||$file=='..'){
+        //        continue;
+        //    }
+        //    $newpath=CORE_PLUGIN_PATH.$file;
+        //    if(is_dir($newpath)) $arr[] = $file;
+       // }
         //遍历应用插件
         if(defined('APP_PLUGIN_PATH')){
             //遍历插件
