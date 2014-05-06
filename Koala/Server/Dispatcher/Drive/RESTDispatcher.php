@@ -141,6 +141,29 @@ class RESTDispatcher{
      * @const string
      */
     const ROUTE_ESCAPE_REGEX = '`(?<=^|\])[^\]\[\?]+?(?=\[|$)`';
+    /**
+     * Constructor
+     *
+     * Create a new Klein instance with optionally injected dependencies
+     * This DI allows for easy testing, object mocking, or class extension
+     *
+     * @param ServiceProvider $service              Service provider object responsible for utilitarian behaviors
+     * @param mixed $app                            An object passed to each route callback, defaults to an App instance
+     * @param RouteCollection $routes               Collection object responsible for containing all route instances
+     * @param AbstractRouteFactory $route_factory   A factory class responsible for creating Route instances
+     * @access public
+     */
+    public function __construct(
+        ServiceProvider $service = null,
+        $app = null,
+        Collection $routes = null,
+        AbstractRouteFactory $route_factory = null
+    ) {
+        // Instanciate and fall back to defaults
+        $this->service       = $service       ?: new \ServiceProvider();
+        $this->app           = $app           ?: new \App();
+        $this->routes        = $routes        ?: Collection::factory('route');
+    }
     //执行调度器
     public function execute(Request $request = null,AbstractResponse $response = null,$send_response = true,$capture = self::DISPATCH_NO_CAPTURE){
         //设置和初始化
@@ -459,8 +482,8 @@ class RESTDispatcher{
                 $this->request,
                 $this->response,
                 $this->service,
-                //$this->app,
-                //$this, // Pass the Klein instance
+                $this->app,
+                $this,
                 $matched,
                 $methods_matched
             );

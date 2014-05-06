@@ -57,7 +57,7 @@ class ServiceProvider{
      * @var DataCollection\DataCollection
      * @access protected
      */
-    protected $shared_data
+    protected $shared_data;
 
     /**
      * 构造器

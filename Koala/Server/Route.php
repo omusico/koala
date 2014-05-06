@@ -10,7 +10,6 @@ class Route{
     * @var array
     */
     static protected $instances = array();
-    public function __construct(){}
     public static function factory($options=array(),$type='',$new=false){
         if(empty($type)||!is_string($type)){
             $type = C('Route:DEFAULT','Route');
