@@ -3,6 +3,8 @@
 /**
  * Validator 
  */
+
+use Server\Exception\ValidationException;
 class Validator
 {
 

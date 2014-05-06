@@ -1,17 +1,12 @@
 <?php
-namespace Server\Dispatcher\Drive;
-use Request;
-use AbstractResponse;
-use Response;
-use ServiceProvider;
-use Collection;
-use Route;
-use Server\Exception\DispatchHaltedException;
-use Server\Exception\LockedResponseException;
-use Server\Exception\HttpExceptionInterface;
-use Server\Exception\HttpException;
-//调度器
-class RESTDispatcher{
+/**
+ * Koala - A PHP Framework For Web
+ *
+ * @package  Koala
+ * @author   Lunnlew <Lunnlew@gmail.com>
+ */
+class REST{
+	
     /**
      * Class properties
      */
@@ -30,14 +25,6 @@ class RESTDispatcher{
      * @access protected
      */
     protected $route_factory;
-
-    /**
-     * An array of error callback callables
-     *
-     * @var array[callable]
-     * @access protected
-     */
-    protected $errorCallbacks = array();
 
     /**
      * An array of HTTP error callback callables
@@ -458,6 +445,61 @@ class RESTDispatcher{
         return "`^$route$`";
     }
     /**
+     * Get the path for a given route
+     *
+     * This looks up the route by its passed name and returns
+     * the path/url for that route, with its URL params as
+     * placeholders unless you pass a valid key-value pair array
+     * of the placeholder params and their values
+     *
+     * If a pathname is a complex/custom regular expression, this
+     * method will simply return the regular expression used to
+     * match the request pathname, unless an optional boolean is
+     * passed "flatten_regex" which will flatten the regular
+     * expression into a simple path string
+     *
+     * This method, and its style of reverse-compilation, was originally
+     * inspired by a similar effort by Gilles Bouthenot (@gbouthenot)
+     *
+     * @link https://github.com/gbouthenot
+     * @param string $route_name        The name of the route
+     * @param array $params             The array of placeholder fillers
+     * @param boolean $flatten_regex    Optionally flatten custom regular expressions to "/"
+     * @throws OutOfBoundsException     If the route requested doesn't exist
+     * @access public
+     * @return string
+     */
+    public function getPathFor($route_name, array $params = null, $flatten_regex = true)
+    {
+        // First, grab the route
+        $route = $this->routes->get($route_name);
+
+        // Make sure we are getting a valid route
+        if (null === $route) {
+            throw new OutOfBoundsException('No such route with name: '. $route_name);
+        }
+
+        $path = $route->getPath();
+
+        if (preg_match_all(static::ROUTE_COMPILE_REGEX, $path, $matches, PREG_SET_ORDER)) {
+            foreach ($matches as $match) {
+                list($block, $pre, $inner_block, $type, $param, $optional) = $match;
+
+                if (isset($params[$param])) {
+                    $path = str_replace($block, $pre. $params[$param], $path);
+                } elseif ($optional) {
+                    $path = str_replace($block, '', $path);
+                }
+            }
+
+        } elseif ($flatten_regex && strpos($path, '@') === 0) {
+            // If the path is a custom regular expression and we're "flattening", just return a slash
+            $path = '/';
+        }
+
+        return $path;
+    }
+    /**
      * Handle a route's callback
      *
      * This handles common exceptions and their output
@@ -568,5 +610,471 @@ class RESTDispatcher{
     public function onHttpError($callback)
     {
         $this->httpErrorCallbacks[] = $callback;
+    }
+    /**
+     * Adds a callback to the stack of handlers to run after the dispatch
+     * loop has handled all of the route callbacks and before the response
+     * is sent
+     *
+     * @param callable $callback            The callable function to execute in the after route chain
+     * @access public
+     * @return void
+     */
+    public function afterDispatch($callback)
+    {
+        $this->afterFilterCallbacks[] = $callback;
+    }
+
+    /**
+     * Runs through and executes the after dispatch callbacks
+     *
+     * @access protected
+     * @return void
+     */
+    protected function callAfterDispatchCallbacks()
+    {
+        try {
+            foreach ($this->afterFilterCallbacks as $callback) {
+                if (is_callable($callback)) {
+                    if (is_string($callback)) {
+                        $callback($this);
+
+                    } else {
+                        call_user_func($callback, $this);
+
+                    }
+                }
+            }
+        } catch (Exception $e) {
+            $this->error($e);
+        }
+    }
+    /**
+     * Returns the routes object
+     *
+     * @access public
+     * @return RouteCollection
+     */
+    public function routes()
+    {
+        return $this->routes;
+    }
+
+    /**
+     * Returns the request object
+     *
+     * @access public
+     * @return Request
+     */
+    public function request()
+    {
+        return $this->request;
+    }
+
+    /**
+     * Returns the response object
+     *
+     * @access public
+     * @return Response
+     */
+    public function response()
+    {
+        return $this->response;
+    }
+
+    /**
+     * Returns the service object
+     *
+     * @access public
+     * @return ServiceProvider
+     */
+    public function service()
+    {
+        return $this->service;
+    }
+
+    /**
+     * Returns the app object
+     *
+     * @access public
+     * @return mixed
+     */
+    public function app()
+    {
+        return $this->app;
+    }
+
+    /**
+     * Parse our extremely loose argument order of our "respond" method and its aliases
+     *
+     * This method takes its arguments in a loose format and order.
+     * The method signature is simply there for documentation purposes, but allows
+     * for the minimum of a callback to be passed in its current configuration.
+     *
+     * @see Klein::respond()
+     * @param mixed $args               An argument array. Hint: This works well when passing "func_get_args()"
+     *  @named string | array $method   HTTP Method to match
+     *  @named string $path             Route URI path to match
+     *  @named callable $callback       Callable callback method to execute on route match
+     * @access protected
+     * @return array                    A named parameter array containing the keys: 'method', 'path', and 'callback'
+     */
+    protected function parseLooseArgumentOrder(array $args){
+        // Get the arguments in a very loose format
+        $callback = array_pop($args);
+        $path = array_pop($args);
+        $method = array_pop($args);
+
+        // Return a named parameter array
+        return array(
+            'method' => $method,
+            'path' => $path,
+            'callback' => $callback,
+            'count_match' => true,
+            'name' => null,
+        );
+    }
+
+    /**
+     * Add a new route to be matched on dispatch
+     *
+     * Essentially, this method is a standard "Route" builder/factory,
+     * allowing a loose argument format and a standard way of creating
+     * Route instances
+     *
+     * This method takes its arguments in a very loose format
+     * The only "required" parameter is the callback (which is very strange considering the argument definition order)
+     *
+     * <code>
+     * $router = new Klein();
+     *
+     * $router->respond( function() {
+     *     echo 'this works';
+     * });
+     * $router->respond( '/endpoint', function() {
+     *     echo 'this also works';
+     * });
+     * $router->respond( 'POST', '/endpoint', function() {
+     *     echo 'this also works!!!!';
+     * });
+     * </code>
+     *
+     * @param string | array $method    HTTP Method to match
+     * @param string $path              Route URI path to match
+     * @param callable $callback        Callable callback method to execute on route match
+     * @access public
+     * @return Route
+     */
+    public function respond($method, $path = '*', $callback = null){
+        // Get the arguments in a very loose format
+        extract(
+            $this->parseLooseArgumentOrder(func_get_args()),
+            EXTR_OVERWRITE
+        );
+        $route = Server\Route\Factory::build($callback, $path, $method);
+        Collection::factory('route')->add($route);
+        return $route;
+    }
+
+    /**
+     * Collect a set of routes under a common namespace
+     *
+     * The routes may be passed in as either a callable (which holds the route definitions),
+     * or as a string of a filename, of which to "include" under the Klein router scope
+     *
+     * <code>
+     * $router = new Klein();
+     *
+     * $router->with('/users', function($router) {
+     *     $router->respond( '/', function() {
+     *         // do something interesting
+     *     });
+     *     $router->respond( '/[i:id]', function() {
+     *         // do something different
+     *     });
+     * });
+     *
+     * $router->with('/cars', __DIR__ . '/routes/cars.php');
+     * </code>
+     *
+     * @param string $namespace                     The namespace under which to collect the routes
+     * @param callable | string[filename] $routes   The defined routes to collect under the namespace
+     * @access public
+     * @return void
+     */
+    //搜集一系列在$namespace下的路由
+    public static function with($namespace, $routes){
+        $previous = Server\Route\Factory::getNamespace();
+        Server\Route\Factory::appendNamespace($namespace);
+        if (is_callable($routes)) {
+            if (is_string($routes)) {
+                $routes();
+            } else {
+                call_user_func($routes);
+            }
+        } else {
+            require $routes;
+        }
+        Server\Route\Factory::setNamespace($previous);
+    }
+    /**
+     * Adds an error callback to the stack of error handlers
+     *
+     * @param callable $callback            The callable function to execute in the error handling chain
+     * @access public
+     * @return boolean|void
+     */
+    public function onError($callback)
+    {
+        $this->errorCallbacks[] = $callback;
+    }
+
+    /**
+     * Routes an exception through the error callbacks
+     *
+     * @param Exception $err        The exception that occurred
+     * @throws UnhandledException   If the error/exception isn't handled by an error callback
+     * @access protected
+     * @return void
+     */
+    protected function error(Exception $err)
+    {
+        $type = get_class($err);
+        $msg = $err->getMessage();
+
+        if (count($this->errorCallbacks) > 0) {
+            foreach (array_reverse($this->errorCallbacks) as $callback) {
+                if (is_callable($callback)) {
+                    if (is_string($callback)) {
+                        $callback($this, $msg, $type, $err);
+
+                        return;
+                    } else {
+                        call_user_func($callback, $this, $msg, $type, $err);
+
+                        return;
+                    }
+                } else {
+                    if (null !== $this->service && null !== $this->response) {
+                        $this->service->flash($err);
+                        $this->response->redirect($callback);
+                    }
+                }
+            }
+        } else {
+            $this->response->code(500);
+            throw new UnhandledException($err);
+        }
+
+        // Lock our response, since we probably don't want
+        // anything else messing with our error code/body
+        $this->response->lock();
+    }
+
+    /**
+     * Method aliases
+     */
+
+    /**
+     * Quick alias to skip the current callback/route method from executing
+     *
+     * @throws DispatchHaltedException To halt/skip the current dispatch loop
+     * @access public
+     * @return void
+     */
+    public function skipThis()
+    {
+        throw new DispatchHaltedException(null, DispatchHaltedException::SKIP_THIS);
+    }
+
+    /**
+     * Quick alias to skip the next callback/route method from executing
+     *
+     * @param int $num The number of next matches to skip
+     * @throws DispatchHaltedException To halt/skip the current dispatch loop
+     * @access public
+     * @return void
+     */
+    public function skipNext($num = 1)
+    {
+        $skip = new DispatchHaltedException(null, DispatchHaltedException::SKIP_NEXT);
+        $skip->setNumberOfSkips($num);
+
+        throw $skip;
+    }
+
+    /**
+     * Quick alias to stop the remaining callbacks/route methods from executing
+     *
+     * @throws DispatchHaltedException To halt/skip the current dispatch loop
+     * @access public
+     * @return void
+     */
+    public function skipRemaining()
+    {
+        throw new DispatchHaltedException(null, DispatchHaltedException::SKIP_REMAINING);
+    }
+
+    /**
+     * Alias to set a response code, lock the response, and halt the route matching/dispatching
+     *
+     * @param int $code     Optional HTTP status code to send
+     * @throws DispatchHaltedException To halt/skip the current dispatch loop
+     * @access public
+     * @return void
+     */
+    public function abort($code = null)
+    {
+        if (null !== $code) {
+            $this->response->code($code);
+        }
+
+        // Disallow further response modification
+        $this->response->lock();
+
+        throw new DispatchHaltedException();
+    }
+
+    /**
+     * OPTIONS alias for "respond()"
+     *
+     * @see Klein::respond()
+     * @param string $route
+     * @param callable $callback
+     * @access public
+     * @return Route
+     */
+    public function options($path = '*', $callback = null)
+    {
+        // Options the arguments in a very loose format
+        extract(
+            $this->parseLooseArgumentOrder(func_get_args()),
+            EXTR_OVERWRITE
+        );
+
+        return $this->respond('OPTIONS', $path, $callback);
+    }
+
+    /**
+     * HEAD alias for "respond()"
+     *
+     * @see Klein::respond()
+     * @param string $path
+     * @param callable $callback
+     * @access public
+     * @return Route
+     */
+    public function head($path = '*', $callback = null)
+    {
+        // Get the arguments in a very loose format
+        extract(
+            $this->parseLooseArgumentOrder(func_get_args()),
+            EXTR_OVERWRITE
+        );
+
+        return $this->respond('HEAD', $path, $callback);
+    }
+
+    /**
+     * GET alias for "respond()"
+     *
+     * @see Klein::respond()
+     * @param string $route
+     * @param callable $callback
+     * @access public
+     * @return Route
+     */
+    public function get($path = '*', $callback = null)
+    {
+        // Get the arguments in a very loose format
+        extract(
+            $this->parseLooseArgumentOrder(func_get_args()),
+            EXTR_OVERWRITE
+        );
+
+        return $this->respond('GET', $path, $callback);
+    }
+
+    /**
+     * POST alias for "respond()"
+     *
+     * @see Klein::respond()
+     * @param string $path
+     * @param callable $callback
+     * @access public
+     * @return Route
+     */
+    public function post($path = '*', $callback = null)
+    {
+        // Get the arguments in a very loose format
+        extract(
+            $this->parseLooseArgumentOrder(func_get_args()),
+            EXTR_OVERWRITE
+        );
+
+        return $this->respond('POST', $path, $callback);
+    }
+
+    /**
+     * PUT alias for "respond()"
+     *
+     * @see Klein::respond()
+     * @param string $path
+     * @param callable $callback
+     * @access public
+     * @return Route
+     */
+    public function put($path = '*', $callback = null)
+    {
+        // Get the arguments in a very loose format
+        extract(
+            $this->parseLooseArgumentOrder(func_get_args()),
+            EXTR_OVERWRITE
+        );
+
+        return $this->respond('PUT', $path, $callback);
+    }
+
+    /**
+     * DELETE alias for "respond()"
+     *
+     * @see Klein::respond()
+     * @param string $path
+     * @param callable $callback
+     * @access public
+     * @return Route
+     */
+    public function delete($path = '*', $callback = null)
+    {
+        // Get the arguments in a very loose format
+        extract(
+            $this->parseLooseArgumentOrder(func_get_args()),
+            EXTR_OVERWRITE
+        );
+
+        return $this->respond('DELETE', $path, $callback);
+    }
+
+    /**
+     * PATCH alias for "respond()"
+     *
+     * PATCH was added to HTTP/1.1 in RFC5789
+     *
+     * @link http://tools.ietf.org/html/rfc5789
+     * @see Klein::respond()
+     * @param string $path
+     * @param callable $callback
+     * @access public
+     * @return Route
+     */
+    public function patch($path = '*', $callback = null)
+    {
+        // Get the arguments in a very loose format
+        extract(
+            $this->parseLooseArgumentOrder(func_get_args()),
+            EXTR_OVERWRITE
+        );
+
+        return $this->respond('PATCH', $path, $callback);
     }
 }

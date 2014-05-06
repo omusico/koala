@@ -27,7 +27,6 @@ class KoalaCore extends Singleton{
             //分发
             $dispatcher->execute(URL::Parser());
         }
-       
     }
 }
 

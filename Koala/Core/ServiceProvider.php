@@ -414,4 +414,17 @@ class ServiceProvider{
     {
         $this->shared_data->remove($key);
     }
+    /**
+     * 魔术方法 "__call"
+     *
+     * @param string $key     数据字段名
+     * @access public
+     * @return void
+     */
+    public function __call($method,$args)
+    {
+        if($this->shared_data->exists($method)){
+            return call_user_func_array($this->shared_data->get($method), $args);
+        }
+    }
 }
