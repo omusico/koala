@@ -20,7 +20,7 @@ class Singleton{
 	 * @param  array   $options      选项
 	 */
 	public static function initialize(Closure $initializer,$options=array()){
-		$object = new static();
+		$object = self::getInstance(get_called_class());
 		self::setInstance(get_class($object),$object);
         $initializer($object,$options);
     }

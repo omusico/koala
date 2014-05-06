@@ -32,7 +32,18 @@ koala::initialize(function(){
         $instance->loadConfig(Config::getPath('Config/LAEGlobal.user.php'));
     });
     //控制器加载
-    Controller::register();
+    //控制器加载
+    Controller::register(function(){
+        ClassLoader::initialize(function($instance){
+                //注册_autoload函数
+                $instance->register();
+                $instance->registerNamespaces(array(
+                    'Admin' => APP_PATH.'Application',
+                    'Home' => APP_PATH.'Application',
+                    'Common' => APP_PATH.'Application'
+                    ));
+            });
+    });
     define('THEME_NAME',C('THEME_NAME',"default"));
     //视图初始化
     View::initialize(function($instance){
@@ -44,7 +55,7 @@ koala::initialize(function(){
 class koala extends KoalaCore{
     public static function execute(){
         $dispatcher = \Core\AOP\Aop::getInstance(Dispatcher::factory('mvc'));
-        $u = \Core\AOP\Aop::getInstance('URLS');
+        $u = \Core\AOP\Aop::getInstance('URL');
         $test_url = rtrim(APP_RELATIVE_URL,'/');
         if(!empty($test_url))
             $url = str_replace(APP_RELATIVE_URL,'',$_SERVER['REQUEST_URI']);
@@ -57,7 +68,7 @@ class koala extends KoalaCore{
         //控制器分发
         $dispatcher->execute(
             //获取控制器类
-            function($options)use($options){
+            function()use($options){
                 if(C('MULTIPLE_GROUP')){
                     list($group,$module,$action) = $options['path'];
                     !defined('GROUP_NAME') AND define('GROUP_NAME',$group);
@@ -72,7 +83,7 @@ class koala extends KoalaCore{
                 return $class;
             },
             //获取控制器方法
-            function($options)use($options){return array_pop($options['path']);}
+            function()use($options){return array_pop($options['path']);}
         );
     }
 }

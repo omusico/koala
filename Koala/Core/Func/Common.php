@@ -320,3 +320,21 @@ function parse_varstr($var_str,$del='/'){
     }
     return array_combine($one,$two);
 }
+/**
+ * 类加载
+ * @param  string $class_path 类路径别名
+ * @return object             类实例
+ */
+function import($class_path,$class){
+    if(strpos('#', $class_path)===0){
+        $base_path = FRAME_PATH;
+    }if(strpos('@', $class_path)===0){
+        $base_path = APP_PATH;
+    }
+    if(file_exists($base_path.$class_path.$class.'.php')){
+        include($base_path.$class_path.$class.'.php');
+        return new $class();
+    }else{
+        return null;
+    }
+}
