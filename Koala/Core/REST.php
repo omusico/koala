@@ -5,6 +5,17 @@
  * @package  Koala
  * @author   Lunnlew <Lunnlew@gmail.com>
  */
+use Request;
+use AbstractResponse;
+use Response;
+use ServiceProvider;
+use Collection;
+use Route;
+use Server\Exception\DispatchHaltedException;
+use Server\Exception\LockedResponseException;
+use Server\Exception\HttpExceptionInterface;
+use Server\Exception\HttpException;
+use Server\Exception\UnhandledException;
 class REST{
 	
     /**
@@ -319,7 +330,6 @@ class REST{
                 }
             }
         }
-
         //执行 404/405 条件
         try {
             if ($matched->isEmpty() && count($methods_matched) > 0) {
@@ -391,7 +401,7 @@ class REST{
         }
 
         //运行后置处理
-        //$this->callAfterDispatchCallbacks();
+        $this->callAfterDispatchCallbacks();
 
         if ($send_response && !$this->response->isSent()) {
             $this->response->send();
