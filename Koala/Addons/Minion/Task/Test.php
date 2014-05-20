@@ -7,19 +7,24 @@
  */
 namespace Minion\Task;
 /**
- * Help-Information for help
+ * Test
+ * 
+ * Information for help
  *
  * @package  Koala
  * @author   Lunnlew <Lunnlew@gmail.com>
  */
-class Help extends \Koala\Core\Task{
+class Test extends \Koala\Core\Task{
 	/**
 	 * Generates a help list for all tasks
 	 *
 	 * @return null
 	 */
 	protected function _execute(array $params){
-		print_r($params);exit;
+
+	}
+	protected function _help(array $params){
+		echo 'help';exit;
 		//$tasks = $this->_compile_task_list(Kohana::list_files('classes/Task'));
 
 		//$view = new View('minion/help/list');

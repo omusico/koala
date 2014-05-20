@@ -1,6 +1,15 @@
 <?php
-
-class KoalaCLI {
+/**
+ * Koala - A PHP Framework For Web
+ *
+ * @package  Koala
+ * @author   Lunnlew <Lunnlew@gmail.com>
+ */
+namespace Koala\Core\CLI;
+/**
+ * 命令行参数解析支持
+ */
+class KoalaCLI{
 
 	public static $wait_msg = 'Press any key to continue...';
 
@@ -34,72 +43,61 @@ class KoalaCLI {
 	);
 
 	/**
-	 * Returns one or more command-line options. Options are specified using
-	 * standard CLI syntax:
+	 * 返回一个或者多个命令行为
+	 * 使用示例
 	 *
-	 *     php index.php --username=john.smith --password=secret --var="some value with spaces"
+	 *     php index.php --username=john.smith --password=secret --var="some values"
 	 *
-	 *     // Get the values of "username" and "password"
+	 *     //获取 "username"和"password"的值
 	 *     $auth = KoalaCLI::options('username', 'password');
 	 *
-	 * @param   string  $options,...    option name
+	 * @param   string  $options,...    选项名
 	 * @return  array
 	 */
-	public static function options($options = NULL)
-	{
-		// Get all of the requested options
+	public static function options($options = NULL){
+		// 获取所有的请求参数
 		$options = func_get_args();
 
-		// Found option values
+		//用于存放已获得的值
 		$values = array();
 
-		// Skip the first option, it is always the file executed
-		for ($i = 1; $i < $_SERVER['argc']; $i++)
-		{
-			if ( ! isset($_SERVER['argv'][$i]))
-			{
-				// No more args left
+		//跳过第一个参数,它总是文件本身
+		for ($i = 1; $i < $_SERVER['argc']; $i++){
+			if ( ! isset($_SERVER['argv'][$i])){
+				//没有更多参数
 				break;
 			}
 
-			// Get the option
+			//获得当前选项
 			$opt = $_SERVER['argv'][$i];
-
-			if (substr($opt, 0, 2) !== '--')
-			{
-				// This is a positional argument
+			//获得选项值
+			if (substr($opt, 0, 2) !== '--'){
 				$values[] = $opt;
 				continue;
 			}
 
-			// Remove the "--" prefix
+			//移除"--"前缀
 			$opt = substr($opt, 2);
 
-			if (strpos($opt, '='))
-			{
-				// Separate the name and value
+			if (strpos($opt, '=')){
+				//分离选项和值
 				list ($opt, $value) = explode('=', $opt, 2);
-			}
-			else
-			{
+			}else{
 				$value = NULL;
 			}
 
 			$values[$opt] = $value;
 		}
-
-		if ($options)
-		{
-			foreach ($values as $opt => $value)
-			{
-				if ( ! in_array($opt, $options))
-				{
-					// Set the given value
+		//如果有选项列表
+		if ($options){
+			foreach ($values as $opt => $value){
+				if ( ! in_array($opt, $options)){
+					//移除不在的值
 					unset($values[$opt]);
 				}
 			}
 		}
-
+		//返回值
 		return count($options) == 1 ? array_pop($values) : $values;
 	}
 

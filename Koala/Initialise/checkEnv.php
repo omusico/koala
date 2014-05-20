@@ -19,6 +19,7 @@ env::check('APP_ENGINE',function($key){
             );
     return $result;
 });
+if(!RUNCLI){
 //应用相对URL路径
 env::reg('APP_RELATIVE_URL',function($key){
     $data = array_intersect(explode('/',$_SERVER["REQUEST_URI"]),explode('/',$_SERVER["SCRIPT_NAME"]));
@@ -58,6 +59,7 @@ env::reg('APP_RELATIVE_URL',function($key){
 
     return $test_path;
 });
+}
 //--------------------运行环境检查---------------------
 env::check("PHP_OS",function($key){
     $result = array(
