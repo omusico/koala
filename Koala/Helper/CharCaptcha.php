@@ -1,5 +1,5 @@
 <?php
-defined('IN_Koala') or exit();
+defined('IN_KOALA') or exit();
 /**
  * 字符验证码类
  * $c = new CharCaptcha();

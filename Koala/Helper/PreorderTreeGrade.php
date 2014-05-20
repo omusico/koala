@@ -1,5 +1,5 @@
 <?php
-defined('IN_Koala') or exit();
+defined('IN_KOALA') or exit();
 /**
  * 预排序树无限分级类
  */

@@ -24,6 +24,9 @@ class ClassLoader extends Singleton{
         $this->namespaces = array_merge($this->namespaces, $namespaces);
     }
     public function registerNamespace($namespace, $path){
+        if(is_array($path)){
+            $this->namespaces[$namespace] = array_merge($this->namespaces[$namespace],$path);
+        }else
         $this->namespaces[$namespace] = rtrim($path,'\\/');
     }
     //注册目录

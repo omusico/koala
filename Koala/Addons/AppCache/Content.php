@@ -1,5 +1,5 @@
 <?php
-defined('IN_Koala') or exit();
+defined('IN_KOALA') or exit();
 class AppCache_Content{
     protected static $instance = null;
 	protected $group = 'Content'; 

@@ -1,5 +1,5 @@
 <?php
-defined('IN_Koala') or exit();
+defined('IN_KOALA') or exit();
 /**
  * Controller控制器基类 抽象类
  */

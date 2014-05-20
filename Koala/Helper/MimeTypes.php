@@ -1,5 +1,5 @@
 <?php
-defined('IN_Koala') or exit();
+defined('IN_KOALA') or exit();
 class Helper_MimeTypes {
 	public static $mime_types = array (
 			'3gp' => 'video/3gpp', 'ai' => 'application/postscript', 

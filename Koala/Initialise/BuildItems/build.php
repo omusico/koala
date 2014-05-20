@@ -28,7 +28,7 @@ class Index extends Controller_PublicController{
 file_put_contents(ENTRANCE_PATH.C('appcfg:app_name','App').'/Controller/Home/Index.php',$content);
 
 $content = "<?php
-defined('IN_Koala') or exit();
+defined('IN_KOALA') or exit();
 //公共类
 class Controller_PublicController extends Core_Controller_Base{
 	public function __construct(){

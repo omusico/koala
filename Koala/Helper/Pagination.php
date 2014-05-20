@@ -1,5 +1,5 @@
 <?php
-defined('IN_Koala') or exit();
+defined('IN_KOALA') or exit();
 /**
  * 分页类
  * ===> $this->styleDir/$this->styleName/style.css

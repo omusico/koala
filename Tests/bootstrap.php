@@ -1,5 +1,5 @@
 <?php
-define('IN_Koala', true);
+define('IN_KOALA', true);
 define('DEBUG', 0);
 //根路径
 define('ENTRANCE_PATH',realpath(dirname(dirname(__FILE__))).DIRECTORY_SEPARATOR);

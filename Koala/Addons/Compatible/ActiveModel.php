@@ -1,5 +1,5 @@
 <?php
-defined('IN_Koala') or exit();
+defined('IN_KOALA') or exit();
 //
 //see https://github.com/jpfuentes2/php-activerecord
 //

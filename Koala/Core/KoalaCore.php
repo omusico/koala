@@ -1,101 +1,89 @@
 <?php
-if (!defined('DS')) {
-    define('DS', DIRECTORY_SEPARATOR);
-}
-//运行时目录//写数据目录
-define('RUNTIME_PATH',ENTRANCE_PATH.'Runtime'.DIRECTORY_SEPARATOR);
-//日志目录
-define('LOG_PATH',RUNTIME_PATH.'Storage'.DIRECTORY_SEPARATOR);
+//目录分隔符
+defined('DS') or define('DS', DIRECTORY_SEPARATOR);
+
 //框架核心版本
 define("FRAME_VERSION",'1.0');
+
 //框架发布时间
 define('FRAME_RELEASE','20140323');
-//默认应用插件路径
-!defined('APP_ADDONS_PATH') and define('APP_ADDONS_PATH',APP_PATH.'Addons'.DS);
-!defined('APP_PLUGIN_PATH') and define("APP_PLUGIN_PATH",APP_ADDONS_PATH.'Plugin'.DS);
 
+//核心初始化需求
+
+//加载单例实现
 include(__DIR__.'/Singleton.php');
+
+/**
+ * WEB方式核心初始化实现类
+ */
 class KoalaCore extends Singleton{
-    //执行应用
+    /**
+     * 需延迟执行的closure;
+     */
+    static $closure = null;
+    /**
+     * 执行应用
+     * 若应用没有实现子类execute,则使用该默认方法
+     * @static
+     * @access public
+     */
     public static function execute(){
-        //判断运行模式
-        if(RUNCLI){
-            //使用命令行解析器
-            Task::factory(KoalaCLI::options())->execute();
-        }else{
-            $dispatcher = \Core\AOP\Aop::getInstance(Dispatcher::factory('mvc'));
-            //分发
-            $dispatcher->execute(URL::Parser());
+        $dispatcher = \Core\AOP\Aop::getInstance(Dispatcher::factory('mvc'));
+        $u = \Core\AOP\Aop::getInstance('URL');
+        $test_url = rtrim(APP_RELATIVE_URL,'/');
+        if(!empty($test_url))
+            $url = str_replace(APP_RELATIVE_URL,'',$_SERVER['REQUEST_URI']);
+        else
+            $url = $_SERVER['REQUEST_URI'];
+        //请求选项
+        $options = $u->requestOption($url,1);
+        //视图文件
+        View::setTemplateOptions($options['path']);
+        //控制器分发
+        $dispatcher->execute(
+            //获取控制器类
+            function()use($options){
+                if(C('MULTIPLE_GROUP')){
+                    list($group,$module,$action) = $options['path'];
+                    !defined('GROUP_NAME') AND define('GROUP_NAME',$group);
+                    $class = $group.'\Controller\\'.$module;
+                }
+                else{
+                    list($module,$action) = $options['path'];
+                    $class = 'Controller\\'.$module;
+                }
+                !defined('MODULE_NAME') AND define('MODULE_NAME',ucwords($module));
+                !defined('ACTION_NAME') AND define('ACTION_NAME',$action);
+                return $class;
+            },
+            //获取控制器方法
+            function()use($options){return array_pop($options['path']);}
+        );
+    }
+    /**
+     * 部分延迟执行的代码,用于延迟搜集可由应用自定义的参数，常量等代码
+     * @static
+     * @access public
+     */
+    public static function lazyInitialize(Closure $initializer,$options=array()){
+        self::$closure[] = array(
+            'closure'=>$initializer,
+            'params'=>array(self::getInstance(get_called_class()),$options)
+            );
+    }
+    /**
+     * 执行 延迟执行的代码
+     * @static
+     * @access public
+     */
+    public static function executeLazy(){
+        if(count(self::$closure)>0){
+            foreach (self::$closure as $key => $value) {
+                call_user_func_array($value['closure'],$value['params']);
+            }
         }
     }
 }
 
-//初始化类库
+//加载类加载器
 include(__DIR__.'/ClassLoader.php');
-//内核初始化进程
-KoalaCore::initialize(function(){
-    ClassLoader::initialize(function($instance){
-    //注册_autoload函数
-    $instance->register();
-    $instance->registerNamespaces(array(
-        'Advice' => FRAME_PATH.'Addons',
-        'Func' => FRAME_PATH.'Core',
-        'Helper' => FRAME_PATH,
-        'Base' => FRAME_PATH.'Core',
-        'Core' => FRAME_PATH,
-        'Server' => FRAME_PATH,
-        'Plugin' => array(FRAME_PATH.'Addons',APP_ADDONS_PATH),
-        'Minion' => FRAME_PATH.'Addons',
-        'Resource'=>FRAME_PATH.'Addons',
-        ));
-    $instance->registerDirs(array(
-        FRAME_PATH.'Core',
-        FRAME_PATH.'Tests',
-        FRAME_PATH.'Server',
-        FRAME_PATH.'Addons/Compatible',
-        ));
-    //系统内置函数库
-    $instance->LoadFunc('Func','Common,Special');
-    });
-    //配置初始化
-    Config::initialize(function($instance){
-        //默认文件
-        $instance->loadConfig(FRAME_PATH.'Config'.DIRECTORY_SEPARATOR.'Global.default.php');
-    });
-    //加载通用常量
-    include(FRAME_PATH.'Initialise/Constant.php');
-    //检查环境
-    require_once(FRAME_PATH.'Initialise/checkEnv.php');
-    //加载常量
-    include(FRAME_PATH.'Initialise/Constant'.APPENGINE.'.php');
-    //++++++++++++++++++++++++调试及错误设置++++++++++++++++++++++++++++
-    $log = Log::factory('monolog');
-    ErrorHandler::register('monolog',array($log),function()use($log){
-        switch (C('DEBUGLEVEL',defined('DEBUGLEVEL')?DEBUGLEVEL:1)) {
-            case 4://development//线下开发环境
-                ini_set("display_errors","On");
-                $log->pushHandler(new Monolog\Handler\ChromePHPHandler(Log::ERROR));
-                break;
-            case 3://test//线上测试环境
-                ini_set("display_errors","Off");
-                $log->pushHandler(new Monolog\Handler\ChromePHPHandler(Log::ERROR));
-                $log->pushHandler(new Monolog\Handler\ChromePHPHandler(Log::INFO));
-                $log->pushHandler(new Monolog\Handler\ChromePHPHandler(Log::WARNING));
-                break;
-            case 2://production//线上生产环境
-            case 1://默认模式
-            default:
-                //关掉错误提示
-                error_reporting(0);
-                ini_set("display_errors","Off");
-                break;
-        }
-        $log->pushHandler(new AEStreamHandler('Log/'.date('Y-m-d')."/ERROR.log", Log::ERROR));
-        $log->pushHandler(new AEStreamHandler('Log/'.date('Y-m-d')."/WARN.log", Log::WARNING));
-    });
-    //加载云服务类支持(如BAE类库)
-    (APPENGINE!="LAE") AND include(FRAME_PATH.'Initialise/Class'.APPENGINE.".php");
-    
-    //插件支持
-    Plugin::loadPlugin();
-});
