@@ -32,7 +32,7 @@ class Session{
      */
     public static function register($stream_name,$options=array(),$new=false){
         if(empty($stream_name)||!is_string($stream_name)){
-            $stream_name = C('Session:default','file');
+            $stream_name = C('Session:default','pdo');
         }
         if($new || !isset(self::$instances[$stream_name])){
             $c_options = C('Session:'.$stream_name);
@@ -42,17 +42,6 @@ class Session{
             $options = array_merge($c_options,$options);
             self::$instances[$stream_name] = Session\Factory::getInstance($stream_name,$options);
         }
-        $sess = self::$instances[$stream_name];
-        session_write_close();
-        session_set_save_handler(
-            array(&$sess,"open"),
-            array(&$sess,"close"),
-            array(&$sess,"read"),
-            array(&$sess,"write"),
-            array(&$sess,"destroy"),
-            array(&$sess,"gc"));
-        register_shutdown_function('session_write_close');
-        session_start();
         return self::$instances[$stream_name];
     }
 }

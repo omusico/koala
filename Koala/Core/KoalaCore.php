@@ -72,6 +72,9 @@ class KoalaCore extends Singleton{
         //执行 核心的延迟代码片段
         if($object instanceof Koala){
             KoalaCore::executeLazy();
+            //如果没有使用过session_start()
+            if(''===($id=session_id()))
+            Koala\Server\Session::register(C('Session:default','pdo'));
         }
     }
     /**
@@ -123,26 +126,22 @@ KoalaCore::lazyInitialize(function(){
     defined('VIEW_PATH') or define('VIEW_PATH',APP_PATH.'View/');
     //读数据路径
     defined('DATA_PATH') or define('DATA_PATH',FRAME_PATH.'Data/');
-    //写数据路径
-    defined('RUNTIME_PATH') or define('RUNTIME_PATH',ENTRANCE_PATH.'Runtime/');
     //编译路径
     defined('COMPILE_PATH') or define('COMPILE_PATH',RUNTIME_PATH.'Compile/');
     //缓存路径
     defined('CACHE_PATH') or define('CACHE_PATH',RUNTIME_PATH.'Cache/');
-    //日志路径
-    defined('LOG_PATH') or define('LOG_PATH',RUNTIME_PATH.'Storage/');
-    //静态资源路径
+    //静态资源URL
     defined('SOURCE_URL') or define('SOURCE_URL', APP_URL.'Source/');
     //存储路径
     defined('STOR_PATH') or define('STOR_PATH',RUNTIME_PATH.'Storage/');
-    //存储访问路径
+    //存储访问URL
     defined('STOR_URL') or define('STOR_URL',APP_RELATIVE_URL.'Runtime/Storage/');
     //widget路径
     defined('WIDGET_PATH') or define('WIDGET_PATH',APP_PATH.'Addons/Source/Widget/');
-    //widget访问路径
+    //widget访问URL
     defined('WIDGET_URL') or define('WIDGET_URL',APP_RELATIVE_URL.'Addons/Source/Widget/');
     //文件后缀
-    defined('WIDGET_URL') or define('EXT', '.php');
+    defined('EXT') or define('EXT', '.php');
     //默认应用路径
     defined('APP_PATH') or define('APP_PATH',ENTRANCE_PATH.'App/');
     //默认应用插件路径
@@ -172,6 +171,10 @@ KoalaCore::lazyInitialize(function(){
  * 内核初始化进程
  */
 KoalaCore::initialize(function(){
+    //写数据路径
+    defined('RUNTIME_PATH') or define('RUNTIME_PATH',ENTRANCE_PATH.'Runtime/');
+    //日志路径
+    defined('LOG_PATH') or define('LOG_PATH',RUNTIME_PATH.'Storage/');
     //框架类库加载方案
     ClassLoader::initialize(function($instance){
     $instance->register();
@@ -213,13 +216,10 @@ KoalaCore::initialize(function(){
         switch (C('DEBUGLEVEL',defined('DEBUGLEVEL')?DEBUGLEVEL:1)) {
             case 4://development//线下开发环境
                 ini_set("display_errors","On");
-                $log->pushHandler(new Monolog\Handler\ChromePHPHandler(Koala\Server\Log::ERROR));
                 break;
             case 3://test//线上测试环境
                 ini_set("display_errors","Off");
-                $log->pushHandler(new Monolog\Handler\ChromePHPHandler(Koala\Server\Log::ERROR));
                 $log->pushHandler(new Monolog\Handler\ChromePHPHandler(Koala\Server\Log::INFO));
-                $log->pushHandler(new Monolog\Handler\ChromePHPHandler(Koala\Server\Log::WARNING));
                 break;
             case 2://production//线上生产环境
             case 1://默认模式

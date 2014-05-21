@@ -1,4 +1,10 @@
 <?php
+/**
+ * Koala - A PHP Framework For Web
+ *
+ * @package  Koala
+ * @author   LunnLew <lunnlew@gmail.com>
+ */
 //调试级别
 define('DEBUGLEVEL',0);
 //入口绝对路径

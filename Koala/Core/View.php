@@ -1,4 +1,16 @@
 <?php
+/**
+ * Koala - A PHP Framework For Web
+ *
+ * @package  Koala
+ * @author   LunnLew <lunnlew@gmail.com>
+ */
+/**
+ * 视图类
+ *
+ * @package  Koala
+ * @author   LunnLew <lunnlew@gmail.com>
+ */
 class View extends Singleton{
 	static $engine = null;
 	static $options = array();
