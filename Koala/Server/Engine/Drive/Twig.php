@@ -3,7 +3,7 @@
  * Koala - A PHP Framework For Web
  *
  * @package  Koala
- * @author   Lunnlew <Lunnlew@gmail.com>
+ * @author   LunnLew <lunnlew@gmail.com>
  */
 namespace Koala\Server\Engine\Drive;
 use Koala\Server\Engine\Base;
@@ -12,7 +12,7 @@ use Koala\Server\Engine\Base;
  * 
  * @package  Koala
  * @subpackage  Server\Engine\Drive
- * @author    Lunnlew <Lunnlew@gmail.com>
+ * @author    LunnLew <lunnlew@gmail.com>
  */
 final class Twig extends Base{
 	var $object = '';

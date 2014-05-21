@@ -3,14 +3,14 @@
  * Koala - A PHP Framework For Web
  *
  * @package  Koala
- * @author   Lunnlew <Lunnlew@gmail.com>
+ * @author   LunnLew <lunnlew@gmail.com>
  */
 /**
  * 前端数据收集器
  * 
  * @package  Koala
  * @subpackage  Server
- * @author    Lunnlew <Lunnlew@gmail.com>
+ * @author    LunnLew <lunnlew@gmail.com>
  */
 class FrontData{
   /**

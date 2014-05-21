@@ -3,13 +3,13 @@
  * Koala - A PHP Framework For Web
  *
  * @package  Koala
- * @author   Lunnlew <Lunnlew@gmail.com>
+ * @author   LunnLew <lunnlew@gmail.com>
  */
 /**
  * 配置操作类
  * 
  * @package  Koala
- * @author    Lunnlew <Lunnlew@gmail.com>
+ * @author    LunnLew <lunnlew@gmail.com>
  */
 class Config extends Singleton{
 	/**

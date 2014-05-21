@@ -3,14 +3,14 @@
  * Koala - A PHP Framework For Web
  *
  * @package  Koala
- * @author   Lunnlew <Lunnlew@gmail.com>
+ * @author   LunnLew <lunnlew@gmail.com>
  */
 namespace Koala\Core\Minion;
 /**
  * 命令行基类
  *
  * @package  Koala\Core\Minion
- * @author   Lunnlew <Lunnlew@gmail.com>
+ * @author   LunnLew <lunnlew@gmail.com>
  */
 abstract class Task {
 	/**

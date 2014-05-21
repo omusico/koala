@@ -3,7 +3,7 @@
  * Koala - A PHP Framework For Web
  *
  * @package  Koala
- * @author   Lunnlew <Lunnlew@gmail.com>
+ * @author   LunnLew <lunnlew@gmail.com>
  */
 namespace Minion\Task;
 /**
@@ -12,7 +12,7 @@ namespace Minion\Task;
  * Information for help
  *
  * @package  Koala
- * @author   Lunnlew <Lunnlew@gmail.com>
+ * @author   LunnLew <lunnlew@gmail.com>
  */
 class Test extends \Koala\Core\Task{
 	/**

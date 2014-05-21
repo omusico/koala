@@ -3,13 +3,13 @@
  * Koala - A PHP Framework For Web
  *
  * @package  Koala
- * @author   Lunnlew <Lunnlew@gmail.com>
+ * @author   LunnLew <lunnlew@gmail.com>
  */
 /**
  * 前端控制器
  * 
  * @package  Koala
- * @author    Lunnlew <Lunnlew@gmail.com>
+ * @author    LunnLew <lunnlew@gmail.com>
  */
 class Front{
 	/**

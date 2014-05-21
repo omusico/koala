@@ -3,7 +3,7 @@
  * Koala - A PHP Framework For Web
  *
  * @package  Koala
- * @author   Lunnlew <Lunnlew@gmail.com>
+ * @author   LunnLew <lunnlew@gmail.com>
  */
 namespace Koala\Server\Counter;
 /**
@@ -11,7 +11,7 @@ namespace Koala\Server\Counter;
  * 
  * @package  Koala
  * @subpackage  Server\Counter
- * @author    Lunnlew <Lunnlew@gmail.com>
+ * @author    LunnLew <lunnlew@gmail.com>
  */
 class Factory extends \Koala\Server\Factory{
     public static function getServerName($name){

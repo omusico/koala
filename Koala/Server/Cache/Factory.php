@@ -3,14 +3,14 @@
  * Koala - A PHP Framework For Web
  *
  * @package  Koala
- * @author   Lunnlew <Lunnlew@gmail.com>
+ * @author   LunnLew <lunnlew@gmail.com>
  */
 namespace Koala\Server\Cache;
 /**
  * 缓存工厂实现
  * 
  * @package  Koala\Server\Cache
- * @author    Lunnlew <Lunnlew@gmail.com>
+ * @author    LunnLew <lunnlew@gmail.com>
  * @final
  */
 final class Factory extends \Koala\Server\Factory{

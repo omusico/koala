@@ -3,7 +3,7 @@
  * Koala - A PHP Framework For Web
  *
  * @package  Koala
- * @author   Lunnlew <Lunnlew@gmail.com>
+ * @author   LunnLew <lunnlew@gmail.com>
  */
 namespace Koala\Server;
 /**
@@ -12,7 +12,7 @@ namespace Koala\Server;
  * @package  Koala
  * @subpackage  Server
  * @abstract
- * @author    Lunnlew <Lunnlew@gmail.com>
+ * @author    LunnLew <lunnlew@gmail.com>
  */
 abstract class Factory implements interf{
     /**

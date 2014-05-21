@@ -3,14 +3,14 @@
  * Koala - A PHP Framework For Web
  *
  * @package  Koala
- * @author   Lunnlew <Lunnlew@gmail.com>
+ * @author   LunnLew <lunnlew@gmail.com>
  */
 /**
  * SAE Memcache缓存实现
  * 
  * @package  Koala\Server\Cache
  * @subpackage  Drive
- * @author    Lunnlew <Lunnlew@gmail.com>
+ * @author    LunnLew <lunnlew@gmail.com>
  * @final
  */
 namespace Koala\Server\Cache\Drive;
