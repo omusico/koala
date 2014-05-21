@@ -1,6 +1,6 @@
 <?php
-namespace Server\ACM;
-class Factory extends \Server\Factory{
+namespace Koala\Server\ACM;
+class Factory extends \Koala\Server\Factory{
     public static function getServerName($name){
     	$server_name = 'Authority';
         switch ($type) {

@@ -1,6 +1,6 @@
 <?php
-namespace Server\ErrorHandler;
-class Factory extends \Server\Factory{
+namespace Koala\Server\ErrorHandler;
+class Factory extends \Koala\Server\Factory{
     public static function getServerName($name){
         $server_name = 'ErrorHandler';
         switch($name){

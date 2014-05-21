@@ -1,6 +1,6 @@
 <?php
-namespace Server\Counter\Drive;
-use Server\Counter\Base;
+namespace Koala\Server\Counter\Drive;
+use Koala\Server\Counter\Base;
 /**
  * SAE的Counter驱动
  * 

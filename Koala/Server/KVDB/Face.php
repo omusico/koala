@@ -1,5 +1,5 @@
 <?php
-namespace Server\KVDB;
+namespace Koala\Server\KVDB;
 interface Face{
     //初始化
     function __construct();

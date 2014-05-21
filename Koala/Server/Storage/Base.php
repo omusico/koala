@@ -1,5 +1,5 @@
 <?php
-namespace Server\Storage;
+namespace Koala\Server\Storage;
 class Base implements Face{
 	var $bucket;
 	//构造函数

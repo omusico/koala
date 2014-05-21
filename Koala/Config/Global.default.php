@@ -7,8 +7,8 @@ $cfg['charset'] = 'utf-8';
 $cfg['time_zone'] = 'PRC';
 
 //模板引擎
-$cfg['Template_Engine']=array(
-  'default'=>'Tengine',
+$cfg['Engine']=array(
+  'default'=>'Smarty',
   'tengine'=>array(),
   'smarty'=>array(
                 'TemplateDir'=>'[VIEW_PATH][THEME_NAME]',

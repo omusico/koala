@@ -1,6 +1,6 @@
 <?php
-namespace Server\Collection;
-class Factory extends \Server\Factory{
+namespace Koala\Server\Collection;
+class Factory extends \Koala\Server\Factory{
     public static function getServerName($name){
         $server_name = 'DataCollection';
         switch($name){

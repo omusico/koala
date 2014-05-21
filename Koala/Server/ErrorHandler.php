@@ -5,6 +5,7 @@
  * @package  Koala
  * @author   Lunnlew <Lunnlew@gmail.com>
  */
+namespace Koala\Server;
 /**
  * ErrorHandler服务类
  * 
@@ -45,7 +46,7 @@ class ErrorHandler{
 				$c_options = array();
 			}
 			$options = array_merge($c_options,$options);
-			$class = Server\ErrorHandler\Factory::getServerName($name);
+			$class = ErrorHandler\Factory::getServerName($name);
 			self::$instances[$name] = call_user_func_array("$class::register",$options);
 		}
 		return self::$instances[$name];
@@ -58,7 +59,7 @@ class ErrorHandler{
   	 * @param  Closure  $closure 闭包函数
   	 * @static
   	 */
-	public static function register($name='',$options=array(),Closure $closure){
+	public static function register($name='',$options=array(),\Closure $closure){
 		$errorhandler = self::factory($name,$options);
 		$closure($errorhandler);
 	}

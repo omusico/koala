@@ -7,14 +7,14 @@
  */
 namespace Koala\Server;
 /**
- * 缓存服务类
+ * 模板引擎服务
  * 
  * @package  Koala
  * @subpackage  Server
  * @author    Lunnlew <Lunnlew@gmail.com>
  */
-class Cache{
-  	/**
+class Engine{
+	/**
    	* 服务驱动实例数组
    	* @var array
    	* @static
@@ -31,15 +31,15 @@ class Cache{
   	 */
 	public static function factory($name='',$options=array()){
 		if(empty($name)||!is_string($name)){
-			$name = C('CACHE:DEFAULT','LAEMemcache');
+			$name = C('Engine:DEFAULT','Smarty');
 		}
 		if(!isset(self::$instances[$name])){
-			$c_options = C('Cache:'.$name);
+			$c_options = C('Engine:'.$name);
 			if(empty($c_options)){
 				$c_options = array();
 			}
 			$options = array_merge($c_options,$options);
-			self::$instances[$name] = Cache\Factory::getInstance($name,$options);
+			self::$instances[$name] = Engine\Factory::getInstance($name,$options);
 		}
 		return self::$instances[$name];
 	}

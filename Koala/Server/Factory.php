@@ -5,6 +5,7 @@
  * @package  Koala
  * @author   Lunnlew <Lunnlew@gmail.com>
  */
+namespace Koala\Server;
 /**
  * 服务工厂类
  * 
@@ -13,7 +14,6 @@
  * @abstract
  * @author    Lunnlew <Lunnlew@gmail.com>
  */
-namespace Server;
 abstract class Factory implements interf{
     /**
      * 获得服务驱动实例
@@ -41,6 +41,6 @@ abstract class Factory implements interf{
 	 * @return string              完整服务驱动类名
 	 */
     protected static function getRealName($name,$server_name){
-    	return 'Server\\'.ucwords($name).'\Drive\\'.$server_name;
+    	return 'Koala\Server\\'.ucwords($name).'\Drive\\'.$server_name;
     }
 }

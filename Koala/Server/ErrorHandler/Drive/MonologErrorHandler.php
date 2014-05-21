@@ -1,5 +1,5 @@
 <?php
-namespace Server\ErrorHandler\Drive;
+namespace Koala\Server\ErrorHandler\Drive;
 use Psr\Log\LoggerInterface;
 use Psr\Log\LogLevel;
 use Monolog\ErrorHandler;

@@ -1,6 +1,6 @@
 <?php
-namespace Server\Segment\Drive;
-use Server\Segment\Base;
+namespace Koala\Server\Segment\Drive;
+use Koala\Server\Segment\Base;
 
 /**
  * 

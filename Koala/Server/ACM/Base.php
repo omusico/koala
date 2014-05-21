@@ -1,5 +1,5 @@
 <?php
-namespace Server\ACM;
+namespace Koala\Server\ACM;
 /**
  * 访问控制基类
  */

@@ -8,7 +8,7 @@
  * @link        https://github.com/chriso/klein.php
  * @license     MIT
  */
-namespace Server\Exception;
+namespace Koala\Server\Exception;
 
 /**
  * ValidationException

@@ -1,4 +1,5 @@
 <?php
+namespace Koala\Server;
 /**
  * 
  *路由服务
@@ -20,7 +21,7 @@ class Route{
                 $c_options = array();
             }
             $options = array_merge($c_options,$options);
-            self::$instances[$type] = Server\Route\Factory::getInstance($type,$options);
+            self::$instances[$type] = Route\Factory::getInstance($type,$options);
         }
         return self::$instances[$type];
     }
@@ -31,14 +32,14 @@ class Route{
             self::parseLooseArgumentOrder(func_get_args()),
             EXTR_OVERWRITE
         );
-        $route = Server\Route\Factory::build($callback, $path, $method);
+        $route = Route\Factory::build($callback, $path, $method);
         Collection::factory('route')->add($route);
         return $route;
     }
     //搜集一系列在$namespace下的路由
     public static function with($namespace, $routes){
-        $previous = Server\Route\Factory::getNamespace();
-        Server\Route\Factory::appendNamespace($namespace);
+        $previous = Route\Factory::getNamespace();
+        Route\Factory::appendNamespace($namespace);
         if (is_callable($routes)) {
             if (is_string($routes)) {
                 $routes();
@@ -48,7 +49,7 @@ class Route{
         } else {
             require $routes;
         }
-        Server\Route\Factory::setNamespace($previous);
+        Route\Factory::setNamespace($previous);
     }
      /**
      * Parse our extremely loose argument order of our "respond" method and its aliases

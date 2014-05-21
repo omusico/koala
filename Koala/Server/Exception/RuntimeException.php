@@ -1,4 +1,4 @@
 <?php
-namespace Server\Exception;
+namespace Koala\Server\Exception;
 use Exception;
 class RuntimeException extends Exception{}

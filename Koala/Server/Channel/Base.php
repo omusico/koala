@@ -1,5 +1,5 @@
 <?php
-namespace Server\Channel;
+namespace Koala\Server\Channel;
 class Base implements Face{
     //初始化
     function __construct(){}

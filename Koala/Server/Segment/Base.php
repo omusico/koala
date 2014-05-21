@@ -1,5 +1,5 @@
 <?php
-namespace Server\Segment;
+namespace Koala\Server\Segment;
 class Base implements Face{
 	
 }

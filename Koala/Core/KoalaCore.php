@@ -203,18 +203,18 @@ KoalaCore::initialize(function(){
     //composer第三方库加载支持
     is_file(FRAME_PATH.'Addons/vendor/autoload.php') AND require FRAME_PATH.'Addons/vendor/autoload.php';
     //++++++++++++++++++++++++调试及错误设置++++++++++++++++++++++++++++
-    $log = Log::factory('monolog');
-    ErrorHandler::register('monolog',array($log),function()use($log){
+    $log = Koala\Server\Log::factory('monolog');
+    Koala\Server\ErrorHandler::register('monolog',array($log),function()use($log){
         switch (C('DEBUGLEVEL',defined('DEBUGLEVEL')?DEBUGLEVEL:1)) {
             case 4://development//线下开发环境
                 ini_set("display_errors","On");
-                $log->pushHandler(new Monolog\Handler\ChromePHPHandler(Log::ERROR));
+                $log->pushHandler(new Monolog\Handler\ChromePHPHandler(Koala\Server\Log::ERROR));
                 break;
             case 3://test//线上测试环境
                 ini_set("display_errors","Off");
-                $log->pushHandler(new Monolog\Handler\ChromePHPHandler(Log::ERROR));
-                $log->pushHandler(new Monolog\Handler\ChromePHPHandler(Log::INFO));
-                $log->pushHandler(new Monolog\Handler\ChromePHPHandler(Log::WARNING));
+                $log->pushHandler(new Monolog\Handler\ChromePHPHandler(Koala\Server\Log::ERROR));
+                $log->pushHandler(new Monolog\Handler\ChromePHPHandler(Koala\Server\Log::INFO));
+                $log->pushHandler(new Monolog\Handler\ChromePHPHandler(Koala\Server\Log::WARNING));
                 break;
             case 2://production//线上生产环境
             case 1://默认模式
@@ -224,8 +224,8 @@ KoalaCore::initialize(function(){
                 ini_set("display_errors","Off");
                 break;
         }
-        $log->pushHandler(new AEStreamHandler('Log/'.date('Y-m-d')."/ERROR.log", Log::ERROR));
-        $log->pushHandler(new AEStreamHandler('Log/'.date('Y-m-d')."/WARN.log", Log::WARNING));
+        $log->pushHandler(new AEStreamHandler('Log/'.date('Y-m-d')."/ERROR.log", Koala\Server\Log::ERROR));
+        $log->pushHandler(new AEStreamHandler('Log/'.date('Y-m-d')."/WARN.log", Koala\Server\Log::WARNING));
     });
     //加载云服务类支持(如BAE类库)
     (APPENGINE!="LAE") AND include(FRAME_PATH.'Initialise/Class'.APPENGINE.".php");

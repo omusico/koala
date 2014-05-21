@@ -5,6 +5,7 @@
  * @package  Koala
  * @author   Lunnlew <Lunnlew@gmail.com>
  */
+namespace Koala\Server;
 /**
  * 分词服务类
  * 
@@ -38,7 +39,7 @@ class Segment{
     		    $c_options = array();
     		}
     			$options = array_merge($c_options,$options);
-    			self::$instances[$name] = Server\Segment\Factory::getInstance($name,$options);
+    			self::$instances[$name] = Segment\Factory::getInstance($name,$options);
     		}
 	    return self::$instances[$name];
 	 }

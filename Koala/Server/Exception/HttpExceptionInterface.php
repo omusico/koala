@@ -1,3 +1,3 @@
 <?php
-namespace Server\Exception;
+namespace Koala\Server\Exception;
 interface HttpExceptionInterface extends KoalaExceptionInterface{}

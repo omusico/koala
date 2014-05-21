@@ -1,5 +1,5 @@
 <?php
-namespace Server\ACM\Model;
+namespace Koala\Server\ACM\Model;
 use Base_Model;
 /**
  * Auth User模型

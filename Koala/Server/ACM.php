@@ -5,6 +5,7 @@
  * @package  Koala
  * @author   Lunnlew <Lunnlew@gmail.com>
  */
+namespace Koala\Server;
 /**
  * 访问控制服务类
  * 
@@ -38,7 +39,7 @@ class ACM{
 				$c_options = array();
 			}
 			$options = array_merge($c_options,$options);
-			self::$instances[$name] = Server\ACM\Factory::getInstance($name,$options);
+			self::$instances[$name] = ACM\Factory::getInstance($name,$options);
 		}
 		return self::$instances[$name];
 	}

@@ -1,5 +1,5 @@
 <?php
-namespace Server\Image\Drive;
+namespace Koala\Server\Image\Drive;
 use Koala\Server\Image\Base;
 /**
  * Image服务驱动

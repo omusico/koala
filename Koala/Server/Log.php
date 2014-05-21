@@ -5,6 +5,7 @@
  * @package  Koala
  * @author   Lunnlew <Lunnlew@gmail.com>
  */
+namespace Koala\Server;
 /**
  * Controller服务类
  * 
@@ -86,7 +87,7 @@ class Log{
                 $c_options = array();
             }
             $options = array_merge($c_options,$options);
-			self::$instances[$name] = Server\Log\Factory::getInstance($name,$options);
+			self::$instances[$name] = Log\Factory::getInstance($name,$options);
 		}
 		return self::$instances[$name];
 	}

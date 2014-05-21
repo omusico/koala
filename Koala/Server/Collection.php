@@ -5,6 +5,7 @@
  * @package  Koala
  * @author   Lunnlew <Lunnlew@gmail.com>
  */
+namespace Koala\Server;
 /**
  * 数据收集器服务类
  * 
@@ -39,7 +40,7 @@ class Collection{
                 $c_options = array();
             }
             $options = array_merge($c_options,$options);
-            self::$instances[$name] = Server\Collection\Factory::getInstance($name,$options);
+            self::$instances[$name] = Collection\Factory::getInstance($name,$options);
         }
         return self::$instances[$name];
     }

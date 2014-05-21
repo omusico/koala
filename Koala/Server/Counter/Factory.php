@@ -1,6 +1,6 @@
 <?php
-namespace Server\Counter;
-class Factory extends \Server\Factory{
+namespace Koala\Server\Counter;
+class Factory extends \Koala\Server\Factory{
     public static function getServerName($name){
         $server_name = 'LAECounter';
         switch($name){

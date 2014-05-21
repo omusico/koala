@@ -1,9 +1,7 @@
 <?php
-namespace Server\Log\Drive;
+namespace Koala\Server\Log\Drive;
 use Monolog\Logger as Logger;
 /**
  * Monolog驱动
  */
-final class Monolog extends Logger{
-}
-?>
+final class Monolog extends Logger{}

@@ -781,8 +781,8 @@ class REST{
             $this->parseLooseArgumentOrder(func_get_args()),
             EXTR_OVERWRITE
         );
-        $route = Server\Route\Factory::build($callback, $path, $method);
-        Collection::factory('route')->add($route);
+        $route = Koala\Server\Route\Factory::build($callback, $path, $method);
+        Koala\Server\Collection::factory('route')->add($route);
         return $route;
     }
 
@@ -814,8 +814,8 @@ class REST{
      */
     //搜集一系列在$namespace下的路由
     public static function with($namespace, $routes){
-        $previous = Server\Route\Factory::getNamespace();
-        Server\Route\Factory::appendNamespace($namespace);
+        $previous = Koala\Server\\Route\Factory::getNamespace();
+        Koala\Server\Route\Factory::appendNamespace($namespace);
         if (is_callable($routes)) {
             if (is_string($routes)) {
                 $routes();
@@ -825,7 +825,7 @@ class REST{
         } else {
             require $routes;
         }
-        Server\Route\Factory::setNamespace($previous);
+        Koala\Server\Route\Factory::setNamespace($previous);
     }
     /**
      * Adds an error callback to the stack of error handlers

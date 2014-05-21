@@ -1,6 +1,6 @@
 <?php
-namespace Server\KVDB;
-class Factory extends \Server\Factory{
+namespace Koala\Server\KVDB;
+class Factory extends \Koala\Server\Factory{
     public static function getServerName($name){
         $server_name = 'LAEKVDB';
         switch($name){

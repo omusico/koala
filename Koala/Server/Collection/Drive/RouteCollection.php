@@ -1,6 +1,6 @@
 <?php
-namespace Server\Collection\Drive;
-use Server\Route\Drive\Route;
+namespace Koala\Server\Collection\Drive;
+use Koala\Server\Route\Drive\Route;
 final class RouteCollection extends DataCollection{
 	/**
      * Methods

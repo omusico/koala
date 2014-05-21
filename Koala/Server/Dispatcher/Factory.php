@@ -1,6 +1,6 @@
 <?php
-namespace Server\Dispatcher;
-class Factory extends \Server\Factory{
+namespace Koala\Server\Dispatcher;
+class Factory extends \Koala\Server\Factory{
     public static function getServerName($name){
         $server_name = 'Dispatcher';
         switch($name){

@@ -1,6 +1,6 @@
 <?php
-namespace Server\Payment;
-class Factory extends \Server\Factory{
+namespace Koala\Server\Payment;
+class Factory extends \Koala\Server\Factory{
     public static function getServerName($name){
     	$server_name = 'Alipay';
         switch($name){

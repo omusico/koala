@@ -1,6 +1,6 @@
 <?php
-namespace Server\Rank\Drive;
-use Server\Rank\Base;
+namespace Koala\Server\Rank\Drive;
+use Koala\Server\Rank\Base;
 /**
  * 非云计算环境下的Rank驱动
  */

@@ -1,6 +1,6 @@
 <?php
-namespace Server\Storage;
-class Factory extends \Server\Factory{
+namespace Koala\Server\Storage;
+class Factory extends \Koala\Server\Factory{
     public static function getServerName($name){
         $server_name = 'LAEStorage';
         switch($name){

@@ -1,4 +1,4 @@
 <?php
-namespace Server\Segment;
+namespace Koala\Server\Segment;
 interface Face{
 }

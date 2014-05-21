@@ -1,6 +1,6 @@
 <?php
-namespace Server\Storage\Drive;
-use Server\Storage\Base;
+namespace Koala\Server\Storage\Drive;
+use Koala\Server\Storage\Base;
 /**
  * SAE的Storage驱动
  * 所有文件名使用相对于数据存储区域的路径

@@ -1,6 +1,6 @@
 <?php
-namespace Server\Session;
-class Factory extends \Server\Factory{
+namespace Koala\Server\Session;
+class Factory extends \Koala\Server\Factory{
     public static function getServerName($name){
         $server_name = 'FileStream';
         switch($name){

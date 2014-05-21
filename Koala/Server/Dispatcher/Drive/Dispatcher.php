@@ -12,7 +12,7 @@
  * @subpackage  Server
  * @author    Lunnlew <Lunnlew@gmail.com>
  */
-namespace Server\Dispatcher\Drive;
+namespace Koala\Server\Dispatcher\Drive;
 use Core\AOP\AdviceContainer;
 class Dispatcher{
 	protected $options = array();

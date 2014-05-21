@@ -1,7 +1,7 @@
 <?php
-namespace Server\ACM\Drive;
-use Server\ACM\Base as Base;
-use Server\ACM\Logic as Logic;
+namespace Koala\Server\ACM\Drive;
+use Koala\Server\ACM\Base as Base;
+use Koala\Server\ACM\Logic as Logic;
 class Authority extends Base{
     /**
      * 配置项

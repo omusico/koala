@@ -1,5 +1,5 @@
 <?php
-namespace Server\Storage\Drive;
+namespace Koala\Server\Storage\Drive;
 use Server_Storage_Base;
 /**
  * ACE的Storage驱动

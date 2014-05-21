@@ -1,5 +1,5 @@
 <?php
-namespace Server\Counter;
+namespace Koala\Server\Counter;
 class Base implements Face{
     //初始化
     function __construct(){}

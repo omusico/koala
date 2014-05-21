@@ -1,5 +1,5 @@
 <?php
-namespace Server\KVDB;
+namespace Koala\Server\KVDB;
 class Base implements Face{
 	//云服务对象
     var $object = '';

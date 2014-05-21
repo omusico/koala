@@ -1,5 +1,5 @@
 <?php
-namespace Server\Collection\Drive;
+namespace Koala\Server\Collection\Drive;
 /**
  * DataCollection
  *

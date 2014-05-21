@@ -1,5 +1,5 @@
 <?php
-namespace Server\Rank;
+namespace Koala\Server\Rank;
 interface Face{
 	function __construct();
 	//建立一个排行榜

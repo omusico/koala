@@ -12,8 +12,8 @@
  * @author    Lunnlew <Lunnlew@gmail.com>
  * @final
  */
-namespace Server\Cache;
-final class Factory extends \Server\Factory{
+namespace Koala\Server\Cache;
+final class Factory extends \Koala\Server\Factory{
     /**
      * 获取正式服务名
      * @param  string $name 服务名

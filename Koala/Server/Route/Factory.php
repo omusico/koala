@@ -1,7 +1,7 @@
 <?php
-namespace Server\Route;
+namespace Koala\Server\Route;
 use Route;
-class Factory extends \Server\Factory{
+class Factory extends \Koala\Server\Factory{
     
     /**
      * Properties

@@ -1,6 +1,6 @@
 <?php
-namespace Server\Channel;
-class Factory extends \Server\Factory{
+namespace Koala\Server\Channel;
+class Factory extends \Koala\Server\Factory{
     public static function getServerName($name){
         $server_name = 'LAEChannel';
         switch($name){

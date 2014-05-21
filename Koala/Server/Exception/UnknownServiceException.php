@@ -9,7 +9,7 @@
  * @license     MIT
  */
 
-namespace Server\Exception;
+namespace Koala\Server\Exception;
 
 /**
  * UnknownServiceException

@@ -1,5 +1,5 @@
 <?php
-namespace Server\ACM\Model;
+namespace Koala\Server\ACM\Model;
 use Base_Model;
 /**
  * Auth 用户-组映射

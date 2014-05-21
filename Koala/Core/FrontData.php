@@ -20,7 +20,7 @@ class FrontData{
    * @return bool          操作结果true,false
    */
   public static function assign($key,$value){
-    return Collection::factory('Front')->set($key,$value);
+    return Koala\Server\Collection::factory('Front')->set($key,$value);
   }
   /**
    * 获取数据项
@@ -29,7 +29,7 @@ class FrontData{
    * @return fixed         数据值
    */
   public static function get($key,$value=''){
-      return Collection::factory('Front')->get($key,$value);
+      return Koala\Server\Collection::factory('Front')->get($key,$value);
   }
   /**
    * 取消数据项
@@ -37,20 +37,20 @@ class FrontData{
    * @return bool          操作结果true,false
    */
   public static function recede($key,$value){
-    return Collection::factory('Front')->remove($key);
+    return Koala\Server\Collection::factory('Front')->remove($key);
   }
   /**
    * 获取所有数据
    * @return array
    */
   public static function getAll(){
-     return Collection::factory('Front')->all();
+     return Koala\Server\Collection::factory('Front')->all();
   }
   /**
    * 数据转为json串
    * @return string json串
    */
   public static function toJson(){
-    return json_encode(Collection::factory('Front')->all());
+    return json_encode(Koala\Server\Collection::factory('Front')->all());
   }
 }

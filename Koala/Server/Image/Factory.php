@@ -1,6 +1,6 @@
 <?php
 namespace Koala\Server\Image;
-class Factory extends \Server\Factory{
+class Factory extends \Koala\Server\Factory{
     public static function getServerName($name){
         $server_name = 'LAEImage';
         switch($name){

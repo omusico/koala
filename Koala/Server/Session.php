@@ -5,6 +5,7 @@
  * @package  Koala
  * @author   Lunnlew <Lunnlew@gmail.com>
  */
+namespace Koala\Server;
 /**
  * Session服务类
  * 
@@ -39,7 +40,7 @@ class Session{
                 $c_options = array();
             }
             $options = array_merge($c_options,$options);
-            self::$instances[$stream_name] = Server\Session\Factory::getInstance($stream_name,$options);
+            self::$instances[$stream_name] = Session\Factory::getInstance($stream_name,$options);
         }
         $sess = self::$instances[$stream_name];
         session_write_close();

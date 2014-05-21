@@ -5,6 +5,7 @@
  * @package  Koala
  * @author   Lunnlew <Lunnlew@gmail.com>
  */
+namespace Koala\Server;
 /**
  * Dispatcher调度器服务类
  * 
@@ -38,7 +39,7 @@ class Dispatcher{
                 $c_options = array();
             }
             $options = array_merge($c_options,$options);
-			self::$instances[$name] = Server\Dispatcher\Factory::getInstance($name,$options);
+			self::$instances[$name] = Dispatcher\Factory::getInstance($name,$options);
 		}
 		return self::$instances[$name];
 	}

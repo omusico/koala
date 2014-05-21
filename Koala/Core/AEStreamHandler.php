@@ -31,8 +31,8 @@ class AEStreamHandler extends StreamHandler{
                     break;
                 default:
                     //使用Storage只是测试,日志不合适使用Storage
-                    Storage::factory()->setArea(LOG_PATH);
-                    Storage::factory()->write($this->url,(string) $record['formatted'],FILE_APPEND);
+                    Koala\Server\Storage::factory()->setArea(LOG_PATH);
+                    Koala\Server\Storage::factory()->write($this->url,(string) $record['formatted'],FILE_APPEND);
                     break;
             }
             restore_error_handler();

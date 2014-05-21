@@ -5,6 +5,7 @@
  * @package  Koala
  * @author   Lunnlew <Lunnlew@gmail.com>
  */
+namespace Koala\Server;
 /**
  * Channel服务类
  * 
@@ -38,7 +39,7 @@ class Channel{
 				$c_options = array();
 			}
 			$options = array_merge($c_options,$options);
-			self::$instances[$name] = Server\Channel\Factory::getInstance($name,$options);
+			self::$instances[$name] = Channel\Factory::getInstance($name,$options);
 		}
 		return self::$instances[$name];
 	}

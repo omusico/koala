@@ -38,7 +38,7 @@ class View extends Singleton{
 	 * @param  string  $depr 分隔符
 	 * @return string        模板文件完整名
 	 */
-	protected static function getTemplateName($tpl='',$rec=false,$depr='/'){
+	public static function getTemplateName($tpl='',$rec=false,$depr='/'){
 		if($rec){
 			return $tpl;
 		}

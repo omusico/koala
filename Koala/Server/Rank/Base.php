@@ -4,7 +4,7 @@
  *对不同云计算平台的Rank服务API支持
  *
  */
-namespace Server\Rank;
+namespace Koala\Server\Rank;
 class Base implements Face{
 	function __construct(){}
 	//建立一个排行榜

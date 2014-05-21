@@ -1,5 +1,5 @@
 <?php
-namespace Server\Log;
+namespace Koala\Server\Log;
 interface Face{
 	/**
      * System is unusable.

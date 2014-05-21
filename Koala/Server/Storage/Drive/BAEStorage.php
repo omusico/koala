@@ -1,5 +1,5 @@
 <?php
-namespace Server\Storage\Drive;
+namespace Koala\Server\Storage\Drive;
 use Server_Storage_Base;
 //百度云存储
 final class BAEStorage extends Server_Storage_Base{

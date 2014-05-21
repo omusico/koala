@@ -5,6 +5,7 @@
  * @package  Koala
  * @author   Lunnlew <Lunnlew@gmail.com>
  */
+namespace Koala\Server;
 /**
  * KVDB服务类
  * 
@@ -38,7 +39,7 @@ class KVDB{
 				$c_options = array();
 			}
 			$options = array_merge($c_options,$options);
-			self::$instances[$name] = Server\KVDB\Factory::getInstance($name,$options);
+			self::$instances[$name] = KVDB\Factory::getInstance($name,$options);
 		}
 		return self::$instances[$name];
 	}

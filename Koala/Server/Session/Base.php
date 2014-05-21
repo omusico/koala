@@ -1,5 +1,5 @@
 <?php
-namespace Server\Session;
+namespace Koala\Server\Session;
 class Base implements Face{
 	public function open($path, $name){
 	}

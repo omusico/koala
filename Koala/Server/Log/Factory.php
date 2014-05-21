@@ -1,6 +1,6 @@
 <?php
-namespace Server\Log;
-class Factory extends \Server\Factory{
+namespace Koala\Server\Log;
+class Factory extends \Koala\Server\Factory{
     public static function getServerName($name){
         $server_name = 'Monolog';
         switch($name){

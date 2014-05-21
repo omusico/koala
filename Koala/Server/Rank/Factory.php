@@ -1,6 +1,6 @@
 <?php
-namespace Server\Rank;
-class Factory extends \Server\Factory{
+namespace Koala\Server\Rank;
+class Factory extends \Koala\Server\Factory{
     public static function getServerName($name){
         $server_name = 'LAERank';
         switch($name){

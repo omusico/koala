@@ -1,5 +1,5 @@
 <?php
-namespace Server\Storage;
+namespace Koala\Server\Storage;
 interface Face{
 	//构造函数
 	public function __construct();

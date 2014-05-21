@@ -1,5 +1,5 @@
 <?php
-namespace Server\Exception;
+namespace Koala\Server\Exception;
 
 /**
  * LockedResponseException

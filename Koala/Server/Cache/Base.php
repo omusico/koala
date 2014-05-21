@@ -10,7 +10,7 @@
  * @package  Koala\Server\Cache
  * @author    Lunnlew <Lunnlew@gmail.com>
  */
-namespace Server\Cache;
+namespace Koala\Server\Cache;
 class Base implements Face{
     /**
      * 配置项

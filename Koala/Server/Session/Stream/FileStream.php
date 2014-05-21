@@ -1,6 +1,6 @@
 <?php
-namespace Server\Session\Stream;
-use Server\Session\Base;
+namespace Koala\Server\Session\Stream;
+use Koala\Server\Session\Base;
 class FileStream extends Base{
 	public function __construct($options=array()){}
 	public function open($path, $name){}

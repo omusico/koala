@@ -13,8 +13,8 @@
  * @author    Lunnlew <Lunnlew@gmail.com>
  * @final
  */
-namespace Server\Cache\Drive;
-use Server\Cache\Base;
+namespace Koala\Server\Cache\Drive;
+use Koala\Server\Cache\Base;
 final class LAExcache extends Base{
     /**
      * 构造函数

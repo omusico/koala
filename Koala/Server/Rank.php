@@ -5,6 +5,7 @@
  * @package  Koala
  * @author   Lunnlew <Lunnlew@gmail.com>
  */
+namespace Koala\Server;
 /**
  * Rank服务类
  * 
@@ -38,7 +39,7 @@ class Rank{
                 $c_options = array();
             }
             $options = array_merge($c_options,$options);
-			self::$instances[$name] = Server\Rank\Factory::getInstance($name,$options);
+			self::$instances[$name] = Rank\Factory::getInstance($name,$options);
 		}
 		return self::$instances[$name];
 	}

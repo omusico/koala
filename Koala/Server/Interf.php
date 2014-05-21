@@ -5,6 +5,7 @@
  * @package  Koala
  * @author   Lunnlew <Lunnlew@gmail.com>
  */
+namespace Koala\Server;
 /**
  * 服务工厂接口
  * 
@@ -12,7 +13,6 @@
  * @subpackage  Server
  * @author    Lunnlew <Lunnlew@gmail.com>
  */
-namespace Server;
 interface Interf{
 	/**
 	 * 获取服务类名
