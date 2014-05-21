@@ -31,7 +31,7 @@ class KVDB{
   	 */
 	public static function factory($name='',$options=array()){
 		if(empty($name)||!is_string($name)){
-			$name = C('KVDB:DEFAULT','LAEKVDB');
+			$name = C('KVDB:default','LAEKVDB');
 		}
 		if(!isset(self::$instances[$name])){
 			$c_options = C('KVDB:'.$name);

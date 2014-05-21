@@ -5,6 +5,7 @@
  * @package  Koala
  * @author   Lunnlew <Lunnlew@gmail.com>
  */
+namespace Koala\Server\Cache;
 /**
  * 缓存工厂实现
  * 
@@ -12,7 +13,6 @@
  * @author    Lunnlew <Lunnlew@gmail.com>
  * @final
  */
-namespace Koala\Server\Cache;
 final class Factory extends \Koala\Server\Factory{
     /**
      * 获取正式服务名

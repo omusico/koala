@@ -79,7 +79,7 @@ class Log{
      */
 	public static function factory($name='',$options=array()){
 		if(empty($name)||!is_string($name)){
-			$name = C('Log:DEFAULT','Monolog');
+			$name = C('Log:default','Monolog');
 		}
 		if(!isset(self::$instances[$name])){
             $c_options = C('Log:'.$name);

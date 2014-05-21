@@ -5,12 +5,12 @@
  * @package  Koala
  * @author   Lunnlew <Lunnlew@gmail.com>
  */
+namespace Koala\Server\Cache;
 /**
  * 缓存基类
  * @package  Koala\Server\Cache
  * @author    Lunnlew <Lunnlew@gmail.com>
  */
-namespace Koala\Server\Cache;
 class Base implements Face{
     /**
      * 配置项

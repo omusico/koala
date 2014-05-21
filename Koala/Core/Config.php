@@ -17,29 +17,17 @@ class Config extends Singleton{
 	 * @return fixed          配置项值
 	 */
 	public static function getItem($key,$defv='',$runtime=false){
-		if($runtime && $defv!=''){
-			self::$config[$key] = $defv;
-			return $defv;
-		}
-		$arr = explode(':',$key);
-		if(count($arr)>1){
-			list($key,$subkey) = $arr;
-		}else{
-			$key = $arr[0];
-		}
-		if(isset($subkey)){
-			$subkey = strtolower($subkey);
-			switch ($subkey) {
-				case 'list':
-					return isset(self::$config[$key]['list'])?explode(',',self::$config[$key]['list']):explode(',',$defv);
-					break;
-				default:
-					return isset(self::$config[$key][$subkey])?self::$config[$key][$subkey]:$defv;
-					break;
-			}
-		}else{
-			return isset(self::$config[$key])?self::$config[$key]:$defv;
-		}
+		if($runtime && $defv!='')
+			return (self::$config[$key] = $defv);
+		
+		if(null===($val=getValueRec(explode(':',$key),self::$config)))
+			$result=$defv;
+		else $result=$val;
+
+		if(strripos($key,'list')===(strlen($key)-4))
+			$result = explode(',',$result);
+
+		return $result;
 	}
 	/**
 	 * 获得配置项
@@ -77,4 +65,3 @@ class Config extends Singleton{
 		}
 	}
 }
-?>

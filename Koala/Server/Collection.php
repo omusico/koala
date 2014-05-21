@@ -32,7 +32,7 @@ class Collection{
      */
 	public static function factory($name='',$options=array(),$new=false){
         if(empty($name)||!is_string($name)){
-            $name = C('Collection:DEFAULT','data');
+            $name = C('Collection:default','data');
         }
         if($new || !isset(self::$instances[$name])){
             $c_options = C('Collection:'.$name);

@@ -32,7 +32,7 @@ class Session{
      */
     public static function register($stream_name,$options=array(),$new=false){
         if(empty($stream_name)||!is_string($stream_name)){
-            $stream_name = C('Session:DEFAULT','file');
+            $stream_name = C('Session:default','file');
         }
         if($new || !isset(self::$instances[$stream_name])){
             $c_options = C('Session:'.$stream_name);

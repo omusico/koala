@@ -434,3 +434,15 @@ function import($class_path,$class){
         return null;
     }
 }
+//===============数组处理=========
+function getValueRec($keys=array(),$arr=array(),&$depth=0){
+    foreach ($keys as $index => $key) {
+        if($depth==1){$key = strtolower($key);}
+        $arr = isset($arr[$key])?$arr[$key]:null;
+        if($arr===null){
+            break;
+        }
+        $depth++;
+    }
+    return $arr;
+}

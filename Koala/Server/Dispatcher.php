@@ -31,7 +31,7 @@ class Dispatcher{
   	 */
 	public static function factory($name='',$options=array()){
 		if(empty($name)||!is_string($name)){
-			$name = C('Dispatcher:DEFAULT','mvc');
+			$name = C('Dispatcher:default','mvc');
 		}
 		if(!isset(self::$instances[$name])){
 			$c_options = C('Dispatcher:'.$name);

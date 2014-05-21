@@ -31,7 +31,7 @@ class Counter{
   	 */
 	public static function factory($name='',$options=array()){
 		if(empty($name)||!is_string($name)){
-			$name = C('Counter:DEFAULT','LAECounter');
+			$name = C('Counter:default','LAECounter');
 		}
 		if(!isset(self::$instances[$name])){
 			$c_options = C('Counter:'.$name);

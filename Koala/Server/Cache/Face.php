@@ -5,12 +5,12 @@
  * @package  Koala
  * @author   Lunnlew <Lunnlew@gmail.com>
  */
+namespace Koala\Server\Cache;
 /**
  * 缓存接口
  * @package  Koala\Server\Cache
  * @author    Lunnlew <Lunnlew@gmail.com>
  */
-namespace Koala\Server\Cache;
 interface Face{
     /**
      * 设置缓存值

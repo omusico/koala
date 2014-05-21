@@ -31,7 +31,7 @@ class Channel{
   	 */
 	public static function factory($name='',$option=array()){
 		if(empty($name)||!is_string($name)){
-			$name = C('Channel:DEFAULT','LAEChannel');
+			$name = C('Channel:default','LAEChannel');
 		}
 		if(!isset(self::$instances[$name])){
 			$c_options = C('Channel:'.$name);

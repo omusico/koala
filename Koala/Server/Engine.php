@@ -31,7 +31,7 @@ class Engine{
   	 */
 	public static function factory($name='',$options=array()){
 		if(empty($name)||!is_string($name)){
-			$name = C('Engine:DEFAULT','Smarty');
+			$name = C('Engine:default','Smarty');
 		}
 		if(!isset(self::$instances[$name])){
 			$c_options = C('Engine:'.$name);

@@ -19,7 +19,7 @@ SET time_zone = "+00:00";
 --
 -- 数据库: `koalacms`
 --
-CREATE DATABASE IF NOT EXISTS `koalacms` DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;
+CREATE DATABASE IF NOT EXISTS `koalacms` default CHARACTER SET utf8 COLLATE utf8_general_ci;
 USE `koalacms`;
 
 -- --------------------------------------------------------
@@ -30,10 +30,10 @@ USE `koalacms`;
 
 CREATE TABLE IF NOT EXISTS `koala_auth_group` (
   `id` mediumint(8) unsigned NOT NULL AUTO_INCREMENT,
-  `title` char(100) NOT NULL DEFAULT '',
-  `rules` char(80) NOT NULL DEFAULT '',
+  `title` char(100) NOT NULL default '',
+  `rules` char(80) NOT NULL default '',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=6 ;
+) ENGINE=MyISAM  default CHARSET=utf8 AUTO_INCREMENT=6 ;
 
 --
 -- 转存表中的数据 `koala_auth_group`
@@ -56,7 +56,7 @@ CREATE TABLE IF NOT EXISTS `koala_auth_group_access` (
   UNIQUE KEY `uid_2` (`uid`,`gid`),
   KEY `uid` (`uid`),
   KEY `group_id` (`gid`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3 ;
+) ENGINE=MyISAM  default CHARSET=utf8 AUTO_INCREMENT=3 ;
 
 --
 -- 转存表中的数据 `koala_auth_group_access`
@@ -74,12 +74,12 @@ INSERT INTO `koala_auth_group_access` (`id`, `uid`, `gid`) VALUES
 
 CREATE TABLE IF NOT EXISTS `koala_auth_rule` (
   `id` mediumint(8) unsigned NOT NULL AUTO_INCREMENT,
-  `name` char(10) NOT NULL DEFAULT '',
-  `title` char(20) NOT NULL DEFAULT '',
-  `type` tinyint(1) NOT NULL DEFAULT '0',
-  `condition` char(100) NOT NULL DEFAULT '',
+  `name` char(10) NOT NULL default '',
+  `title` char(20) NOT NULL default '',
+  `type` tinyint(1) NOT NULL default '0',
+  `condition` char(100) NOT NULL default '',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=4 ;
+) ENGINE=MyISAM  default CHARSET=utf8 AUTO_INCREMENT=4 ;
 
 --
 -- 转存表中的数据 `koala_auth_rule`
@@ -100,7 +100,7 @@ CREATE TABLE IF NOT EXISTS `koala_user` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(50) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COMMENT='用户' AUTO_INCREMENT=2 ;
+) ENGINE=InnoDB  default CHARSET=utf8 COMMENT='用户' AUTO_INCREMENT=2 ;
 
 --
 -- 转存表中的数据 `koala_user`

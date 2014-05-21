@@ -31,7 +31,7 @@ class Payment{
   	 */
 	public static function factory($name='',$options=array()){
 		if(empty($name)||!is_string($name)){
-			$name = C('Payment:DEFAULT','LAEPayment');
+			$name = C('Payment:default','LAEPayment');
 		}
 		if(!isset(self::$instances[$name])){
 			$c_options = C('Payment:'.$name);

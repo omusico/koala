@@ -31,7 +31,7 @@ class Rank{
   	 */
 	public static function factory($name='',$options=array()){
 		if(empty($name)||!is_string($name)){
-			$name = C('Rank:DEFAULT','Rank');
+			$name = C('Rank:default','Rank');
 		}
 		if(!isset(self::$instances[$name])){
 			$c_options = C('Rank:'.$name);

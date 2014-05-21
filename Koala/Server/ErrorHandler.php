@@ -38,7 +38,7 @@ class ErrorHandler{
   	 */
 	public static function factory($name='',$options=array()){
 		if(empty($name)||!is_string($name)){
-			$name = C('ErrorHandler:DEFAULT','ErrorHandler');
+			$name = C('ErrorHandler:default','ErrorHandler');
 		}
 		if(!isset(self::$instances[$name])){
 			$c_options = C('ErrorHandler:'.$name);

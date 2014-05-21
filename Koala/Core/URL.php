@@ -130,11 +130,11 @@ class URL{
 		//是否启用了多应用模式//默认单应用
 		if(C('MULTIPLE_APP',0)){
 			//如果不在已有的应用列表中
-			if(!in_array(ucwords(current($paths)),C('APP:LIST',array('APP1')))){
+			if(!in_array(ucwords(current($paths)),C('APP:list',array('APP1')))){
 				//是否用默认值
 				if($overwite){
 					//插入头
-					array_unshift($paths,C('APP:DEFAULT','APP1'));
+					array_unshift($paths,C('APP:default','APP1'));
 					++$num;
 				}
 					
@@ -143,10 +143,10 @@ class URL{
 		//是否启用了多分组//默认多分组
 		if(C('MULTIPLE_GROUP',1)){
 			//如果不在已有的分组列表中
-			if(!in_array(ucwords($paths[$num]),C('GROUP:LIST',array('Home')))){
+			if(!in_array(ucwords($paths[$num]),C('GROUP:list',array('Home')))){
 				//是否用默认值
 				if($overwite){
-					array_splice($paths,$num,0,array(C('GROUP:DEFAULT','Home')));
+					array_splice($paths,$num,0,array(C('GROUP:default','Home')));
 					++$num;
 				}
 			}else{
@@ -157,7 +157,7 @@ class URL{
 		if(!isset($paths[$num])){
 			//模块//是否用默认值
 			if($overwite){
-				array_splice($paths,$num,0,array(C('MODULE:DEFAULT','Home')));
+				array_splice($paths,$num,0,array(C('MODULE:default','Home')));
 				++$num;
 			}
 		}else{
@@ -167,7 +167,7 @@ class URL{
 		if(!isset($paths[$num]))
 		//方法//是否用默认值
 		if($overwite){
-			array_splice($paths,$num,0,array(C('ACTION:DEFAULT','index')));
+			array_splice($paths,$num,0,array(C('ACTION:default','index')));
 			++$num;
 		}
 		return $paths;

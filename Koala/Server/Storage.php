@@ -31,7 +31,7 @@ class Storage{
   	 */
 	public static function factory($name='',$options=array()){
 	    if(empty($name)||!is_string($name)){
-  			$name = C('Storage:DEFAULT','LAEStorage');
+  			$name = C('Storage:default','LAEStorage');
   		}
   		if(!isset(self::$instances[$name])){
   			$c_options = C('Storage:'.$name);

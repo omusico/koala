@@ -13,7 +13,7 @@ class Route{
     static protected $instances = array();
     public static function factory($options=array(),$type='',$new=false){
         if(empty($type)||!is_string($type)){
-            $type = C('Route:DEFAULT','Route');
+            $type = C('Route:default','Route');
         }
         if($new || !isset(self::$instances[$type])){
             $c_options = C('Route:'.$type);

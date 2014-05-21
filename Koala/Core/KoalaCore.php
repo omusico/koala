@@ -123,10 +123,14 @@ KoalaCore::lazyInitialize(function(){
     defined('VIEW_PATH') or define('VIEW_PATH',APP_PATH.'View/');
     //读数据路径
     defined('DATA_PATH') or define('DATA_PATH',FRAME_PATH.'Data/');
+    //写数据路径
+    defined('RUNTIME_PATH') or define('RUNTIME_PATH',ENTRANCE_PATH.'Runtime/');
     //编译路径
     defined('COMPILE_PATH') or define('COMPILE_PATH',RUNTIME_PATH.'Compile/');
     //缓存路径
     defined('CACHE_PATH') or define('CACHE_PATH',RUNTIME_PATH.'Cache/');
+    //日志路径
+    defined('LOG_PATH') or define('LOG_PATH',RUNTIME_PATH.'Storage/');
     //静态资源路径
     defined('SOURCE_URL') or define('SOURCE_URL', APP_URL.'Source/');
     //存储路径
@@ -144,7 +148,8 @@ KoalaCore::lazyInitialize(function(){
     //默认应用插件路径
     defined('APP_ADDONS_PATH') or define('APP_ADDONS_PATH',APP_PATH.'Addons/');
     defined('APP_PLUGIN_PATH') or define("APP_PLUGIN_PATH",APP_ADDONS_PATH.'Plugin/');
-    
+    //请求开始时间
+    defined('START_TIME') or define('START_TIME', $_SERVER['REQUEST_TIME_FLOAT']);
 
     //设置应用默认加载方案
     ClassLoader::initialize(function($instance){
