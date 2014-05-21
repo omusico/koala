@@ -1,5 +1,18 @@
 <?php
+/**
+ * Koala - A PHP Framework For Web
+ *
+ * @package  Koala
+ * @author   Lunnlew <Lunnlew@gmail.com>
+ */
 namespace Koala\Server\Counter;
+/**
+ * Counter工厂类
+ * 
+ * @package  Koala
+ * @subpackage  Server\Counter
+ * @author    Lunnlew <Lunnlew@gmail.com>
+ */
 class Factory extends \Koala\Server\Factory{
     public static function getServerName($name){
         $server_name = 'LAECounter';

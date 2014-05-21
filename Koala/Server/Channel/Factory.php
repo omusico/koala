@@ -1,5 +1,18 @@
 <?php
+/**
+ * Koala - A PHP Framework For Web
+ *
+ * @package  Koala
+ * @author   Lunnlew <Lunnlew@gmail.com>
+ */
 namespace Koala\Server\Channel;
+/**
+ * Channel工厂类
+ * 
+ * @package  Koala
+ * @subpackage  Server\Channel
+ * @author    Lunnlew <Lunnlew@gmail.com>
+ */
 class Factory extends \Koala\Server\Factory{
     public static function getServerName($name){
         $server_name = 'LAEChannel';
