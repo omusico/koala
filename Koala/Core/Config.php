@@ -1,5 +1,20 @@
 <?php
+/**
+ * Koala - A PHP Framework For Web
+ *
+ * @package  Koala
+ * @author   Lunnlew <Lunnlew@gmail.com>
+ */
+/**
+ * 配置操作类
+ * 
+ * @package  Koala
+ * @author    Lunnlew <Lunnlew@gmail.com>
+ */
 class Config extends Singleton{
+	/**
+	 * 配置项
+	 */
 	static $config = array();
 	/**
 	 * 加载配置
@@ -11,7 +26,7 @@ class Config extends Singleton{
 	}
 	/**
 	 * 获得配置项
-	 * @param  string $key    配置项
+	 * @param  string $key    配置项,如group:list,Engine:smarty:param,注意key中第二个子项必须小写
 	 * @param  string $config 配置数组
 	 * @param  bool $runtime  运行时设置 true/false
 	 * @return fixed          配置项值
@@ -19,7 +34,7 @@ class Config extends Singleton{
 	public static function getItem($key,$defv='',$runtime=false){
 		if($runtime && $defv!='')
 			return (self::$config[$key] = $defv);
-		
+
 		if(null===($val=getValueRec(explode(':',$key),self::$config)))
 			$result=$defv;
 		else $result=$val;
