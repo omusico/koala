@@ -2,7 +2,34 @@
 /**
  * 该文件中存放的是框架必须函数和一些常用函数
  */
-
+/**
+ * 支持ajax和普通访问下的信息提示
+ * @param    mixed        $message  消息内容
+ * @param    int          $type   消息类型
+ */
+function message(mixed $message,$type=\Core\Front\MessageState::INFO){
+    if(is_ajax()){
+        if(is_array($message))
+            exit(json_encode($message));
+        else
+            exit($message);
+    }else{
+        switch ($type) {
+            case \Core\Front\MessageState::COMMON:
+                \View::display(\FrontData::get('tpl'));
+                break;
+            case \Core\Front\MessageState::ERROR:
+                \View::error($message);
+                break;
+            case \Core\Front\MessageState::SUCCESS:
+            case \Core\Front\MessageState::INFO:
+            default:
+                \View::success($message);
+                break;
+        }
+        exit;
+    }
+}
 /**
 * 产生随机字符串
 *

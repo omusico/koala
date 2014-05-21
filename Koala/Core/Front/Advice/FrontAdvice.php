@@ -39,9 +39,9 @@ class FrontAdvice{
 				\View::display($tpl);
 			}elseif(\Front::getState()===\Core\Front\MessageState::ERROR){
 				\View::error(\Front::getMsg());
-			}elseif(\FrontData::getState()===\Core\Front\MessageState::SUCCESS){
+			}elseif(\Front::getState()===\Core\Front\MessageState::SUCCESS){
 				\View::success(\Front::getMsg());
-			}elseif(\FrontData::getState()===\Core\Front\MessageState::INFO){
+			}elseif(\Front::getState()===\Core\Front\MessageState::INFO){
 				\View::success(\Front::getMsg());
 			}
 			

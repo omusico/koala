@@ -2,6 +2,8 @@
 //应用引导程序
 define('IN_KOALA',true);
 
+session_start();
+
 //默认调试级别设置
 defined('DEBUGLEVEL') or define('DEBUGLEVEL',0);
 

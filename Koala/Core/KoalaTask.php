@@ -91,7 +91,7 @@ KoalaCore::initialize(function(){
     //配置初始化
     Config::initialize(function($instance){
         //默认文件
-        $instance->loadConfig(FRAME_PATH.'Config'.DIRECTORY_SEPARATOR.'Global.default.php');
+        $instance->loadConfig(FRAME_PATH.'Config/Global.default.php');
     });
     //核心AOP切面路径
     define('ADVICE_PATH', FRAME_PATH.'Core/AOP/Advice/');

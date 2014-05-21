@@ -23,10 +23,6 @@ class Singleton{
 		$object = self::getInstance(get_called_class());
 		self::setInstance(get_class($object),$object);
         $initializer($object,$options);
-        //执行 核心的延迟代码片段
-        if($object instanceof KoalaCore){
-        	KoalaCore::executeLazy();
-        }
     }
 	/**
 	 * 获得类单例
