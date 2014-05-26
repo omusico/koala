@@ -14,7 +14,7 @@ namespace Koala\Server;
  * @abstract
  * @author    LunnLew <lunnlew@gmail.com>
  */
-abstract class Factory implements interf{
+abstract class Factory implements Interf{
     /**
      * 获得服务驱动实例
      * 

@@ -1,4 +1,11 @@
 <?php
+/**
+ * Koala - A PHP Framework For Web
+ *
+ * @package  Koala
+ * @author   LunnLew <lunnlew@gmail.com>
+ */
+
 //目录分隔符
 defined('DS') or define('DS', DIRECTORY_SEPARATOR);
 
@@ -149,7 +156,9 @@ KoalaCore::lazyInitialize(function(){
     defined('APP_PLUGIN_PATH') or define("APP_PLUGIN_PATH",APP_ADDONS_PATH.'Plugin/');
     //请求开始时间
     defined('START_TIME') or define('START_TIME', $_SERVER['REQUEST_TIME_FLOAT']);
-
+    //定义应用标识码
+    //对多个相同应用情况下的缓存服务提供前缀防止缓存段共用问题;
+    defined('APP_UUID') or define('APP_UUID',substr(md5(APP_PATH),0,6));
     //设置应用默认加载方案
     ClassLoader::initialize(function($instance){
         $instance->register();
@@ -209,7 +218,7 @@ KoalaCore::initialize(function(){
     //检查环境
     require_once(FRAME_PATH.'Initialise/checkEnv.php');
     //composer第三方库加载支持
-    is_file(FRAME_PATH.'Addons/vendor/autoload.php') AND require FRAME_PATH.'Addons/vendor/autoload.php';
+    is_file(FRAME_PATH.'Addons/Vendor/autoload.php') AND require FRAME_PATH.'Addons/Vendor/autoload.php';
     //++++++++++++++++++++++++调试及错误设置++++++++++++++++++++++++++++
     $log = Koala\Server\Log::factory('monolog');
     Koala\Server\ErrorHandler::register('monolog',array($log),function()use($log){

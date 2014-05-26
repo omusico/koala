@@ -9,7 +9,7 @@ class ClassLoader extends Singleton{
     //目录list
     protected $dirs = array();
     //名称空间分隔符
-    protected $separator = '\\';
+    protected $separator = '/';
     
     //获得名称空间映射表
     public function getNamespaces(){
@@ -37,7 +37,7 @@ class ClassLoader extends Singleton{
         $this->dirs[$dir] = rtrim($path,'\\/');
     }
     //设置分隔符
-    public function setSeparator($separator='\\'){
+    public function setSeparator($separator='/'){
         $this->separator = $separator;
     }
     //类加载器注册
@@ -47,6 +47,7 @@ class ClassLoader extends Singleton{
     //类加载
     public function loadClass($class){
         $class = str_replace('_',$this->separator,$class);
+        $class = str_replace('\\',$this->separator,$class);
         $parts = explode($this->separator, $class);
         $fnamespace = $parts[0];
         $path = implode($this->separator, $parts);
@@ -55,7 +56,7 @@ class ClassLoader extends Singleton{
             if(isset($this->namespaces[$fnamespace])){
                 if(is_array($this->namespaces[$fnamespace])){
                     foreach ($this->namespaces[$fnamespace] as $dir) {
-                        $file = $dir.DIRECTORY_SEPARATOR.$path.'.php';
+                        $file = $dir.'/'.$path.'.php';
                         if(is_file($file)){
                             include $file;
                             break;
@@ -63,14 +64,14 @@ class ClassLoader extends Singleton{
                         
                     }
                 }else{
-                    include $this->namespaces[$fnamespace].DIRECTORY_SEPARATOR.$path.'.php';
+                    include $this->namespaces[$fnamespace].'/'.$path.'.php';
                 }
             }
         }else{
             //根据目录搜索
             foreach ($this->dirs as $dir) {
-                $file = $dir.DIRECTORY_SEPARATOR.$path.'.php';//dir/class.php
-                $file1 = $dir.DIRECTORY_SEPARATOR.$path."/$class.php";//dir/class/class.php
+                $file = $dir.'/'.$path.'.php';//dir/class.php
+                $file1 = $dir.'/'.$path."/$class.php";//dir/class/class.php
                 if (file_exists($file)) {
                     include $file;break;
                 }elseif(file_exists($file1)){
@@ -84,7 +85,7 @@ class ClassLoader extends Singleton{
     public function LoadFunc($namespace,$list){
         $funcs = explode(',',$list);
         foreach ($funcs as $file) {
-            include  $this->namespaces[$namespace].DIRECTORY_SEPARATOR.$namespace.DIRECTORY_SEPARATOR.$file.'.php';
+            include  $this->namespaces[$namespace].'/'.$namespace.'/'.$file.'.php';
         }
     }
 }

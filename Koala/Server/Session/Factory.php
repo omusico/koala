@@ -1,9 +1,18 @@
 <?php
+/**
+ * Koala - A PHP Framework For Web
+ *
+ * @package  Koala
+ * @author   LunnLew <lunnlew@gmail.com>
+ */
 namespace Koala\Server\Session;
 class Factory extends \Koala\Server\Factory{
     public static function getServerName($name){
-        $server_name = 'FileStream';
+        $server_name = 'PDOStream';
         switch($name){
+            case 'memcache':
+                $server_name = 'MemcacheStream';
+                break;
             case 'pdo':
             default:
                 $server_name = 'PDOStream';

@@ -22,8 +22,8 @@ final class LAEMemcache extends Base{
      * @var array
      * @access protected
      */
-    protected $option=array(
-        'group'=>'[APP_NAME][APP_VERSION]',
+    protected $options=array(
+        'group'=>'[APP_UUID]',
         'expire'=>3600,
         'compress'=>1,
         'servers'=>array(
@@ -35,21 +35,21 @@ final class LAEMemcache extends Base{
      * 构造函数
      * @param array $options 配置选项
      */
-    function __construct($option=array()){
-        if(!empty($option)){
-            $this->option = $option + $this->option;//合并配置
+    function __construct($options=array()){
+        if(!empty($options)){
+            $this->options = $options + $this->options;//合并配置
         }
-        preg_match_all('/[\w]+/',$this->option['group'], $res);
+        preg_match_all('/[\w]+/',$this->options['group'], $res);
         foreach ($res[0] as $key => $value) {
             $group .= constant($value);
         }
-        $this->option['group'] = $group;
+        $this->options['group'] = $group;
         $this->mmc = new Memcache;
         //支持多个memcache服务器
-        if(isset($this->option['servers']['host'])) {
-            $this->mmc->addServer($this->option['servers']['host'], $this->option['servers']['port']);
+        if(isset($this->options['servers']['host'])) {
+            $this->mmc->addServer($this->options['servers']['host'], $this->options['servers']['port']);
         }else{
-            foreach($this->option['servers'] as $v){
+            foreach($this->options['servers'] as $v){
                     $this->mmc->addServer($v['host'], $v['port']);
             }
         }
@@ -70,12 +70,12 @@ final class LAEMemcache extends Base{
     function set($key, $var,$compress='',$expire=3600){ 
         if(!$this->mmc)return; 
         if(!$expire){
-            $expire = $this->option['expire'];
+            $expire = $this->options['expire'];
         }
         if($compress!=''){
-            $this->option['compress'] = $compress;
+            $this->options['compress'] = $compress;
         }
-        return $this->mmc->set($this->key($key), $var,$this->option['compress'] ? MEMCACHE_COMPRESSED : 0, $expire); 
+        return $this->mmc->set($this->key($key), $var,$this->options['compress'] ? MEMCACHE_COMPRESSED : 0, $expire); 
     } 
      /**
      * 获取缓存值

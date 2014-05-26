@@ -18,17 +18,17 @@ use Koala\Server\Cache\Base;
 final class LAExcache extends Base{
     /**
      * 构造函数
-     * @param array $options 配置选项
+     * @param array $optionss 配置选项
      */
-    function __construct($option=array()){
-        if(!empty($option)){
-            $this->option = $option + $this->option;//合并配置
+    function __construct($options=array()){
+        if(!empty($options)){
+            $this->options = $options + $this->options;//合并配置
         }
-        preg_match_all('/[\w]+/',$this->option['group'], $res);
+        preg_match_all('/[\w]+/',$this->options['group'], $res);
         foreach ($res[0] as $key => $value) {
             $group .= constant($value);
         }
-        $this->option['group'] = $group;
+        $this->options['group'] = $group;
         $version=@unserialize(xcache_get('version_'.$this->group()));
         if(!empty($version)){
             $this->version = $version;
@@ -44,7 +44,7 @@ final class LAExcache extends Base{
      */
     function set($key, $var, $expire=3600){
         if(!$expire){
-            $expire = $this->option['expire'];
+            $expire = $this->options['expire'];
         }
     	return xcache_set($this->key($key), serialize($var), $expire);
     } 

@@ -27,7 +27,7 @@ use Koala\Server\Session\Base;
  * @author   LunnLew <lunnlew@gmail.com>
  * @final
  */
-final class PDOStream{
+final class PDOStream extends Base{
     private static $_path         = null;
     private static $_name         = null;
     private static $_db          = null;
@@ -55,6 +55,7 @@ final class PDOStream{
         //方法注册
         self::$_maxLifeTime = ini_get('session.gc_maxlifetime');
         self::$_ip    = !empty($_SERVER['REMOTE_ADDR']) ? $_SERVER['REMOTE_ADDR'] : null;
+
         session_module_name('user');
         session_set_save_handler(
             array(__CLASS__, 'open'),
@@ -67,20 +68,8 @@ final class PDOStream{
         session_start();
     }
     /**
-     * session_open
-     */
-    public static function open($path,$name){
-        return true;    
-    }
-    /**
-     * session_close
-     */
-    public static function close(){
-        return true;
-    }
-    /**
      * session_read
-     * @param mixed $id session key
+     * @param mixed $id session id
      */
     public static function read($id){
         $sql = 'SELECT * FROM '.self::$_table.' where PHPSESSID = ?';
@@ -99,7 +88,7 @@ final class PDOStream{
     }
     /**
      * session_write
-     * @param mixed $id session key
+     * @param mixed $id session id
      * @param mixed $data session data
      */
     public static function write($id,$data){
@@ -141,7 +130,7 @@ final class PDOStream{
      * session_gc
      * @param int $maxLifeTime session最大生存时间
      */
-    public static function gc($maxLifeTime){
+    public static function gc($maxLifeTime='3600'){
         $sql = 'DELETE FROM '.self::$_table.' WHERE update_time < ?';
         $stmt = self::$_db->prepare($sql);
         $time = time();
