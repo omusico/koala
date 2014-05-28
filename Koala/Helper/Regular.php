@@ -11,9 +11,13 @@ namespace Koala\Helper;
  */
 class Regular{
 	/**
-	 * 匹配中文
+	 * 匹配utf8中文
 	 */
-	const CHINESE = '/^[\u4e00-\u9fa5]+$/';
+	const CHINESE = '/^[\x{4e00}-\x{9fa5}]+$/';
+	/**
+	*匹配gbk中文字母数字下划线
+	*/
+	const CHINESEWORD = '/^[chr(0xa1)-chr(0xff)A-Za-z0-9_]+$/';
 	/**
 	 *匹配html标签
 	 */
@@ -27,5 +31,5 @@ class Regular{
 	 * 匹配一般词组
 	 * 中文、英文、数字及下划线
 	 */
-	const PHRASE = '/^[\u4e00-\u9fa5_a-zA-Z0-9]+$/';
+	const PHRASE = '/^[\x{4e00}-\x{9fa5}_a-zA-Z0-9
 }

@@ -13,7 +13,7 @@ namespace Koala\Server;
  * @subpackage  Server
  * @author    LunnLew <lunnlew@gmail.com>
  */
-interface Interf{
+interface ServerInterface{
 	/**
 	 * 获取服务类名
 	 * @param  string $name 服务名(小写)
