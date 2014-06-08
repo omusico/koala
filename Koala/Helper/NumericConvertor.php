@@ -128,7 +128,8 @@ class NumericConvertor{
 		$this->prep_str = rtrim(str_replace('圆', '元',$str),'元整');
 		$this->type = $type;
 	}
-	/**
+
+	/*
 	 * 转换中文数字到阿拉伯数字
 	 * @return string
 	 */
