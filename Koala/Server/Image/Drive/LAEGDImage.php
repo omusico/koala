@@ -133,8 +133,7 @@ final class LAEGDImage extends Base{
 	 */
 	public function ttftext(string $text,int $x,int $y,$size=8,string $fontfile,$color_red=0,$color_green=0,$color_blue=0){
 		if($this->canvas!==false){
-			$text_color=imagecolorallocate($this->canvas,$color_red,$color_green,$color_blue);
-			imagettftext($this->canvas,$size,0, $x, $y, $text_color ,$fontfile, $text);
+			imagettftext($this->canvas,$size,0, $x, $y, imagecolorallocate($this->canvas,$color_red,$color_green,$color_blue) ,$fontfile, $text);
 			$this->infos[$text] = array(
 				'dst'=>$this->canvas,
 				'ext'=>'png',
@@ -142,8 +141,7 @@ final class LAEGDImage extends Base{
 				);
 		}else{
 			foreach ($this->infos as $name => $info){
-				$text_color=imagecolorallocate($this->infos[$name]['dst'],$color_red,$color_green,$color_blue);
-				imagettftext($this->infos[$name]['dst'],$size,0, $x, $y, $text_color ,$fontfile, $text);
+				imagettftext($this->infos[$name]['dst'],$size,0, $x, $y, imagecolorallocate($this->infos[$name]['dst'],$color_red,$color_green,$color_blue) ,$fontfile, $text);
 			}
 		}
 		return $this;
