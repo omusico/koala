@@ -26,7 +26,7 @@ class Helper_CharCaptcha{
 	public function Verify() {
 		$this->createBG();
 		$this->createCode();
-		$this->Snowflake();
+		$this->snowflake();
 		$this->createLine();
 		$this->createFont();
 	}
@@ -44,7 +44,7 @@ class Helper_CharCaptcha{
 		}
 	}
 	//打雪花
-	private function Snowflake(){
+	private function snowflake(){
 		for($i=0; $i<$this->snow;$i++) {
 			$color = imagecolorallocate($this->img, mt_rand(150, 230), mt_rand(150, 230), mt_rand(150, 230));
 			imagechar($this->img, 1, mt_rand(0, $this->width), mt_rand(0, $this->height), "*", $color);

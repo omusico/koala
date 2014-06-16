@@ -24,6 +24,10 @@ use Koala\Server\Image\Base;
  * @final
  */
 final class LAEGDImage extends Base{
+	/**
+	 * 包含相关处理信息的数组
+	 * @var array
+	 */
 	protected $infos = array();
 	/**
 	 * 允许的图片格式
