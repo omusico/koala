@@ -35,8 +35,8 @@ class KoalaCore extends Singleton{
      * @access public
      */
     public static function execute(){
-        $dispatcher = \Core\AOP\Aop::getInstance(Dispatcher::factory('mvc'));
-        $u = \Core\AOP\Aop::getInstance('URL');
+        $dispatcher = \Core\AOP\AOP::getInstance(\Koala\Server\Dispatcher::factory('mvc'));
+        $u = \Core\AOP\AOP::getInstance('URL');
         $test_url = rtrim(APP_RELATIVE_URL,'/');
         if(!empty($test_url))
             $url = str_replace(APP_RELATIVE_URL,'',$_SERVER['REQUEST_URI']);
