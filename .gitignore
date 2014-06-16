@@ -237,3 +237,4 @@ pip-log.txt
 /Koala/Core/Aspect
 sftp-config.json
 /Other
+*.gz
