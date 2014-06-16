@@ -78,7 +78,7 @@ final class LAEGDImage extends Base{
 	 * @param  int    $height 缩略图高度
 	 * @return
 	 */
-	public function thumb(int $width,int $height){
+	public function thumb($width=0,$height=0){
 		foreach ($this->infos as $name => $info){
 			//返回预处理的大小参数
 			extract($this->_getSizes($width,$height,$info[0],$info[1]),EXTR_OVERWRITE);
