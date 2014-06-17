@@ -13,7 +13,7 @@ if (!defined('PHP_ACTIVERECORD_AUTOLOAD_PREPEND'))
 if (!defined('PHP_ACTIVERECORD_AUTOLOAD_DISABLE'))
 	spl_autoload_register('activerecord_autoload',false,PHP_ACTIVERECORD_AUTOLOAD_PREPEND);
 
-define('ARDIR',FRAME_PATH.'Addons/Vendor/ActiveRecord/');
+define('ARDIR',FRAME_PATH.'External/ActiveRecord/');
 require ARDIR.'Utils.php';
 require ARDIR.'Exceptions.php';
 
@@ -21,7 +21,7 @@ ClassLoader::initialize(function($instance){
     //注册_autoload函数
     $instance->register();
     $instance->registerNamespaces(array(
-        'ActiveRecord'=>FRAME_PATH.'Addons/Vendor'
+        'ActiveRecord'=>FRAME_PATH.'External'
     ));
 });
 

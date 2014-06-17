@@ -51,6 +51,7 @@ class ClassLoader extends Singleton{
         $parts = explode($this->separator, $class);
         $fnamespace = $parts[0];
         $path = implode($this->separator, $parts);
+        $cname = array_pop($parts);
         if(strpos($class,$this->separator)!==false){
             //根据名称空间搜索
             if(isset($this->namespaces[$fnamespace])){
@@ -64,14 +65,17 @@ class ClassLoader extends Singleton{
                         
                     }
                 }else{
-                    include $this->namespaces[$fnamespace].'/'.$path.'.php';
+                    if(file_exists($this->namespaces[$fnamespace].'/'.$path.'.php'))
+                        include $this->namespaces[$fnamespace].'/'.$path.'.php';
+                    else
+                        include $this->namespaces[$fnamespace].'/'.$path.'/'.$cname.'.php';
                 }
             }
         }else{
             //根据目录搜索
             foreach ($this->dirs as $dir) {
                 $file = $dir.'/'.$path.'.php';//dir/class.php
-                $file1 = $dir.'/'.$path."/$class.php";//dir/class/class.php
+                $file1 = $dir.'/'.$path."/$cname.php";//dir/class/class.php
                 if (file_exists($file)) {
                     include $file;break;
                 }elseif(file_exists($file1)){
