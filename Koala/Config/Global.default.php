@@ -145,7 +145,12 @@ $cfg['EDITOR']=array(
   'ueditor'=>array(),
   );
 
-
+//主题名
 $cfg["THEME_NAME"] = 'default';
+
+//session服务
+//todo
+$cfg["Session"] = array();
+
 return $cfg;
 ?>

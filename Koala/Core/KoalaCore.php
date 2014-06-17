@@ -76,12 +76,10 @@ class KoalaCore extends Singleton{
         $object = self::getInstance(get_called_class());
         self::setInstance(get_class($object),$object);
         $initializer($object,$options);
-        //执行 核心的延迟代码片段
+
+        //当Koala执行时开始处理延迟执行的代码片段
         if($object instanceof Koala){
             KoalaCore::executeLazy();
-            //如果没有使用过session_start()
-            //if(''===($id=session_id()))
-            //Koala\Server\Session::register(C('Session:default','pdo'));
         }
     }
     /**
@@ -159,7 +157,8 @@ KoalaCore::lazyInitialize(function(){
     //定义应用标识码
     //对多个相同应用情况下的缓存服务提供前缀防止缓存段共用问题;
     defined('APP_UUID') or define('APP_UUID',substr(md5(APP_PATH),0,6));
-    //设置应用默认加载方案
+
+    //设置应用插件默认加载方案
     ClassLoader::initialize(function($instance){
         $instance->register();
         $instance->registerNamespace('Plugin',array(APP_ADDONS_PATH));
@@ -181,7 +180,7 @@ KoalaCore::lazyInitialize(function(){
  */
 KoalaCore::initialize(function(){
     //写数据路径
-    defined('RUNTIME_PATH') or define('RUNTIME_PATH',ENTRANCE_PATH.'Runtime/');
+    defined('RUNTIME_PATH') or define('RUNTIME_PATH',APP_PATH.'Runtime/');
     //日志路径
     defined('LOG_PATH') or define('LOG_PATH',RUNTIME_PATH.'Storage/');
     //框架类库加载方案
