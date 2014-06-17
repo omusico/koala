@@ -937,7 +937,7 @@ class MimeTypes {
             : null;
     }
     /**
-     * 根据文件名获得MIME类型值
+     * 根据含有扩展名部分的文件名获得MIME类型值
      *
      * @param string $filename 文件名
      * @static

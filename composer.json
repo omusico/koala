@@ -1,22 +1,21 @@
-{	"name": "lunnlew/koala",
+{
+    "name": "lunnlew/koala",
     "description": "The Koala Framework for PHP",
-    "version":"1.0.0",
+    "version": "1.0.0",
     "keywords": ["Koala", "framework", "psr-3"],
     "homepage": "https://github.com/lunnlew/koala",
-    "time":"2014-03-20",
+    "time": "2014-03-20",
     "type": "library",
     "license": "MIT",
-    "authors": [
-        {
-            "name": "LunnLew",
-            "email": "lunnlew@gmail.com"
-        }
-    ],
-	"config": {
-        "vendor-dir": "Addons/Vendor"
+    "authors": [{
+        "name": "LunnLew",
+        "email": "lunnlew@gmail.com"
+    }],
+    "config": {
+        "vendor-dir": "External"
     },
     "require": {
-    	"php": ">=5.3.0",
+        "php": ">=5.3.0",
         "monolog/monolog": "1.7.*@dev",
         "psr/log": "1.0.*@dev",
     },
@@ -25,9 +24,8 @@
         "phpunit/php-code-coverage": "3.0.*@dev",
         "phpunit/phpunit-mock-objects": "2.1.*@dev",
         "sebastian/comparator": "1.0.*@dev",
-        "devster/ubench":"1.1.*@dev"
-    }
-    ,
+        "devster/ubench": "1.1.*@dev"
+    },
     "suggest": {
         "monolog/monolog": "Allows more advanced logging of the application flow"
     }
