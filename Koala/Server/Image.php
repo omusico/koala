@@ -31,7 +31,7 @@ class Image{
   	 */
 	public static function factory($name='',\mixed $options){
 		if(empty($name)||!is_string($name)){
-			$name = C('Image:default','LAEImage');
+			$name = C('Image:default','LAEGDImage');
 		}
 		if(!isset(self::$instances[$name])){
 			$c_options = C('Image:'.$name);
