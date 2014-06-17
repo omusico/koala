@@ -238,3 +238,4 @@ pip-log.txt
 sftp-config.json
 /Other
 *.gz
+/Panel

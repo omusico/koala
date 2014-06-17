@@ -80,8 +80,8 @@ class KoalaCore extends Singleton{
         if($object instanceof Koala){
             KoalaCore::executeLazy();
             //如果没有使用过session_start()
-            if(''===($id=session_id()))
-            Koala\Server\Session::register(C('Session:default','pdo'));
+            //if(''===($id=session_id()))
+            //Koala\Server\Session::register(C('Session:default','pdo'));
         }
     }
     /**

@@ -38,18 +38,18 @@ final class Twig extends Base{
 	public function assign($key,$value){
 		$this->vars[$key]=$value;
 	}
-	public function display($tpl){
-		$template=$this->twig->loadTemplate($tpl);
+	public function display($tpl = ''){
+		$template=$this->object->loadTemplate($tpl);
 		echo $template->render($this->vars);
 	}
 	public function render($tpl,$vars=array()){
 		$this->vars = array_merge($this->vars,$vars);
-		return $this->twig->render($this->vars);
+		return $this->object->render($this->vars);
 	}
 	public function __call($method,$args){
 		echo '尚未统一化方法支持,你可以直接使用原生代码。<br>';
 	}
 	public function test(){
-		$this->twig->addTokenParser(new \Tag_TokenParser_get());
+		$this->object->addTokenParser(new \Tag_TokenParser_get());
 	}
 }
