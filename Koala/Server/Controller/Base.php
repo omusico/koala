@@ -1,9 +1,19 @@
 <?php
-defined('IN_KOALA') or exit();
 /**
- * Controller控制器基类 抽象类
+ * Koala - A PHP Framework For Web
+ *
+ * @package  Koala
+ * @author   LunnLew <lunnlew@gmail.com>
  */
-abstract class Core_Controller_Base {
+namespace Koala\Server\Controller;
+/**
+ * Controller基类
+ * 
+ * @package  Koala
+ * @subpackage  Server\Controller
+ * @author    LunnLew <lunnlew@gmail.com>
+ */
+abstract class Base{
 
     /**
      * 视图实例对象

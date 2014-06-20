@@ -29,8 +29,9 @@ file_put_contents(ENTRANCE_PATH.C('appcfg:app_name','App').'/Controller/Home/Ind
 
 $content = "<?php
 defined('IN_KOALA') or exit();
+use Koala\Server\Controller\Base as ControllerBase;
 //公共类
-class Controller_PublicController extends Core_Controller_Base{
+class Controller_PublicController extends ControllerBase{
 	public function __construct(){
 		// coding
 	}
