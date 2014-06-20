@@ -5,7 +5,7 @@
  * @package  Koala
  * @author   LunnLew <lunnlew@gmail.com>
  */
-namespace Koala\Core\CLI;
+namespace Koala\CLI;
 /**
  * 命令行参数解析支持
  */

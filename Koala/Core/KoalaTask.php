@@ -29,7 +29,7 @@ class KoalaCore extends Singleton{
      */
     public static function execute(){
         //使用命令行解析器
-        Koala\Core\Minion\Task::factory(Koala\Core\CLI\KoalaCLI::options())->execute();
+        Koala\Core\Minion\Task::factory(Koala\CLI\KoalaCLI::options())->execute();
     }
     /**
      * 部分延迟执行的代码,用于延迟搜集可由应用自定义的参数，常量等代码

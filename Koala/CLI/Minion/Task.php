@@ -5,11 +5,11 @@
  * @package  Koala
  * @author   LunnLew <lunnlew@gmail.com>
  */
-namespace Koala\Core\Minion;
+namespace Koala\CLI\Minion;
 /**
  * 命令行基类
  *
- * @package  Koala\Core\Minion
+ * @package  Koala\CLI\Minion
  * @author   LunnLew <lunnlew@gmail.com>
  */
 abstract class Task {
@@ -74,8 +74,8 @@ abstract class Task {
 		}
 
 		$class = new $class;
-		//判断是否是\Koala\Core\Task的一个子实例
-		if (!$class instanceof \Koala\Core\Task){
+		//判断是否是\Koala\CLI\Task的一个子实例
+		if (!$class instanceof \Koala\CLI\Task){
 			throw new Minion_Exception_InvalidTask(
 				"Task ':task' is not a valid minion task",
 				array(':task' => $class)

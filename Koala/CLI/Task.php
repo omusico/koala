@@ -2,5 +2,5 @@
 /**
  * Interface that all minion tasks must implement
  */
-namespace Koala\Core;
+namespace Koala\CLI;
 abstract class Task extends Minion\Task{}

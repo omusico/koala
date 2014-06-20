@@ -240,3 +240,4 @@ pip-log.txt
 /Panel
 *.log
 *.json
+/Demo
