@@ -98,7 +98,7 @@ KoalaCore::initialize(function(){
     //检查环境
     require_once(FRAME_PATH.'Initialise/checkEnv.php');
     //composer第三方库加载支持
-    is_file(FRAME_PATH.'Addons/vendor/autoload.php') AND require FRAME_PATH.'Addons/vendor/autoload.php';
+    is_file(FRAME_PATH.'External/autoload.php') AND require FRAME_PATH.'External/autoload.php';
     //++++++++++++++++++++++++调试及错误设置++++++++++++++++++++++++++++
     $log = Log::factory('monolog');
     ErrorHandler::register('monolog',array($log),function()use($log){
@@ -179,7 +179,7 @@ KoalaCore::lazyInitialize(function(){
     });
 
     //composer第三方库加载支持
-    is_file(APP_PATH.'Addons/vendor/autoload.php') AND require APP_PATH.'Addons/vendor/autoload.php';
+    is_file(APP_PATH.'External/autoload.php') AND require APP_PATH.'External/autoload.php';
 
     //设定时区
     date_default_timezone_set(C('time_zone','PRC'));

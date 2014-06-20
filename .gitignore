@@ -235,7 +235,8 @@ pip-log.txt
 /Koala/Addons/Vendor/hautelook
 /Koala/Addons/Vendor/devster
 /Koala/Core/Aspect
-sftp-config.json
 /Other
 *.gz
 /Panel
+*.log
+*.json
