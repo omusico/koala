@@ -1,12 +1,12 @@
 <?php
 namespace Koala\Server\Storage\Drive;
-use Server_Storage_Base;
+use Koala\Server\Storage\Base;
 /**
  * ACE的Storage驱动
  * 所有文件名使用相对于数据存储区域的路径
  * 
  */
-final class ACEStorage extends Server_Storage_Base{
+final class ACEStorage extends Base{
     //数据存储区
 	var $bucket = 'image';
 	//云服务对象

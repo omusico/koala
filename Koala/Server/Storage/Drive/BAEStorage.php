@@ -1,8 +1,8 @@
 <?php
 namespace Koala\Server\Storage\Drive;
-use Server_Storage_Base;
+use Koala\Server\Storage\Base;
 //百度云存储
-final class BAEStorage extends Server_Storage_Base{
+final class BAEStorage extends Base{
 	var $bucket='imagefile';
 	//云服务对象
     var $object = '';
