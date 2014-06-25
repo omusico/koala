@@ -81,4 +81,13 @@ final class Smarty extends Base{
 	public function fetch($tpl=''){
 		return $this->object->fetch($tpl);
 	}
+	/**
+	 * 魔术方法
+	 * @param  string $method 方法
+	 * @param  array $args   参数
+	 * @return mixed         返回值
+	 */
+	public function __call($method,$args){
+		return call_user_func_array(array($this->object,$method),$args);
+	}
 }
