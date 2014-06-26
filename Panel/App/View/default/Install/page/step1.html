@@ -1,0 +1,99 @@
+{%extends file='Install/layout/Base.html'%}
+
+{%block name="navleft"%}
+<li>
+    <a href="javascript:;">安装协议</a>
+</li>
+<li class="active">
+    <a href="javascript:;">环境检测</a>
+</li>
+<li>
+    <a href="javascript:;">创建数据库</a>
+</li>
+<li>
+    <a href="javascript:;">安装</a>
+</li>
+<li>
+    <a href="javascript:;">完成</a>
+</li>
+{%/block%}
+
+{%block name="content"%}
+<div class="page-header">
+    <h1>
+        {%#checkTitle#%}
+    </h1>
+</div>
+<table class="table table-hover">
+    <caption><h3>运行环境检查</h3></caption>
+    <thead>
+        <tr>
+        <th>#</th>
+        <th>检测项</th>
+        <th>所需配置</th>
+        <th>当前配置</th>
+        </tr>
+    </thead>
+    <tbody>
+        {%foreach $infos.runtime as $info%}
+        <tr {%if $info@iteration is div by 2%}class="success"{%/if%}>
+            <td>{%$info@iteration%}</td>
+            <td>{%$info.item%}</td>
+            <td>{%$info.require%}</td>
+            <td>{%$info.current%}</td>
+        </tr>
+        {%/foreach%}
+    </tbody>
+</table>
+{%if count($infos.permission) neq 0%}
+<table class="table table-hover">
+    <caption><h3>目录、文件权限检查</h3></caption>
+    <thead>
+        <tr>
+        <th>#</th>
+        <th>检测项</th>
+        <th class='hidden-phone'>所需配置</th>
+        <th>当前配置</th>
+        </tr>
+    </thead>
+    <tbody>
+        {%foreach $infos.permission as $info%}
+        <tr {%if $info@iteration is div by 2%}class="success"{%/if%}>
+            <td>{%$info@iteration%}</td>
+            <td class='hidden-phone'>{%$info.item%}</td>
+            <td>{%$info.require%}</td>
+            <td>{%$info.current%}</td>
+        </tr>
+        {%/foreach%}
+    </tbody>
+</table>
+{%/if%}
+{%if count($infos.function) neq 0%}
+<table class="table table-hover">
+    <caption><h3>函数、类依赖检查</h3></caption>
+    <thead>
+        <tr>
+        <th>#</th>
+        <th>检测项</th>
+        <th>所需配置</th>
+        <th>当前配置</th>
+        </tr>
+    </thead>
+    <tbody>
+        {%foreach $infos.function as $info%}
+        <tr {%if $info@iteration is div by 2%}class="info"{%/if%}>
+            <td>{%$info@iteration%}</td>
+            <td>{%$info.item%}</td>
+            <td>{%$info.require%}</td>
+            <td>{%$info.current%}</td>
+        </tr>
+        {%/foreach%}
+    </tbody>
+</table>
+{%/if%}
+{%/block%}
+
+{%block name="footerleft"%}
+<a href='{%"Index"|PU%}' type="button" class="btn btn-success btn-lg">上一步</a>
+<a href='{%"Install/step2"|PU%}' type="button" class="btn btn-primary btn-lg">下一步</a>
+{%/block%}

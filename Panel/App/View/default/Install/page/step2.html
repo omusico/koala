@@ -1,0 +1,58 @@
+{%extends file='Install/layout/Base.html'%}
+
+{%block name="navleft"%}
+<li>
+    <a href="javascript:;">安装协议</a>
+</li>
+<li >
+    <a href="javascript:;">环境检测</a>
+</li>
+<li class="active">
+    <a href="javascript:;">创建数据库</a>
+</li>
+<li>
+    <a href="javascript:;">安装</a>
+</li>
+<li>
+    <a href="javascript:;">完成</a>
+</li>
+{%/block%}
+
+{%block name="content"%}
+<div class="page-header">
+    <h1>
+        {%#createDbTitle#%}
+    </h1>
+</div>
+<form class="form-horizontal" role="form" action='{%"Install/step2_create"|PU%}' method='POST'>
+    <caption><h3 class='col-sm-offset-1'>数据源信息</h3></caption>
+     {%foreach $infos.data_source as $info%}
+        <div class="form-group">
+            <label for="{%$info.id%}" class="col-sm-2 control-label">{%$info.item%}</label>
+            <div class="col-sm-3">
+                {%$info.html%}
+            </div>
+            <label for="{%$info.id%}" class="control-label">
+                <p class="form-control-static text-left">{%$info.info%}</p>
+            </label>
+        </div>
+        {%/foreach%}
+    <caption><h3 class='col-sm-offset-1'>创始人账号信息</h3></caption>
+    {%foreach $infos.admin_info as $info%}
+        <div class="form-group">
+            <label for="{%$info.id%}" class="col-sm-2 control-label">{%$info.item%}</label>
+            <div class="col-sm-3">
+                {%$info.html%}
+            </div>
+            <label for="{%$info.id%}" class=" control-label">
+                <p class="form-control-static text-left">{%$info.info%}</p>
+            </label>
+        </div>
+    {%/foreach%}
+</form>
+{%/block%}
+
+{%block name="footerleft"%}
+<a href='{%"Install/step1"|PU%}' type="button" class="btn btn-success btn-lg">上一步</a>
+<a href='{%"Install/step3"|PU%}' type="button" class="btn btn-primary btn-lg" onclick="$('form').submit();return false;">下一步</a>
+{%/block%}
