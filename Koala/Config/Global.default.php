@@ -23,7 +23,7 @@ $cfg['Engine']=array(
                 'right_delimiter' =>'%}',
                 'compile_locking'=>false,
                 'plugins'=>array(
-                    'function'=>array('L'=>'L','U'=>'U','PU'=>'PU','cats'=>'cats'),
+                    'function'=>array(),
                     ),
                 ),
   'twig'=>array(
@@ -54,7 +54,7 @@ $cfg['APP']=array(
   );
 
 //多分组相关配置
-$cfg['MULTIPLE_GROUP']=1;
+$cfg['MULTIPLE_GROUP'] = 0;
 $cfg['GROUP']=array(
   //允许分组列表
   'list'=>'Manage,Home,Admin',

@@ -76,11 +76,6 @@ class KoalaCore extends Singleton{
         $object = self::getInstance(get_called_class());
         self::setInstance(get_class($object),$object);
         $initializer($object,$options);
-
-        //当Koala执行时开始处理延迟执行的代码片段
-        if($object instanceof Koala){
-            KoalaCore::executeLazy();
-        }
     }
     /**
      * 部分延迟执行的代码,用于延迟搜集可由应用自定义的参数，常量等代码
@@ -148,7 +143,7 @@ KoalaCore::lazyInitialize(function(){
     //文件后缀
     defined('EXT') or define('EXT', '.php');
     //默认应用路径
-    defined('APP_PATH') or define('APP_PATH',ENTRANCE_PATH.'App/');
+    defined('APP_PATH') or define('APP_PATH',ENTRANCE_PATH.'MyApp/');
     //默认应用插件路径
     defined('APP_ADDONS_PATH') or define('APP_ADDONS_PATH',APP_PATH.'Addons/');
     defined('APP_PLUGIN_PATH') or define("APP_PLUGIN_PATH",APP_ADDONS_PATH.'Plugin/');

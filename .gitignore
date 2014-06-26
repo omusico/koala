@@ -237,7 +237,7 @@ pip-log.txt
 /Koala/Core/Aspect
 /Other
 *.gz
-/Panel
 *.log
 *.json
 /Demo
+index.php

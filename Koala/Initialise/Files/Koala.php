@@ -55,6 +55,9 @@ Koala::initialize(function(){
     Config::initialize(function($instance){
         $instance->loadConfig(Config::getPath('Config/LAEGlobal.user.php'));
     });
+
+    //开始处理延迟执行的代码片段
+    KoalaCore::executeLazy();
 });
 /**
  * 应用执行实现

@@ -33,7 +33,18 @@ final class Twig extends Base{
 			$option['cache'] = $option['cache_path'];
 			unset($option['cache_path']);
 		}
+		$plugins = $option['plugins'];
+		unset($option['plugins']);
 		$this->object = new \Twig_Environment($loader,$option);
+
+		if(isset($plugins)){
+			if(isset($plugins['function'])){
+				foreach ($plugins['function'] as $name => $callable) {
+					 $this->registerPlugin($name,$callable);
+				}
+			}
+		}
+
 	}
 	public function assign($key,$value){
 		$this->vars[$key]=$value;
@@ -45,6 +56,10 @@ final class Twig extends Base{
 	public function render($tpl,$vars=array()){
 		$this->vars = array_merge($this->vars,$vars);
 		return $this->object->render($this->vars);
+	}
+	public function registerPlugin($name,$callable){
+		$this->object->addFilter(new \Twig_SimpleFilter($name, $callable));
+
 	}
 	public function __call($method,$args){
 		echo '尚未统一化方法支持,你可以直接使用原生代码。<br>';
