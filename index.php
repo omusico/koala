@@ -12,9 +12,5 @@ define('APP_PATH',ENTRANCE_PATH.'Panel'.DIRECTORY_SEPARATOR);
 define('FRAME_PATH',ENTRANCE_PATH.'Koala'.DIRECTORY_SEPARATOR);
 //引导应用程序
 require FRAME_PATH.'Initialise/bootstrap.php';
-
-$o = Koala\Server\UAPI::factory('QQDEMO');
-print_r($o->apply('access_token'));
-exit;
 //执行应用
 Koala::execute();

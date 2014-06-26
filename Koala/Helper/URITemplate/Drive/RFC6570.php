@@ -7,10 +7,9 @@
  */
 namespace Helper\URITemplate\Drive;
 /**
- * 数据收集器服务类
+ * RFC6570 规范实现
  * 
- * @package  Koala
- * @subpackage  Server
+ * @package  Helper
  * @author    LunnLew <lunnlew@gmail.com>
  */
 class RFC6570{
