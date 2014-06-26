@@ -8,6 +8,11 @@
 namespace Helper;
 /**
  * URI Template Library For Php
+ *
+ * $o = Helper\URITemplate::factory('http://{host}{/segments*}/{file}{.extensions*}');
+ * # This will give: http://www.host.com/path/to/a/file.x.y
+ * $res = $o->expand(array('host'=>'www.host.com','segments'=>['path','to','a'],'file'=>'file','extensions'=>['x','y']));
+ * print_r($res);
  */
 class URITemplate{
 	/**
@@ -23,10 +28,11 @@ class URITemplate{
 		//2=> 'Helper\URITemplate\Drive\COLON'
 		);
 	//@see resolve_class
-	const RFC6570 = 1;
-	const COLON = 2;
-	const DEAFULT = 1;
-
+	var $type = array(
+		'DEAFULT'=>'RFC6570',
+		'RFC6570'=>1,
+		'COLON'=>2,
+		);
 	public function __construct(){}
 	/**
      * 服务实例化函数
@@ -54,13 +60,13 @@ class URITemplate{
 		//参数分组
 		$args = func_get_args();
 		foreach ($args as $key => $value) {
-			if(is_int($value)){
+			if(array_key_exists($value,$this->type)){
 				$symbols[]=$value;
 			}else{
 				$rest[]=$value;
 			}
 		}
 		//返回处理类名和uri模板
-		return array($this->class[array_shift($symbols)?:self::DEAFULT],$rest);
+		return array($this->class[$this->type[array_shift($symbols)?:$this->type['DEAFULT']]],$rest);
 	}
 }
