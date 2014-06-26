@@ -9,7 +9,7 @@ define('ENTRANCE_PATH',dirname(__FILE__).DIRECTORY_SEPARATOR);
 //框架绝对路径
 define('FRAME_PATH',ENTRANCE_PATH.'Koala'.DIRECTORY_SEPARATOR);
 //Manage应用绝对路径
-define('APP_PATH',ENTRANCE_PATH.'Manage'.DIRECTORY_SEPARATOR);
+define('APP_PATH',ENTRANCE_PATH.'Manager'.DIRECTORY_SEPARATOR);
 //引导应用程序
 require FRAME_PATH.'Initialise/bootstrap.php';
 //执行应用
