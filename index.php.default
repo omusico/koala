@@ -2,8 +2,6 @@
 /**
  * 请重命名 该文件为 index.php
  *
- * 然后增加一行代码
- * 
  */
 //调试级别
 define('DEBUGLEVEL',1);
