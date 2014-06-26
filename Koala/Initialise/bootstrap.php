@@ -11,7 +11,7 @@ else define("RUNCLI",false);
 
 //检测
 if(!is_file(APP_PATH . 'Custom/Koala.php')){
-	header('Location: ./panel.php?s=Start');
+	header('Location: ./manage.php?s=Start');
 	exit;
 }elseif(is_file(APP_PATH . 'Custom/Koala.php')
 	&&!is_file(APP_PATH . 'Custom/installing.lock')
