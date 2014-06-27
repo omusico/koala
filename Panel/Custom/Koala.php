@@ -6,6 +6,10 @@ define('CONTRLLER_PATH',APP_PATH.'App/Controller/');
 define('MODEL_PATH',APP_PATH.'App/Model/');
 define('VIEW_PATH',APP_PATH.'App/View/');
 
+//projects
+define('PROTECT_PATH_DEFAULT',ENTRANCE_PATH);
+define('RELEASE_PATH_DEFAULT',PROTECT_PATH_DEFAULT.'release');
+
 /**
  * 需要延迟初始化的部分
  */

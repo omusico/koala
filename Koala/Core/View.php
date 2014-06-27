@@ -30,6 +30,13 @@ class View extends Singleton{
 		return self::$engine->display(self::getTemplateName($tpl,$rec));
 	}
 	/**
+	 * 模板输出
+	 * @param  string $tpl 模板名
+	 */
+	public static function render($tpl='',$rec=false){
+		return self::$engine->render(self::getTemplateName($tpl,$rec));
+	}
+	/**
 	 * 返回模板
 	 * @param  string $tpl 模板名
 	 */

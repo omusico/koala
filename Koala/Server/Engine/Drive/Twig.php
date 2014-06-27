@@ -54,8 +54,8 @@ final class Twig extends Base{
 		echo $template->render($this->vars);
 	}
 	public function render($tpl,$vars=array()){
-		$this->vars = array_merge($this->vars,$vars);
-		return $this->object->render($this->vars);
+		$template=$this->object->loadTemplate($tpl);
+		return $template->render($this->vars);
 	}
 	public function registerPlugin($name,$callable){
 		$this->object->addFilter(new \Twig_SimpleFilter($name, $callable));
