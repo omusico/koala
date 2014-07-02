@@ -2,9 +2,9 @@
 //应用版本
 define('APP_VERSION','1');
 
-define('CONTRLLER_PATH',APP_PATH.'App/Controller/');
-define('MODEL_PATH',APP_PATH.'App/Model/');
-define('VIEW_PATH',APP_PATH.'App/View/');
+define('CONTRLLER_PATH',APP_PATH.'Application/Controller/');
+define('MODEL_PATH',APP_PATH.'Application/Model/');
+define('VIEW_PATH',APP_PATH.'Application/View/');
 
 //projects
 define('PROTECT_PATH_DEFAULT',ENTRANCE_PATH);
@@ -41,7 +41,6 @@ Koala::initialize(function(){
             'Controller' => dirname(CONTRLLER_PATH),
             'Model' => dirname(MODEL_PATH),
             'Custom' => APP_PATH,
-            'Engine' => FRAME_PATH.'Addons',
             'Tag' => FRAME_PATH.'Extension',
             ));
         $instance->registerDirs(array(

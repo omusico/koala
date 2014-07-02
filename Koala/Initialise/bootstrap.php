@@ -14,9 +14,8 @@ if(!is_file(APP_PATH . 'Custom/Koala.php')){
 	header('Location: ./manage.php?s=Start');
 	exit;
 }elseif(is_file(APP_PATH . 'Custom/Koala.php')
-	&&!is_file(APP_PATH . 'Custom/installing.lock')
 	&&!is_file(APP_PATH . 'Custom/install.lock')){
-	file_put_contents(APP_PATH . 'Custom/installing.lock', 'start install');
+	file_put_contents(APP_PATH . 'Custom/install.lock', 'start install');
 	header('Location: ./index.php?s=install');
 	exit;
 }
