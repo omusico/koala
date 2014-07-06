@@ -125,7 +125,15 @@ function L($item){
     $LANG = include(LANG_PATH.'/main.php');
     return isset($LANG[$item])?$LANG[$item]:$item;
 }
-
+/**
+ * model
+ * @param string $table [description]
+ */
+function M($table=''){
+    Model::$table_name = $table;
+    Model::$tpr = C('DB_PREFIX');
+    return new Model();
+}
 /**
  * 数组转义
  * @param  array $arr_r 需处理数组

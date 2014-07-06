@@ -1,9 +1,12 @@
 <?php
 //模块逻辑基类
+//TODO remove
 class Base_Logic{
 	//获得模型类
 	public static function getModel(){
-		return str_replace('Logic', 'Model',get_called_class());
+		$class = str_replace('Logic', 'Model',get_called_class());
+        $class::$tpr = C('DB_PREFIX');
+        return $class;
 	}
     /**
      * 是否存在记录

@@ -3,8 +3,37 @@
 class Base_Model extends ActiveModel{
 	//获得模型类
 	public static function getModel(){
-		return str_replace('Logic', 'Model',get_called_class());
+		$class = str_replace('Logic', 'Model',get_called_class());
+        $class::$tpr = C('DB_PREFIX');
+        return $class;
 	}
+    /**
+     * 是否存在记录
+     * @param  array  $where 查询条件
+     * @return boolean       true/false
+     */
+    public static function isExist($where){
+        $model = static::getModel();
+        $obj = $model::count(
+            array('conditions' =>$where)
+            );
+        if($obj){
+            return array('code'=>1,'msg'=>'存在');
+        }
+        return array('code'=>0,'msg'=>'不存在');
+    }
+    //数据列表
+    public static function getData($pagesize=20,$pageid=1,$fields='*',$where='',$order='id DESC',$style='Badoo'){
+        $model = static::getModel();
+        $page = new Helper_Pagination($model::count(array('conditions' =>$where)),$pagesize,$pageid);
+        //获取数据
+        $page->setSourceCall("$model::getPagin",array($fields,$where,$order));
+        //分页模板目录
+        $page->setTemplateDir(WIDGET_PATH.'pagination/');
+        //设置分页样式
+        $page->setTemplate($style);
+        return $page;
+    }
 	/**
      * 供分页类的回调函数
      * @param  integer $start  偏移
@@ -104,5 +133,21 @@ class Base_Model extends ActiveModel{
     	$model = static::getModel();
         $obj = new $model($data,true,false,false);
         return $obj->save();
+    }
+    //批量删除数据
+    public static function deleteAll($where){
+        $model = static::getModel();
+        if($model::delete_all(array('conditions'=>$where))){
+            return array('code'=>1,'msg'=>'删除成功');
+        }
+        return array('code'=>0,'msg'=>'删除失败');
+    }
+    //批量更新数据
+    public static function updateAll($data,$where){
+        $model = static::getModel();
+        if($model::update_all(array('set'=>$data,'conditions'=>$where))){
+            return array('code'=>1,'msg'=>'删除成功');
+        }
+        return array('code'=>0,'msg'=>'删除失败');
     }
 }
