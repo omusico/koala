@@ -2,50 +2,71 @@
 
 /**
  * get 标签解析
- * {% get field='id,username' order="id DESC" num=10 call='UUM_Logic_Test::getList'%}
- *  {% for user in list%}
- *       <li>{{ user.username }}</li>
- *  {% endfor %}
+ * {% get field='id,username' order="id DESC" num=10 call='UUM_Logic_Test::getList' data='list'%}
+ * {% for user in list%}
+ *    <li>{{ user.username }}</li>
+ * {% endfor %}
+ *
+ * {% get field,order,num,call,data='id,username',"id DESC",10,'UUM_Logic_Test::getList','list'%}
+ * {% for user in list%}
+ *    <li>{{ user.username }}</li>
+ * {% endfor %}
+ *
+ * {% get field,order,num,call,data='id,username',"id DESC",10,'\\UUM\\Logic\\Test::getList','list'%}
+ * {% for user in list%}
+ *    <li>{{ user.username }}</li>
+ * {% endfor %}
+ * 
  */
 class Tag_TokenParser_get extends Twig_TokenParser{
     
     public function parse(Twig_Token $token){
-        $parser = $this->parser;
-        $stream = $parser->getStream();
-        //处理标签属性
-        $arr = C('TAG:get',array('field','where','order','num','data','call'));
-        $i = count($arr)-1;
-        $name='';
-        $nodes = $attrs = null;
-        do{
-            $name = $stream->expect(Twig_Token::NAME_TYPE)->getValue();
-            $stream->expect(Twig_Token::OPERATOR_TYPE, '=');
-            $attr = $attrs[$name] = $parser->getExpressionParser()->parseExpression();
-            $nodes[$name] = $attr->getAttribute('value');
-            if(!in_array($stream->getCurrent()->getValue(),$arr)){//没有可用taken时中断循环,否则下一个将导致严重错误.
-                break;
+        //获得当前Token所在行号
+        $lineno = $token->getLine();
+        //获得stream
+        $stream = $this->parser->getStream();
+
+        //获得当前name
+        $name = $stream->getCurrent()->getValue();
+
+        /*{% get name1,name2='value1','value2'%}*/
+        //获得names
+        $names = $this->parser->getExpressionParser()->parseAssignmentExpression();
+        if(($names_num = count($names))>1){
+            //如果下一个为'='
+            if ($stream->nextIf(Twig_Token::OPERATOR_TYPE, '=')) {
+                //获得values
+                $values  = $this->parser->getExpressionParser()->parseMultitargetExpression();
+                foreach ($values as $key => $value) {
+                    $attrs_arr[] = $value;
+                    $attrs[] = $value->getAttribute('value');
+                }
+                if ($names_num !== count($values)) {
+                    throw new Twig_Error_Syntax("When using get, you must have the same number of variables and assignments.", $stream->getCurrent()->getLine(), $stream->getFilename());
+                }
+            }else{
+                throw new Twig_Error_Syntax("get标签使用时必须使用操作符=", $stream->getCurrent()->getLine(), $stream->getFilename());
             }
-            $i-=1;
-        }while ($i);
-        /*
-        //获得标签文本
-        $stream->expect(Twig_Token::BLOCK_END_TYPE);
-        $nodes['body'] = $parser->subparse(array($this, 'decideEnd'));
-        $end = false;
-        while (!$end) {
-            switch ($stream->next()->getValue()) {
-                case 'endget':
-                    $end = true;
+            foreach ($names as $key => $value) {
+                $names_arr[] = $value->getAttribute('name');
+            }
+            $nodes = array_combine($names_arr,$attrs);
+            $attrs = array_combine($names_arr,$attrs_arr);
+        }else{
+            /*{% get name1='value1' name2='value2'%}*/
+            while(!$stream->test(Twig_Token::BLOCK_END_TYPE)){
+                //判断是否是期望的'='
+                $op = $stream->expect(Twig_Token::OPERATOR_TYPE, '=');
+                $attr = $attrs[$name] = $this->parser->getExpressionParser()->parseExpression();
+                $nodes[$name] = $attr->getAttribute('value');
+                if($stream->test(Twig_Token::BLOCK_END_TYPE)){
                     break;
-                default:
-                    throw new Twig_Error_Syntax(sprintf('Unexpected end of template. Twig was looking for the following tags "endget" to close the "get" block started at line %d)', $lineno), $stream->getCurrent()->getLine(), $stream->getFilename());
+                }
+                $name = $stream->expect(Twig_Token::NAME_TYPE)->getValue();
             }
-        }*/
+        }
         $stream->expect(Twig_Token::BLOCK_END_TYPE);
         return new Tag_Node_get($nodes, $attrs, $token->getLine(), $this->getTag());
-    }
-    public function decideEnd(Twig_Token $token){
-        return $token->test(array('endget'));
     }
     public function getTag(){
         return 'get';

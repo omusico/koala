@@ -44,6 +44,7 @@ final class Twig extends Base{
 				}
 			}
 		}
+		$this->test();
 
 	}
 	public function assign($key,$value){

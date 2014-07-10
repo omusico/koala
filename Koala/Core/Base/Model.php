@@ -38,15 +38,15 @@ class Base_Model extends ActiveModel{
      * 供分页类的回调函数
      * @param  integer $start  偏移
      * @param  integer $size   条数
-     * @param  string  $fileds 字段
+     * @param  string  $fields 字段
      * @param  string  $order  排序
      */
-    public static function getPagin($start=0,$size=1,$fileds='id',$where='',$order='id DESC'){
+    public static function getPagin($start=0,$size=1,$fields='id',$where='',$order='id DESC'){
     	$model = static::getModel();
         $objlist=$model::find('all',
             array(
                 'conditions'=>$where,
-                'select' => $fileds,
+                'select' => $fields,
                 'order' => $order,
                 'offset'=>$start,
                 'limit'=>$size
@@ -55,19 +55,19 @@ class Base_Model extends ActiveModel{
     }
 	/**
      * 获得列表
-     * @param  string  $fileds 需要获得的字段
+     * @param  string  $fields 需要获得的字段
      * @param  string/array  $where  条件
      * @param  integer $num    记录数
      * @param  integer $start  开始位置偏移
      * @param  string  $order  排序字段
      * @return array           二维数据数组
      */
-    public  function getList($fileds='*',$where='',$order='id DESC',$start=0,$num=10){
+    public  function getList($fields='*',$where='',$order='id DESC',$start=0,$num=10){
         $model = static::getModel();
         $objlist=$model::find('all',
             array(
                 "conditions" => $where,
-                'select' => $fileds,
+                'select' => $fields,
                 'order' => $order,
                 'offset'=>$start,
                 'limit'=>$num,
@@ -77,13 +77,13 @@ class Base_Model extends ActiveModel{
      /**
      * 获得一条
      * @param  string $id     id
-     * @param  string $fileds 字段
+     * @param  string $fields 字段
      * @return array          一维数据数组
      */
-    public  function getById($id,$fileds='*',$where=''){
+    public  function getById($id,$fields='*',$where=''){
     	$model = static::getModel();
         $map = array(
-                'select' => $fileds,
+                'select' => $fields,
                 "conditions" => $where
             );
         if($where==''){
@@ -92,12 +92,12 @@ class Base_Model extends ActiveModel{
         $obj = $model::find($id,$map);        
         return $obj->to_array();
     }
-	public  function getOne($fileds='*',$where=''){
+	public  function getOne($fields='*',$where=''){
         $model = static::getModel();
         $objlist=$model::find('all',
             array(
                 "conditions" => $where,
-                'select' => $fileds,
+                'select' => $fields,
             ));
         $obj = array_shift($objlist);
         if(!is_object($obj)){

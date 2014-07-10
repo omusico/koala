@@ -34,6 +34,8 @@ class Tag_Node_get extends Twig_Node
             $param = '*';
         }
         if($this->hasAttribute('where')){
+            $param .=';'.'';
+            $str_where = $this->getAttribute('where');
         }else{
             $param .=';'.'';
         }
@@ -44,11 +46,12 @@ class Tag_Node_get extends Twig_Node
         }
         $param.=';0';
         if($this->hasAttribute('num')){
-            $param.=','.$this->getAttribute('num');
+            $param.=';'.$this->getAttribute('num');
         }else{
-            $param.=','.'10';
+            $param.=';'.'10';
         }
-        $compiler->write("\$context['".$key."'] = call_user_func_array('".$call."', explode(';','".$param."'))")
-        ->raw(";\n");
+        $compiler->write("\$param = explode(';','".$param."')")->raw(";\n");
+        $compiler->write("\$param[1] = array(".$str_where.")")->raw(";\n");
+        $compiler->write("\$context['".$key."'] = call_user_func_array('".$call."',\$param)")->raw(";\n");
     }
 }

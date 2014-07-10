@@ -44,10 +44,10 @@ class Base_Logic{
      * @param  string  $order  排序字段
      * @return array           二维数据数组
      */
-    public static function getList($fields='*',$where='',$order='id desc',$start=0,$limit=1){
+    public static function getList($fields='*',$where='',$order='id desc',$start=0,$num=10){
     	$model = static::getModel();
     	$obj = new $model();
-        return $obj->getList($fields,$where,$num,$start,$order);
+        return $obj->getList($fields,$where,$order,$start,$num);
     }
 	//数据行
 	public static function getOne($fields='*',$where=''){
