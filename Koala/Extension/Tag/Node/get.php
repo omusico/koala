@@ -50,8 +50,10 @@ class Tag_Node_get extends Twig_Node
         }else{
             $param.=';'.'10';
         }
+        $compiler->write("if(!is_callable('".$call."')){ throw new Exception(\"".$call." is not callable\", 1);
+        }")->raw(";\n");
         $compiler->write("\$param = explode(';','".$param."')")->raw(";\n");
-        $compiler->write("\$param[1] = array(".$str_where.")")->raw(";\n");
+        $compiler->write("\$param[1] = $str_where")->raw(";\n");
         $compiler->write("\$context['".$key."'] = call_user_func_array('".$call."',\$param)")->raw(";\n");
     }
 }

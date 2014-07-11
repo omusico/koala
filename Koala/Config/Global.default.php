@@ -4,7 +4,7 @@
  */
 $cfg['site_disable'] = 0;
 $cfg['charset'] = 'utf-8';
-$cfg['time_zone'] = 'PRC';
+$cfg['time_zone'] = 'Asia/Hong_Kong';
 
 //模板引擎
 $cfg['Engine']=array(

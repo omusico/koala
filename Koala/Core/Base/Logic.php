@@ -90,8 +90,8 @@ class Base_Logic{
 	public static function updateAll($data,$where){
     	$model = static::getModel();
         if($model::update_all(array('set'=>$data,'conditions'=>$where))){
-            return array('code'=>1,'msg'=>'删除成功');
+            return array('code'=>1,'msg'=>'更新成功');
         }
-        return array('code'=>0,'msg'=>'删除失败');
+        return array('code'=>0,'msg'=>'更新失败');
 	}
 }

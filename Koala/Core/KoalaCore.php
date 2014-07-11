@@ -163,7 +163,7 @@ KoalaCore::lazyInitialize(function(){
     is_file(APP_PATH.'External/autoload.php') AND require APP_PATH.'External/autoload.php';
 
     //设定时区
-    date_default_timezone_set(C('time_zone','PRC'));
+    date_default_timezone_set(C('time_zone','Asia/Hong_Kong'));
     //设置本地化环境
     setlocale(LC_ALL,"chs");
     //不输出可替代字符
