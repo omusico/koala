@@ -25,7 +25,7 @@ abstract class Factory implements ServerInterface{
      * @return object  实例
      */
 	final public static function getInstance($name,$option=array()){
-		$class = static::getServerName(strtolower($name));
+		$class = static::getServerName($name);
 		if(class_exists($class)){
             return new $class($option);
         } 
