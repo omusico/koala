@@ -10,7 +10,7 @@ namespace Koala\OAPI;
  * 工厂类
  * 
  * @package  Koala
- * @subpackage  Server\UAPI
+ * @subpackage  Server\OAPI
  * @author    LunnLew <lunnlew@gmail.com>
  */
 class Factory extends \Koala\Server\Factory{

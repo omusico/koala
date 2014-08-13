@@ -16,7 +16,7 @@ final class Connect extends Base{
 	 */
 	final public function __construct(){
 		parent::__construct();
-		$this->cfg = include(__DIR__.'/Api/weather.php');
+		$this->cfg = include(__DIR__.'/Api/alipay.pay.php');
 	}
 	/**
 	 * 魔术方法
