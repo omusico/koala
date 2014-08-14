@@ -64,7 +64,7 @@ class KoalaCore extends Singleton{
                 return $class;
             },
             //获取控制器方法
-            function()use($options){return array_pop($options['path']);}
+            array_pop($options['path'])
         );
     }
     /**

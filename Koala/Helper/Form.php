@@ -27,7 +27,7 @@ $f->addElement('input',array(
 $f->addElement('select',array(
     'id'=>'name',
     'name'=>'name',
-    'options'=>array(
+    'content'=>array(
         '选项一'=>1,
         '选项二'=>2,
         '选项三'=>3
@@ -36,12 +36,12 @@ $f->addElement('select',array(
 $f->addElement('textarea',array(
     'id'=>'namse',
     'name'=>'nasme',
-    'options'=>'sas'
+    'content'=>'sas'
     ));
 $f->addElement('button',array(
     'id'=>'namse',
     'name'=>'nasme',
-    'options'=>'提交'
+    'content'=>'提交'
     ));
 $f->addElement('input',array(
     'id'=>'namse',
@@ -49,7 +49,7 @@ $f->addElement('input',array(
     'type'=>'submit',
     'value'=>'提交'
     ));
-echo $f->render();
+echo $f->renderForm();
  */
 class Form{
 	/**
