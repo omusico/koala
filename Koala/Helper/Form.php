@@ -98,11 +98,12 @@ class Form{
 		$this->elements[] = array($element,$attributes);
 	}
 	/**
-	 * 生成表单文本
+	 * 生成Element文本
 	 * @param $template 模板
+	 * @param $container 容器
 	 * @return string 表单文本
 	 */
-	public function render($template=''){
+	public function renderElement($container='%s',$template=''){
 		if(!empty($template)){
 			$this->template = array_merge($this->template,$template);
 		}
@@ -110,10 +111,19 @@ class Form{
 		foreach ($this->elements as $key => $element) {
 				$html .= $this->buildAttributes($element[0],$element[1]);
 		}
+		unset($this->elements);
+		return sprintf($container,$html);
+	}
+	/**
+	 * 生成表单文本
+	 * @param $html 文本
+	 * @return string 表单文本
+	 */
+	public function renderForm($html=''){
 		return str_replace('[FORM]',$html,$this->form_attr);
 	}
 	public function __toString(){
-		return $this->render();
+		return $this->renderForm($this->renderElement());
 	}
 	/**
 	 * 组装属性项
@@ -122,33 +132,33 @@ class Form{
 	 * @return string              
 	 */
 	private function buildAttributes($element,$attributes=array()){
-		if(isset($attributes['options'])){
-			$options_html = $this->buildOptions($attributes['options']);
-			unset($attributes['options']);
+		if(isset($attributes['content'])){
+			$content_html = $this->buildContent($attributes['content']);
+			unset($attributes['content']);
 		}
 		$attributes_html='';
 		foreach ($attributes as $key => $value) {
 			$attributes_html .= ' '.$key.'="'.$value.'"';
 		}
-		return call_user_func_array('sprintf',array($this->template[$element],$attributes_html,$options_html));
+		return call_user_func_array('sprintf',array($this->template[$element],$attributes_html,$content_html));
 	}
 	/**
 	 * 组装选项
-	 * @param  array/string  $options 选项值数组/文本
+	 * @param  array/string  $content 选项值数组/文本
 	 * @return string              
 	 */
-	private function buildOptions($options){
+	private function buildContent($content){
 		$str_options = $params = array();
-		if(is_array($options)){
-			foreach ($options as $name => $val) {
+		if(is_array($content)){
+			foreach ($content as $name => $val) {
 				$params[] = $val;
 				$params[] = $name;
 			}
 			$params = array_reverse($params);
-			$params[] = str_repeat($this->template['option'],count($options));
+			$params[] = str_repeat($this->template['option'],count($content));
 		}
 		else{
-			$params[] = $options;
+			$params[] = $content;
 		}
 	    return call_user_func_array('sprintf',array_reverse($params));
 	}

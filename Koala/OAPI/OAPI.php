@@ -31,7 +31,7 @@ class OAPI{
   	 */
 	public static function factory($name='',$options=array()){
 	    if(empty($name)||!is_string($name)){
-  			$name = C('OAPI:default','QQ');
+  			$name = C('OAPI:default');
   		}
   		if(!isset(self::$instances[$name])){
   			$c_options = C('OAPI:'.$name);

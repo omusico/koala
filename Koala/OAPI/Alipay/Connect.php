@@ -16,7 +16,7 @@ final class Connect extends Base{
 	 */
 	final public function __construct(){
 		parent::__construct();
-		$this->cfg = include(__DIR__.'/Api/alipay.pay.php');
+		$this->cfg = include(__DIR__.'/Api/alipay.auth.php');
 	}
 	/**
 	 * 魔术方法

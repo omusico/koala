@@ -179,26 +179,36 @@ class Base{
 		//有文件字段时，值必须是@开头的绝对路径
 		//初始化
 		$ch = curl_init();
+		//是否开启证书验证
+		if($this->cfg[$name]['enable_cacert']){
+			curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, true);//SSL证书认证
+			curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, 2);//严格认证
+			curl_setopt($curl, CURLOPT_CAINFO,$params['cacert']);//证书地址
+			unset($params['cacert']);
+		}
+
 		if(strtolower($method)=='post'){
 			curl_setopt($ch, CURLOPT_URL, $this->cfg[$name]['url']);
+			// post方式
+			curl_setopt($ch, CURLOPT_POST, 1);
+			// post的变量
+			curl_setopt($ch, CURLOPT_POSTFIELDS, $params);
 		}else{
 			curl_setopt($ch, CURLOPT_URL, $this->cfg[$name]['url'].'?'.http_build_query($params));
 		}
 
 		//以返回值方式
 		curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-		
+		// 过滤HTTP头
+		curl_setopt($curl, CURLOPT_HEADER, 0 ); 
 
-		if(strtolower($method)=='post'){
-			// post方式
-			curl_setopt($ch, CURLOPT_POST, 1);
-			// post的变量
-			curl_setopt($ch, CURLOPT_POSTFIELDS, $params);
-		}else{
-			curl_setopt($ch, CURLOPT_HEADER, 0);
-		}
-
+		$cookie_jar = '/tmp/cookie12hdfgyu78df6ghy';
+		//提交cookie
 		curl_setopt($ch, CURLOPT_COOKIE,implode(';', $this->cfg[$name]['cookie']));
+		curl_setopt($ch, CURLOPT_COOKIEFILE, $cookie_jar);
+
+		//保存cookie
+		curl_setopt($ch, CURLOPT_COOKIEJAR, $cookie_jar);
 
 		//执行并获取HTML文档内容
 		$output = curl_exec($ch);
