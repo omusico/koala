@@ -22,11 +22,9 @@ class Dispatcher{
      * @param  Closure          $methodClosure 获取控制器方法
      * @param  AdviceContainer $Container     方面容器对象
      */
-    public function execute(\Closure $classClosure,\Closure $methodClosure,AdviceContainer $Container){
+    public function execute($class,$method,AdviceContainer $Container){
         //获得控制器Aop对象
-        $controller = \Core\AOP\Aop::getInstance($classClosure());
-        //获得控制器方法
-        $method = $methodClosure();
+        $controller = \Core\AOP\Aop::getInstance($class);
         try{
             if(!preg_match('/^[_A-Za-z](\w)*$/',$method)){
                 // 非法操作

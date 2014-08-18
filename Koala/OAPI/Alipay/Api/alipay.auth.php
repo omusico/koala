@@ -8,12 +8,12 @@
 /**
  * alipay api列表
  */
-$callbackUrl = '';
+$callbackUrl ='';
  /**
   * 请求用户登录授权
   */
  $cfg['get_auth_code_login'] = array(
-	'url'=>'http://openauth.alipaydev.com/oauth2/authorize.htm ',
+	'url'=>'http://openauth.alipaydev.com/oauth2/authorize.htm',
 	'callbackUrl'=>$callbackUrl,
 	'method'=>'get',
 	'redirect'=>true,
@@ -24,7 +24,7 @@ $callbackUrl = '';
   * 请求用户支付授权
   */
   $cfg['get_auth_code_pay'] = array(
-	'url'=>'http://openauth.alipaydev.com/oauth2/authorize.htm ',
+	'url'=>'http://openauth.alipaydev.com/oauth2/authorize.htm',
 	'callbackUrl'=>$callbackUrl,
 	'method'=>'get',
 	'redirect'=>true,

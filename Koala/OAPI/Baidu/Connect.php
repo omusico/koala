@@ -7,6 +7,7 @@
  */
 namespace Koala\OAPI\Baidu;
 use Koala\OAPI\Base;
+include(__DIR__.'/Lib/func.php');
 /**
  * BAIDU OAUTH API
  * 

@@ -128,7 +128,7 @@ KoalaCore::initialize(function(){
     (APPENGINE!="LAE") AND include(FRAME_PATH.'Initialise/Class'.APPENGINE.".php");
     
     //插件支持
-    Plugin::loadPlugin();
+    Plugin::loadPlugin(FRAME_PATH.'Addons/');
 });
 
 /**

@@ -47,25 +47,7 @@ class KoalaCore extends Singleton{
         //视图文件
         View::setTemplateOptions($options['path']);
         //控制器分发
-        $dispatcher->execute(
-            //获取控制器类
-            function()use($options){
-                if(C('MULTIPLE_GROUP')){
-                    list($group,$module,$action) = $options['path'];
-                    !defined('GROUP_NAME') AND define('GROUP_NAME',$group);
-                    $class = $group.'\Controller\\'.$module;
-                }
-                else{
-                    list($module,$action) = $options['path'];
-                    $class = 'Controller\\'.$module;
-                }
-                !defined('MODULE_NAME') AND define('MODULE_NAME',ucwords($module));
-                !defined('ACTION_NAME') AND define('ACTION_NAME',$action);
-                return $class;
-            },
-            //获取控制器方法
-            array_pop($options['path'])
-        );
+        $dispatcher->execute(\Plugin::trigger('registerController',$options,'',true),array_pop($options['path']));
     }
     /**
      * Closure 初始化支持
@@ -185,6 +167,7 @@ KoalaCore::initialize(function(){
         'Advice' => FRAME_PATH.'Addons',
         'Func' => FRAME_PATH.'Core',
         'Helper' => FRAME_PATH,
+        'Addons' => FRAME_PATH,
         'Base' => FRAME_PATH.'Core',
         'Core' => FRAME_PATH,
         'Server' => FRAME_PATH,
@@ -192,6 +175,7 @@ KoalaCore::initialize(function(){
         'Minion' => FRAME_PATH.'Addons',
         'Resource'=>FRAME_PATH.'Addons',
         'Koala'=>dirname(FRAME_PATH),
+        'Controller' => APP_PATH,
         ));
     $instance->registerDirs(array(
         FRAME_PATH.'Core',
@@ -239,6 +223,6 @@ KoalaCore::initialize(function(){
     (APPENGINE!="LAE") AND include(FRAME_PATH.'Initialise/Class'.APPENGINE.".php");
     
     //插件支持
-    Plugin::loadPlugin();
+    Plugin::loadPlugin(FRAME_PATH.'Addons');
 });
 ////核心初始化结束

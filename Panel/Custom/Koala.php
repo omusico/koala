@@ -81,24 +81,6 @@ class Koala extends KoalaCore{
         //视图文件
         View::setTemplateOptions($options['path']);
         //控制器分发
-        $dispatcher->execute(
-            //获取控制器类
-            function()use($options){
-                if(C('MULTIPLE_GROUP')){
-                    list($group,$module,$action) = $options['path'];
-                    !defined('GROUP_NAME') AND define('GROUP_NAME',$group);
-                    $class = $group.'\Controller\\'.$module;
-                }
-                else{
-                    list($module,$action) = $options['path'];
-                    $class = 'Controller\\'.$module;
-                }
-                !defined('MODULE_NAME') AND define('MODULE_NAME',ucwords($module));
-                !defined('ACTION_NAME') AND define('ACTION_NAME',$action);
-                return $class;
-            },
-            //获取控制器方法
-            function()use($options){return array_pop($options['path']);}
-        );
+        $dispatcher->execute(\Plugin::trigger('registerController',$options,'',true),array_pop($options['path']));
     }
 }
