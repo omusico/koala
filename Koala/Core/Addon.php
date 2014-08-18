@@ -57,10 +57,10 @@ abstract class Addon{
 	 * 必须实现安装入口
 	 *  @abstract
 	 */
-    abstract public function install();
-    /**
-     * 必须实现卸载入口
-     * @abstract
-     */
-    abstract public function uninstall();
+	abstract public function install();
+	/**
+	 * 必须实现卸载入口
+	 * @abstract
+	 */
+	abstract public function uninstall();
 }

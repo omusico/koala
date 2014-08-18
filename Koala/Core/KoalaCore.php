@@ -36,14 +36,7 @@ class KoalaCore extends Singleton{
      */
     public static function execute(){
         $dispatcher = \Core\AOP\AOP::getInstance(\Koala\Server\Dispatcher::factory('mvc'));
-        $u = \Core\AOP\AOP::getInstance('URL');
-        $test_url = rtrim(APP_RELATIVE_URL,'/');
-        if(!empty($test_url))
-            $url = str_replace(APP_RELATIVE_URL,'',$_SERVER['REQUEST_URI']);
-        else
-            $url = $_SERVER['REQUEST_URI'];
-        //请求选项
-        $options = $u->requestOption($url,1);
+        $options = \Plugin::trigger('registerRequest','','',true);
         //视图文件
         View::setTemplateOptions($options['path']);
         //控制器分发
@@ -59,98 +52,12 @@ class KoalaCore extends Singleton{
         self::setInstance(get_class($object),$object);
         $initializer($object,$options);
     }
-    /**
-     * 部分延迟执行的代码,用于延迟搜集可由应用自定义的参数，常量等代码
-     * @static
-     * @access public
-     */
-    public static function lazyInitialize(Closure $initializer,$options=array()){
-        self::$closure[] = array(
-            'closure'=>$initializer,
-            'params'=>array(self::getInstance(get_called_class()),$options)
-            );
-    }
-    /**
-     * 执行 延迟执行的代码
-     * @static
-     * @access public
-     */
-    public static function executeLazy(){
-        if(count(self::$closure)>0){
-            foreach (self::$closure as $key => $value) {
-                call_user_func_array($value['closure'],$value['params']);
-            }
-        }
-    }
 }
 
 //加载类加载器
 include(__DIR__.'/ClassLoader.php');
 
 ////核心初始化开始
-
-/**
- * 需要延迟初始化的部分
- */
-KoalaCore::lazyInitialize(function(){
-    //所有可在应用中自定义的常量
-
-    //优先加载文件中自定义的常量
-    include(FRAME_PATH.'Initialise/Constant'.APPENGINE.'.php');
-
-    //控制器路径
-    defined('CONTRLLER_PATH') or define('CONTRLLER_PATH',APP_PATH.'Controller/');
-    //模型路径
-    defined('MODEL_PATH') or define('MODEL_PATH',APP_PATH.'Model/');
-    //语言包路径
-    defined('LANG_PATH') or define('LANG_PATH',APP_PATH.'Language/');
-    //模板路径
-    defined('VIEW_PATH') or define('VIEW_PATH',APP_PATH.'View/');
-    //读数据路径
-    defined('DATA_PATH') or define('DATA_PATH',FRAME_PATH.'Data/');
-    //编译路径
-    defined('COMPILE_PATH') or define('COMPILE_PATH',RUNTIME_PATH.'Compile/');
-    //缓存路径
-    defined('CACHE_PATH') or define('CACHE_PATH',RUNTIME_PATH.'Cache/');
-    //静态资源URL
-    defined('SOURCE_URL') or define('SOURCE_URL', APP_URL.'Source/');
-    //存储路径
-    defined('STOR_PATH') or define('STOR_PATH',RUNTIME_PATH.'Storage/');
-    //存储访问URL
-    defined('STOR_URL') or define('STOR_URL',APP_RELATIVE_URL.'Runtime/Storage/');
-    //widget路径
-    defined('WIDGET_PATH') or define('WIDGET_PATH',APP_PATH.'Addons/Source/Widget/');
-    //widget访问URL
-    defined('WIDGET_URL') or define('WIDGET_URL',APP_RELATIVE_URL.'Addons/Source/Widget/');
-    //文件后缀
-    defined('EXT') or define('EXT', '.php');
-    //默认应用路径
-    defined('APP_PATH') or define('APP_PATH',ENTRANCE_PATH.'MyApp/');
-    //默认应用插件路径
-    defined('APP_ADDONS_PATH') or define('APP_ADDONS_PATH',APP_PATH.'Addons/');
-    defined('APP_PLUGIN_PATH') or define("APP_PLUGIN_PATH",APP_ADDONS_PATH.'Plugin/');
-    //请求开始时间
-    defined('START_TIME') or define('START_TIME', $_SERVER['REQUEST_TIME_FLOAT']);
-    //定义应用标识码
-    //对多个相同应用情况下的缓存服务提供前缀防止缓存段共用问题;
-    defined('APP_UUID') or define('APP_UUID',substr(md5(APP_PATH),0,6));
-
-    //设置应用插件默认加载方案
-    ClassLoader::initialize(function($instance){
-        $instance->register();
-        $instance->registerNamespace('Plugin',array(APP_ADDONS_PATH));
-    });
-
-    //composer第三方库加载支持
-    is_file(APP_PATH.'External/autoload.php') AND require APP_PATH.'External/autoload.php';
-
-    //设定时区
-    date_default_timezone_set(C('time_zone','Asia/Hong_Kong'));
-    //设置本地化环境
-    setlocale(LC_ALL,"chs");
-    //不输出可替代字符
-    mb_substitute_character('none');
-});
 
 /**
  * 内核初始化进程
@@ -176,6 +83,7 @@ KoalaCore::initialize(function(){
         'Resource'=>FRAME_PATH.'Addons',
         'Koala'=>dirname(FRAME_PATH),
         'Controller' => APP_PATH,
+         'Addons' => APP_PATH,
         ));
     $instance->registerDirs(array(
         FRAME_PATH.'Core',
@@ -224,5 +132,6 @@ KoalaCore::initialize(function(){
     
     //插件支持
     Plugin::loadPlugin(FRAME_PATH.'Addons');
+    Plugin::loadPlugin(APP_PATH.'Addons','');
 });
 ////核心初始化结束

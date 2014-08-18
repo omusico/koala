@@ -5,7 +5,7 @@
  * @package  Koala
  * @author   LunnLew <lunnlew@gmail.com>
  */
-namespace Addons\Controller;
+namespace Koala\Addons\Controller;
 use Plugin;
 /**
 * Controller实现类
@@ -17,7 +17,7 @@ class Action{
     */
     function __construct(){
         //你想自动挂接的钩子列表
-        Plugin::register('registerController', array(&$this,'register'));
+        Plugin::only('registerController', array(&$this,'register'));
     }
     /**
      * 注册控制器加载方法并返回控制器类

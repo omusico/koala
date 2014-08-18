@@ -5,7 +5,7 @@
  * @package  Koala
  * @author   LunnLew <lunnlew@gmail.com>
  */
-namespace Addons\Demo;
+namespace Koala\Addons\Demo;
 use Plugin;
 /**
 * 插件实现类 Demo
