@@ -11,7 +11,7 @@ include(__DIR__.'/Lib/func.php');
 /**
  * SMARTYQQ 协议 api
  */
-final class Smartyqq extends Base{
+class Smartyqq extends Base{
 	/**
 	 * 构造函数
 	 */
@@ -25,41 +25,32 @@ final class Smartyqq extends Base{
 	 * @param  array $args   方法参数
 	 * @return mixed         返回值
 	 */
-	final public function __call($method,$args){
-		//print_r(func_get_args());
-		return '';
-	}
+	public function __call($method,$args){}
 	/**
 	 * 获取qq号码
 	 * @param  string $str [description]
 	 * @return mixed
 	 */
-	final protected function _getUin($str=''){
-		return  '759169920';
-	}
+	abstract protected function _getUin($str='');
 	/**
 	 * 获取随机数
 	 * 随机18位  0.后面+随机16位数
 	 * @param  string $str [description]
 	 * @return mixed
 	 */
-	final protected function _getRandnum($str=''){
-		return  mt_rand();
-	}
+	abstract protected function _getRandnum($str='');
 	/**
 	 * pass
 	 * @param  string $str [description]
 	 * @return mixed
 	 */
-	final protected function _getPass($str=''){
-		return  'yulian2010';
-	}
+	abstract protected function _getPass($str='');
 	/**
 	 * verifycode
 	 * @param  string $str [description]
 	 * @return mixed
 	 */
-	final protected function _getVerifycode($str=''){
+	protected function _getVerifycode($str=''){
 		return  $this->params['verifycode'];
 	}
 	/**
@@ -69,7 +60,7 @@ final class Smartyqq extends Base{
 	 * @param string $p  密码
 	 * @return string
 	 */
-	final protected function _getEncodePass($p){
+	protected function _getEncodePass($p){
 		$h =strtoupper(md5(\hexchar2bin(md5($this->_getPass())).\uin2hex($this->_getUin())));
 		return strtoupper(md5($h.strtoupper($this->_getVerifycode())));
 	}
@@ -78,7 +69,7 @@ final class Smartyqq extends Base{
 	 * @param  string $str [description]
 	 * @return mixed
 	 */
-	final protected function _getEncodeStr($str=''){
+	protected function _getEncodeStr($str=''){
 		return $this->params['encodestr'];
 	}
 	/**
@@ -86,7 +77,7 @@ final class Smartyqq extends Base{
 	 * @param  string $str [description]
 	 * @return mixed
 	 */
-	final protected function _getCookie($str=''){
+	protected function _getCookie($str=''){
 		$cookie_jar = '/tmp/cookie12hdfgyu78df6ghy';
 		preg_match_all('/(.*)	(.*)	(.*)	(.*)	(.*)	(.*)	(.*)/i', file_get_contents($cookie_jar), $matches);
 		if(false!==($key=array_search($str, $matches[6])))
@@ -99,7 +90,7 @@ final class Smartyqq extends Base{
 	 * @param  string $str [description]
 	 * @return mixed
 	 */
-	final protected function _getHash($str=''){
+	protected function _getHash($str=''){
 		return \qqhash($this->_getUin(),$this->_getCookie('ptwebqq'));
 	}
 	/**

@@ -12,7 +12,7 @@ use Koala\OAPI\Base;
  * 
  * http://www.liantu.com/pingtai/
  */
-final class Connect extends Base{
+class Connect extends Base{
 	/**
 	 * 构造函数
 	 */
@@ -26,8 +26,5 @@ final class Connect extends Base{
 	 * @param  array $args   方法参数
 	 * @return mixed         返回值
 	 */
-	final public function __call($method,$args){
-		//print_r(func_get_args());
-		return '';
-	}
+	public function __call($method,$args){}
 }

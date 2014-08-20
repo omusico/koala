@@ -11,7 +11,7 @@ use Koala\OAPI\Base;
  *图灵机器人
  *http://www.tuling123.com/
  */
-final class Connect extends Base{
+class Connect extends Base{
 	/**
 	 * 构造函数
 	 */
@@ -25,17 +25,11 @@ final class Connect extends Base{
 	 * @param  array $args   方法参数
 	 * @return mixed         返回值
 	 */
-	final public function __call($method,$args){
-		//print_r(func_get_args());
-		return '';
-	}
+	public function __call($method,$args){}
 	/**
 	 * 获取key
 	 * @param  string $str [description]
 	 * @return mixed
 	 */
-	final protected function _getAppKey($str=''){
-		exit('[TODO]'.__METHOD__);
-		return  '';
-	}
+	abstract protected function _getAppKey($str='');
 }

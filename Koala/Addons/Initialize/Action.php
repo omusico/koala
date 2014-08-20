@@ -57,9 +57,7 @@ class Action{
     \Config::initialize(function($instance){
         $instance->loadConfig(\Config::getPath('Config/LAEGlobal.user.php'));
     });
-    /**
-     * 应用的初始化过程
-     */
+    \Plugin::trigger('coreLazyInitialize','','',true);
     \Plugin::trigger('appLazyInitialize','','',true);
     }
     public function appLazyInitialize(){

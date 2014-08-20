@@ -11,7 +11,7 @@ use Koala\OAPI\Base;
  * 海量云分词服务
  * http://home.hylanda.com/show_5_19.html
  */
-final class Connect extends Base{
+class Connect extends Base{
 	/**
 	 * 构造函数
 	 */
@@ -25,24 +25,19 @@ final class Connect extends Base{
 	 * @param  array $args   方法参数
 	 * @return mixed         返回值
 	 */
-	final public function __call($method,$args){
-		//print_r(func_get_args());
-		return '';
-	}
+	public function __call($method,$args){}
 	/**
 	 * 获取token
 	 * @param  string $str [description]
 	 * @return mixed
 	 */
-	final protected function _getToken($str=''){
-		return md5(time());
-	}
+	abstract protected function _getToken($str=''){}
 	/**
 	 * 获取xmldata
 	 * @param  string $str [description]
 	 * @return mixed
 	 */
-	final protected function _getXmlData($str=''){
+	protected function _getXmlData($str=''){
 		$str = <<<EOT
 <?xml version="1.0" encoding="UTF-8"?>
 <Root>

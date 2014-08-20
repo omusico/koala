@@ -10,7 +10,7 @@ use Koala\OAPI\Base;
 include(__DIR__.'/Lib/func.php');
 /**
  */
-final class Stor extends Base{
+class Stor extends Base{
 	/**
 	 * 构造函数
 	 */
@@ -24,8 +24,5 @@ final class Stor extends Base{
 	 * @param  array $args   方法参数
 	 * @return mixed         返回值
 	 */
-	final public function __call($method,$args){
-		//print_r(func_get_args());
-		return '';
-	}
+	public function __call($method,$args){}
 }

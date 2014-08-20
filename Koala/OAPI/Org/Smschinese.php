@@ -11,7 +11,7 @@ use Koala\OAPI\Base;
  * SMS短信通
  *http://www.smschinese.cn/api.shtml
  */
-final class Smschinese extends Base{
+class Smschinese extends Base{
 	/**
 	 * 构造函数
 	 */
@@ -25,8 +25,5 @@ final class Smschinese extends Base{
 	 * @param  array $args   方法参数
 	 * @return mixed         返回值
 	 */
-	final public function __call($method,$args){
-		//print_r(func_get_args());
-		return '';
-	}
+	public function __call($method,$args){}
 }

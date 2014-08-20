@@ -18,7 +18,7 @@ use Koala\OAPI\Base;
  * echo $o->apply('get_weather_info',array('cityid'=>'101010100'));
  * 
  */
-final class Weather extends Base{
+class Weather extends Base{
 	/**
 	 * 构造函数
 	 */
@@ -32,10 +32,7 @@ final class Weather extends Base{
 	 * @param  array $args   方法参数
 	 * @return mixed         返回值
 	 */
-	final public function __call($method,$args){
-		//print_r(func_get_args());
-		return '';
-	}
+	public function __call($method,$args){}
 	/**
 	 * 从url侧获取数据的核心方法
 	 * 

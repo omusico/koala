@@ -12,7 +12,7 @@ use Koala\OAPI\Base;
  * 
  * TODO
  */
-final class QQConnect extends Base{
+class QQConnect extends Base{
 	/**
 	 * 构造函数
 	 */
@@ -26,16 +26,13 @@ final class QQConnect extends Base{
 	 * @param  array $args   方法参数
 	 * @return mixed         返回值
 	 */
-	final public function __call($method,$args){
-		//print_r(func_get_args());
-		return '';
-	}
+	final public function __call($method,$args){}
 	/**
 	 * 获取回调url
 	 * @param  string $str [description]
 	 * @return mixed
 	 */
-	final protected function _getCallbackUrl($str=''){
+	protected function _getCallbackUrl($str=''){
 		return  $this->cfg[$this->name]['callbackUrl'];
 	}
 	/**
@@ -43,45 +40,30 @@ final class QQConnect extends Base{
 	 * @param  string $str [description]
 	 * @return mixed
 	 */
-	final protected function _getAppKey($str=''){
-		exit('[TODO]'.__METHOD__);
-		return  '';
-	}
+	abstract protected function _getAppKey($str='');
 	/**
 	 * 获取appkey
 	 * @param  string $str [description]
 	 * @return mixed
 	 */
-	final protected function _getAppSecret($str=''){
-		exit('[TODO]'.__METHOD__);
-		return  '';
-	}
+	abstract protected function _getAppSecret($str='');
 
 	/**
 	 * 获取code
 	 * @param  string $str [description]
 	 * @return mixed
 	 */
-	final protected function _getAuthCode($str=''){
-		exit('[TODO]'.__METHOD__);
-		return  '';
-	}
+	abstract protected function _getAuthCode($str='');
 	/**
 	 * 获取openid
 	 * @param  string $str [description]
 	 * @return mixed
 	 */
-	final protected function _getOpenid($str=''){
-		exit('[TODO]'.__METHOD__);
-		return  '';
-	}
+	abstract protected function _getOpenid($str='');
 	/**
 	 * 获取Token值
 	 * @param  string $str [description]
 	 * @return mixed
 	 */
-	final protected function _getToken($str=''){
-		exit('[TODO]'.__METHOD__);
-		return  '';
-	}
+	abstract protected function _getToken($str='');
 }

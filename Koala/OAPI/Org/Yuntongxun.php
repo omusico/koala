@@ -11,7 +11,7 @@ use Koala\OAPI\Base;
  * 云通讯平台REST API
  * TODO
  */
-final class Yuntongxun extends Base{
+class Yuntongxun extends Base{
 	protected $time;
 	/**
 	 * 构造函数
@@ -27,10 +27,7 @@ final class Yuntongxun extends Base{
 	 * @param  array $args   方法参数
 	 * @return mixed         返回值
 	 */
-	final public function __call($method,$args){
-		//print_r(func_get_args());
-		return '';
-	}
+	public function __call($method,$args){}
 	/**
 	 * 获取appid
 	 * //20140805
@@ -38,43 +35,31 @@ final class Yuntongxun extends Base{
 	 * @param  string $str [description]
 	 * @return mixed
 	 */
-	final protected function _getAppKey($str=''){
-		exit('[TODO]'.__METHOD__);
-		return  '';
-	}
+	abstract protected function _getAppKey($str='');
 	/**
 	 * 获取appkey
 	 * @param  string $str [description]
 	 * @return mixed
 	 */
-	final protected function _getAppSecret($str=''){
-		exit('[TODO]'.__METHOD__);
-		return  '';
-	}
+	abstract protected function _getAppSecret($str='');
 	/**
 	 * 获取主AccountSid
 	 * @param  string $str [description]
 	 * @return mixed
 	 */
-	final protected function _getAccountSid($str=''){
-		exit('[TODO]'.__METHOD__);
-		return  '';
-	}
+	abstract protected function _getAccountSid($str='');
 	/**
 	 * 获取主Token值
 	 * @param  string $str [description]
 	 * @return mixed
 	 */
-	final protected function _getToken($str=''){
-		exit('[TODO]'.__METHOD__);
-		return  '';
-	}
+	abstract protected function _getToken($str='');
 	/**
 	 * sign
 	 * @param  string $str [description]
 	 * @return mixed
 	 */
-	final protected function _getSign($str=''){
+	protected function _getSign($str=''){
 		// 大写的sig参数  帐户Id + 帐户taken + 时间戳。
 		return  strtoupper(MD5($this->_getAccountSid().$this->_getToken().$this->time));
 	}
@@ -83,7 +68,7 @@ final class Yuntongxun extends Base{
 	 * @param  string $str [description]
 	 * @return mixed
 	 */
-	final protected function _getAuthorization($str=''){
+	protected function _getAuthorization($str=''){
 		// 生成授权：主帐户Id + 英文冒号 + 时间戳。
 		return  base64_encode($this->_getAccountSid().':'.$this->time);
 	}
@@ -92,7 +77,7 @@ final class Yuntongxun extends Base{
 	 * @param  string $str [description]
 	 * @return mixed
 	 */
-	final protected function _getContentType($str=''){
+	protected function _getContentType($str=''){
 		if(isset($this->cfg[$this->name]['format'])&&$this->cfg[$this->name]['format']=='xml'){
 			return 'application/xml;charset=utf-8';
 		}else{
@@ -104,7 +89,7 @@ final class Yuntongxun extends Base{
 	 * @param  string $str [description]
 	 * @return mixed
 	 */
-	final protected function _getContent($str=''){
+	protected function _getContent($str=''){
 		$params = array_filter(array_merge($this->cfg[$this->name]['contentParam'],$this->params));
 		foreach ($this->cfg[$this->name]['contentParam'] as $key => $value) {
 			if(isset($params[$key]))
@@ -126,7 +111,7 @@ final class Yuntongxun extends Base{
 	 * @param  string $str [description]
 	 * @return mixed
 	 */
-	final protected function _getLengthStr($str=''){
+	protected function _getLengthStr($str=''){
 		if(empty($this->cfg[$this->name]['contentParam'] ))
 			return  ($this->cfg[$this->name]['header'][] = $str.': 0');
 		else
