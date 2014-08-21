@@ -49,8 +49,12 @@ class Plugin{
 			//hash
 			$string = self::hashCallable($callable);
 			//合并参数
-			if(isset(self::$_params[$hook][$string]))
-				$param = array(array_merge(self::$_params[$hook][$string],$param));
+			if(isset(self::$_params[$hook][$string])){
+				if(is_string($param))
+					$param =  array($param);
+				else
+					$param = array(array_merge(self::$_params[$hook][$string],$param));
+			}
 			return call_user_func_array($callable,$param);
 		}
 		$param =  array($param);

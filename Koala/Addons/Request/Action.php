@@ -18,6 +18,7 @@ class Action{
     function __construct(){
         //你想自动挂接的钩子列表
         Plugin::only('registerRequest', array(&$this,'register'));
+        Plugin::only('invitationUrl', array(&$this,'invitationUrl'));
     }
     /**
      * 注册
@@ -33,5 +34,9 @@ class Action{
               $url = $_SERVER['REQUEST_URI'];
             //请求选项
             return $u->requestOption($url,1);
+    }
+    public function invitationUrl($url){
+        $u = \Core\AOP\AOP::getInstance('URL');
+          return $u->requestOption($url,1);
     }
 }
