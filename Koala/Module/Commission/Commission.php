@@ -9,100 +9,69 @@ namespace Koala\Module;
 /**
  *用户上线佣金处理逻辑
  */
-class Commission{
+class Commission {
 	/**
 	 * 用户上线佣金处理逻辑
 	 * @param  string $uid   用户id
-	 * @param  float $money 消费金额
 	 * @return [type]        [description]
 	 */
-	public function dealCommission($uid,$money=0.00){
-		while(true){
-			//查询当前用户的上级
-			$invitor = \Koala\Module\Invitation\Logic\Invite::getOne('id,invitor',array('invited=?',$uid));
-			//不存在上级用户时
-			if(empty($invitor))break;
-			//计算佣金
-			$unsettle = $this->getUnsettle($money);
-			//查询是否存在佣金记录
-			$res = \Koala\Module\Invitation\Logic\Commission::isExist(array(
-	    				'uid=?',$invitor['invitor']
-	    				));
-			if(!$res['code']){
-				//没有佣金记录
-				$data = array(
-					'uid'=>$invitor['invitor'],
-					'unsettle'=>$unsettle,
-					);
-				//添加佣金记录
-				\Koala\Module\Invitation\Logic\Commission::add($data);
-			}else{
-				//有佣金记录
-				//查询上级用户的佣金
-		    		$data = \Koala\Module\Invitation\Logic\Commission::getOne('id,unsettle',array(
-	    				'uid=?',$invitor['invitor']
-	    				));
-	    			//更新数据
-				\Koala\Module\Invitation\Logic\Commission::update(array(
-	    				'id'=>$data['id'],
-					'uid'=>$invitor['invitor'],
-					'unsettle'=>floatval($data['unsettle'])+$unsettle,
+	public function dealCommission($profit, $uid, $maxdepth = 5, $floor = 1) {
+		//获得用户的上级用户
+		$invitor = \Koala\Module\Invitation\Logic\Invite::getList('id,invitor', array('invited=?', $uid));
+		//当前提成深度
+		if ($maxdepth > 0 && !empty($invitor)) {
+			//对多个用户进行处理
+			foreach ($invitor as $key => $user) {
+				//查询上级用户的余额
+				$tuser = \UUM_Logic_User::getOne('id,money', array('id=? and state=?', $user['invitor'], '正常'));
+				//计算订单产生的利润的佣金
+				$unsettle = \getUnsettle($profit, $floor);
+				//更新上级用户的数据
+				\UUM_Logic_User::update(array(
+						'id'    => $user['invitor'],
+						'money' => $tuser['money']+$unsettle,
 					));
-			}
-			//上级用户作为下一次循环用户
-			$uid = $invitor['invitor'];
-		}
-		return true;
-	}
-	public function getUnsettle($money){
-		exit($money);
-	}
-	public function deal($topuid,$uid,$maxdepth=5,&$amount=false,$flag=false){
-		while ( $maxdepth>0) {
-			//查询下级用户列表
-			$invitored = \Koala\Module\Invitation\Logic\Invite::getList('id,invited',array('invitor=?',$uid));
-			foreach ($invitored as $key => $user) {
-				//查询用户消费记录
-				//
-				//计算当前下级用户消费产生的佣金
-				$unsettle = $this->getUnsettle($money);
-				//更新topuid的佣金
-		    		//查询是否存在佣金记录
-		    		if(!$flag){
-					$res = \Koala\Module\Invitation\Logic\Commission::isExist(array(
-			    				'uid=?',$topuid
-			    				));
-				}else{
-					$res['code'] = 1;
-				}
-				if(!$res['code']){
-					//没有佣金记录
-					$data = array(
-						'uid'=>$topuid,
-						'unsettle'=>$unsettle,
-						);
-					//添加佣金记录
-					\Koala\Module\Invitation\Logic\Commission::add($data);
-				}else{
-					//有佣金记录
-					
-					if($amount===false){
-						//查询用户的佣金
-				    		$data = \Koala\Module\Invitation\Logic\Commission::getOne('id,unsettle',array(
-			    				'uid=?',$topuid
-			    				));
-				    		$amount = floatval($data['unsettle']);
-				    	}
-				    	$amount+=$unsettle;
-		    			//更新数据
-					\Koala\Module\Invitation\Logic\Commission::update(array(
-		    				'id'=>$data['id'],
-						'uid'=>$topuid,
-						'unsettle'=>$amount,
-						));
-				}
+				//资金流入库
+				$da['fid']     = 0;
+				$da['tid']     = $user['invitor'];
+				$da['amount']  = $unsettle;
+				$da['purpose'] = '返现支付';
+				$da['channel'] = '消费星级返现';
+				$da['paytype'] = '返现';
+				$da['payment'] = '返现';
+				$da['addtime'] = gmdate("Y-n-j H:i:s", time()+8 * 3600);
+				//资金状态//已付款
+				$da['state'] = \FundState::HAVEDEDUCT;
+				$da['oid']   = 0;
+				$da['note']  = '返现金额:' . $unsettle . ',用户层级:' . $floor;
+				$status      = \USM_Logic_Fundrecord::add($da);
+
 				//递归处理
-				$this->deal($topuid,$user['id'],$maxdepth-1,$amount,true);
+				$this->dealCommission($profit, $user['invitor'], $maxdepth - 1, $floor + 1);
+			}
+		}
+	}
+	/**
+	 * 用户业绩处理逻辑
+	 * @param  string $uid   用户id
+	 * @return [type]        [description]
+	 */
+	public function dealPerformance($amount, $uid, $maxdepth = 5) {
+		//获得用户的上级用户
+		$invitor = \Koala\Module\Invitation\Logic\Invite::getList('id,invitor', array('invited=?', $uid));
+		//当前提成深度
+		if ($maxdepth > 0 && !empty($invitor)) {
+			//对多个用户进行处理
+			foreach ($invitor as $key => $user) {
+				//查询上级用户的业绩
+				$data = \UUM_Logic_User::getList('id,performance', array('id=? and state=?', $user['invitor'], '正常'));
+				//更新上级用户的业绩
+				\UUM_Logic_User::update(array(
+						'id'          => $data[0]['id'],
+						'performance' => $data[0]['performance']+$amount,
+					));
+				//递归处理
+				$this->dealPerformance($amount, $user['invitor'], $maxdepth - 1);
 			}
 		}
 	}

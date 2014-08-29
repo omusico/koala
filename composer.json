@@ -12,17 +12,15 @@
         "email": "lunnlew@gmail.com"
     }],
     "config": {
-        "vendor-dir": "External"
+        "vendor-dir": "Koala/External"
     },
     "require": {
         "php": ">=5.3.0",
         "monolog/monolog": "1.7.*@dev",
         "psr/log": "1.0.*@dev",
+        "filp/whoops": "~1.0"
     },
     "require-dev": {
-        "phpunit/phpunit": "dev-master",
-        "phpunit/php-code-coverage": "3.0.*@dev",
-        "phpunit/phpunit-mock-objects": "2.1.*@dev",
         "sebastian/comparator": "1.0.*@dev",
         "devster/ubench": "1.1.*@dev"
     },
