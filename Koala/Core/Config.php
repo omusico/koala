@@ -7,22 +7,21 @@
  */
 /**
  * 配置操作类
- * 
+ *
  * @package  Koala
  * @author    LunnLew <lunnlew@gmail.com>
  */
-class Config extends Singleton{
+class Config {
 	/**
 	 * 配置项
 	 */
-	static $config = array();
+	static private $config = array();
 	/**
 	 * 加载配置
 	 * @param  string $file_path 配置文件路路径
 	 */
-	public function loadConfig($file_path){
-		$cfg = require($file_path);
-		self::$config = array_merge(self::$config,$cfg);
+	public static function loadFile($file_path) {
+		self::$config = array_merge(self::$config, require ($file_path));
 	}
 	/**
 	 * 获得配置项
@@ -31,52 +30,56 @@ class Config extends Singleton{
 	 * @param  bool $runtime  运行时设置 true/false
 	 * @return fixed          配置项值
 	 */
-	public static function getItem($key,$defv='',$runtime=false){
-		if($runtime && $defv!='')
+	public static function getItem($key, $defv = '', $runtime = false) {
+		if ($runtime && $defv != '') {
 			return (self::$config[$key] = $defv);
+		}
 
-		if(null===($val=getValueRec(explode(':',$key),self::$config)))
-			$result=$defv;
-		else $result=$val;
+		if (null === ($val = getValueRec(explode(':', $key), self::$config))) {
+			$result = $defv;
+		} else {
+			$result = $val;
+		}
 
-		if(strripos($key,'list')===(strlen($key)-4))
-			$result = explode(',',$result);
+		if (strripos($key, 'list') === (strlen($key)-4)) {
+			$result = explode(',', $result);
+		}
 
 		return $result;
 	}
 	/**
 	 * 获得配置项
 	 * @param  array $keys   配置项数组
-	 * @param  string $config 配置数组
+	 * @param  array $defvs 配置数组
 	 * @param  bool $runtime  运行时设置 true/false
 	 * @return fixed          配置项值数组
 	 */
-	public static function getItems($keys,$defvs=array(),$runtime=false){
-		if($runtime && !empty($defvs)){
+	public static function getItems($keys, $defvs = array(), $runtime = false) {
+		if ($runtime && !empty($defvs)) {
 			return $defvs;
 		}
 		$cfgs = array();
-		if(is_string($keys)){
+		if (is_string($keys)) {
 			//字符参数默认以,号作为间隔符
 			$keyArr = explode(',', $keys);
-		}elseif(is_array($keys)){
+		} elseif (is_array($keys)) {
 			$keyArr = $keys;
-		}else{
+		} else {
 			return array();
 		}
 		foreach ($keyArr as $key => $value) {
-			$cfgs[$value] = isset(self::$config[$value])?self::$config[$value]:$defvs[$value];
+			$cfgs[$value] = isset(self::$config[$value]) ? self::$config[$value] : $defvs[$value];
 		}
 		return $cfgs;
 	}
 	/**
 	 * 获取配置文件路径
 	 */
-	public static function getPath($file){
-		if(APPENGINE!=='LAE'){
-			return STOR_PATH.$file;
-		}else{
-			return APP_PATH.$file;
+	public static function getPath($file) {
+		if (APP_ENGINE !== 'LAE') {
+			return STOR_PATH . $file;
+		} else {
+			return APP_PATH . $file;
 		}
 	}
 }

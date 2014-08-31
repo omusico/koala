@@ -18,6 +18,7 @@
 1. 配置格式
 2. [惯例配置](config/default_config.md)
 3. 项目配置
+4. [常量](config/constant.md)
 
 ###第四章 函数和类库
 

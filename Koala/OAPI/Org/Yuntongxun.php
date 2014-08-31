@@ -17,7 +17,7 @@ class Yuntongxun extends Base{
 	 * 构造函数
 	 */
 	final public function __construct(){
-		parent::__construct();
+		
 		$this->time = date("YmdHis");
 		$this->cfg = include(__DIR__.'/Api/yuntongxun.php');
 	}
@@ -85,11 +85,27 @@ class Yuntongxun extends Base{
 		}
 	}
 	/**
+	 * 从配置中解析出body参数
+	 * @param  string $name api名
+	 * @return array     	结果
+	 */
+	protected function _parseContentParams($name) {
+		$params   = array();
+		$paramCFG = $this->cfg[$name]['contentParam'];
+		foreach ($paramCFG as $key => $value) {
+			$params = array_merge($params, $this->_parseStr($value));
+		}
+		$this->cfg[$name]['contentParam'] = $params;
+	}
+	/**
 	 * Content
 	 * @param  string $str [description]
 	 * @return mixed
 	 */
 	protected function _getContent($str=''){
+		isset($this->cfg[$name]['contentParam'])
+		? $this->_parseContentParams($name)
+		: ($this->cfg[$name]['contentParam'] = array());
 		$params = array_filter(array_merge($this->cfg[$this->name]['contentParam'],$this->params));
 		foreach ($this->cfg[$this->name]['contentParam'] as $key => $value) {
 			if(isset($params[$key]))

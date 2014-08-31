@@ -9,6 +9,4 @@ namespace Core\Plugin;
 /**
  * 插件基类
  */
-class Base{
-	
-}
+class Base {}

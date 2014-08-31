@@ -8,6 +8,7 @@ $baseDir = dirname(dirname($vendorDir));
 return array(
     'Whoops' => array($vendorDir . '/filp/whoops/src'),
     'Ubench' => array($vendorDir . '/devster/ubench/src'),
+    'Pux' => array($vendorDir . '/corneltek/pux/src'),
     'Psr\\Log\\' => array($vendorDir . '/psr/log'),
     'Monolog' => array($vendorDir . '/monolog/monolog/src'),
 );

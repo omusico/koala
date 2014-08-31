@@ -31,11 +31,11 @@ class ClassLoader extends Singleton {
 			$this->namespaces[$namespace] = rtrim($path, '\\/');
 		}
 	}
-
-	//注册目录
+	//注册目录列表
 	public function registerDirs(array $dirs) {
 		$this->dirs = array_unique(array_merge($this->dirs, $dirs));
 	}
+	//注册目录
 	public function registerDir($dir, $path) {
 		$this->dirs[$dir] = rtrim($path, '\\/');
 	}
@@ -49,8 +49,7 @@ class ClassLoader extends Singleton {
 	}
 	//类加载
 	public function loadClass($class) {
-		$class      = str_replace('_', $this->separator, $class);
-		$class      = str_replace('\\', $this->separator, $class);
+		$class      = str_replace(array('\\', '_'), $this->separator, $class);
 		$parts      = explode($this->separator, $class);
 		$fnamespace = $parts[0];
 		$path       = implode($this->separator, $parts);
@@ -60,32 +59,29 @@ class ClassLoader extends Singleton {
 			if (isset($this->namespaces[$fnamespace])) {
 				if (is_array($this->namespaces[$fnamespace])) {
 					foreach ($this->namespaces[$fnamespace] as $dir) {
-						$file = $dir.'/'.$path.'.php';
+						$file = $dir . '/' . $path . '.php';
 						if (is_file($file)) {
 							include $file;
 							break;
 						}
-
 					}
 				} else {
-					if (file_exists($this->namespaces[$fnamespace].'/'.$path.'.php')) {
-						include $this->namespaces[$fnamespace].'/'.$path.'.php';
+					if (file_exists($this->namespaces[$fnamespace] . '/' . $path . '.php')) {
+						include $this->namespaces[$fnamespace] . '/' . $path . '.php';
 					} else {
-
-						include $this->namespaces[$fnamespace].'/'.$path.'/'.$cname.'.php';
+						include $this->namespaces[$fnamespace] . '/' . $path . '/' . $cname . '.php';
 					}
 				}
 			}
 		} else {
 			//根据目录搜索
 			foreach ($this->dirs as $dir) {
-				$file  = $dir.'/'.$path.'.php';//dir/class.php
-				$file1 = $dir.'/'.$path."/$cname.php";//dir/class/class.php
+				$file = $dir . '/' . $path . '.php';//dir/class.php
 				if (file_exists($file)) {
 					include $file;
 					break;
-				} elseif (file_exists($file1)) {
-					include $file1;
+				} else {
+					include $dir . '/' . $path . "/$cname.php";//dir/class/class.php
 					break;
 				}
 			}
@@ -96,7 +92,7 @@ class ClassLoader extends Singleton {
 	public function LoadFunc($namespace, $list) {
 		$funcs = explode(',', $list);
 		foreach ($funcs as $file) {
-			include $this->namespaces[$namespace].'/'.$namespace.'/'.$file.'.php';
+			include $this->namespaces[$namespace] . '/' . $namespace . '/' . $file . '.php';
 		}
 	}
 }

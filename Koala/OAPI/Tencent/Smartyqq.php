@@ -16,7 +16,7 @@ class Smartyqq extends Base{
 	 * 构造函数
 	 */
 	final public function __construct(){
-		parent::__construct();
+		
 		$this->cfg = include(__DIR__.'/Api/smartyqq.php');
 	}
 	/**
@@ -92,6 +92,23 @@ class Smartyqq extends Base{
 	 */
 	protected function _getHash($str=''){
 		return \qqhash($this->_getUin(),$this->_getCookie('ptwebqq'));
+	}
+	/**
+	 * 从配置中解析出参数
+	 * @param  string $str
+	 * @return array     	结果
+	 */
+	protected function _makeFrom($str = '') {
+		$params = array();
+		if (!isset($this->cfg[$this->name][$str])) {
+			return '';
+		}
+
+		foreach ($this->cfg[$this->name][$str] as $key => $value) {
+			$params = array_merge($params, $this->_parseStr($value));
+		}
+		$this->cfg[$this->name]['params'] = array_merge($params, $this->params);
+		return json_encode($params);
 	}
 	/**
 	 * 从url侧获取数据的核心方法

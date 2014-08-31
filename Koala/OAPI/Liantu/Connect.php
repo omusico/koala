@@ -9,16 +9,17 @@ namespace Koala\OAPI\Liantu;
 use Koala\OAPI\Base;
 /**
  * 联图网 二维码 api
- * 
+ *
  * http://www.liantu.com/pingtai/
  */
-class Connect extends Base{
+
+class Connect extends Base {
 	/**
 	 * 构造函数
 	 */
-	final public function __construct(){
-		parent::__construct();
-		$this->cfg = include(__DIR__.'/Api/liantu.php');
+	final public function __construct() {
+
+		$this->cfg = include (__DIR__ . '/Api/liantu.php');
 	}
 	/**
 	 * 魔术方法
@@ -26,5 +27,5 @@ class Connect extends Base{
 	 * @param  array $args   方法参数
 	 * @return mixed         返回值
 	 */
-	public function __call($method,$args){}
+	public function __call($method, $args) {}
 }

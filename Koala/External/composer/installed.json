@@ -408,5 +408,43 @@
             "whoops",
             "zf2"
         ]
+    },
+    {
+        "name": "corneltek/pux",
+        "version": "1.5.0",
+        "version_normalized": "1.5.0.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/c9s/Pux.git",
+            "reference": "6bdf19d71febe4601d65489d64de1e2591ff6e44"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/c9s/Pux/zipball/6bdf19d71febe4601d65489d64de1e2591ff6e44",
+            "reference": "6bdf19d71febe4601d65489d64de1e2591ff6e44",
+            "shasum": ""
+        },
+        "require-dev": {
+            "corneltek/cliframework": "dev-master",
+            "corneltek/phpunit-testmore": "dev-master",
+            "corneltek/universal": "dev-master"
+        },
+        "time": "2014-02-19 10:45:14",
+        "type": "library",
+        "installation-source": "dist",
+        "autoload": {
+            "psr-0": {
+                "Pux": "src"
+            }
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "authors": [
+            {
+                "name": "Yo-An Lin",
+                "email": "cornelius.howl@gmail.com",
+                "homepage": "http://c9s.me"
+            }
+        ],
+        "description": "Fast PHP router"
     }
 ]

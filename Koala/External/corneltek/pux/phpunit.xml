@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<phpunit bootstrap="test/bootstrap.php"
+         backupGlobals="false"
+         colors="true"
+         verbose="true">
+  <testsuites>
+
+    <testsuite name="PP">
+       <directory suffix="Test.php">test/Pux</directory>
+    </testsuite>
+
+    <testsuite name="Mux">
+      <file>test/Pux/MuxTest.php</file>
+      <file>test/Pux/SubMuxTest.php</file>
+      <file>test/Pux/BasicMuxTest.php</file>
+      <file>test/Pux/MuxExportTest.php</file>
+      <file>test/Pux/MuxSetStateTest.php</file>
+      <file>test/Pux/MuxCompilerTest.php</file>
+    </testsuite>
+
+    <testsuite name="Controller">
+      <file>test/Pux/ControllerAnnotationTest.php</file>
+      <file>test/Pux/ControllerTest.php</file>
+    </testsuite>
+
+    <testsuite name="Extension">
+       <directory suffix="Test.php">test/ExtensionOnly</directory>
+    </testsuite>
+  </testsuites>
+</phpunit>

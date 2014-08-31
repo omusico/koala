@@ -13,6 +13,9 @@ use View;
  */
 
 class Start extends PublicController {
+	public function indexAction($id, $title) {
+		exit('indexAction');
+	}
 	/**
 	 * 应用创建配置页
 	 */
@@ -29,12 +32,12 @@ class Start extends PublicController {
 		$arr  = include ($file);
 		if ($arr['projectpath'] == '@' || !is_dir($arr['projectpath'])) {
 			$arr['projectpath'] = PROTECT_PATH_DEFAULT;
-			$arr['apppath']     = PROTECT_PATH_DEFAULT.$arr['appname'];
+			$arr['apppath']     = PROTECT_PATH_DEFAULT . $arr['appname'];
 		} else {
-			$arr['apppath'] = $arr['projectpath'].$arr['appname'];
+			$arr['apppath'] = $arr['projectpath'] . $arr['appname'];
 		}
 		if ($arr['releasepath'] == '@' || !is_dir($arr['releasepath'])) {
-			$arr['releasepath'] = PROTECT_PATH_DEFAULT.$arr['releasename'];
+			$arr['releasepath'] = PROTECT_PATH_DEFAULT . $arr['releasename'];
 		}
 		if (!is_writable($arr['projectpath'])) {
 			View::assign('createcfg', $arr);
@@ -42,11 +45,11 @@ class Start extends PublicController {
 			\FrontData::assign('msg', View::render('Start/page/_checkEnv_error'));
 		} elseif (file_exists($arr['apppath'])) {
 			\FrontData::assign('state', 'error');
-			\FrontData::assign('msg', $arr['appname'].'应用已存在,位于'.$arr['apppath']);
+			\FrontData::assign('msg', $arr['appname'] . '应用已存在,位于' . $arr['apppath']);
 		} else {
-			exec('git clone https://github.com/lunnlew/koalaDemo.git '.$arr['apppath']);
+			exec('git clone https://github.com/lunnlew/koalaDemo.git ' . $arr['apppath']);
 			\FrontData::assign('state', 'success');
-			\FrontData::assign('msg', '应用创建成功!位于'.$arr['apppath']);
+			\FrontData::assign('msg', '应用创建成功!位于' . $arr['apppath']);
 		}
 	}
 }

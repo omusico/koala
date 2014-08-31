@@ -16,7 +16,7 @@ class Segment extends Base{
 	 * 构造函数
 	 */
 	final public function __construct(){
-		parent::__construct();
+		
 		$this->cfg = include(__DIR__.'/Api/segment.php');
 	}
 	/**

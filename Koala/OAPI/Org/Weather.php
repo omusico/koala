@@ -16,15 +16,16 @@ use Koala\OAPI\Base;
  *
  * $o = \Koala\OAPI::factory('weather');
  * echo $o->apply('get_weather_info',array('cityid'=>'101010100'));
- * 
+ *
  */
-class Weather extends Base{
+
+class Weather extends Base {
 	/**
 	 * 构造函数
 	 */
-	final public function __construct(){
-		parent::__construct();
-		$this->cfg = include(__DIR__.'/Api/weather.php');
+	final public function __construct() {
+
+		$this->cfg = include (__DIR__ . '/Api/weather.php');
 	}
 	/**
 	 * 魔术方法
@@ -32,28 +33,28 @@ class Weather extends Base{
 	 * @param  array $args   方法参数
 	 * @return mixed         返回值
 	 */
-	public function __call($method,$args){}
+	public function __call($method, $args) {}
 	/**
 	 * 从url侧获取数据的核心方法
-	 * 
+	 *
 	 * 该方法以multipart/form-data方式编码数据
-	 * 
+	 *
 	 * @param  string $name   api名
 	 * @param  array  $params 请求参数
 	 * @param  string $method 请求方法
 	 * @return string         结果
 	 */
-	protected function _fetchUrl($name,$params=array(),$method='get'){
+	protected function _fetchUrl($name, $params = array(), $method = 'get') {
 		//去除空值字段
 		$params = array_filter($params);
 		foreach ($params as $key => $value) {
-			$this->cfg[$name]['urltpl'] = str_replace('{'.$key.'}', $value, $this->cfg[$name]['urltpl']);
+			$this->cfg[$name]['urltpl'] = str_replace('{' . $key . '}', $value, $this->cfg[$name]['urltpl']);
 		}
 		unset($params);
 		//有文件字段时，值必须是@开头的绝对路径
 		//初始化
 		$ch = curl_init();
-		 curl_setopt($ch, CURLOPT_URL, $this->cfg[$name]['url'].$this->cfg[$name]['urltpl']);
+		curl_setopt($ch, CURLOPT_URL, $this->cfg[$name]['url'] . $this->cfg[$name]['urltpl']);
 		//以返回值方式
 		curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
 		curl_setopt($ch, CURLOPT_HEADER, 0);
