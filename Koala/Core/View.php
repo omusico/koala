@@ -75,8 +75,8 @@ class View extends Singleton {
 			$type = 'page';
 		}
 
-		$end = '/'.$type.'/'.array_pop($a);
-		return implode($depr, $a).$end.'.html';
+		$end = '/' . $type . '/' . array_pop($a);
+		return implode($depr, $a) . $end . '.html';
 	}
 	public static function test() {
 		return self::$engine->test();

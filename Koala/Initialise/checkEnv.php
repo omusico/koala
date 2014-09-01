@@ -5,19 +5,39 @@ env::reg('MIN_PHP_VERSION', function ($key) {return "5.3";});
 
 //应用引擎环境
 env::check('APP_ENGINE', function ($key) {
-	//新浪SAE检测
 	if (defined('SAE_ACCESSKEY')) {
+		//新浪SAE
 		define("APP_ENGINE", "SAE");
-	} elseif (isset($_SERVER['HTTP_BAE_ENV_APPID'])) {//BAE检测
+		//存储路径
+		defined('STOR_PATH') or define('STOR_PATH', C("STOR_PATH", 'bucket' . APP_UUID . '/'));
+		//存储访问URL
+		defined('STOR_URL') or define('STOR_URL', rtrim(C("STOR_DOMAIN", '/'), '/') . '/' . STOR_PATH);
+	} elseif (isset($_SERVER['HTTP_BAE_ENV_APPID'])) {
+		//BAE检测
 		define("APP_ENGINE", "BAE");
-	} else {//本地应用环境
+		//存储路径
+		defined('STOR_PATH') or define('STOR_PATH', C("STOR_PATH", 'bucket' . APP_UUID . '/'));
+		//存储访问URL
+		defined('STOR_URL') or define('STOR_URL', rtrim(C("STOR_DOMAIN", '/'), '/') . '/' . STOR_PATH);
+	} else {
+		//本地应用环境LAE
 		define("APP_ENGINE", "LAE");
+		//写数据路径
+		defined('RUNTIME_PATH') or define('RUNTIME_PATH', APP_PATH . 'Runtime/');
+		//存储路径
+		defined('STOR_PATH') or define('STOR_PATH', RUNTIME_PATH . 'Storage/');
+		//存储访问URL
+		defined('STOR_URL') or define('STOR_URL', APP_RELATIVE_URL . 'Runtime/Storage/');
+		//日志路径
+		defined('LOG_PATH') or define('LOG_PATH', STOR_PATH);
 	}
-	$result = array(
+
+	is_file(FRAME_PATH . 'Initialise/Class' . APP_ENGINE . ".php") AND require (FRAME_PATH . 'Initialise/Class' . APP_ENGINE . ".php");
+	is_file(FRAME_PATH . 'Initialise/Constant' . APP_ENGINE . ".php") AND include (FRAME_PATH . 'Initialise/Constant' . APP_ENGINE . '.php');
+	return array(
 		'require' => '',
 		'current' => APP_ENGINE
 	);
-	return $result;
 });
 if (!RUNCLI) {
 	//应用相对URL路径
@@ -62,11 +82,10 @@ if (!RUNCLI) {
 }
 //--------------------运行环境检查---------------------
 env::check("PHP_OS", function ($key) {
-	$result = array(
+	return array(
 		'require' => '不限',
 		'current' => PHP_OS
 	);
-	return $result;
 });
 env::check("PHP_VERSION", function ($key) {
 	$result = array(
@@ -96,48 +115,50 @@ env::check("PHP_RUNMODE", function ($key) {
 	return $result;
 });
 env::check("PHP_UPLOADSIZE", function ($key) {
-	$result = array(
+	return array(
 		'require' => '不限',
 		'current' => ini_get('upload_max_filesize'),
 	);
-	return $result;
 });
 env::check("PHP_MAXTIME", function ($key) {
-	$result = array(
+	return array(
 		'require' => '不限',
 		'current' => ini_get('max_execution_time') . "秒",
 	);
-	return $result;
 });
 env::check("PHP_SPACE", function ($key) {
-	$result = array(
+	return array(
 		'require' => '不限',
 		'current' => round((@disk_free_space(".") / (1024 * 1024)), 2) . 'M',
 	);
-	return $result;
 });
 env::check("PHP_SERVER_TIME", function ($key) {
-	$result = array(
+	return array(
 		'require' => '',
 		'current' => date("Y年n月j日 H:i:s"),
 	);
-	return $result;
 });
 env::check("BEIJING_TIME", function ($key) {
-	$result = array(
+	return array(
 		'require' => '',
 		'current' => gmdate("Y年n月j日 H:i:s", time()+8 * 3600)
 	);
-	return $result;
 });
 //--------------------函数、类依赖检查---------------------
 env::check("file_get_contents", function ($key) {
-	$result = array(
+	return array(
 		'require' => true,
 		'current' => function_exists('file_get_contents'),
 	);
-	return $result;
 });
+
+//设定时区
+date_default_timezone_set(C('time_zone', 'Asia/Hong_Kong'));
+//设置本地化环境
+setlocale(LC_ALL, "chs");
+//不输出可替代字符
+mb_substitute_character('none');
+
 /**
  * 环境信息
  */
