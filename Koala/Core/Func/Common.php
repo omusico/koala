@@ -41,7 +41,7 @@ function message($message, $type = \Core\Front\MessageState::INFO) {
  */
 function random($length, $chars = '0123456789') {
 	$hash = '';
-	$max  = strlen($chars)-1;
+	$max  = strlen($chars) - 1;
 	for ($i = 0; $i < $length; $i++) {
 		$hash .= $chars[mt_rand(0, $max)];
 	}
@@ -357,7 +357,7 @@ function listFiles($directory = NULL, array $paths = NULL) {
 				// Get the file name
 				$filename = $file->getFilename();
 
-				if ($filename[0] === '.' OR $filename[strlen($filename)-1] === '~') {
+				if ($filename[0] === '.' OR $filename[strlen($filename) - 1] === '~') {
 					// Skip all hidden files and UNIX backup files
 					continue;
 				}
@@ -464,4 +464,8 @@ function getValueRec($keys = array(), $arr = array(), &$depth = 0) {
 
 function urlsafe_base64_encode($str) {
 	return str_replace(array('+', '/'), array('-', '_'), base64_encode($str));
+}
+
+function needSource($name) {
+	$_SESSION['need_' . $name] = true;
 }

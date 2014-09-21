@@ -6,7 +6,7 @@
  * @author   LunnLew <lunnlew@gmail.com>
  */
 namespace Koala\Addons\Controller;
-use Plugin;
+
 /**
  * Controller实现类
  */
@@ -18,7 +18,7 @@ class Action {
 	 */
 	function __construct() {
 		//你想自动挂接的钩子列表
-		Plugin::only('registerController', array(&$this, 'register'));
+		\Core\Plugin\Manager::only('registerController', array(&$this, 'register'));
 	}
 	/**
 	 * 注册控制器加载方法并返回控制器类
@@ -29,10 +29,10 @@ class Action {
 		if (C('MULTIPLE_GROUP')) {
 			list($group, $module, $action) = $options['path'];
 			!defined('GROUP_NAME') AND define('GROUP_NAME', $group);
-			$class = $group.'\Controller\\'.$module;
+			$class = $group . '\Controller\\' . $module;
 		} else {
 			list($module, $action) = $options['path'];
-			$class                 = 'Controller\\'.$module;
+			$class                 = 'Controller\\' . $module;
 		}
 		!defined('MODULE_NAME') AND define('MODULE_NAME', ucwords($module));
 		!defined('ACTION_NAME') AND define('ACTION_NAME', $action);

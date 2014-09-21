@@ -6,19 +6,16 @@
  * @author   LunnLew <lunnlew@gmail.com>
  */
 namespace Addons\Initialize;
-use Plugin;
 /**
  * Initialize
  */
-
 class Action extends \Koala\Addons\Initialize\Action {
 	/**
 	 * 供插件管理器主动加载的入口
 	 * @param string $plugin 插件管理器
 	 */
 	function __construct() {
-		Plugin::only('appInitialize', array(&$this, 'appInitialize'));
-
+		\Core\Plugin\Manager::only('appInitialize', array(&$this, 'appInitialize'));
 	}
 	public function appInitialize($options = array()) {
 		/**
@@ -27,17 +24,17 @@ class Action extends \Koala\Addons\Initialize\Action {
 		\ClassLoader::initialize(function ($instance) {
 			$instance->register();
 			$instance->registerNamespaces(array(
-					'Controller' => dirname(CONTRLLER_PATH),
-					'Model'      => dirname(MODEL_PATH),
-					'Logic'      => dirname(MODEL_PATH),
-					'Library'    => APP_PATH,
-					'Custom'     => APP_PATH,
-					'Addons'     => APP_PATH,
-					'Tag'        => FRAME_PATH . 'Extension',
-				));
+				'Controller' => dirname(CONTRLLER_PATH),
+				'Model'      => dirname(MODEL_PATH),
+				'Logic'      => dirname(MODEL_PATH),
+				'Library'    => APP_PATH,
+				'Custom'     => APP_PATH,
+				'Addons'     => APP_PATH,
+				'Tag'        => FRAME_PATH . 'Extension',
+			));
 			$instance->registerDirs(array(
-					APP_PATH . 'Custom',
-				));
+				APP_PATH . 'Custom',
+			));
 			$instance->loadFunc('Custom', 'Func');
 		});
 		/**

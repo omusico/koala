@@ -1,6 +1,6 @@
 <?php
 return array (
-  'appname' => 'myapp',
+  'appname' => 'fly',
   'releasename' => 'release',
   'releasepath' => '@',
   'apppath' => '@',

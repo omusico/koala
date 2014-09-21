@@ -6,23 +6,22 @@
  * @author   LunnLew <lunnlew@gmail.com>
  */
 namespace Koala\Addons\Initialize;
-use Plugin;
 /**
  * Initialize
  */
 
-class Action {
+class Action extends \Core\Plugin\Base {
 	/**
 	 * 供插件管理器主动加载的入口
 	 * @param string $plugin 插件管理器
 	 */
-	function __construct() {
-		Plugin::only('appInitialize', array(&$this, 'deafultAppInitialize'));
-		Plugin::only('coreLazyInitialize', array(&$this, 'defaultCoreLazyInitialize'));
-		Plugin::only('appLazyInitialize', array(&$this, 'defaultAppLazyInitialize'));
+	public function __construct() {
+		parent::__construct(array());
+		\Core\Plugin\Manager::only('appInitialize', array(&$this, 'deafultAppInitialize'));
+		\Core\Plugin\Manager::only('coreLazyInitialize', array(&$this, 'defaultCoreLazyInitialize'));
+		\Core\Plugin\Manager::only('appLazyInitialize', array(&$this, 'defaultAppLazyInitialize'));
 	}
 	/**
-	 *
 	 * @param  array  $options [description]
 	 * @return [type]          [description]
 	 */
@@ -33,17 +32,17 @@ class Action {
 		\ClassLoader::initialize(function ($instance) {
 			$instance->register();
 			$instance->registerNamespaces(array(
-					'Controller' => dirname(CONTRLLER_PATH),
-					'Model'      => dirname(MODEL_PATH),
-					'Logic'      => dirname(MODEL_PATH),
-					'Library'    => APP_PATH,
-					'Custom'     => APP_PATH,
-					'Addons'     => APP_PATH,
-					'Tag'        => FRAME_PATH . 'Extension',
-				));
+				'Controller' => dirname(CONTRLLER_PATH),
+				'Model'      => dirname(MODEL_PATH),
+				'Logic'      => dirname(MODEL_PATH),
+				'Library'    => APP_PATH,
+				'Custom'     => APP_PATH,
+				'Addons'     => APP_PATH,
+				'Tag'        => FRAME_PATH . 'Extension',
+			));
 			$instance->registerDirs(array(
-					APP_PATH . 'Custom',
-				));
+				APP_PATH . 'Custom',
+			));
 			$instance->loadFunc('Custom', 'Func');
 		});
 		/**

@@ -8,7 +8,7 @@
 //目录分隔符
 defined('DS') or define('DS', DIRECTORY_SEPARATOR);
 //框架核心版本
-define("FRAME_VERSION", '1.0');
+define("FRAME_VERSION", '1.1');
 //框架发布时间
 define('FRAME_RELEASE', '20140323');
 //加载单例实现
@@ -27,11 +27,11 @@ class KoalaCore extends Singleton {
 	 */
 	public static function execute() {
 		$dispatcher = \Core\AOP\AOP::getInstance(\Koala\Server\Dispatcher::factory('mvc'));
-		$options    = \Plugin::trigger('registerRequest', '', '', true);
+		$options    = \Core\Plugin\Manager::trigger('registerRequest', '', '', true);
 		//视图文件
 		View::setTemplateOptions($options['path']);
 		//控制器分发
-		$dispatcher->execute(\Plugin::trigger('registerController', $options, '', true), array_pop($options['path']));
+		$dispatcher->execute(\Core\Plugin\Manager::trigger('registerController', array($options), '', true), array_pop($options['path']));
 	}
 }
 use Whoops\Run;
@@ -45,22 +45,22 @@ KoalaCore::initialize(function () {
 	ClassLoader::initialize(function ($instance) {
 		$instance->register();
 		$instance->registerNamespaces(array(
-				'Advice'     => FRAME_PATH . 'Addons',
-				'Func'       => FRAME_PATH . 'Core',
-				'Helper'     => FRAME_PATH,
-				'Addons'     => FRAME_PATH,
-				'Base'       => FRAME_PATH . 'Core',
-				'Core'       => FRAME_PATH,
-				'Server'     => FRAME_PATH,
-				'Koala'      => dirname(FRAME_PATH),
-				'Controller' => APP_PATH,
-				'Addons'     => APP_PATH
-			));
+			'Advice'     => FRAME_PATH . 'Addons',
+			'Func'       => FRAME_PATH . 'Core',
+			'Helper'     => FRAME_PATH,
+			'Addons'     => FRAME_PATH,
+			'Base'       => FRAME_PATH . 'Core',
+			'Core'       => FRAME_PATH,
+			'Server'     => FRAME_PATH,
+			'Koala'      => dirname(FRAME_PATH),
+			'Controller' => APP_PATH,
+			'Addons'     => APP_PATH
+		));
 		$instance->registerDirs(array(
-				FRAME_PATH . 'Core',
-				FRAME_PATH . 'Tests',
-				FRAME_PATH . 'Server',
-			));
+			FRAME_PATH . 'Core',
+			FRAME_PATH . 'Tests',
+			FRAME_PATH . 'Server',
+		));
 		//框架内置函数库
 		$instance->LoadFunc('Func', 'Common,Special');
 	});
@@ -69,8 +69,8 @@ KoalaCore::initialize(function () {
 	//定义应用标识码
 	//对多个相同应用情况下的缓存服务提供前缀防止缓存段共用问题;
 	define('APP_UUID', strtolower(substr(md5(APP_PATH), 0, 6)));
-	//检查环境
-	require_once (FRAME_PATH . 'Initialise/checkEnv.php');
+	//定义应用引擎常量
+	define('APP_ENGINE', env::$items['APP_ENGINE']);
 	//composer第三方库加载支持
 	is_file(FRAME_PATH . 'External/autoload.php') AND require FRAME_PATH . 'External/autoload.php';
 	//调试及错误设置
@@ -88,7 +88,7 @@ KoalaCore::initialize(function () {
 		});
 	}
 	//插件支持
-	Plugin::loadPlugin(FRAME_PATH . 'Addons');
-	Plugin::loadPlugin(APP_PATH . 'Addons', '');
+	\Core\Plugin\Manager::loadPlugin(FRAME_PATH . 'Addons');
+	\Core\Plugin\Manager::loadPlugin(APP_PATH . 'Addons', '');
 });
 ////核心初始化结束
