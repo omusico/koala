@@ -7,29 +7,24 @@
  */
 namespace Koala\OAPI\Org;
 use Koala\OAPI\Base;
+
 /**
  * 矩网智慧 分词服务
  *http://www.vapsec.com/fenci/
+ * @abstract
+ * @author    LunnLew <lunnlew@gmail.com>
  */
-class Segment extends Base{
+abstract class Segment extends Base {
 	/**
 	 * 构造函数
 	 */
-	final public function __construct(){
-		
-		$this->cfg = include(__DIR__.'/Api/segment.php');
+	final public function __construct() {
+		$this->cfg = include (__DIR__ . '/Api/segment.php');
 	}
-	/**
-	 * 魔术方法
-	 * @param  string $method 方法名
-	 * @param  array $args   方法参数
-	 * @return mixed         返回值
-	 */
-	public function __call($method,$args){}
 	/**
 	 * 获取token
 	 * @param  string $str [description]
 	 * @return mixed
 	 */
-	abstract protected function _getToken($str='');
+	abstract protected function _getToken($str = '');
 }

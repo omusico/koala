@@ -7,29 +7,24 @@
  */
 namespace Koala\OAPI\Tuling;
 use Koala\OAPI\Base;
+
 /**
  *图灵机器人
  *http://www.tuling123.com/
+ * @abstract
+ * @author    LunnLew <lunnlew@gmail.com>
  */
-class Connect extends Base{
+abstract class Connect extends Base {
 	/**
 	 * 构造函数
 	 */
-	final public function __construct(){
-		
-		$this->cfg = include(__DIR__.'/Api/tuling.php');
+	final public function __construct() {
+		$this->cfg = include (__DIR__ . '/Api/tuling.php');
 	}
-	/**
-	 * 魔术方法
-	 * @param  string $method 方法名
-	 * @param  array $args   方法参数
-	 * @return mixed         返回值
-	 */
-	public function __call($method,$args){}
 	/**
 	 * 获取key
 	 * @param  string $str [description]
 	 * @return mixed
 	 */
-	abstract protected function _getAppKey($str='');
+	abstract protected function _getAppKey($str = '');
 }

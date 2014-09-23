@@ -14,23 +14,7 @@ namespace Koala\Server\Storage;
  * @author    LunnLew <lunnlew@gmail.com>
  */
 class Factory extends \Koala\Server\Factory {
-	public static function getServerName($name) {
-		$server_name = 'LAEStorage';
-		switch ($name) {
-			case 'storage':
-				if (APP_ENGINE == 'SAE') {
-					if (function_exists('SAEStorage')) {$server_name = 'SAEStorage';
-					}
-				} elseif (APP_ENGINE == 'BAE') {
-					if (class_exists('BaeStorage')) {$server_name = 'BaeStorage';
-					}
-				} else {
-					if (class_exists('Storage')) {$server_name = 'LAEStorage';
-					}
-				}
-
-				break;
-		}
-		return self::getRealName('Storage', $server_name);
+	public static function getServerName($name, $prex = '') {
+		return self::getRealName('Storage', $name);
 	}
 }

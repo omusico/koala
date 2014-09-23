@@ -7,23 +7,18 @@
  */
 namespace Koala\OAPI\Qiniu;
 use Koala\OAPI\Base;
-/**
- */
 
-class Img extends Base {
+/**
+ * @abstract
+ * @author    LunnLew <lunnlew@gmail.com>
+ */
+abstract class Img extends Base {
 	/**
 	 * 构造函数
 	 */
 	final public function __construct() {
 		$this->cfg = include (__DIR__ . '/Api/' . array_pop(explode('\\', __CLASS__)) . '.php');
 	}
-	/**
-	 * 魔术方法
-	 * @param  string $method 方法名
-	 * @param  array $args   方法参数
-	 * @return mixed         返回值
-	 */
-	public function __call($method, $args) {}
 	/**
 	 * [setPutPolicy description]
 	 * @param [type] $name      [description]
@@ -50,17 +45,13 @@ class Img extends Base {
 	 * @param  [type] $str [description]
 	 * @return [type]      [description]
 	 */
-	protected function _getAccessKey($str) {
-		return 'hdhNAFre71LpQ9E7sXF2h-6y6XrZesI2qumXJT0m';
-	}
+	abstract protected function _getAccessKey($str);
 	/**
 	 * [_getSecertKey description]
 	 * @param  [type] $str [description]
 	 * @return [type]      [description]
 	 */
-	protected function _getSecertKey($str) {
-		return 'tpEPOHeUTHjcWdroPgO4KopCIWFf8Xssj9k18ouV';
-	}
+	abstract protected function _getSecertKey($str);
 	/**
 	 *
 	 * @param  array  $putPolicy [description]

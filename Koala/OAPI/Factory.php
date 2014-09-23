@@ -14,8 +14,8 @@ namespace Koala\OAPI;
  * @author    LunnLew <lunnlew@gmail.com>
  */
 class Factory extends \Koala\Server\Factory {
-	public static function getServerName($name) {
-		return self::getRealName($name);
+	public static function getServerName($name, $prex = '') {
+		return self::getRealName($name, $prex);
 	}
 	/**
 	 * 组装完整服务类名

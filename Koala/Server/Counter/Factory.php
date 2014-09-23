@@ -14,7 +14,7 @@ namespace Koala\Server\Counter;
  * @author    LunnLew <lunnlew@gmail.com>
  */
 class Factory extends \Koala\Server\Factory {
-	public static function getServerName($name) {
+	public static function getServerName($name, $prex = '') {
 		$server_name = 'LAECounter';
 		switch ($name) {
 			case 'counter':

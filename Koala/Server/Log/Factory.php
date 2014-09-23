@@ -1,7 +1,7 @@
 <?php
 namespace Koala\Server\Log;
 class Factory extends \Koala\Server\Factory {
-	public static function getServerName($name) {
+	public static function getServerName($name, $prex = '') {
 		$server_name = 'Monolog';
 		switch ($name) {
 			case 'log':

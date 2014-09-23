@@ -1,5 +1,7 @@
 <?php
 //应用引导程序
+//目录分隔符
+defined('DS') or define('DS', DIRECTORY_SEPARATOR);
 //
 defined('IN_KOALA') or define('IN_KOALA', true);
 //默认调试级别设置
@@ -16,8 +18,6 @@ if (!is_file(APP_PATH . 'Custom/Koala.php')) {
 }
 //
 require_once (FRAME_PATH . 'Core/CheckEnv.php');
-//
-require_once (FRAME_PATH . 'Core/AE/' . env::$items['APP_ENGINE'] . '.php');
 //站点
 define('SITE_URL', 'http://' . $_SERVER['HTTP_HOST'] . env::$items['APP_RELATIVE_URL']);
 define('SITE_RELATIVE_URL', env::$items['APP_RELATIVE_URL']);
@@ -32,6 +32,8 @@ if (env::$items['IS_CLI']) {require FRAME_PATH . 'Core/KoalaTask.php';
 } else {//加载框架WEB核心
 	require FRAME_PATH . 'Core/KoalaCore.php';
 }
+//
+require_once (FRAME_PATH . 'Core/AE/' . env::$items['APP_ENGINE'] . '.php');
 //加载应用核心
 if (is_file(APP_PATH . 'Custom/Koala.php')) {require APP_PATH . 'Custom/Koala.php';
 } else {//加载空核心

@@ -20,7 +20,7 @@ final class Factory extends \Koala\Server\Factory {
 	 * @static
 	 * @return string       正式服务名
 	 */
-	public static function getServerName($name) {
+	public static function getServerName($name, $prex = '') {
 		$server_name = 'LAEMemcache';
 		switch ($name) {
 			case 'memcache':

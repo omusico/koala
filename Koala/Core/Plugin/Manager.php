@@ -65,7 +65,7 @@ class Manager {
 				$param = array($param);
 			}
 			if (isset(self::$_params[$hook][$string])) {
-				$param = array(array_merge(self::$_params[$hook][$string], $param));
+				$param = array_merge(self::$_params[$hook][$string], $param);
 			}
 			return call_user_func_array($callable, $param);
 		}

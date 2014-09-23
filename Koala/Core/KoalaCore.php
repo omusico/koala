@@ -5,8 +5,6 @@
  * @package  Koala
  * @author   LunnLew <lunnlew@gmail.com>
  */
-//目录分隔符
-defined('DS') or define('DS', DIRECTORY_SEPARATOR);
 //框架核心版本
 define("FRAME_VERSION", '1.1');
 //框架发布时间

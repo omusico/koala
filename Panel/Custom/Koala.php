@@ -12,9 +12,9 @@ define('RELEASE_PATH_DEFAULT', PROTECT_PATH_DEFAULT . 'release');
 /**
  * 应用的初始化过程
  */
-\Core\Plugin\Manager::trigger('appInitialize', '', '', true);
-\Core\Plugin\Manager::trigger('coreLazyInitialize', '', '', true);
-\Core\Plugin\Manager::trigger('appLazyInitialize', '', '', true);
+hookTrigger('appInitialize', '', '', true);
+hookTrigger('coreLazyInitialize', '', '', true);
+hookTrigger('appLazyInitialize', '', '', true);
 /**
  * 应用执行实现
  */

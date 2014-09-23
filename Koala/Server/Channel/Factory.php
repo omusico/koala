@@ -14,7 +14,7 @@ namespace Koala\Server\Channel;
  * @author    LunnLew <lunnlew@gmail.com>
  */
 class Factory extends \Koala\Server\Factory {
-	public static function getServerName($name) {
+	public static function getServerName($name, $prex = '') {
 		$server_name = 'LAEChannel';
 		switch ($name) {
 			case 'channel':

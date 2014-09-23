@@ -41,7 +41,7 @@ class Config {
 			$result = $val;
 		}
 
-		if (strripos($key, 'list') === (strlen($key)-4)) {
+		if (strripos($key, 'list') === (strlen($key) - 4)) {
 			$result = explode(',', $result);
 		}
 
@@ -76,7 +76,7 @@ class Config {
 	 * 获取配置文件路径
 	 */
 	public static function getPath($file) {
-		if (APP_ENGINE !== 'LAE') {
+		if (\env::$items['APP_ENGINE'] !== 'LAE') {
 			return STOR_PATH . $file;
 		} else {
 			return APP_PATH . $file;

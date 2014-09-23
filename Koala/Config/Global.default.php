@@ -2,10 +2,10 @@
 /**
  *本文件为默认配置文件
  */
-$cfg['site_disable'] = 0;
-$cfg['charset']      = 'utf-8';
-$cfg['time_zone']    = 'Asia/Hong_Kong';
-
+$cfg['site_disable']       = 0;
+$cfg['charset']            = 'utf-8';
+$cfg['time_zone']          = 'Asia/Hong_Kong';
+$cfg['enable_class_alias'] = true;
 //模板引擎
 $cfg['Engine'] = array(
 	'default' => 'Smarty',

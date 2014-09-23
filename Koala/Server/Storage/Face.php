@@ -1,15 +1,19 @@
 <?php
+/**
+ * Koala - A PHP Framework For Web
+ *
+ * @package  Koala
+ * @author   LunnLew <lunnlew@gmail.com>
+ */
 namespace Koala\Server\Storage;
-interface Face{
-	//构造函数
-	public function __construct();
+interface Face {
 	/**
 	 * 向文件写入内容
 	 * @param  string $file    文件
 	 * @param  string $content 内容
 	 * @return bool          true/false
 	 */
-	public function write($file,$content);
+	public function write($file, $content);
 	/**
 	 * 从文件读取内容
 	 * @param  string $file 文件
@@ -22,14 +26,14 @@ interface Face{
 	 * @param  string $file    目标文件
 	 * @return bool          true/false
 	 */
-	public function upload($tmpfile,$file);
+	public function upload($tmpfile, $file);
 	/**
 	 * 复制某个文件
 	 * @param  string $fromfile 源文件
 	 * @param  string $tofile   目标文件
 	 * @return bool          true/false
 	 */
-	public function copy($fromfile,$tofile);
+	public function copy($fromfile, $tofile);
 	/**
 	 * 删除某个文件
 	 * @param  string $file 文件
@@ -74,7 +78,7 @@ interface Face{
 	 * @param  array  $attr 属性数组
 	 * @return array       索引数组
 	 */
-	public function getFileAttr($file,$attr=array());
+	public function getFileAttr($file, $attr = array());
 	/**
 	 * 检查某个文件是否存在
 	 * @param  string $file 文件
@@ -87,7 +91,7 @@ interface Face{
 	 * @param  string $newfile 文件
 	 * @return bool          true/false
 	 */
-	public function rename($file,$newfile);
+	public function rename($file, $newfile);
 	/**
 	 * 从文件读取内容到数组
 	 * @param  string $file 文件

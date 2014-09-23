@@ -1,7 +1,7 @@
 <?php
 namespace Koala\Server\Segment;
 class Factory extends \Koala\Server\Factory {
-	public static function getServerName($name) {
+	public static function getServerName($name, $prex='') {
 		$server_name = 'LAESegment';
 		switch ($name) {
 			case 'segment':

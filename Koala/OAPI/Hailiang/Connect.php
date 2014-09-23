@@ -7,31 +7,27 @@
  */
 namespace Koala\OAPI\Hailiang;
 use Koala\OAPI\Base;
+
 /**
  * 海量云分词服务
  * http://home.hylanda.com/show_5_19.html
+ * @abstract
+ * @author    LunnLew <lunnlew@gmail.com>
  */
-class Connect extends Base{
+abstract class Connect extends Base {
 	/**
 	 * 构造函数
 	 */
-	final public function __construct(){
-		
-		$this->cfg = include(__DIR__.'/Api/hlsegment.php');
+	final public function __construct() {
+		$this->cfg = include (__DIR__ . '/Api/hlsegment.php');
 	}
-	/**
-	 * 魔术方法
-	 * @param  string $method 方法名
-	 * @param  array $args   方法参数
-	 * @return mixed         返回值
-	 */
-	public function __call($method,$args){}
 	/**
 	 * 获取token
 	 * @param  string $str [description]
 	 * @return mixed
 	 */
-	abstract protected function _getToken($str=''){}
+	abstract protected function _getToken($str = '');
+	
 	/**
 	 * 获取xmldata
 	 * @param  string $str [description]

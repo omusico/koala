@@ -8,22 +8,16 @@
 namespace Koala\OAPI\Douban;
 use Koala\OAPI\Base;
 include (__DIR__ . '/Lib/func.php');
-/**
- */
 
-class Connect extends Base {
+/**
+ * @abstract
+ * @author    LunnLew <lunnlew@gmail.com>
+ */
+abstract class Connect extends Base {
 	/**
 	 * 构造函数
 	 */
 	final public function __construct() {
-
 		$this->cfg = include (__DIR__ . '/Api/connect.php');
 	}
-	/**
-	 * 魔术方法
-	 * @param  string $method 方法名
-	 * @param  array $args   方法参数
-	 * @return mixed         返回值
-	 */
-	public function __call($method, $args) {}
 }

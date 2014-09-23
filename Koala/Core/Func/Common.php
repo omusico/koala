@@ -465,7 +465,6 @@ function getValueRec($keys = array(), $arr = array(), &$depth = 0) {
 function urlsafe_base64_encode($str) {
 	return str_replace(array('+', '/'), array('-', '_'), base64_encode($str));
 }
-
-function needSource($name) {
-	$_SESSION['need_' . $name] = true;
+function hookTrigger($hook, $param = null, $callable = null, $return = false) {
+	return \Core\Plugin\Manager::trigger($hook, $param, $callable, $return);
 }
