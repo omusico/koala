@@ -47,31 +47,12 @@ env::check("PHP_VERSION", function ($key) {
 });
 //应用相对URL路径
 env::reg('APP_RELATIVE_URL', function ($key) {
-	$data = array_intersect(explode('/', $_SERVER["REQUEST_URI"]), explode('/', $_SERVER["SCRIPT_NAME"]));
-	$test_path = '';
-	//在/app/index.php/param/1类似情况下 为/app
-	if (($pos = array_search(basename($_SERVER["SCRIPT_NAME"]), $data)) !== false) {
-		$test_path = implode('/', array_slice($data, 0, $pos));
-	} else {
-		//在/app/param/1类似情况下 为/app
-		$num = count($data);
-		for ($i = 2; $i < $num; $i++) {
-			$test_path = implode('/', array_slice($data, 0, $i));
-			if (strpos($_SERVER["REQUEST_URI"], $test_path) === 0 && strpos($_SERVER["SCRIPT_NAME"], $test_path) === 0) {
-				break;
-			}
-		}
-	}
-	$test_path = $test_path . '/';
-	$pathname = str_replace(str_replace('\\', '/', $_SERVER['DOCUMENT_ROOT']), '', str_replace('\\', '/', ENTRANCE_PATH));
-	//BAE
-	if (env::$items['APP_ENGINE'] == 'BAE') {//BAE $_SERVER['DOCUMENT_ROOT'] 与 ENTRANCE_PATH 不在同一路径分支。
-		$pathname = basename($pathname) . DIRECTORY_SEPARATOR;
-	}
-	if ($pathname != $test_path) {
-		$test_path = $pathname;
-	}
-	return $test_path;
+	//if ($_SERVER['DOCUMENT_ROOT'] . $_SERVER['PHP_SELF'] == $_SERVER['SCRIPT_FILENAME']) {
+	$path = rtrim($_SERVER['PHP_SELF'], array_pop(explode('/', $_SERVER['PHP_SELF'])));
+	//} else {
+
+	//}
+	return $path;
 });
 env::check("PHP_UPLOADSIZE", function ($key) {
 	return array(

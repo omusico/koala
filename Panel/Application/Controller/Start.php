@@ -21,6 +21,10 @@ class Start extends PublicController {
 	 * 应用创建配置页
 	 */
 	public function index() {
+		$o = \Koala\OAPI::factory('Tuling\Connect', array(), 'Library');
+		$o->apply('tuling', array());
+		print_r($o);
+		exit;
 		$file = \Config::getPath('Config/App.php');
 		$arr  = include ($file);
 		\FrontData::assign('createcfg', $arr);

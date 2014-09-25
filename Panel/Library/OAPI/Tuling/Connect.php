@@ -1,8 +1,6 @@
 <?php
 /**
- * Koala - A PHP Framework For Web
- *
- * @package  Koala
+ * @package  Library
  * @author   LunnLew <lunnlew@gmail.com>
  */
 namespace Library\OAPI\Tuling;
