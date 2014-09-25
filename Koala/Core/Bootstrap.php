@@ -32,7 +32,6 @@ if (env::$items['IS_CLI']) {require FRAME_PATH . 'Core/KoalaTask.php';
 } else {//加载框架WEB核心
 	require FRAME_PATH . 'Core/KoalaCore.php';
 }
-//
 require_once (FRAME_PATH . 'Core/AE/' . env::$items['APP_ENGINE'] . '.php');
 //加载应用核心
 if (is_file(APP_PATH . 'Custom/Koala.php')) {require APP_PATH . 'Custom/Koala.php';

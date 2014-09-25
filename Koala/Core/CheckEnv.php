@@ -47,12 +47,8 @@ env::check("PHP_VERSION", function ($key) {
 });
 //应用相对URL路径
 env::reg('APP_RELATIVE_URL', function ($key) {
-	//if ($_SERVER['DOCUMENT_ROOT'] . $_SERVER['PHP_SELF'] == $_SERVER['SCRIPT_FILENAME']) {
-	$path = rtrim($_SERVER['PHP_SELF'], array_pop(explode('/', $_SERVER['PHP_SELF'])));
-	//} else {
-
-	//}
-	return $path;
+	$file = substr($_SERVER['PHP_SELF'], 0, stripos($_SERVER['PHP_SELF'], '.php') + 4);
+	return rtrim($file, array_pop(explode('/', $file)));
 });
 env::check("PHP_UPLOADSIZE", function ($key) {
 	return array(
