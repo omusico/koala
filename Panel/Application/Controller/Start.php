@@ -21,12 +21,12 @@ class Start extends PublicController {
 	 * 应用创建配置页
 	 */
 	public function index() {
-		$o = \Koala\OAPI::factory('Tuling\Connect', array(), 'Library');
+		/*$o = \Koala\OAPI::factory('Tuling\Connect', array(), 'Library');
 		$o->apply('tuling', array());
 		print_r($o);
-		exit;
+		exit;*/
 		$file = \Config::getPath('Config/App.php');
-		$arr  = include ($file);
+		$arr = include ($file);
 		\FrontData::assign('createcfg', $arr);
 	}
 	/**
@@ -34,10 +34,10 @@ class Start extends PublicController {
 	 */
 	public function _createApp() {
 		$file = \Config::getPath('Config/App.php');
-		$arr  = include ($file);
+		$arr = include ($file);
 		if ($arr['projectpath'] == '@' || !is_dir($arr['projectpath'])) {
 			$arr['projectpath'] = PROTECT_PATH_DEFAULT;
-			$arr['apppath']     = PROTECT_PATH_DEFAULT . $arr['appname'];
+			$arr['apppath'] = PROTECT_PATH_DEFAULT . $arr['appname'];
 		} else {
 			$arr['apppath'] = $arr['projectpath'] . $arr['appname'];
 		}

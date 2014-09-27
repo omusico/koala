@@ -48,9 +48,9 @@ $cfg["URL_VAR"]           = 's';
 $cfg['MULTIPLE_APP'] = 0;
 $cfg['APP']          = array(
 	//允许应用列表
-	'list' => 'APP1',
+	'list' => 'APP',
 	//默认应用
-	'default' => 'APP1',
+	'default' => 'APP',
 );
 
 //多分组相关配置

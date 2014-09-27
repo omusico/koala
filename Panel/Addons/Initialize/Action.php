@@ -25,12 +25,12 @@ class Action extends \Koala\Addons\Initialize\Action {
 			$instance->register();
 			$instance->registerNamespaces(array(
 				'Controller' => dirname(CONTRLLER_PATH),
-				'Model'      => dirname(MODEL_PATH),
-				'Logic'      => dirname(MODEL_PATH),
-				'Library'    => APP_PATH,
-				'Custom'     => APP_PATH,
-				'Addons'     => APP_PATH,
-				'Tag'        => FRAME_PATH . 'Extension',
+				'Model' => dirname(MODEL_PATH),
+				'Logic' => dirname(MODEL_PATH),
+				'Library' => APP_PATH,
+				'Custom' => APP_PATH,
+				'Addons' => APP_PATH,
+				'Tag' => FRAME_PATH . 'Extension',
 			));
 			$instance->registerDirs(array(
 				APP_PATH . 'Custom',
@@ -42,5 +42,8 @@ class Action extends \Koala\Addons\Initialize\Action {
 		 */
 		\Config::loadFile(\Config::getPath('Config/LAEGlobal.user.php'));
 		is_file(APP_PATH . 'Vendor/autoload.php') AND require APP_PATH . 'Vendor/autoload.php';
+
+		//
+		\Request::parse();
 	}
 }

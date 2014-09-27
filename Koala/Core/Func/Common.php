@@ -41,7 +41,7 @@ function message($message, $type = \Core\Front\MessageState::INFO) {
  */
 function random($length, $chars = '0123456789') {
 	$hash = '';
-	$max  = strlen($chars) - 1;
+	$max = strlen($chars) - 1;
 	for ($i = 0; $i < $length; $i++) {
 		$hash .= $chars[mt_rand(0, $max)];
 	}
@@ -62,8 +62,8 @@ function createRandomstr($lenth = 6) {
  */
 function createShortGuid($namespace = '') {
 	static $guid = '';
-	$uid         = uniqid("", true);
-	$data        = $namespace;
+	$uid = uniqid("", true);
+	$data = $namespace;
 	$data .= $_SERVER['REQUEST_TIME'];
 	$data .= $_SERVER['HTTP_USER_AGENT'];
 	$data .= $_SERVER['LOCAL_ADDR'];
@@ -85,8 +85,8 @@ function createShortGuid($namespace = '') {
  */
 function createGuid($namespace = '') {
 	static $guid = '';
-	$uid         = uniqid("", true);
-	$data        = $namespace;
+	$uid = uniqid("", true);
+	$data = $namespace;
 	$data .= $_SERVER['REQUEST_TIME'];
 	$data .= $_SERVER['HTTP_USER_AGENT'];
 	$data .= $_SERVER['LOCAL_ADDR'];
@@ -115,7 +115,7 @@ function createGuid($namespace = '') {
  * @return string
  */
 function U($url = '', $vars = '', $suffix = true, $redirect = false, $domain = false, $overwite = false) {
-	$u = \Core\AOP\Aop::getInstance('URL');
+	$u = new \URL;
 	return $u->Assembler($url, $vars, $suffix, $redirect, $domain, $overwite);
 }
 /**
@@ -133,7 +133,7 @@ function L($item) {
  */
 function M($table = '') {
 	Model::$table_name = $table;
-	Model::$tpr        = C('DB_PREFIX');
+	Model::$tpr = C('DB_PREFIX');
 	return new Model();
 }
 /**
@@ -415,7 +415,7 @@ function cmp_func($a, $b) {
 }
 //解析/id/1/name/2 格式 到 array('id'=>1,'name'=>2)
 function parse_varstr($var_str, $del = '/') {
-	$one  = $two  = array();
+	$one = $two = array();
 	$args = explode($del, $var_str);
 	if (count($args) % 2 != 0) {array_pop($args);
 	}
@@ -453,7 +453,7 @@ function import($class_path, $class) {
 function getValueRec($keys = array(), $arr = array(), &$depth = 0) {
 	foreach ($keys as $index => $key) {
 		if ($depth == 1) {$key = strtolower($key);}
-		$arr                   = isset($arr[$key]) ? $arr[$key] : null;
+		$arr = isset($arr[$key]) ? $arr[$key] : null;
 		if ($arr === null) {
 			break;
 		}

@@ -24,12 +24,12 @@ class KoalaCore extends Singleton {
 	 * @access public
 	 */
 	public static function execute() {
-		$dispatcher = \Core\AOP\AOP::getInstance(\Koala\Server\Dispatcher::factory('mvc'));
-		$options    = \Core\Plugin\Manager::trigger('registerRequest', '', '', true);
-		//视图文件
-		View::setTemplateOptions($options['path']);
 		//控制器分发
-		$dispatcher->execute(\Core\Plugin\Manager::trigger('registerController', array($options), '', true), array_pop($options['path']));
+		$dispatcher = \Core\AOP\AOP::getInstance(\Koala\Server\Dispatcher::factory('mvc'));
+		$dispatcher->execute(
+			\Core\Plugin\Manager::trigger('getControllerClass', array(Request::$map_paths), '', true),
+			Request::$map_paths[C('VAR_ACTION', 'a')]
+		);
 	}
 }
 use Whoops\Run;
@@ -43,16 +43,16 @@ KoalaCore::initialize(function () {
 	ClassLoader::initialize(function ($instance) {
 		$instance->register();
 		$instance->registerNamespaces(array(
-			'Advice'     => FRAME_PATH . 'Addons',
-			'Func'       => FRAME_PATH . 'Core',
-			'Helper'     => FRAME_PATH,
-			'Addons'     => FRAME_PATH,
-			'Base'       => FRAME_PATH . 'Core',
-			'Core'       => FRAME_PATH,
-			'Server'     => FRAME_PATH,
-			'Koala'      => dirname(FRAME_PATH),
+			'Advice' => FRAME_PATH . 'Addons',
+			'Func' => FRAME_PATH . 'Core',
+			'Helper' => FRAME_PATH,
+			'Addons' => FRAME_PATH,
+			'Base' => FRAME_PATH . 'Core',
+			'Core' => FRAME_PATH,
+			'Server' => FRAME_PATH,
+			'Koala' => dirname(FRAME_PATH),
 			'Controller' => APP_PATH,
-			'Addons'     => APP_PATH
+			'Addons' => APP_PATH
 		));
 		$instance->registerDirs(array(
 			FRAME_PATH . 'Core',

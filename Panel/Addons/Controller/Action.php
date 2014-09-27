@@ -17,7 +17,7 @@ class Action {
 	 */
 	function __construct() {
 		//你想自动挂接的钩子列表
-		\Core\Plugin\Manager::only('registerController', array(&$this, 'register'));
+		\Core\Plugin\Manager::only('getControllerClass', array(&$this, 'register'));
 	}
 	/**
 	 * 注册控制器加载方法并返回控制器类
@@ -26,12 +26,12 @@ class Action {
 	 */
 	public function register($options = array()) {
 		if (C('MULTIPLE_GROUP')) {
-			list($group, $module, $action) = $options['path'];
+			list($group, $module, $action) = array_values($options);
 			!defined('GROUP_NAME') AND define('GROUP_NAME', $group);
 			$class = $group . '\Controller\\' . $module;
 		} else {
-			list($module, $action) = $options['path'];
-			$class                 = 'Controller\\' . $module;
+			list($module, $action) = array_values($options);
+			$class = 'Controller\\' . $module;
 		}
 		!defined('MODULE_NAME') AND define('MODULE_NAME', ucwords($module));
 		!defined('ACTION_NAME') AND define('ACTION_NAME', $action);

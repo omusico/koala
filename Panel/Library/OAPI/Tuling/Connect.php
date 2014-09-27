@@ -15,6 +15,6 @@ class Connect extends \Koala\OAPI\Tuling\Connect {
 	 * @return mixed
 	 */
 	protected function _getAppKey($str = '') {
-		exit('ds');
+		exit('_getAppKey');
 	}
 }

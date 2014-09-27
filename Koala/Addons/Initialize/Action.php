@@ -33,12 +33,12 @@ class Action extends \Core\Plugin\Base {
 			$instance->register();
 			$instance->registerNamespaces(array(
 				'Controller' => dirname(CONTRLLER_PATH),
-				'Model'      => dirname(MODEL_PATH),
-				'Logic'      => dirname(MODEL_PATH),
-				'Library'    => APP_PATH,
-				'Custom'     => APP_PATH,
-				'Addons'     => APP_PATH,
-				'Tag'        => FRAME_PATH . 'Extension',
+				'Model' => dirname(MODEL_PATH),
+				'Logic' => dirname(MODEL_PATH),
+				'Library' => APP_PATH,
+				'Custom' => APP_PATH,
+				'Addons' => APP_PATH,
+				'Tag' => FRAME_PATH . 'Extension',
 			));
 			$instance->registerDirs(array(
 				APP_PATH . 'Custom',
@@ -49,6 +49,10 @@ class Action extends \Core\Plugin\Base {
 		 * 应用配置文件
 		 */
 		\Config::loadFile(\Config::getPath('Config/LAEGlobal.user.php'));
+		is_file(APP_PATH . 'Vendor/autoload.php') AND require APP_PATH . 'Vendor/autoload.php';
+
+		//
+		\Request::parse();
 	}
 	public function defaultCoreLazyInitialize() {
 		//控制器路径
@@ -103,6 +107,8 @@ class Action extends \Core\Plugin\Base {
 		//视图初始化
 		\View::initialize(function ($instance) {
 			\View::$engine = \Koala\Server\Engine::factory(C('Engine:default'));
+			//视图文件
+			\View::setTemplateOptions(\Request::$map_paths);
 		});
 	}
 }

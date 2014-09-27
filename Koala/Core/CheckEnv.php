@@ -39,9 +39,7 @@ env::check("PHP_VERSION", function ($key) {
 	}
 	if (version_compare(PHP_VERSION, "4.2.3", "<=")) {
 		//register_globals设置关闭
-		env::check("register_globals", function ($key) {
-			ini_set($key, 0);
-		});
+		ini_set("register_globals", 0);
 	}
 	return $result;
 });

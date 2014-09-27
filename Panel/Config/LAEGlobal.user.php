@@ -32,6 +32,13 @@ $cfg['URL_PATHINFO_DEPR'] = '-';
 $cfg["URL_HTML_SUFFIX"]   = '.html';
 $cfg["URL_VAR"]           = 's';
 
+$cfg['MULTIPLE_APP'] = 0;
+$cfg['APP']          = array(
+	//允许应用列表
+	'list' => 'APP,WWW',
+	//默认应用
+	'default' => 'APP',
+);
 //多分组相关配置
 $cfg['MULTIPLE_GROUP'] = 0;
 $cfg['GROUP']          = array(
