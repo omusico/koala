@@ -38,7 +38,3 @@ if (is_file(APP_PATH . 'Custom/Koala.php')) {require APP_PATH . 'Custom/Koala.ph
 } else {//加载空核心
 	require FRAME_PATH . 'Koala.php';
 }
-
-$s = Koala\OAPI::factory('Tuling\Connect');
-print_r($s);
-exit;
