@@ -13,11 +13,4 @@ use Koala\OAPI\Base;
  * @abstract
  * @author    LunnLew <lunnlew@gmail.com>
  */
-abstract class Connect extends Base {
-	/**
-	 * 构造函数
-	 */
-	final public function __construct() {
-		$this->cfg = include (__DIR__ . '/Api/alipay.auth.php');
-	}
-}
+abstract class Connect extends Base {}

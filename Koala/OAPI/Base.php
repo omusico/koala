@@ -38,21 +38,28 @@ class Base {
 	 *
 	 * 目录变量初始化
 	 */
-	public function __construct() {}
+	public function __construct() {
+		list($class, $org) = array_reverse(explode('\\', get_called_class()));
+		$this->cfg = include (__DIR__ . '/' . $org . '/Api/' . $class . '.php');
+	}
 	/**
 	 * 从URL侧获取数据
 	 * @param  string $name api名
 	 * @return mixed     	数据结果
 	 */
 	public function apply($name, $params = array()) {
-		$this->name   = $name   = strtolower($name);
+		$this->name = $name = strtolower($name);
 		$this->params = $params;
 		if (isset($this->cfg[$name])) {
-			if (isset($this->cfg[$name]['redirect'])) {
-				$this->_redirectUrl($name, $this->_parseParams($name), array_shift(explode('/', $this->cfg[$name]['method'])));
-			} else {
+			if (isset($this->cfg[$name]['url'])) {
+				if (isset($this->cfg[$name]['redirect'])) {
+					$this->_redirectUrl($name, $this->_parseParams($name), array_shift(explode('/', $this->cfg[$name]['method'])));
+				} else {
 
-				return $this->_fetchUrl($name, $this->_parseParams($name), array_shift(explode('/', $this->cfg[$name]['method'])));
+					return $this->_fetchUrl($name, $this->_parseParams($name), array_shift(explode('/', $this->cfg[$name]['method'])));
+				}
+			} else {
+				return null;
 			}
 		} else {
 			return null;
@@ -71,7 +78,7 @@ class Base {
 				$params = array_merge($params, array(key($this->_parseStr($value)) . $separator . current($this->_parseStr($value))));
 			}
 			$this->cfg[$name][$type] = $params;
-			$params                  = array();
+			$params = array();
 		}
 	}
 	/**
@@ -85,7 +92,7 @@ class Base {
 		isset($this->cfg[$name]['commonParam']) || ($this->cfg[$name]['commonParam'] = array());
 
 		$this->_parseHC($name);
-		$params   = array();
+		$params = array();
 		$paramCFG = array_merge($this->cfg[$name]['commonParam'], $this->cfg[$name]['requestParam']);
 		foreach ($paramCFG as $key => $value) {
 			$params = array_merge($params, $this->_parseStr($value));
@@ -98,9 +105,9 @@ class Base {
 	 * @return array     	结果
 	 */
 	protected function _parseStr($str = '') {
-		$parts         = explode('|', $str);
+		$parts = explode('|', $str);
 		$result[$name] = $name = array_shift($parts);
-		$pos           = false;
+		$pos = false;
 		if (count($parts) > 0) {
 			//循环处理
 			foreach ($parts as $key => $callable) {
@@ -112,7 +119,7 @@ class Base {
 				} else {
 					if (($pos = stripos($callable, '@')) === 0) {
 						$result[$name] = substr($callable, $pos + 1);
-						$pos           = false;
+						$pos = false;
 					} else {
 						$result[$name] = $callable;
 					}

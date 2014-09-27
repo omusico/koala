@@ -25,7 +25,7 @@ class Start extends PublicController {
 		$o->apply('tuling', array());
 		print_r($o);
 		exit;*/
-		$file = \Config::getPath('Config/App.php');
+		$file = \Config::getPath('Build/config.php');
 		$arr = include ($file);
 		\FrontData::assign('createcfg', $arr);
 	}
@@ -33,7 +33,7 @@ class Start extends PublicController {
 	 * 处理创建的方法
 	 */
 	public function _createApp() {
-		$file = \Config::getPath('Config/App.php');
+		$file = \Config::getPath('Build/config.php');
 		$arr = include ($file);
 		if ($arr['projectpath'] == '@' || !is_dir($arr['projectpath'])) {
 			$arr['projectpath'] = PROTECT_PATH_DEFAULT;

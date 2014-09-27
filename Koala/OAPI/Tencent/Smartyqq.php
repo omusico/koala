@@ -16,12 +16,6 @@ include (__DIR__ . '/Lib/func.php');
  */
 abstract class Smartyqq extends Base {
 	/**
-	 * 构造函数
-	 */
-	final public function __construct() {
-		$this->cfg = include (__DIR__ . '/Api/smartyqq.php');
-	}
-	/**
 	 * 获取qq号码
 	 * @param  string $str [description]
 	 * @return mixed

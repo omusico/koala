@@ -7,6 +7,7 @@
  */
 namespace Koala\OAPI\Org;
 use Koala\OAPI\Base;
+
 /**
  * 国家气象局提供的天气预报接口
  * 接口地址：
@@ -20,13 +21,6 @@ use Koala\OAPI\Base;
  */
 
 class Weather extends Base {
-	/**
-	 * 构造函数
-	 */
-	final public function __construct() {
-
-		$this->cfg = include (__DIR__ . '/Api/weather.php');
-	}
 	/**
 	 * 魔术方法
 	 * @param  string $method 方法名

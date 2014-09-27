@@ -14,13 +14,7 @@ use Koala\OAPI\Base;
  * @abstract
  * @author    LunnLew <lunnlew@gmail.com>
  */
-abstract class Weixin extends Base {
-	/**
-	 * 构造函数
-	 */
-	final public function __construct() {
-		$this->cfg = include (__DIR__ . '/Api/weixinOauth.php');
-	}
+abstract class WeixinConnect extends Base {
 	/**
 	 * 获取回调url
 	 * @param  string $str [description]

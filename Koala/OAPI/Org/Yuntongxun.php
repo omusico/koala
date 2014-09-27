@@ -16,7 +16,7 @@ class Yuntongxun extends Base{
 	/**
 	 * 构造函数
 	 */
-	final public function __construct(){
+	public function __construct(){
 		
 		$this->time = date("YmdHis");
 		$this->cfg = include(__DIR__.'/Api/yuntongxun.php');

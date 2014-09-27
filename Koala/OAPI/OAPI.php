@@ -29,13 +29,13 @@ class OAPI {
 	 * @static
 	 * @return object          驱动实例
 	 */
-	public static function factory($name, $options = array(), $prex = '') {
+	public static function factory($name, $options = array(), $prex = 'Koala') {
 		$server_name = array_pop(explode('\\', __CLASS__));
 		if (empty($name) || !is_string($name)) {
 			exit('OAPI ERROR!');
 		}
 		if (!isset(self::$instances[$name])) {
-			$fac                    = __CLASS__ . '\Factory';
+			$fac = __CLASS__ . '\Factory';
 			self::$instances[$name] = $fac::getInstance($name, array_merge((Array) C($server_name . ':' . $name), (Array) $options), $prex);
 		}
 		return self::$instances[$name];

@@ -13,12 +13,6 @@ use Koala\OAPI\Base;
  */
 class youdaye extends Base {
 	/**
-	 * 构造函数
-	 */
-	final public function __construct() {
-		$this->cfg = include (__DIR__ . '/Api/youdaye.php');
-	}
-	/**
 	 * 获取appUser
 	 * @param  string $str [description]
 	 * @return mixed

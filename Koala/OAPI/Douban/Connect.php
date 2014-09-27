@@ -13,11 +13,4 @@ include (__DIR__ . '/Lib/func.php');
  * @abstract
  * @author    LunnLew <lunnlew@gmail.com>
  */
-abstract class Connect extends Base {
-	/**
-	 * 构造函数
-	 */
-	final public function __construct() {
-		$this->cfg = include (__DIR__ . '/Api/connect.php');
-	}
-}
+abstract class Connect extends Base {}

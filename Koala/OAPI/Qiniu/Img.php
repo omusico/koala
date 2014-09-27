@@ -14,12 +14,6 @@ use Koala\OAPI\Base;
  */
 abstract class Img extends Base {
 	/**
-	 * 构造函数
-	 */
-	final public function __construct() {
-		$this->cfg = include (__DIR__ . '/Api/' . array_pop(explode('\\', __CLASS__)) . '.php');
-	}
-	/**
 	 * [setPutPolicy description]
 	 * @param [type] $name      [description]
 	 * @param array  $putPolicy [description]
@@ -33,7 +27,7 @@ abstract class Img extends Base {
 	 * @return array     	结果
 	 */
 	protected function _parsePutPolicy($name, $putPolicy = array()) {
-		$params   = array();
+		$params = array();
 		$paramCFG = $this->cfg[$name]['putPolicy'];
 		foreach ($paramCFG as $key => $value) {
 			$params = array_merge($params, $this->_parseStr($value));

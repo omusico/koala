@@ -17,13 +17,6 @@ use Koala\OAPI\Base;
  */
 class Weibooauth extends Base{
 	/**
-	 * 构造函数
-	 */
-	final public function __construct(){
-		
-		$this->cfg = include(__DIR__.'/Api/weiboOauth.php');
-	}
-	/**
 	 * 魔术方法
 	 * @param  string $method 方法名
 	 * @param  array $args   方法参数

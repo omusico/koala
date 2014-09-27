@@ -7,8 +7,6 @@
  */
 
 class URL {
-	public $request_option = array();
-	public static $param = array();
 	/**
 	 * URL组装
 	 * @param string $url URL表达式，格式：'[分组/模块/操作]?param1=val1&?param2=val2|param3/val3'

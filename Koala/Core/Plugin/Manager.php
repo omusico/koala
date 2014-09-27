@@ -9,7 +9,7 @@ namespace Core\Plugin;
 class Manager {
 	//已注册的插件监听表
 	private static $_queues = array();
-	private static $_onlys  = array();
+	private static $_onlys = array();
 	//插件参数
 	private static $_params = array();
 	/**
@@ -27,7 +27,7 @@ class Manager {
 	 * @param  mixd $callable 可调用的参数
 	 */
 	public static function append($hook, $callable, $param = null) {
-		self::$_queues[$hook][]                               = $callable;
+		self::$_queues[$hook][] = $callable;
 		self::$_params[$hook][self::callableToStr($callable)] = $param;
 	}
 	/**
@@ -36,7 +36,7 @@ class Manager {
 	 * @param  mixd $callable 可调用的参数
 	 */
 	public static function register($hook, $callable, $param = null) {
-		self::$_queues[$hook][]                               = $callable;
+		self::$_queues[$hook][] = $callable;
 		self::$_params[$hook][self::callableToStr($callable)] = $param;
 	}
 	/**
@@ -45,7 +45,7 @@ class Manager {
 	 * @param  mixd $callable 可调用的参数
 	 */
 	public static function only($hook, $callable, $param = null) {
-		self::$_onlys[$hook]                                  = $callable;
+		self::$_onlys[$hook] = $callable;
 		self::$_params[$hook][self::callableToStr($callable)] = $param;
 	}
 	/**
@@ -103,16 +103,19 @@ class Manager {
 	 */
 	public static function loadPlugin($path, $pre = 'Koala', $dir = 'Addons') {
 		$path = rtrim($path, '/') . '/';
+		if (!file_exists($path)) {return;}
 		//遍历插件
 		$handle = opendir($path);
-		while ($file = readdir($handle)) {
-			if ($file == '.' || $file == '..') {
-				continue;
-			}
-			$newpath = $path . $file;
-			if (is_dir($newpath)) {
-				$class = $pre . '\\' . $dir . '\\' . $file . '\\Action';
-				new $class();
+		if ($handle) {
+			while ($file = readdir($handle)) {
+				if ($file == '.' || $file == '..') {
+					continue;
+				}
+				$newpath = $path . $file;
+				if (is_dir($newpath)) {
+					$class = $pre . '\\' . $dir . '\\' . $file . '\\Action';
+					new $class();
+				}
 			}
 		}
 	}

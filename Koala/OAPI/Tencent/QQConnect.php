@@ -16,12 +16,6 @@ use Koala\OAPI\Base;
  */
 abstract class QQConnect extends Base {
 	/**
-	 * 构造函数
-	 */
-	final public function __construct() {
-		$this->cfg = include (__DIR__ . '/Api/QQOauth.php');
-	}
-	/**
 	 * 获取回调url
 	 * @param  string $str [description]
 	 * @return mixed

@@ -16,12 +16,6 @@ use Koala\OAPI\Base;
  */
 abstract class Segment extends Base {
 	/**
-	 * 构造函数
-	 */
-	final public function __construct() {
-		$this->cfg = include (__DIR__ . '/Api/segment.php');
-	}
-	/**
 	 * 获取token
 	 * @param  string $str [description]
 	 * @return mixed
