@@ -9,7 +9,12 @@ defined('LOG_PATH') or define('LOG_PATH', RUNTIME_PATH . 'Log' . DS);
 defined('COMPILE_PATH') or define('COMPILE_PATH', RUNTIME_PATH . 'Compile' . DS);
 //缓存目录
 defined('CACHE_PATH') or define('CACHE_PATH', RUNTIME_PATH . 'Cache' . DS);
-
+//temp
+if (IS_WIN) {
+	defined('TMP_PATH') or define('TMP_PATH', 'c:/temp/');
+} else {
+	defined('TMP_PATH') or define('TMP_PATH', '/tmp/');
+}
 //类别名
 if (C("enable_class_alias", false)) {
 	class_alias('Koala\Server\Rank\Drive\\' . APP_ENGINE . 'Rank', 'Rank');

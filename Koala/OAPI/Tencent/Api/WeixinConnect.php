@@ -18,7 +18,7 @@ $cfg['get_auth_code'] = array(
 	'method'=>'get',
 	'redirect'=>true,
 	'commonParam'=> array(),
-	'requestParam'=>array('response_type|@code','appid|getAppKey','redirect_uri|getCallbackUrl','state','scope|@get_user_info'),
+	'requestParam'=>array('response_type|@code','appid|getAppKey','redirect_uri|getRedirectUri','state','scope|@get_user_info'),
 	);
 //通过Authorization Code获取Access Token,openid
 $cfg['get_access_token'] = array(

@@ -51,7 +51,7 @@ abstract class Img extends Base {
 	 * @param  array  $putPolicy [description]
 	 * @return [type]            [description]
 	 */
-	protected function _getToken($str) {
+	protected function _getAccessToken($str) {
 		$encodedPutPolicy = \urlsafe_base64_encode(json_encode($this->cfg[$this->name]['putPolicy']));
 		return $this->_getAccessKey('AccessKey')
 		. ':' . \urlsafe_base64_encode(hash_hmac("sha1", $encodedPutPolicy, $this->_getSecertKey('SecertKey'), true))

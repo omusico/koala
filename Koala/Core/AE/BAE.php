@@ -8,6 +8,8 @@ defined('LOG_PATH') or define('LOG_PATH', RUNTIME_PATH . 'Storage' . DS);
 defined('COMPILE_PATH') or define('COMPILE_PATH', RUNTIME_PATH . 'Compile' . DS);
 //缓存目录
 defined('CACHE_PATH') or define('CACHE_PATH', RUNTIME_PATH . 'Cache' . DS);
+//temp
+defined('TMP_PATH') or define('TMP_PATH', sys_get_temp_dir() . DS);
 
 //----AE私有常量
 //AK 公钥

@@ -15,43 +15,43 @@ use Koala\OAPI\Base;
  * @author    LunnLew <lunnlew@gmail.com>
  */
 abstract class QQConnect extends Base {
-	/**
-	 * 获取回调url
-	 * @param  string $str [description]
-	 * @return mixed
-	 */
-	protected function _getCallbackUrl($str = '') {
-		return $this->cfg[$this->name]['callbackUrl'];
-	}
-	/**
-	 * 获取appid
-	 * @param  string $str [description]
-	 * @return mixed
-	 */
-	abstract protected function _getAppKey($str = '');
-	/**
-	 * 获取appkey
-	 * @param  string $str [description]
-	 * @return mixed
-	 */
-	abstract protected function _getAppSecret($str = '');
 
 	/**
 	 * 获取code
 	 * @param  string $str [description]
 	 * @return mixed
 	 */
-	abstract protected function _getAuthCode($str = '');
+	protected function _getAuthCode($str = '') {
+		return $_GET['code'];
+	}
 	/**
-	 * 获取openid
+	 * 获取已保存的code RedirectUri
+	 * @param  string $str [description]
+	 * @return mixed
+	 */
+	abstract protected function _getCodeRedirectUri($str = '');
+	/**
+	 * 获取已保存的appid
+	 * @param  string $str [description]
+	 * @return mixed
+	 */
+	abstract protected function _getAppKey($str = '');
+	/**
+	 * 获取已保存的appkey
+	 * @param  string $str [description]
+	 * @return mixed
+	 */
+	abstract protected function _getAppSecret($str = '');
+	/**
+	 * 获取已保存的openid
 	 * @param  string $str [description]
 	 * @return mixed
 	 */
 	abstract protected function _getOpenid($str = '');
 	/**
-	 * 获取Token值
+	 * 获取已保存的Token值
 	 * @param  string $str [description]
 	 * @return mixed
 	 */
-	abstract protected function _getToken($str = '');
+	abstract protected function _getAccessToken($str = '');
 }

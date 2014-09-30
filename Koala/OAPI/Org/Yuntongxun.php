@@ -53,7 +53,7 @@ class Yuntongxun extends Base{
 	 * @param  string $str [description]
 	 * @return mixed
 	 */
-	abstract protected function _getToken($str='');
+	abstract protected function _getAccessToken($str='');
 	/**
 	 * sign
 	 * @param  string $str [description]
@@ -61,7 +61,7 @@ class Yuntongxun extends Base{
 	 */
 	protected function _getSign($str=''){
 		// 大写的sig参数  帐户Id + 帐户taken + 时间戳。
-		return  strtoupper(MD5($this->_getAccountSid().$this->_getToken().$this->time));
+		return  strtoupper(MD5($this->_getAccountSid().$this->_getAccessToken().$this->time));
 	}
 	/**
 	 * Authorization

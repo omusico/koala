@@ -26,7 +26,7 @@ abstract class WeixinPF extends Base {
 		return file_get_contents('php://input', 'r');
 	}
 	public function checkSignature() {
-		$tmpArr = array($this->_getToken(), $this->_getTimestamp(), $this->_getNonce());
+		$tmpArr = array($this->_getAccessToken(), $this->_getTimestamp(), $this->_getNonce());
 		sort($tmpArr, SORT_STRING);
 		$tmpStr = implode($tmpArr);
 		$tmpStr = sha1($tmpStr);
@@ -45,5 +45,5 @@ abstract class WeixinPF extends Base {
 	protected function _getSignature($string = 'signature') {
 		return $_GET[$string];
 	}
-	abstract protected function _getToken($string);
+	abstract protected function _getAccessToken($string);
 }

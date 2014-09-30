@@ -25,7 +25,7 @@ class ClassLoader extends Singleton {
 	}
 	public function registerNamespace($namespace, $path) {
 		if (is_array($path)) {
-			$this->namespaces[$namespace] = array_merge($this->namespaces[$namespace], $path);
+			$this->namespaces[$namespace] = array_merge((array) $this->namespaces[$namespace], $path);
 		} else {
 
 			$this->namespaces[$namespace] = rtrim($path, '\\/');
@@ -49,11 +49,11 @@ class ClassLoader extends Singleton {
 	}
 	//类加载
 	public function loadClass($class) {
-		$class      = str_replace(array('\\', '_'), $this->separator, $class);
-		$parts      = explode($this->separator, $class);
+		$class = str_replace(array('\\', '_'), $this->separator, $class);
+		$parts = explode($this->separator, $class);
 		$fnamespace = $parts[0];
-		$path       = implode($this->separator, $parts);
-		$cname      = array_pop($parts);
+		$path = implode($this->separator, $parts);
+		$cname = array_pop($parts);
 		if (strpos($class, $this->separator) !== false) {
 			//根据名称空间搜索
 			if (isset($this->namespaces[$fnamespace])) {

@@ -56,9 +56,6 @@ class Request {
 		return static::$params;
 	}
 	private static function parsePaths($paths = array(), $params = array(), $overwite = true) {
-		if (empty($paths)) {
-			return $params;
-		}
 		//处理计数
 		$num = 0;
 		//是否启用了多应用模式//默认单应用

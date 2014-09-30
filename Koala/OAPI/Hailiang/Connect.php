@@ -20,7 +20,7 @@ abstract class Connect extends Base {
 	 * @param  string $str [description]
 	 * @return mixed
 	 */
-	abstract protected function _getToken($str = '');
+	abstract protected function _getAccessToken($str = '');
 	
 	/**
 	 * 获取xmldata

@@ -11,7 +11,7 @@
 $cfg['small_upload'] = array(
 	'url'         => 'http://upload.qiniu.com/',
 	'method'      => 'post',
-	'commonParam' => array('token|getToken'),
+	'commonParam' => array('token|getAccessToken'),
 	'requestParam' => array('key', 'file'),
 	//http://developer.qiniu.com/docs/v6/api/reference/security/put-policy.html
 	'putPolicy' => array(

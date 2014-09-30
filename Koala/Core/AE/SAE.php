@@ -8,7 +8,8 @@ defined('LOG_PATH') or define('LOG_PATH', null);
 defined('COMPILE_PATH') or define('COMPILE_PATH', 'saemc://Compile' . DS);
 //缓存目录
 defined('CACHE_PATH') or define('CACHE_PATH', 'saemc://Cache' . DS);
-
+//temp
+defined('TMP_PATH') or define('TMP_PATH', rtrim(SAE_TMP_PATH) . '/');
 //----AE私有常量
 define('DB_TYPE', 'mysql');
 //MYSQL数据库常量

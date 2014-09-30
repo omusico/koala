@@ -27,7 +27,7 @@ class KoalaCore extends Singleton {
 		//控制器分发
 		$dispatcher = \Core\AOP\AOP::getInstance(\Koala\Server\Dispatcher::factory('mvc'));
 		$dispatcher->execute(
-			\Core\Plugin\Manager::trigger('getControllerClass', array(Request::$map_paths), '', true),
+			hookTrigger('getControllerClass', array(Request::$map_paths), '', true),
 			Request::$map_paths[C('VAR_ACTION', 'a')]
 		);
 	}

@@ -76,10 +76,10 @@ class Config {
 	 * 获取配置文件路径
 	 */
 	public static function getPath($file) {
-		if (\env::$items['APP_ENGINE'] !== 'LAE') {
-			return STOR_PATH . $file;
-		} else {
-			return APP_PATH . $file;
-		}
+		//if (\env::$items['APP_ENGINE'] !== 'LAE') {
+		//	return STOR_PATH . $file;
+		//} else {
+		return APP_PATH . $file;
+		//}
 	}
 }

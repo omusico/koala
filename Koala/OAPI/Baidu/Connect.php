@@ -21,7 +21,7 @@ abstract class Connect extends Base {
 	 * @param  string $str [description]
 	 * @return mixed
 	 */
-	abstract protected function _getCallbackUrl($str = '');
+	abstract protected function _getRedirectUri($str = '');
 	/**
 	 * 获取appid
 	 * @param  string $str [description]
@@ -52,5 +52,5 @@ abstract class Connect extends Base {
 	 * @param  string $str [description]
 	 * @return mixed
 	 */
-	abstract protected function _getToken($str = '');
+	abstract protected function _getAccessToken($str = '');
 }

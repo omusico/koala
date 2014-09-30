@@ -171,7 +171,7 @@ class Base {
 			curl_setopt($ch, CURLOPT_URL, $this->cfg[$name]['url'] . '?' . http_build_query($params));
 		}
 
-		$cookie_jar = '/tmp/cookie12hdfgyu78df6ghy';
+		$cookie_jar = TMP_PATH . 'cookie12hdfgyu78df6ghy';
 		//提交cookie
 		curl_setopt($ch, CURLOPT_COOKIE, implode(';', $this->cfg[$name]['cookie']));
 		curl_setopt($ch, CURLOPT_COOKIEFILE, $cookie_jar);

@@ -11,23 +11,20 @@
  *
  * 数据结果由Tools/parseWeiboApi.php工具生成并手动修正
  */
-$callbackUrl = 'http://gx.zymall.cn/index.php?s=Demo-Callback-qq.html';
 //请求获取auth_code,然后需要在响应回调redirectUrl处获取auth_code并保存
 $cfg['get_auth_code'] = array(
 	'url' => 'https://api.weibo.com/oauth2/authorize',
-	'callbackUrl' => $callbackUrl,
 	'method' => 'get',
 	'redirect' => true,
 	'commonParam' => array(),
-	'requestParam' => array('client_id|getAppKey', 'redirect_uri|getCallbackUrl', 'state', 'display', 'forcelogin', 'language', 'scope|@get_user_info'),
+	'requestParam' => array('client_id|getAppKey', 'redirect_uri|getCodeRedirectUri', 'state', 'display', 'forcelogin', 'language', 'scope|@get_user_info'),
 );
 //通过Authorization Code获取Access Token
 $cfg['get_access_token'] = array(
 	'url' => 'https://api.weibo.com/oauth2/access_token',
-	'callbackUrl' => $callbackUrl,
 	'method' => 'post',
 	'commonParam' => array(),
-	'requestParam' => array('grant_type|@authorization_code', 'client_id|getAppKey', 'client_secret|getAppSecret', 'code|getAuthCode', 'redirect_uri|getCallbackUrl'),
+	'requestParam' => array('grant_type|@authorization_code', 'client_id|getAppKey', 'client_secret|getAppSecret', 'code|getAuthCode', 'redirect_uri|getCodeRedirectUri'),
 );
 
 //授权信息查询接口
@@ -64,7 +61,7 @@ $cfg["statuses_friends_timeline"] = array(
 	'dataType' => 'JSON',
 	'method' => 'GET',
 	'requestParam' => array(
-		0 => 'trim_user',
+		0 => 'trim_user|0',
 		1 => 'source',
 		2 => 'access_token|getAccessToken',
 		3 => 'since_id',
