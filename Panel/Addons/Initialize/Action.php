@@ -40,7 +40,7 @@ class Action extends \Koala\Addons\Initialize\Action {
 		/**
 		 * 应用配置文件
 		 */
-		\Config::loadFile(\Config::getPath('Config/LAEGlobal.user.php'));
+		\Config::loadFile(APP_PATH . 'Config/LAEGlobal.user.php');
 		is_file(APP_PATH . 'Vendor/autoload.php') AND require APP_PATH . 'Vendor/autoload.php';
 
 		//

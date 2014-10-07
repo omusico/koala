@@ -10,7 +10,6 @@ class ClassLoader extends Singleton {
 	protected $dirs = array();
 	//名称空间分隔符
 	protected $separator = '/';
-
 	//获得名称空间映射表
 	public function getNamespaces() {
 		return $this->namespaces;
@@ -27,10 +26,8 @@ class ClassLoader extends Singleton {
 		if (is_array($path)) {
 			if (!isset($this->namespaces[$namespace])) {$this->namespaces[$namespace] = array();
 			}
-
 			$this->namespaces[$namespace] = array_merge((array) $this->namespaces[$namespace], $path);
 		} else {
-
 			$this->namespaces[$namespace] = rtrim($path, '\\/');
 		}
 	}
@@ -89,7 +86,6 @@ class ClassLoader extends Singleton {
 				}
 			}
 		}
-
 	}
 	//函数库加载
 	public function LoadFunc($namespace, $list) {

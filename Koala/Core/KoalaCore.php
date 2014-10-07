@@ -75,6 +75,7 @@ KoalaCore::initialize(function () {
 	is_file(FRAME_PATH . 'External/autoload.php') AND require FRAME_PATH . 'External/autoload.php';
 	//调试及错误设置
 	if (C('DEBUGLEVEL', defined('DEBUGLEVEL') ? DEBUGLEVEL : 1)) {
+			ini_set("display_errors", "Off");
 			$run = new Run;
 			$run->pushHandler(new PrettyPageHandler);
 			$run->register();
