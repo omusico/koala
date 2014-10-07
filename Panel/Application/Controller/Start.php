@@ -21,6 +21,7 @@ class Start extends PublicController {
 	 * 应用创建配置页
 	 */
 	public function index() {
+		debug_print_backtrace();exit;
 		$m = new \Model('admin');
 		$s = $m->select();
 		print_r($s);exit;

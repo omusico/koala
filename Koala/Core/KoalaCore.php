@@ -25,11 +25,13 @@ class KoalaCore extends Singleton {
 	 */
 	public static function execute() {
 		//控制器分发
-		$dispatcher = \Core\AOP\AOP::getInstance(\Koala\Server\Dispatcher::factory('mvc'));
+		$dispatcher = \Koala\Server\Dispatcher::factory('mvc');
 		$dispatcher->execute(
 			hookTrigger('getControllerClass', array(Request::$map_paths), '', true),
 			Request::$map_paths[C('VAR_ACTION', 'a')]
 		);
+		$Front = new Core\Front\Advice\FrontAdvice;
+		$Front->output();
 	}
 }
 use Whoops\Run;

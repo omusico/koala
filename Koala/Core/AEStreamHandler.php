@@ -43,4 +43,3 @@ class AEStreamHandler extends StreamHandler {
 		$this->errorMessage = preg_replace('{^fopen\(.*?\): }', '', $msg);
 	}
 }
-?>
