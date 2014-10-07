@@ -25,6 +25,9 @@ class ClassLoader extends Singleton {
 	}
 	public function registerNamespace($namespace, $path) {
 		if (is_array($path)) {
+			if (!isset($this->namespaces[$namespace])) {$this->namespaces[$namespace] = array();
+			}
+
 			$this->namespaces[$namespace] = array_merge((array) $this->namespaces[$namespace], $path);
 		} else {
 

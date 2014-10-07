@@ -42,6 +42,9 @@ abstract class WeixinPF extends Base {
 	protected function _getNonce($string = 'nonce') {
 		return $_GET[$string];
 	}
+	protected function _getEchostr($string = 'echostr') {
+		return $_GET[$string];
+	}
 	protected function _getSignature($string = 'signature') {
 		return $_GET[$string];
 	}

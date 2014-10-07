@@ -21,6 +21,9 @@ class Start extends PublicController {
 	 * 应用创建配置页
 	 */
 	public function index() {
+		$m = new \Model('admin');
+		$s = $m->select();
+		print_r($s);exit;
 		/*$o = \Koala\OAPI::factory('Tuling\Connect', array(), 'Library');
 		$o->apply('tuling', array());
 		print_r($o);

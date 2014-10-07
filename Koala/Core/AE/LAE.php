@@ -10,7 +10,7 @@ defined('COMPILE_PATH') or define('COMPILE_PATH', RUNTIME_PATH . 'Compile' . DS)
 //缓存目录
 defined('CACHE_PATH') or define('CACHE_PATH', RUNTIME_PATH . 'Cache' . DS);
 //temp
-if (IS_WIN) {
+if (env::$items['IS_WIN']) {
 	defined('TMP_PATH') or define('TMP_PATH', 'c:/temp/');
 } else {
 	defined('TMP_PATH') or define('TMP_PATH', '/tmp/');

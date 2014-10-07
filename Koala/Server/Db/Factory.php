@@ -5,16 +5,15 @@
  * @package  Koala
  * @author   LunnLew <lunnlew@gmail.com>
  */
-namespace Koala\Server;
+namespace Koala\Server\Db;
 /**
- * 服务工厂类
+ * 工厂类
  *
  * @package  Koala
- * @subpackage  Server
- * @abstract
+ * @subpackage  Server\Db
  * @author    LunnLew <lunnlew@gmail.com>
  */
-abstract class Factory implements ServerInterface {
+class Factory extends \Koala\Server\Factory {
 	/**
 	 * 获得服务驱动实例
 	 *
@@ -24,7 +23,7 @@ abstract class Factory implements ServerInterface {
 	 * @static
 	 * @return object  实例
 	 */
-	public static function getInstance($name, $option = array(), $prex = 'Koala') {
+	final public static function getInstance($name, $option = array(), $prex = 'Koala') {
 		$class = static::getServerName($name, $prex);
 		if (class_exists($class)) {
 			return new $class($option);
@@ -32,17 +31,16 @@ abstract class Factory implements ServerInterface {
 			return null;
 		}
 	}
-
 	/**
 	 * 组装完整服务类名
 	 *
-	 * @param  string $server_name 服务驱动名
+	 * @param  string $name 服务驱动名
 	 * @param  string $prex  类名前缀
-	 * @access protected
 	 * @static
 	 * @return string              完整服务驱动类名
 	 */
-	protected static function getRealName($name, $server_name, $prex = 'Koala') {
-		return $prex . '\Server\\' . ucwords($name) . '\Drive\\' . $server_name;
+	public static function getServerName($name, $prex = '') {
+		$name = APP_ENGINE . ucfirst($name);
+		return self::getRealName('Db', $name);
 	}
 }

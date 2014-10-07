@@ -38,28 +38,28 @@ final class BAEStorage extends Base {
 	}
 	//获取指定路径文件
 	final public function getListByPath($path) {
-		$path      = '/' . ltrim($path, '/');
-		$list      = $this->object->list_object_by_dir($this->bucket, $path);
-		$list      = $list->body;
-		$list      = json_decode($list, true);
+		$path = '/' . ltrim($path, '/');
+		$list = $this->object->list_object_by_dir($this->bucket, $path);
+		$list = $list->body;
+		$list = json_decode($list, true);
 		$file_list = array();
-		$dirNum    = $fileNum    = 0;
+		$dirNum = $fileNum = 0;
 		foreach ($list['object_list'] as $key => $value) {
 			if ($value['is_dir']) {
 				$dirNum++;
 				$dirs[] = array(
-					'name'       => basename($value['object']),
-					'fullName'   => $value['object'],
+					'name' => basename($value['object']),
+					'fullName' => $value['object'],
 					'uploadTime' => $value['mdatetime'],
-					'length'     => 0,
+					'length' => 0,
 				);
 			} else {
 				$fileNum++;
 				$files[] = array(
-					'Name'       => $this->getUrl($value['object']),
-					'fullName'   => $value['object'],
+					'Name' => $this->getUrl($value['object']),
+					'fullName' => $value['object'],
 					'uploadTime' => $value['mdatetime'],
-					'length'     => $value['size'],
+					'length' => $value['size'],
 				);
 			}
 		}
@@ -89,12 +89,11 @@ final class BAEStorage extends Base {
 	}
 	//引入文件
 	final public function import($file) {
-		$file    = '/' . ltrim($file, '/');
-		$resp    = $this->object->get_object($this->bucket, $file);
+		$file = '/' . ltrim($file, '/');
+		$resp = $this->object->get_object($this->bucket, $file);
 		$content = $resp->body;
-		if (!is_dir(dirname(sys_get_temp_dir() . $file))) {mkdir(dirname(sys_get_temp_dir() . $file));}
-		file_put_contents(sys_get_temp_dir() . $file, $content);
-		return include (sys_get_temp_dir() . '/' . $file);
+		if (!is_dir(dirname(TMP_PATH . $file))) {mkdir(dirname(TMP_PATH . $file));}
+		file_put_contents(TMP_PATH . $file, $content);
+		return include (TMP_PATH . '/' . $file);
 	}
 }
-?>
