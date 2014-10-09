@@ -1,2 +1,0 @@
-Koala Manage Application
-=====

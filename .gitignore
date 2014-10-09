@@ -241,6 +241,6 @@ pip-log.txt
 *.json
 /Demo
 index.php
-/Panel/components
+/Panel
 Build/
 Candy/
