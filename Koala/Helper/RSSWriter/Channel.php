@@ -13,9 +13,23 @@ class Channel implements \Koala\Helper\RSSWriter\ChannelInterface {
 	/** @var string */
 	protected $title;
 	/** @var string */
-	protected $url;
+	protected $link;
 	/** @var string */
 	protected $description;
+	/** @var array */
+	protected $categories = array();
+	/** @var string */
+	protected $clouds = array();
+	/** @var string */
+	protected $docs;
+	/** @var string */
+	protected $generator;
+	/** @var string */
+	protected $managingEditor;
+	/** @var string */
+	protected $rating;
+	/** @var string */
+	protected $webMaster;
 	/** @var string */
 	protected $language;
 	/** @var string */
@@ -28,7 +42,6 @@ class Channel implements \Koala\Helper\RSSWriter\ChannelInterface {
 	protected $ttl;
 	/** @var \Koala\Helper\RSSWriter\ItemInterface[] */
 	protected $items = array();
-
 	/**
 	 * Set channel title
 	 * @param string $title
@@ -38,17 +51,15 @@ class Channel implements \Koala\Helper\RSSWriter\ChannelInterface {
 		$this->title = $title;
 		return $this;
 	}
-
 	/**
 	 * Set channel URL
-	 * @param string $url
+	 * @param string $link
 	 * @return $this
 	 */
-	public function url($url) {
-		$this->url = $url;
+	public function link($link) {
+		$this->link = $link;
 		return $this;
 	}
-
 	/**
 	 * Set channel description
 	 * @param string $description
@@ -58,7 +69,62 @@ class Channel implements \Koala\Helper\RSSWriter\ChannelInterface {
 		$this->description = $description;
 		return $this;
 	}
-
+	/**
+	 * Set channel category
+	 * @param string $name
+	 */
+	public function category($name, $domain = null) {
+		$this->categories[] = array($name, $domain);
+		return $this;
+	}
+	/**
+	 * Set channel cloud
+	 * @param  array $attrs
+	 */
+	public function cloud($attrs = array()) {
+		$this->clouds = $attrs;
+		return $this;
+	}
+	/**
+	 * Set channel docs
+	 * @param string $docs
+	 */
+	public function docs($docs) {
+		$this->docs = $docs;
+		return $this;
+	}
+	/**
+	 * Set channel generator
+	 * @param string $generator
+	 */
+	public function generator($generator) {
+		$this->generator = $generator;
+		return $this;
+	}
+	/**
+	 * Set channel managingEditor
+	 * @param string $managingEditor
+	 */
+	public function managingEditor($managingEditor) {
+		$this->managingEditor = $managingEditor;
+		return $this;
+	}
+	/**
+	 * Set channel rating
+	 * @param string $rating
+	 */
+	public function rating($rating) {
+		$this->rating = $rating;
+		return $this;
+	}
+	/**
+	 * Set channel webMaster
+	 * @param string $webMaster
+	 */
+	public function webMaster($webMaster) {
+		$this->webMaster = $webMaster;
+		return $this;
+	}
 	/**
 	 * Set ISO639 language code
 	 *
@@ -74,7 +140,6 @@ class Channel implements \Koala\Helper\RSSWriter\ChannelInterface {
 		$this->language = $language;
 		return $this;
 	}
-
 	/**
 	 * Set channel copyright
 	 * @param string $copyright
@@ -84,7 +149,6 @@ class Channel implements \Koala\Helper\RSSWriter\ChannelInterface {
 		$this->copyright = $copyright;
 		return $this;
 	}
-
 	/**
 	 * Set channel published date
 	 * @param int $pubDate Unix timestamp
@@ -94,7 +158,6 @@ class Channel implements \Koala\Helper\RSSWriter\ChannelInterface {
 		$this->pubDate = $pubDate;
 		return $this;
 	}
-
 	/**
 	 * Set channel last build date
 	 * @param int $lastBuildDate Unix timestamp
@@ -104,7 +167,6 @@ class Channel implements \Koala\Helper\RSSWriter\ChannelInterface {
 		$this->lastBuildDate = $lastBuildDate;
 		return $this;
 	}
-
 	/**
 	 * Set channel ttl (minutes)
 	 * @param int $ttl
@@ -114,7 +176,6 @@ class Channel implements \Koala\Helper\RSSWriter\ChannelInterface {
 		$this->ttl = $ttl;
 		return $this;
 	}
-
 	/**
 	 * Add item object
 	 * @param \Koala\Helper\RSSWriter\ItemInterface $item
@@ -124,7 +185,6 @@ class Channel implements \Koala\Helper\RSSWriter\ChannelInterface {
 		$this->items[] = $item;
 		return $this;
 	}
-
 	/**
 	 * Append to feed
 	 * @param \Koala\Helper\RSSWriter\FeedInterface $feed
@@ -134,7 +194,6 @@ class Channel implements \Koala\Helper\RSSWriter\ChannelInterface {
 		$feed->addChannel($this);
 		return $this;
 	}
-
 	/**
 	 * Return XML object
 	 * @return \Koala\Helper\RSSWriter\SimpleXMLElement
@@ -142,25 +201,47 @@ class Channel implements \Koala\Helper\RSSWriter\ChannelInterface {
 	public function asXML() {
 		$xml = new SimpleXMLElement('<?xml version="1.0" encoding="UTF-8" ?><channel></channel>', LIBXML_NOERROR|LIBXML_ERR_NONE|LIBXML_ERR_FATAL);
 		$xml->addChild('title', $this->title);
-		$xml->addChild('link', $this->url);
+		$xml->addChild('link', $this->link);
 		$xml->addChild('description', $this->description);
 
+		foreach ($this->categories as $category) {
+			$element = $xml->addChild('category', $category[0]);
+
+			if (isset($category[1])) {
+				$element->addAttribute('domain', $category[1]);
+			}
+		}
+		$element = $xml->addChild('cloud', null);
+		foreach ($this->clouds as $attr => $value) {
+			$element->addAttribute($attr, $value);
+		}
+		if ($this->docs !== null) {
+			$xml->addChild('docs', $this->docs);
+		}
+		if ($this->generator !== null) {
+			$xml->addChild('generator', $this->generator);
+		}
+		if ($this->managingEditor !== null) {
+			$xml->addChild('managingEditor', $this->managingEditor);
+		}
+		if ($this->rating !== null) {
+			$xml->addChild('rating', $this->rating);
+		}
+		if ($this->webMaster !== null) {
+			$xml->addChild('webMaster', $this->webMaster);
+		}
 		if ($this->language !== null) {
 			$xml->addChild('language', $this->language);
 		}
-
 		if ($this->copyright !== null) {
 			$xml->addChild('copyright', $this->copyright);
 		}
-
 		if ($this->pubDate !== null) {
 			$xml->addChild('pubDate', date(DATE_RSS, $this->pubDate));
 		}
-
 		if ($this->lastBuildDate !== null) {
 			$xml->addChild('lastBuildDate', date(DATE_RSS, $this->lastBuildDate));
 		}
-
 		if ($this->ttl !== null) {
 			$xml->addChild('ttl', $this->ttl);
 		}

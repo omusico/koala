@@ -21,10 +21,10 @@ interface ChannelInterface {
 
 	/**
 	 * Set channel URL
-	 * @param string $url
+	 * @param string $link
 	 * @return $this
 	 */
-	public function url($url);
+	public function link($link);
 
 	/**
 	 * Set channel description
@@ -32,7 +32,41 @@ interface ChannelInterface {
 	 * @return $this
 	 */
 	public function description($description);
-
+	/**
+	 * Set channel category
+	 * @param string $name
+	 */
+	public function category($name, $domain = null);
+	/**
+	 * Set channel cloud
+	 * @param  array $attrs
+	 */
+	public function cloud($attrs = array());
+	/**
+	 * Set channel docs
+	 * @param string $docs
+	 */
+	public function docs($docs);
+	/**
+	 * Set channel generator
+	 * @param string $generator
+	 */
+	public function generator($generator);
+	/**
+	 * Set channel managingEditor
+	 * @param string $managingEditor
+	 */
+	public function managingEditor($managingEditor);
+	/**
+	 * Set channel rating
+	 * @param string $rating
+	 */
+	public function rating($rating);
+	/**
+	 * Set channel webMaster
+	 * @param string $webMaster
+	 */
+	public function webMaster($webMaster);
 	/**
 	 * Set ISO639 language code
 	 *

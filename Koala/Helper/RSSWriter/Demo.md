@@ -15,7 +15,7 @@ $channel = new Channel();
 $channel
 	->title("Channel Title")
 	->description("Channel Description")
-	->url('http://blog.example.com')
+	->link('http://blog.example.com')
 	->appendTo($feed);
 
 // RSS item
@@ -23,7 +23,7 @@ $item = new Item();
 $item
 	->title("Blog Entry Title")
 	->description("<div>Blog body</div>")
-	->url('http://blog.example.com/2012/08/21/blog-entry/')
+	->link('http://blog.example.com/2012/08/21/blog-entry/')
 	->appendTo($channel);
 
 // Podcast item
@@ -31,7 +31,7 @@ $item = new Item();
 $item
 	->title("Some Podcast Entry")
 	->description("<div>Podcast body</div>")
-	->url('http://podcast.example.com/2012/08/21/podcast-entry/')
+	->link('http://podcast.example.com/2012/08/21/podcast-entry/')
        ->enclosure('http://link-to-audio-file.com/2013/08/21/podcast.mp3', 4889, 'audio/mpeg')
 	->appendTo($channel);
 

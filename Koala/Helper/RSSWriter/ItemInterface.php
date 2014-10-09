@@ -21,10 +21,10 @@ interface ItemInterface {
 
 	/**
 	 * Set item URL
-	 * @param string $url
+	 * @param string $link
 	 * @return $this
 	 */
-	public function url($url);
+	public function link($link);
 
 	/**
 	 * Set item description

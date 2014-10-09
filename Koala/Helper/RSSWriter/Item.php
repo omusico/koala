@@ -14,7 +14,7 @@ class Item implements \Koala\Helper\RSSWriter\ItemInterface {
 	/** @var string */
 	protected $title;
 	/** @var string */
-	protected $url;
+	protected $link;
 	/** @var string */
 	protected $description;
 	/** @var array */
@@ -29,7 +29,16 @@ class Item implements \Koala\Helper\RSSWriter\ItemInterface {
 	protected $enclosure;
 	/** @var string */
 	protected $author;
-
+	/**
+	 * [__call description]
+	 * @param  string $method
+	 * @param  array $args
+	 * @return $this
+	 */
+	public function __call($method, $args) {
+		$this->{ $method} = $args[0];
+		return $this;
+	}
 	/**
 	 * Set item title
 	 * @param string $title
@@ -42,11 +51,11 @@ class Item implements \Koala\Helper\RSSWriter\ItemInterface {
 
 	/**
 	 * Set item URL
-	 * @param string $url
+	 * @param string $link
 	 * @return $this
 	 */
-	public function url($url) {
-		$this->url = $url;
+	public function link($link) {
+		$this->link = $link;
 		return $this;
 	}
 
@@ -132,7 +141,7 @@ class Item implements \Koala\Helper\RSSWriter\ItemInterface {
 	public function asXML() {
 		$xml = new SimpleXMLElement('<?xml version="1.0" encoding="UTF-8" ?><item></item>', LIBXML_NOERROR|LIBXML_ERR_NONE|LIBXML_ERR_FATAL);
 		$xml->addChild('title', $this->title);
-		$xml->addChild('link', $this->url);
+		$xml->addChild('link', $this->link);
 		$xml->addChild('description', $this->description);
 
 		foreach ($this->categories as $category) {
