@@ -29,14 +29,19 @@ class Item implements \Koala\Helper\RSSWriter\ItemInterface {
 	protected $enclosure;
 	/** @var string */
 	protected $author;
+	/** @var string */
+	protected $comments;
+	/** @var array */
+	protected $sources = array();
+	/** @var array */
+	protected $atomlink = array();
 	/**
-	 * [__call description]
-	 * @param  string $method
-	 * @param  array $args
+	 * Set channel atomlink
+	 * @param array $atomlink
 	 * @return $this
 	 */
-	public function __call($method, $args) {
-		$this->{ $method} = $args[0];
+	public function atomlink($atomlink = array()) {
+		$this->atomlink = $atomlink;
 		return $this;
 	}
 	/**
@@ -60,6 +65,15 @@ class Item implements \Koala\Helper\RSSWriter\ItemInterface {
 	}
 
 	/**
+	 * Set item comments
+	 * @param string $comments
+	 * @return $this
+	 */
+	public function comments($comments, $num = null) {
+		$this->comments = array($comments, $num);
+		return $this;
+	}
+	/**
 	 * Set item description
 	 * @param string $description
 	 * @return $this
@@ -68,7 +82,6 @@ class Item implements \Koala\Helper\RSSWriter\ItemInterface {
 		$this->description = $description;
 		return $this;
 	}
-
 	/**
 	 * Set item category
 	 * @param string $name   Category name
@@ -77,6 +90,16 @@ class Item implements \Koala\Helper\RSSWriter\ItemInterface {
 	 */
 	public function category($name, $domain = null) {
 		$this->categories[] = array($name, $domain);
+		return $this;
+	}
+	/**
+	 * Set item source
+	 * @param string $name  name
+	 * @param string $url URL
+	 * @return $this
+	 */
+	public function source($name, $url = null) {
+		$this->sources[] = array($name, $url);
 		return $this;
 	}
 
@@ -151,7 +174,13 @@ class Item implements \Koala\Helper\RSSWriter\ItemInterface {
 				$element->addAttribute('domain', $category[1]);
 			}
 		}
+		foreach ($this->sources as $source) {
+			$element = $xml->addChild('source', $source[0]);
 
+			if (isset($source[1])) {
+				$element->addAttribute('url', $source[1]);
+			}
+		}
 		if ($this->guid) {
 			$guid = $xml->addChild('guid', $this->guid);
 
@@ -159,11 +188,21 @@ class Item implements \Koala\Helper\RSSWriter\ItemInterface {
 				$guid->addAttribute('isPermaLink', 'true');
 			}
 		}
-
+		if (!empty($this->atomlink)) {
+			$element = $xml->addChild('::atom:link', null);
+			foreach ($this->atomlink as $attr => $value) {
+				$element->addAttribute($attr, $value);
+			}
+		}
 		if ($this->pubDate !== null) {
 			$xml->addChild('pubDate', date(DATE_RSS, $this->pubDate));
 		}
-
+		if (!empty($this->comments)) {
+			$xml->addChild('comments', $this->comments[0]);
+			if (isset($this->comments[1])) {
+				$xml->addChild("::slash:comments", $this->comments[1]);
+			}
+		}
 		if (is_array($this->enclosure) && (count($this->enclosure) == 3)) {
 			$element = $xml->addChild('enclosure');
 			$element->addAttribute('url', $this->enclosure['url']);

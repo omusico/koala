@@ -13,6 +13,12 @@ use \Koala\Helper\RSSWriter\SimpleXMLElement;
 
 interface ItemInterface {
 	/**
+	 * Set item atomlink
+	 * @param array $atomlink
+	 * @return $this
+	 */
+	public function atomlink($atomlink = array());
+	/**
 	 * Set item title
 	 * @param string $title
 	 * @return $this
@@ -71,7 +77,19 @@ interface ItemInterface {
 	 * @return $this
 	 */
 	public function author($author);
-
+	/**
+	 * Set item source
+	 * @param string $name  name
+	 * @param string $url URL
+	 * @return $this
+	 */
+	public function source($name, $url = null);
+	/**
+	 * Set item comments
+	 * @param string $comments
+	 * @return $this
+	 */
+	public function comments($comments, $num = null);
 	/**
 	 * Append item to the channel
 	 * @param \Koala\Helper\RSSWriter\ChannelInterface $channel

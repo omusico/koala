@@ -40,8 +40,28 @@ class Channel implements \Koala\Helper\RSSWriter\ChannelInterface {
 	protected $lastBuildDate;
 	/** @var int */
 	protected $ttl;
+	/** @var array */
+	protected $skipDays = array();
+	/** @var array */
+	protected $skipHours = array();
+	/** @var array */
+	protected $textInput = array();
+	/** @var array */
+	protected $atomlink = array();
 	/** @var \Koala\Helper\RSSWriter\ItemInterface[] */
 	protected $items = array();
+	/** @var \Koala\Helper\RSSWriter\ImageInterface[] */
+	protected $images = array();
+
+	/**
+	 * Set channel atomlink
+	 * @param array $atomlink
+	 * @return $this
+	 */
+	public function atomlink($atomlink = array()) {
+		$this->atomlink = $atomlink;
+		return $this;
+	}
 	/**
 	 * Set channel title
 	 * @param string $title
@@ -177,12 +197,48 @@ class Channel implements \Koala\Helper\RSSWriter\ChannelInterface {
 		return $this;
 	}
 	/**
+	 * Set channel skipHours (minutes)
+	 * @param array $hours
+	 * @return $this
+	 */
+	public function skipHours($hours = array()) {
+		$this->skipHours = array_merge($this->skipHours, $hours);
+		return $this;
+	}
+	/**
+	 * Set channel skipDays (days)
+	 * @param array $days
+	 * @return $this
+	 */
+	public function skipDays($days = array()) {
+		$this->skipDays = array_merge($this->skipDays, $days);
+		return $this;
+	}
+	/**
+	 * Set channel textInput
+	 * @param array $textInput
+	 * @return $this
+	 */
+	public function textInput($textInput = array()) {
+		$this->textInput = $textInput;
+		return $this;
+	}
+	/**
 	 * Add item object
 	 * @param \Koala\Helper\RSSWriter\ItemInterface $item
 	 * @return $this
 	 */
 	public function addItem(ItemInterface $item) {
 		$this->items[] = $item;
+		return $this;
+	}
+	/**
+	 * Add image object
+	 * @param \Koala\Helper\RSSWriter\ImageInterface $image
+	 * @return $this
+	 */
+	public function addImage(ImageInterface $image) {
+		$this->images[] = $image;
 		return $this;
 	}
 	/**
@@ -211,9 +267,17 @@ class Channel implements \Koala\Helper\RSSWriter\ChannelInterface {
 				$element->addAttribute('domain', $category[1]);
 			}
 		}
-		$element = $xml->addChild('cloud', null);
-		foreach ($this->clouds as $attr => $value) {
-			$element->addAttribute($attr, $value);
+		if (!empty($this->clouds)) {
+			$element = $xml->addChild('cloud', null);
+			foreach ($this->clouds as $attr => $value) {
+				$element->addAttribute($attr, $value);
+			}
+		}
+		if (!empty($this->atomlink)) {
+			$element = $xml->addChild('::atom:link', null);
+			foreach ($this->atomlink as $attr => $value) {
+				$element->addAttribute($attr, $value);
+			}
 		}
 		if ($this->docs !== null) {
 			$xml->addChild('docs', $this->docs);
@@ -245,13 +309,34 @@ class Channel implements \Koala\Helper\RSSWriter\ChannelInterface {
 		if ($this->ttl !== null) {
 			$xml->addChild('ttl', $this->ttl);
 		}
-
+		if (!empty($this->skipDays)) {
+			$element = $xml->addChild('skipDays', null);
+			foreach ($this->skipDays as $day) {
+				$element->addChild('day', $day);
+			}
+		}
+		if (!empty($this->skipHours)) {
+			$element = $xml->addChild('skipHours', null);
+			foreach ($this->skipHours as $hour) {
+				$element->addChild('hour', $hour);
+			}
+		}
+		if (!empty($this->textInput)) {
+			$element = $xml->addChild('textInput', null);
+			foreach ($this->textInput as $node => $name) {
+				$element->addChild($node, $name);
+			}
+		}
+		foreach ($this->images as $item) {
+			$toDom = dom_import_simplexml($xml);
+			$fromDom = dom_import_simplexml($item->asXML());
+			$toDom->appendChild($toDom->ownerDocument->importNode($fromDom, true));
+		}
 		foreach ($this->items as $item) {
 			$toDom = dom_import_simplexml($xml);
 			$fromDom = dom_import_simplexml($item->asXML());
 			$toDom->appendChild($toDom->ownerDocument->importNode($fromDom, true));
 		}
-
 		return $xml;
 	}
 }

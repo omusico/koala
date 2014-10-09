@@ -13,6 +13,12 @@ use \Koala\Helper\RSSWriter\ItemInterface;
 
 interface ChannelInterface {
 	/**
+	 * Set channel atomlink
+	 * @param array $atomlink
+	 * @return $this
+	 */
+	public function atomlink($atomlink = array());
+	/**
 	 * Set channel title
 	 * @param string $title
 	 * @return $this
@@ -107,7 +113,24 @@ interface ChannelInterface {
 	 * @return $this
 	 */
 	public function ttl($ttl);
-
+	/**
+	 * Set channel skipDays (minutes)
+	 * @param array $days
+	 * @return $this
+	 */
+	public function skipDays($days = array());
+	/**
+	 * Set channel skipHours (minutes)
+	 * @param array $days
+	 * @return $this
+	 */
+	public function skipHours($hours = array());
+	/**
+	 * Set channel textInput
+	 * @param array $textInput
+	 * @return $this
+	 */
+	public function textInput($textInput = array());
 	/**
 	 * Add item object
 	 * @param \Koala\Helper\RSSWriter\ItemInterface $item
