@@ -5,5 +5,5 @@
  * @package  Koala
  * @author   LunnLew <lunnlew@gmail.com>
  */
-namespace Koala\Core;
+namespace Koala\Exception;
 class ServiceException extends Exception {}

@@ -18,27 +18,30 @@ use Koala\Server\Cache\Base;
 
 final class SAEMemcache extends Base {
 	/**
-	 * 构造函数
-	 * @param array $optionss 配置选项
+	 * 检查驱动状态
+	 * @return bool
 	 */
-	function __construct($options = array()) {
-		if (!empty($options)) {
-			$this->options = $options + $this->options;//合并配置
+	function checkDriver() {
+		if (function_exists("memcache_init")) {
+			return true;
 		}
-		preg_match_all('/[\w]+/', $this->options['group'], $res);
-		foreach ($res[0] as $key => $value) {
-			$group .= constant($value);
-		}
-		$this->options['group'] = $group;
-
+		return false;
+	}
+	/**
+	 *  初始化服务
+	 * @return bool
+	 */
+	function initServer() {
 		$this->mmc = memcache_init();
-		$version   = $this->mmc->get('version_' . $group());//无数据第一次运行时的警告怎样抑制?
+		if (!$this->mmc) {
+			throw new \Koala\Exception\NotSupportedException('初始化SAE Memcahce失败!');
+		}
+		$version = $this->mmc->get('version_' . $group());//无数据第一次运行时的警告怎样抑制?
 		if (!empty($version)) {
 			$this->version = $version;
 		} else {
 			$this->mmc->set('version_' . $this->group(), $this->version);
 		}
-
 	}
 	/**
 	 * 设置缓存值

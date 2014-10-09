@@ -129,7 +129,7 @@ $cfg['Counter'] = array(
 );
  */
 //缓存服务配置
-$cfg['CACHE'] = array(
+$cfg['Cache'] = array(
 	//设置默认缓存
 	'default' => 'LAEMemcache',
 	//memcache缓存配置项

@@ -77,6 +77,9 @@ class Action extends \Core\Plugin\Base {
 		defined('WIDGET_URL') or define('WIDGET_URL', APP_RELATIVE_URL . 'Addons/Source/Widget/');
 		//默认应用路径
 		defined('APP_PATH') or define('APP_PATH', ENTRANCE_PATH . 'MyApp/');
+		//默认应用name
+		defined('APP_NAME') or define('APP_NAME', 'KoalaApp');
+		defined('APP_VERSION') or define('APP_VERSION', '1');
 		//默认应用插件路径
 		defined('APP_ADDONS_PATH') or define('APP_ADDONS_PATH', APP_PATH . 'Addons/');
 		//请求开始时间

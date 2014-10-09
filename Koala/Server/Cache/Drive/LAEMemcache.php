@@ -24,28 +24,35 @@ final class LAEMemcache extends Base {
 	 * @access protected
 	 */
 	protected $options = array(
-		'group'    => '[APP_UUID]',
-		'expire'   => 3600,
+		'group' => '[APP_UUID]',
+		'expire' => 3600,
 		'compress' => 1,
-		'servers'  => array(
+		'servers' => array(
 			'host' => '127.0.0.1',
 			'port' => 11211,
 		)
 	);
 	/**
-	 * 构造函数
-	 * @param array $options 配置选项
+	 * 检查驱动状态
+	 * @return bool
 	 */
-	function __construct($options = array()) {
-		if (!empty($options)) {
-			$this->options = $options + $this->options;//合并配置
+	function checkDriver() {
+		// Check memcache
+		if (function_exists("memcache_connect")) {
+			return true;
 		}
-		preg_match_all('/[\w]+/', $this->options['group'], $res);
-		foreach ($res[0] as $key => $value) {
-			$group .= constant($value);
-		}
-		$this->options['group'] = $group;
-		$this->mmc              = new Memcache;
+		return false;
+	}
+	/**
+	 *  初始化服务
+	 * @return bool
+	 */
+	function initServer() {
+		try {
+			$this->mmc = new Memcache;
+		} catch (\Exception $e) {
+			throw new \Koala\Exception\NotSupportedException('初始化Memcahce失败!');
+		};
 		//支持多个memcache服务器
 		if (isset($this->options['servers']['host'])) {
 			$this->mmc->addServer($this->options['servers']['host'], $this->options['servers']['port']);
@@ -60,7 +67,6 @@ final class LAEMemcache extends Base {
 		} else {
 			$this->mmc->set('version_' . $this->group(), $this->version);
 		}
-
 	}
 	/**
 	 * 设置缓存值
@@ -71,7 +77,6 @@ final class LAEMemcache extends Base {
 	function set($key, $var, $compress = '', $expire = 3600) {
 		if (!$this->mmc) {return;
 		}
-
 		if (!$expire) {
 			$expire = $this->options['expire'];
 		}

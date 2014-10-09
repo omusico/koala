@@ -5,5 +5,5 @@
  * @package  Koala
  * @author   LunnLew <lunnlew@gmail.com>
  */
-namespace Koala\Core;
-class Exception extends \Exception {}
+namespace Koala\Exception;
+class NotSupportedException extends RuntimeException {}

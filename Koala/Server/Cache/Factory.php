@@ -22,51 +22,12 @@ final class Factory extends \Koala\Server\Factory {
 	 */
 	public static function getServerName($name, $prex = '') {
 		$server_name = 'LAEMemcache';
-		switch ($name) {
-			case 'memcache':
-				if (APP_ENGINE == 'SAE') {
-					if (function_exists('memcache_init')) {$server_name = 'SAEMemcache';
-					}
-				} elseif (APP_ENGINE == 'BAE') {
-					if (class_exists('BaeMemcache')) {$server_name = 'BaeMemcache';
-					}
-				} else {
-					if (class_exists('Memcache')) {$server_name = 'LAEMemcache';
-					}
-				}
-
+		switch (strtolower($name)) {
+			case 'file':
+				$server_name = 'LAEFile';
 				break;
-			case 'eaccelerator':
-				if (function_exists('eaccelerator_get')) {$server_name = 'eaccelerator';
-				}
-
-				break;
-
-			case 'apc':
-				if (function_exists('apc_fetch')) {$server_name = 'apc';
-				}
-
-				break;
-
-			case 'xcache':
-				if (function_exists('xcache_get')) {$server_name = 'xcache';
-				}
-
-				break;
-			case 'filecache':
-				if (class_exists('fileCache')) {$server_name = 'fileCache';
-				}
-
-				break;
-
-			case 'auto'://try to auto select a cache system
-				if (function_exists('eaccelerator_get')) {$server_name = 'eaccelerator';
-				} elseif (function_exists('apc_fetch')) {$server_name  = 'apc';
-				} elseif (function_exists('xcache_get')) {$server_name = 'xcache';
-				} elseif (class_exists('Memcache')) {$server_name      = 'Memcache';
-				} elseif (class_exists('fileCache')) {$server_name     = 'fileCache';
-				}
-
+			case 'memfile':
+				$server_name = 'LAEMemfile';
 				break;
 		}
 		return self::getRealName('Cache', $server_name);

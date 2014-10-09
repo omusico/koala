@@ -21,14 +21,11 @@ class Start extends PublicController {
 	 * 应用创建配置页
 	 */
 	public function index() {
-		phpinfo();exit;
-		$m = new \Model('admin');
-		$s = $m->select();
-		print_r($s);exit;
-		/*$o = \Koala\OAPI::factory('Tuling\Connect', array(), 'Library');
-		$o->apply('tuling', array());
+
+		echo '<br>file:<br>';
+		$o = \Koala\Server\Cache::factory('file');
 		print_r($o);
-		exit;*/
+		exit;
 		$file = \Config::getPath('Build/config.php');
 		$arr = include ($file);
 		\FrontData::assign('createcfg', $arr);

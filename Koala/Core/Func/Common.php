@@ -455,10 +455,12 @@ function getValueRec($keys = array(), $arr = array(), &$depth = 0) {
 		if ($depth == 1) {$key = strtolower($key);}
 		$arr = isset($arr[$key]) ? $arr[$key] : null;
 		if ($arr === null) {
+			$depth = 0;
 			break;
 		}
 		$depth++;
 	}
+	$depth = 0;
 	return $arr;
 }
 

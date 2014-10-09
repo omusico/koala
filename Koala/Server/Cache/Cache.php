@@ -35,7 +35,7 @@ class Cache {
 			$name = C($server_name . ':default', APP_ENGINE . 'Memcache');
 		}
 		if (!isset(self::$instances[$name])) {
-			$fac                    = __CLASS__ . '\Factory';
+			$fac = __CLASS__ . '\Factory';
 			self::$instances[$name] = $fac::getInstance($name, array_merge((Array) C($server_name . ':' . $name), (Array) $options));
 		}
 		return self::$instances[$name];

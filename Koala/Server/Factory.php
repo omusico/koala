@@ -29,7 +29,7 @@ abstract class Factory implements ServerInterface {
 		if (class_exists($class)) {
 			return new $class($option);
 		} else {
-			return null;
+			throw new \Koala\Exception\RuntimeException('服务[' . $class . ']类未找到!');
 		}
 	}
 

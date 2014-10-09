@@ -11,7 +11,7 @@ namespace Koala\Server\Cache;
  * @package  Koala\Server\Cache
  * @author    LunnLew <lunnlew@gmail.com>
  */
-class Base implements Face {
+abstract class Base implements Face {
 	/**
 	 * 配置项
 	 *
@@ -19,8 +19,8 @@ class Base implements Face {
 	 * @access protected
 	 */
 	protected $options = array(
-		'group'    => '[APP_UUID]',
-		'expire'   => 3600,
+		'group' => '[APP_UUID]',
+		'expire' => 3600,
 		'compress' => 1,
 	);
 	/**
@@ -31,38 +31,79 @@ class Base implements Face {
 	 */
 	protected $version = 1;
 	/**
+	 * 构造函数
+	 * @param array $options 配置选项
+	 */
+	function __construct($options = array()) {
+		$this->setOption($options);
+		if (!$this->checkDriver()) {
+			$class = get_called_class();
+			throw new \Koala\Exception\NotSupportedException("不能使用驱动[" . substr($class, strripos($class, '\\') + 1) . "],请检查是否支持该扩展!");
+		}
+		$this->initServer();
+	}
+	/**
+	 *  设置配置项
+	 */
+	public function setOption($options = array()) {
+		if (!empty($options)) {
+			$this->options = $options + $this->options;//合并配置
+		}
+		preg_match_all('/[\w]+/', $this->options['group'], $res);
+		$this->options['group'] = '';
+		foreach ($res[0] as $key => $value) {
+			if (defined($value)) {
+				$this->options['group'] .= constant($value);
+			} else {
+				throw new \Exception('Not Define Constant [' . $value . ']!');
+			}
+		}
+	}
+	/**
+	 * 检查驱动状态
+	 * @abstract
+	 * @return bool
+	 */
+	abstract public function checkDriver();
+	/**
+	 *  初始化服务
+	 *  @abstract
+	 * @return bool
+	 */
+	abstract public function initServer();
+	/**
 	 * 设置缓存值
 	 * @param string  $key    缓存key
 	 * @param string  $var    缓存值
 	 * @param integer $expire 过期时间
 	 */
-	function set($key, $var, $compress = '', $expire = 3600) {}
+	abstract public function set($key, $var, $compress = '', $expire = 3600);
 	/**
 	 * 获取缓存值
 	 * @param string  $key    缓存key
 	 * @return fixed      缓存值
 	 */
-	function get($key) {}
+	abstract public function get($key);
 	/**
 	 * 增值操作
 	 * @param  string  $key    缓存key
 	 * @param  integer $value 整数值 默认为1
 	 * @return bool          value/false
 	 */
-	function incr($key, $value = 1) {}
+	abstract public function incr($key, $value = 1);
 	/**
 	 * 减值操作
 	 * @param  string  $key    缓存key
 	 * @param  integer $value 整数值 默认为1
 	 * @return bool         value/false
 	 */
-	function decr($key, $value = 1) {}
+	abstract public function decr($key, $value = 1);
 	/**
 	 * 删除缓存项
 	 * @param  string  $key    缓存key
 	 * @return bool         true/false
 	 */
-	function delete($key) {}
+	abstract public function delete($key);
 	/**
 	 * 压缩缓存项
 	 *
@@ -70,17 +111,17 @@ class Base implements Face {
 	 * @param  integer $threshold   数据大小
 	 * @param  float   $min_savings 压缩比
 	 */
-	function compress($threshold = 2000, $min_savings = 0.2) {}
+	abstract public function compress($threshold = 2000, $min_savings = 0.2);
 	/**
 	 * 缓存过期
 	 * @return
 	 */
-	function flush() {}
+	abstract public function flush();
 	/**
 	 * 缓存清空
 	 * @return
 	 */
-	function flushAll() {}
+	abstract public function flushAll();
 	/**
 	 * 生成完整缓存key
 	 *

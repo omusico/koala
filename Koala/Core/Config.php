@@ -34,7 +34,6 @@ class Config {
 		if ($runtime && $defv != '') {
 			return (self::$config[$key] = $defv);
 		}
-
 		if (null === ($val = getValueRec(explode(':', $key), self::$config))) {
 			$result = $defv;
 		} else {

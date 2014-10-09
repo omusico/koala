@@ -18,19 +18,21 @@ use Koala\Server\Cache\Base;
 
 final class LAEeaccelerator extends Base {
 	/**
-	 * 构造函数
-	 * @param array $options 配置选项
+	 * 检查驱动状态
+	 * @return bool
 	 */
-	function __construct($options = array()) {
-		if (!empty($options)) {
-			$this->options = $options + $this->options;//合并配置
+	function checkDriver() {
+		if (function_exists("eaccelerator_get")) {
+			return true;
 		}
-		preg_match_all('/[\w]+/', $this->options['group'], $res);
-		foreach ($res[0] as $key => $value) {
-			$group .= constant($value);
-		}
-		$this->options['group'] = $group;
-		$version                = @unserialize(eaccelerator_get('version_' . $this->group()));
+		return false;
+	}
+	/**
+	 *  初始化服务
+	 * @return bool
+	 */
+	function initServer() {
+		$version = @unserialize(eaccelerator_get('version_' . $this->group()));
 		if (!empty($version)) {
 			$this->version = $version;
 		} else {
