@@ -9,7 +9,10 @@ Implementation:
 
 ```php
 <?php
-$feed = new \Koala\Helper\RSSWriter\Feed();
+
+header('Content-Type:application/xml; charset=utf-8');
+
+$feed = new \Koala\Helper\RSSWriter\Feed('<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"/>');
 
 $channel = new \Koala\Helper\RSSWriter\Channel();
 $channel
@@ -63,7 +66,8 @@ $item
 	->guid('http://dallas.example.com/1983/05/06/joebob.htm', 'false')
 	->enclosure('http://link-to-audio-file.com/2013/08/21/podcast.mp3', 4889, 'audio/mpeg')
 	->author('jbb@dallas.example.com (Joe Bob Briggs)')
-	->comments('http://dallas.example.com/feedback/1983/06/joebob.htm', 20)
+	//->comments('http://dallas.example.com/feedback/1983/06/joebob.htm', 20)//will enable ns prefix [slash] !
+	->comments('http://dallas.example.com/feedback/1983/06/joebob.htm')
 	->pubDate(time())
 	->source('Los Angeles Herald-Examiner', 'http://la.example.com/rss.xml')
 	->appendTo($channel);
