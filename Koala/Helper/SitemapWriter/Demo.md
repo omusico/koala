@@ -10,6 +10,7 @@ $item
   ->changefreq('always')
   ->priority('1.0')
   ->appendTo($feed);
+$item=clone $item;
 $item->clearAttr();
 $item
   ->loc('http://www.example1.com')
@@ -23,7 +24,6 @@ echo $feed
 Output:
 
 ```xml
-
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset>
   <url>
