@@ -78,11 +78,11 @@ class Item implements \Koala\Helper\RSSWriter\ItemInterface {
 		return $this;
 	}
 	/**
-	 * Set item contents
+	 * Set item content
 	 * @param string $content
 	 * @return $this
 	 */
-	public function contents($content, $encoded = false) {
+	public function content($content, $encoded = false) {
 		$this->contents = array($content, $encoded);
 		return $this;
 	}

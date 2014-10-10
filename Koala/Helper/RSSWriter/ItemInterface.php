@@ -91,11 +91,11 @@ interface ItemInterface {
 	 */
 	public function comments($comments, $num = null);
 	/**
-	 * Set item contents
+	 * Set item content
 	 * @param string $content
 	 * @return $this
 	 */
-	public function contents($content, $encoded = false);
+	public function content($content, $encoded = false);
 	/**
 	 * Set item dccreator
 	 * @param string $dccreator
