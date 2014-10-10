@@ -91,6 +91,18 @@ interface ItemInterface {
 	 */
 	public function comments($comments, $num = null);
 	/**
+	 * Set item contents
+	 * @param string $content
+	 * @return $this
+	 */
+	public function contents($content, $encoded = false);
+	/**
+	 * Set item dccreator
+	 * @param string $dccreator
+	 * @return $this
+	 */
+	public function dccreator($dccreator);
+	/**
 	 * Append item to the channel
 	 * @param \Koala\Helper\RSSWriter\ChannelInterface $channel
 	 * @return $this

@@ -17,7 +17,7 @@ class Feed implements \Koala\Helper\RSSWriter\FeedInterface {
 	 * rss tpl
 	 * @var string
 	 */
-	protected $rss = '<rss version="2.0"/>';
+	protected $rss = '<rss version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:sy="http://purl.org/rss/1.0/modules/syndication/" xmlns:slash="http://purl.org/rss/1.0/modules/slash/" xmlns:wp="http://wordpress.org/export/1.0/" />';
 	/** @var \Koala\Helper\RSSWriter\ChannelInterface[] */
 	protected $channels = array();
 	/**

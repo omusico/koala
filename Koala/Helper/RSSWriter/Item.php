@@ -31,6 +31,10 @@ class Item implements \Koala\Helper\RSSWriter\ItemInterface {
 	protected $author;
 	/** @var string */
 	protected $comments;
+	/** @var string */
+	protected $contents;
+	/** @var string */
+	protected $dccreator;
 	/** @var array */
 	protected $sources = array();
 	/** @var array */
@@ -71,6 +75,24 @@ class Item implements \Koala\Helper\RSSWriter\ItemInterface {
 	 */
 	public function comments($comments, $num = null) {
 		$this->comments = array($comments, $num);
+		return $this;
+	}
+	/**
+	 * Set item contents
+	 * @param string $content
+	 * @return $this
+	 */
+	public function contents($content, $encoded = false) {
+		$this->contents = array($content, $encoded);
+		return $this;
+	}
+	/**
+	 * Set item dccreator
+	 * @param string $dccreator
+	 * @return $this
+	 */
+	public function dccreator($dccreator) {
+		$this->dccreator = $dccreator;
 		return $this;
 	}
 	/**
@@ -197,12 +219,23 @@ class Item implements \Koala\Helper\RSSWriter\ItemInterface {
 		if ($this->pubDate !== null) {
 			$xml->addChild('pubDate', date(DATE_RSS, $this->pubDate));
 		}
+		if ($this->dccreator !== null) {
+			$xml->addChild('::dc:creator', $this->dccreator);
+		}
 		if (!empty($this->comments)) {
 			$xml->addChild('comments', $this->comments[0]);
 			if (isset($this->comments[1])) {
 				$xml->addChild("::slash:comments", $this->comments[1]);
 			}
 		}
+		if (!empty($this->contents)) {
+			if ($this->contents[1]) {
+				$xml->addChild('::content:encoded', $this->contents[0]);
+			} else {
+				$xml->addChild('content', $this->contents[0]);
+			}
+		}
+
 		if (is_array($this->enclosure) && (count($this->enclosure) == 3)) {
 			$element = $xml->addChild('enclosure');
 			$element->addAttribute('url', $this->enclosure['url']);
@@ -234,6 +267,8 @@ class Item implements \Koala\Helper\RSSWriter\ItemInterface {
 		$this->enclosure = null;
 		$this->author = null;
 		$this->comments = null;
+		$this->dccreator = null;
+		$this->contents = array();
 		$this->sources = array();
 		$this->atomlink = array();
 	}
