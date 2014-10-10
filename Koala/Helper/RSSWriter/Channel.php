@@ -339,4 +339,33 @@ class Channel implements \Koala\Helper\RSSWriter\ChannelInterface {
 		}
 		return $xml;
 	}
+	/**
+	 * [clearAttr description]
+	 * @return
+	 */
+	public function clearAttr() {
+		$this->title = null;
+		$this->link = null;
+		$this->description = null;
+		$this->categories = array();
+		$this->clouds = array();
+		$this->docs = null;
+		$this->generator = null;
+		$this->managingEditor = null;
+		$this->rating = null;
+		$this->webMaster = null;
+		$this->language = null;
+		$this->copyright = null;
+		$this->pubDate = null;
+		$this->lastBuildDate = null;
+		$this->ttl = null;
+		$this->skipDays = array();
+		$this->skipHours = array();
+		$this->textInput = array();
+		$this->atomlink = array();
+		/** @var \Koala\Helper\RSSWriter\ItemInterface[] */
+		$this->items = array();
+		/** @var \Koala\Helper\RSSWriter\ImageInterface[] */
+		$this->images = array();
+	}
 }

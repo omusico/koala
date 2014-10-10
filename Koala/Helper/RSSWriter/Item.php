@@ -219,4 +219,22 @@ class Item implements \Koala\Helper\RSSWriter\ItemInterface {
 
 		return $xml;
 	}
+	/**
+	 * [clearAttr description]
+	 * @return
+	 */
+	public function clearAttr() {
+		$this->title = null;
+		$this->link = null;
+		$this->description = null;
+		$this->categories = array();
+		$this->guid = null;
+		$this->isPermalink = null;
+		$this->pubDate = null;
+		$this->enclosure = null;
+		$this->author = null;
+		$this->comments = null;
+		$this->sources = array();
+		$this->atomlink = array();
+	}
 }

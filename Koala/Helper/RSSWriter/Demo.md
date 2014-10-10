@@ -47,6 +47,7 @@ $image
 	->height(96)
 	->appendTo($channel);
 // RSS item
+// $item->clearAttr();
 $item = new \Koala\Helper\RSSWriter\Item();
 $item
 	->atomlink(array('href' => 'http://dallas.example.com/rss.xml', 'rel' => 'slef', 'type' => 'application/rss+xml'))
