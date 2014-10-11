@@ -96,6 +96,7 @@ class Form {
 	 */
 	public function addElement($element, $attributes = array()) {
 		$this->elements[] = array($element, $attributes);
+		return $this;
 	}
 	/**
 	 * 生成Element文本
