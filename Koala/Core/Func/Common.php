@@ -258,7 +258,7 @@ function is_ssl() {
  * 判断是否是移动设备
  * @return boolean
  */
-function ismobile() {
+function is_mobile() {
 	// 如果有HTTP_X_WAP_PROFILE则一定是移动设备
 	if (isset($_SERVER['HTTP_X_WAP_PROFILE'])) {
 		return true;
