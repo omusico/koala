@@ -24,8 +24,7 @@ class URL {
 
 			$url_suffix = '';
 		}
-		$url_paths = Request::$map_paths;
-		$url = '';
+		$url = str_replace('/', C('URL_PATHINFO_DEPR', '/'), $url);
 		$baseurl = rtrim(APP_RELATIVE_URL, '/') . '/';
 		if (C('MULTIPLE_ENTRY', 0)) {
 			$baseurl .= basename($_SERVER["SCRIPT_NAME"]);
@@ -43,7 +42,7 @@ class URL {
 				//other.php/admin/index
 				//
 				$depr = C('URL_PATHINFO_DEPR', '/');
-				$url = $baseurl . implode($depr, $url_paths);
+				$url = $baseurl . $url;
 				foreach ($url_params as $var => $val) {
 					$url .= $depr . $var . $depr . urlencode($val);
 				}
@@ -52,7 +51,7 @@ class URL {
 			case 3://兼容模式//index.php?s=Admin-Index-index-id-1.html
 			default:
 				$depr = C('URL_PATHINFO_DEPR', '/');
-				$url = $baseurl . '?' . C('URL_VAR', 's') . '=' . implode($depr, $url_paths);
+				$url = $baseurl . '?' . C('URL_VAR', 's') . '=' . $url;
 				foreach ($url_params as $var => $val) {
 					$url .= $depr . $var . $depr . urlencode($val);
 				}

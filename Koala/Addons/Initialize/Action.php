@@ -107,11 +107,5 @@ class Action extends \Core\Plugin\Base {
 		define('CSS_URL', str_replace('\\', '/', SOURCE_URL . "css" . DS));
 		define('JS_URL', str_replace('\\', '/', SOURCE_URL . "js" . DS));
 		define('IMG_URL', str_replace('\\', '/', SOURCE_URL . "img" . DS));
-		/*//视图初始化
-	\View::initialize(function ($instance) {
-	\View::$engine = \Koala\Server\Engine::factory(C('Engine:default'));
-	//视图文件
-	\View::setTemplateOptions(\Request::$map_paths);
-	});*/
 	}
 }
