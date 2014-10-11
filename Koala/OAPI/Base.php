@@ -43,6 +43,21 @@ class Base {
 		$this->cfg = include (__DIR__ . '/' . $org . '/Api/' . $class . '.php');
 	}
 	/**
+	 * get params
+	 * @param  [type] $name   [description]
+	 * @param  array  $params [description]
+	 * @return [type]         [description]
+	 */
+	public function getParams($name, $params = array()) {
+		$this->name = $name = strtolower($name);
+		$this->params = $params;
+		if (isset($this->cfg[$name])) {
+			return $this->_parseParams($name);
+		} else {
+			return null;
+		}
+	}
+	/**
 	 * 从URL侧获取数据
 	 * @param  string $name api名
 	 * @return mixed     	数据结果

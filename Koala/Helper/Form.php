@@ -66,12 +66,12 @@ class Form {
 	 * @var array
 	 */
 	protected $template = array(
-		'form'     => '<form %s>[FORM]</form>',
-		'input'    => '<input %s>',
-		'select'   => '<select %s> %s</select>',
+		'form' => '<form %s>[FORM]</form>',
+		'input' => '<input %s>',
+		'select' => '<select %s> %s</select>',
 		'textarea' => '<textarea %s> %s</textarea>',
-		'button'   => '<button %s> %s</button>',
-		'option'   => '<option value="%s">%s</option>',
+		'button' => '<button %s> %s</button>',
+		'option' => '<option value="%s">%s</option>',
 	);
 	/**
 	 * 构造函数
@@ -120,6 +120,9 @@ class Form {
 	 * @return string 表单文本
 	 */
 	public function renderForm($html = '') {
+		if ($html === '') {
+			$html = $this->renderElement();
+		}
 		return str_replace('[FORM]', $html, $this->form_attr);
 	}
 	public function __toString() {
@@ -132,6 +135,7 @@ class Form {
 	 * @return string
 	 */
 	private function buildAttributes($element, $attributes = array()) {
+		$content_html = '';
 		if (isset($attributes['content'])) {
 			$content_html = $this->buildContent($attributes['content']);
 			unset($attributes['content']);
@@ -154,7 +158,7 @@ class Form {
 				$params[] = $val;
 				$params[] = $name;
 			}
-			$params   = array_reverse($params);
+			$params = array_reverse($params);
 			$params[] = str_repeat($this->template['option'], count($content));
 		} else {
 			$params[] = $content;
