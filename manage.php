@@ -3,7 +3,7 @@
 //框架管理入口
 
 //调试级别
-define('DEBUGLEVEL', 1);
+define('DEBUGLEVEL', 0);
 //入口绝对路径
 define('ENTRANCE_PATH', dirname(__FILE__) . DIRECTORY_SEPARATOR);
 //框架绝对路径
