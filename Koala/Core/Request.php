@@ -37,6 +37,7 @@ class Request {
 					$_SERVER['QUERY_STRING'] = substr($_SERVER['QUERY_STRING'], 0, $pos);
 				}
 				parse_str($_SERVER['QUERY_STRING'], $params);
+				!isset($params[C('URL_VAR', 's')]) and ($params[C('URL_VAR', 's')] = '');
 				$info_paths = array_filter(explode(C('URL_PATHINFO_DEPR', '/'), trim($params[C('URL_VAR', 's')], C('URL_PATHINFO_DEPR', '/'))));
 			default:
 				break;
@@ -61,7 +62,7 @@ class Request {
 		//是否启用了多应用模式//默认单应用
 		if (C('MULTIPLE_APP', 0)) {
 			//如果不在已有的应用列表中
-			if (!in_array(strtoupper($paths[$num]), C('APP:list', array('APP')))) {
+			if (!isset($paths[$num]) || !in_array(strtoupper($paths[$num]), C('APP:list', array('APP')))) {
 				//是否用默认值
 				if ($overwite) {
 					$options[C('VAR_APP', 'app')] = strtoupper(C('APP:default', 'APP'));
@@ -74,7 +75,7 @@ class Request {
 		//是否启用了多分组//默认多分组
 		if (C('MULTIPLE_GROUP', 1)) {
 			//如果不在已有的分组列表中
-			if (!in_array(ucwords($paths[$num]), C('GROUP:list', array('Home')))) {
+			if (!isset($paths[$num]) || !in_array(ucwords($paths[$num]), C('GROUP:list', array('Home')))) {
 				//是否用默认值
 				if ($overwite) {
 					$options[C('VAR_GROUP', 'g')] = ucwords(C('GROUP:default', 'Home'));

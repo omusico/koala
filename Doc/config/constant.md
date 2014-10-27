@@ -36,7 +36,7 @@
 ###WIDGET_URL--widget访问URL
 ###VIEW_PATH--视图目录
 ###THEME_NAME--视图风格名
-###SOURCE_URL--静态资源URL
+###ASSETS_URL--静态资源URL
 ###CSS_URL--CSS资源URL
 ###JS_URL--JS资源URL
 ###IMG_URL--image资源URL

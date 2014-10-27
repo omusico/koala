@@ -95,14 +95,7 @@ $cfg['Db'] = array(
 		'params' => array('persist' => false)
 	)
 );
-$cfg["DB_TYPE"] = 'mysql';// 数据库类型
-$cfg["DB_HOST_M"] = 'localhost';// 服务器地址
-$cfg["DB_NAME"] = 'candy';// 数据库名
-$cfg["DB_USER"] = 'root';// 用户名
-$cfg["DB_PASS"] = '';// 密码
-$cfg["DB_PORT"] = 3306;// 端口
-$cfg["DB_PREFIX"] = 'candy_';// 数据库表前缀
-$cfg["DB_CHARSET"] = 'UTF8';
+$cfg["DB_PREFIX"] = 'koala_';// 数据库表前缀
 
 //服务配置
 //CACHE,Channel,Counter,KVDB,Log,Rank,Segment,Storage

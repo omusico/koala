@@ -16,7 +16,6 @@ class Action extends \Core\Plugin\Base {
 	 * @param string $plugin 插件管理器
 	 */
 	public function __construct() {
-		parent::__construct(array());
 		\Core\Plugin\Manager::only('appInitialize', array(&$this, 'deafultAppInitialize'));
 		\Core\Plugin\Manager::only('coreLazyInitialize', array(&$this, 'defaultCoreLazyInitialize'));
 		\Core\Plugin\Manager::only('appLazyInitialize', array(&$this, 'defaultAppLazyInitialize'));
@@ -70,11 +69,7 @@ class Action extends \Core\Plugin\Base {
 		//缓存路径
 		defined('CACHE_PATH') or define('CACHE_PATH', RUNTIME_PATH . 'Cache/');
 		//静态资源URL
-		defined('SOURCE_URL') or define('SOURCE_URL', APP_URL . 'Source/');
-		//widget路径
-		defined('WIDGET_PATH') or define('WIDGET_PATH', APP_PATH . 'Addons/Source/Widget/');
-		//widget访问URL
-		defined('WIDGET_URL') or define('WIDGET_URL', APP_RELATIVE_URL . 'Addons/Source/Widget/');
+		defined('ASSETS_URL') or define('ASSETS_URL', APP_URL . 'Assets/');
 		//默认应用路径
 		defined('APP_PATH') or define('APP_PATH', ENTRANCE_PATH . 'MyApp/');
 		//默认应用name
@@ -86,7 +81,8 @@ class Action extends \Core\Plugin\Base {
 		defined('START_TIME') or define('START_TIME', $_SERVER['REQUEST_TIME_FLOAT']);
 		//文件后缀
 		defined('EXT') or define('EXT', '.php');
-
+		//Third  Parts
+		defined('THIRD_PATH') or define('THIRD_PATH', APP_PATH . 'Library/Third/');
 		//设置应用插件默认加载方案
 		\ClassLoader::initialize(function ($instance) {
 			$instance->register();
@@ -104,8 +100,8 @@ class Action extends \Core\Plugin\Base {
 		//视图风格名
 		define('THEME_NAME', C('THEME_NAME', "page"));
 		//静态资源URL
-		define('CSS_URL', str_replace('\\', '/', SOURCE_URL . "css" . DS));
-		define('JS_URL', str_replace('\\', '/', SOURCE_URL . "js" . DS));
-		define('IMG_URL', str_replace('\\', '/', SOURCE_URL . "img" . DS));
+		define('CSS_URL', str_replace('\\', '/', ASSETS_URL . "css" . DS));
+		define('JS_URL', str_replace('\\', '/', ASSETS_URL . "js" . DS));
+		define('IMG_URL', str_replace('\\', '/', ASSETS_URL . "img" . DS));
 	}
 }

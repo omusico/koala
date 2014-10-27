@@ -39,7 +39,7 @@ class KoalaCore extends Singleton {
 	public static function lazyInitialize(Closure $initializer, $options = array()) {
 		self::$closure[] = array(
 			'closure' => $initializer,
-			'params'  => array(self::getInstance(get_called_class()), $options)
+			'params' => array(self::getInstance(get_called_class()), $options)
 		);
 	}
 	/**
@@ -68,23 +68,23 @@ KoalaCore::initialize(function () {
 	ClassLoader::initialize(function ($instance) {
 		$instance->register();
 		$instance->registerNamespaces(array(
-				'Advice' => FRAME_PATH . 'Addons',
-				'Func'   => FRAME_PATH . 'Core',
-				'Helper' => FRAME_PATH,
-				'Base'   => FRAME_PATH . 'Core',
-				'Core'   => FRAME_PATH,
-				'Server' => FRAME_PATH,
-				'Plugin' => array(FRAME_PATH . 'Addons'),
-				'Minion'   => FRAME_PATH . 'Addons',
-				'Resource' => FRAME_PATH . 'Addons',
-				'Koala'    => dirname(FRAME_PATH),
-			));
+			'Advice' => FRAME_PATH . 'Addons',
+			'Func' => FRAME_PATH . 'Core',
+			'Helper' => FRAME_PATH,
+			'Base' => FRAME_PATH . 'Core',
+			'Core' => FRAME_PATH,
+			'Server' => FRAME_PATH,
+			'Plugin' => array(FRAME_PATH . 'Addons'),
+			'Minion' => FRAME_PATH . 'Addons',
+			'Resource' => FRAME_PATH . 'Addons',
+			'Koala' => dirname(FRAME_PATH),
+		));
 		$instance->registerDirs(array(
-				FRAME_PATH . 'Core',
-				FRAME_PATH . 'Tests',
-				FRAME_PATH . 'Server',
-				FRAME_PATH . 'Addons/Compatible',
-			));
+			FRAME_PATH . 'Core',
+			FRAME_PATH . 'Tests',
+			FRAME_PATH . 'Server',
+			FRAME_PATH . 'Addons/Compatible',
+		));
 		//框架内置函数库
 		$instance->LoadFunc('Func', 'Common,Special');
 	});
@@ -152,7 +152,7 @@ KoalaCore::lazyInitialize(function () {
 	//缓存路径
 	defined('CACHE_PATH') or define('CACHE_PATH', RUNTIME_PATH . 'Cache/');
 	//静态资源路径
-	defined('SOURCE_URL') or define('SOURCE_URL', APP_URL . 'Source/');
+	defined('ASSETS_URL') or define('ASSETS_URL', APP_URL . 'Source/');
 	//存储路径
 	defined('STOR_PATH') or define('STOR_PATH', RUNTIME_PATH . 'Storage/');
 	//存储访问路径

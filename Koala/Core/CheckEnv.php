@@ -19,6 +19,9 @@ env::reg('IS_CGI', function ($key) {
 env::reg('IS_WIN', function ($key) {
 	return strstr(PHP_OS, 'WIN') ? true : false;
 });
+env::reg('IS_POST', function ($key) {
+	return "POST" == $_SERVER['REQUEST_METHOD'] ? true : false;
+});
 env::reg('IS_CLI', function ($key) {
 	return PHP_SAPI == 'cli' ? true : false;
 });

@@ -12,7 +12,7 @@
  * @author   LunnLew <lunnlew@gmail.com>
  */
 class View extends Singleton {
-	static $engine  = null;
+	static $engine = null;
 	static $options = array();
 	/**
 	 * 注册变量
@@ -76,7 +76,7 @@ class View extends Singleton {
 		}
 
 		$end = '/' . $type . '/' . array_pop($a);
-		return implode($depr, $a) . $end . '.html';
+		return implode($depr, $a) . $end . '.tpl';
 	}
 	public static function test() {
 		return self::$engine->test();

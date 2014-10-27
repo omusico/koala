@@ -11,9 +11,9 @@ Koala::lazyInitialize(function () {
 	//视图风格名
 	define('THEME_NAME', C('THEME_NAME', "page"));
 	//静态资源URL
-	define('CSS_URL', str_replace('\\', '/', SOURCE_URL . "css" . DS));
-	define('JS_URL', str_replace('\\', '/', SOURCE_URL . "js" . DS));
-	define('IMG_URL', str_replace('\\', '/', SOURCE_URL . "img" . DS));
+	define('CSS_URL', str_replace('\\', '/', ASSETS_URL . "css" . DS));
+	define('JS_URL', str_replace('\\', '/', ASSETS_URL . "js" . DS));
+	define('IMG_URL', str_replace('\\', '/', ASSETS_URL . "img" . DS));
 	//视图初始化
 	View::initialize(function ($instance) {
 		\View::$engine = Koala\Server\Engine::factory(C('Engine:default'));
@@ -29,21 +29,21 @@ Koala::initialize(function () {
 	ClassLoader::initialize(function ($instance) {
 		$instance->register();
 		$instance->registerNamespaces(array(
-				'Controller' => APP_PATH,
-				'Custom'     => APP_PATH,
-				'Logic'      => APP_PATH,
-				'Model'      => APP_PATH,
-				'Engine'     => FRAME_PATH . 'Addons',
-				'Tag'        => FRAME_PATH . 'Extension',
-			));
+			'Controller' => APP_PATH,
+			'Custom' => APP_PATH,
+			'Logic' => APP_PATH,
+			'Model' => APP_PATH,
+			'Engine' => FRAME_PATH . 'Addons',
+			'Tag' => FRAME_PATH . 'Extension',
+		));
 		$instance->registerDirs(array(
-				APP_PATH . 'Custom',
-			));
+			APP_PATH . 'Custom',
+		));
 		$instance->loadFunc('Custom', 'Func');
 		$instance->registerNamespaces(array(
-				'UFM' => FRAME_PATH . 'Addons/Module',
-				'UUM' => FRAME_PATH . 'Addons/Module',
-			));
+			'UFM' => FRAME_PATH . 'Addons/Module',
+			'UUM' => FRAME_PATH . 'Addons/Module',
+		));
 	});
 	/**
 	 * 应用的第三方库composer加载支持
@@ -66,8 +66,8 @@ class Koala extends KoalaCore {
 	 */
 	public static function execute() {
 		$dispatcher = \Core\AOP\AOP::getInstance(Koala\Server\Dispatcher::factory('mvc'));
-		$u          = \Core\AOP\AOP::getInstance('URL');
-		$test_url   = rtrim(APP_RELATIVE_URL, '/');
+		$u = \Core\AOP\AOP::getInstance('URL');
+		$test_url = rtrim(APP_RELATIVE_URL, '/');
 		if (!empty($test_url)) {
 			$url = str_replace(APP_RELATIVE_URL, '', $_SERVER['REQUEST_URI']);
 		} else {

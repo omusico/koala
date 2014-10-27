@@ -255,7 +255,7 @@ class Model {
 		} elseif (isset($this->_scope[$method])) {// 命名范围的单独调用支持
 			return $this->scope($method, $args[0]);
 		} else {
-			E(__CLASS__ . ':' . $method . L('_METHOD_NOT_EXIST_'));
+			exit(__CLASS__ . ':' . $method . L('_METHOD_NOT_EXIST_'));
 			return;
 		}
 	}
@@ -283,9 +283,9 @@ class Model {
 			}
 			foreach ($data as $key => $val) {
 				if (!in_array($key, $fields, true)) {
-					if (APP_DEBUG) {
-						E(L('_DATA_TYPE_INVALID_') . ':[' . $key . '=>' . $val . ']');
-					}
+					/*if (DEBUGLEVEL) {
+					exit(L('_DATA_TYPE_INVALID_') . ':[' . $key . '=>' . $val . ']');
+					}*/
 					unset($data[$key]);
 				} elseif (is_scalar($val)) {
 					// 字段类型检查 和 强制转换
@@ -630,8 +630,8 @@ class Model {
 						$this->_parseType($options['where'], $key);
 					}
 				} elseif (!is_numeric($key) && '_' != substr($key, 0, 1) && false === strpos($key, '.') && false === strpos($key, '(') && false === strpos($key, '|') && false === strpos($key, '&')) {
-					if (APP_DEBUG) {
-						E(L('_ERROR_QUERY_EXPRESS_') . ':[' . $key . '=>' . $val . ']');
+					if (DEBUGLEVEL) {
+						exit(L('_ERROR_QUERY_EXPRESS_') . ':[' . $key . '=>' . $val . ']');
 					}
 					unset($options['where'][$key]);
 				}
@@ -1496,7 +1496,7 @@ class Model {
 		} elseif (is_string($data)) {
 			parse_str($data, $data);
 		} elseif (!is_array($data)) {
-			E(L('_DATA_TYPE_INVALID_'));
+			exit(L('_DATA_TYPE_INVALID_'));
 		}
 		$this->data = $data;
 		return $this;
@@ -1577,7 +1577,7 @@ class Model {
 				$options = $union;
 			}
 		} else {
-			E(L('_DATA_TYPE_INVALID_'));
+			exit(L('_DATA_TYPE_INVALID_'));
 		}
 		$this->options['union'][] = $options;
 		return $this;
