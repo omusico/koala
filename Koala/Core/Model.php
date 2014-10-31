@@ -136,7 +136,7 @@ class Model {
 		if (empty($this->fields)) {
 			// 如果数据表字段没有定义则自动获取
 			if (C('DB_FIELDS_CACHE')) {
-				$db = $this->db_name ?  : C('DB_NAME');
+				$db = $this->db_name ?: C('DB_NAME');
 				$fields = F('_fields/' . strtolower($db . '.' . $this->name));
 				if ($fields) {
 					$this->fields = $fields;
@@ -179,7 +179,7 @@ class Model {
 		// 2008-3-7 增加缓存开关控制
 		if (C('DB_FIELDS_CACHE')) {
 			// 永久缓存数据表信息
-			$db = $this->db_name ?  : C('DB_NAME');
+			$db = $this->db_name ?: C('DB_NAME');
 			F('_fields/' . strtolower($db . '.' . $this->name), $this->fields);
 		}
 	}
@@ -390,11 +390,11 @@ class Model {
 		// 分析表达式
 		$options = $this->_parseOptions($options);
 		// 写入数据到数据库
-		if (false === $result = $this->db->selectInsert($fields ?  : $options['field'], $table ?  : $this->getTableName(), $options)) {
-				// 数据库插入操作失败
-				$this->error = L('_OPERATION_WRONG_');
-				return false;
-			} else {
+		if (false === $result = $this->db->selectInsert($fields ?: $options['field'], $table ?: $this->getTableName(), $options)) {
+			// 数据库插入操作失败
+			$this->error = L('_OPERATION_WRONG_');
+			return false;
+		} else {
 			// 插入成功
 			return $result;
 		}
@@ -908,7 +908,7 @@ class Model {
 		}
 
 		// 状态
-		$type = $type ?  : (!empty($data[$this->getPk()]) ? self::MODEL_UPDATE : self::MODEL_INSERT);
+		$type = $type ?: (!empty($data[$this->getPk()]) ? self::MODEL_UPDATE : self::MODEL_INSERT);
 
 		// 检查字段映射
 		if (!empty($this->_map)) {
@@ -1609,7 +1609,7 @@ class Model {
 	public function field($field, $except = false) {
 		if (true === $field) {// 获取全部字段
 			$fields = $this->getDbFields();
-			$field = $fields ?  : '*';
+			$field = $fields ?: '*';
 		} elseif ($except) {// 字段排除
 			if (is_string($field)) {
 				$field = explode(',', $field);

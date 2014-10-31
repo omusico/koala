@@ -1,20 +1,31 @@
 <?php
 /**
- * Koala - A PHP Framework For Web
+ * KoalaCMS - A PHP CMS System In Koala FrameWork
  *
- * @package  Koala
+ * @package  KoalaCMS
  * @author   LunnLew <lunnlew@gmail.com>
  */
 class Promise {
+	static $instance = null;
 	var $msg = null;
 	var $state = 0;
 	var $result;
+	/**
+	 * 获取实例
+	 * @return instance  Promise
+	 */
 	public static function getIns() {
-		return new self;
+		if (static::$instance == null) {
+			static::$instance = new self;
+		}
+		return static::$instance;
 	}
 	public function then() {
 		$args = func_get_args();
 		if ($this->state) {
+			if (isset($args[0]) && is_bool($args[0]) && $args[0]) {
+				return;
+			}
 			if (isset($args[0]) && is_callable($args[0])) {
 				call_user_func_array($args[0], array($this->state, $this->msg, $this->result));
 			} else {

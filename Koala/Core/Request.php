@@ -46,7 +46,18 @@ class Request {
 		array_splice($info_paths, 0, 0, $paths);
 		//解析出映射路径和参数
 		static::$map_paths = self::parsePaths($info_paths);
-		static::$params = array_unique($params);
+		$info_paths = array_values($info_paths);
+		$keys = $vals = array();
+		while (list($key, $val) = each($info_paths)) {
+			if ($key % 2 == 0) {
+				$keys[] = $val;
+			} else {
+				$vals[] = $val;
+			}
+		}
+		static::$params = array_unique(array_merge($params, array_combine($keys, $vals)));
+		$_GET = array_merge($_GET, static::$params);
+		$_REQUEST = array_merge($_REQUEST, static::$params);
 	}
 	//获得请求映射路径
 	public static function getMapPaths() {
@@ -56,7 +67,7 @@ class Request {
 	public static function getParams() {
 		return static::$params;
 	}
-	private static function parsePaths($paths = array(), $params = array(), $overwite = true) {
+	private static function parsePaths(&$paths = array(), $params = array(), $overwite = true) {
 		//处理计数
 		$num = 0;
 		//是否启用了多应用模式//默认单应用
@@ -69,6 +80,7 @@ class Request {
 				}
 			} else {
 				$options[C('VAR_APP', 'app')] = strtoupper($paths[$num]);
+				unset($paths[$num]);
 				++$num;
 			}
 		}
@@ -82,6 +94,7 @@ class Request {
 				}
 			} else {
 				$options[C('VAR_GROUP', 'g')] = ucwords($paths[$num]);
+				unset($paths[$num]);
 				++$num;
 			}
 		}
@@ -93,6 +106,7 @@ class Request {
 			}
 		} else {
 			$options[C('VAR_MODULE', 'm')] = ucwords($paths[$num]);
+			unset($paths[$num]);
 			++$num;
 		}
 		//方法
@@ -103,6 +117,7 @@ class Request {
 			}
 		} else {
 			$options[C('VAR_ACTION', 'a')] = $paths[$num];
+			unset($paths[$num]);
 			++$num;
 		}
 		return $options;
