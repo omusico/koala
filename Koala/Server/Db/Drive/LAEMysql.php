@@ -72,7 +72,9 @@ final class LAEMysql extends Base {
 	 * @access public
 	 */
 	public function free() {
-		mysql_free_result($this->current_query);
+		if (is_resource($this->current_query)) {
+			mysql_free_result($this->current_query);
+		}
 		$this->current_query = null;
 	}
 	/**
@@ -115,7 +117,6 @@ final class LAEMysql extends Base {
 		$this->queryStr = $str;
 		//释放前次的查询结果
 		if ($this->current_query) {$this->free();}
-
 		$this->current_query = mysql_query($str, $this->current_link);
 		$this->debug();
 		if (false === $this->current_query) {

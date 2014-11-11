@@ -14,6 +14,11 @@ namespace Koala\OAPI;
  */
 class Base {
 	/**
+	 * server id
+	 * @var string
+	 */
+	protected $sid = '';
+	/**
 	 * api配置
 	 * @var array
 	 */
@@ -39,7 +44,9 @@ class Base {
 	 * 目录变量初始化
 	 */
 	public function __construct() {
-		list($class, $org) = array_reverse(explode('\\', get_called_class()));
+		$class = get_called_class();
+		$this->sid = $class;
+		list($class, $org) = array_reverse(explode('\\', $class));
 		$this->cfg = include (__DIR__ . '/' . $org . '/Api/' . $class . '.php');
 	}
 	/**

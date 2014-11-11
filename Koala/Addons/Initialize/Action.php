@@ -54,10 +54,6 @@ class Action extends \Core\Plugin\Base {
 		\Request::parse();
 	}
 	public function defaultCoreLazyInitialize() {
-		//控制器路径
-		defined('CONTRLLER_PATH') or define('CONTRLLER_PATH', APP_PATH . 'Controller/');
-		//模型路径
-		defined('MODEL_PATH') or define('MODEL_PATH', APP_PATH . 'Model/');
 		//语言包路径
 		defined('LANG_PATH') or define('LANG_PATH', APP_PATH . 'Language/');
 		//模板路径

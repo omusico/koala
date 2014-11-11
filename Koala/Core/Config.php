@@ -15,7 +15,7 @@ class Config {
 	/**
 	 * 配置项
 	 */
-	static private $config = array();
+	static $config = array();
 	/**
 	 * 加载配置
 	 * @param  string $file_path 配置文件路路径
