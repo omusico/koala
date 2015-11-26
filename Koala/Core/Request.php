@@ -55,7 +55,11 @@ class Request {
 				$vals[] = $val;
 			}
 		}
-		static::$params = array_unique(array_merge($params, array_combine($keys, $vals)));
+		if(!empty($keys))
+			static::$params = array_unique(array_merge($params, array_combine($keys, $vals)));
+		else
+			static::$params = array_unique($params);
+		
 		$_GET = array_merge($_GET, static::$params);
 		$_REQUEST = array_merge($_REQUEST, static::$params);
 	}

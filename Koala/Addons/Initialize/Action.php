@@ -74,7 +74,7 @@ class Action extends \Core\Plugin\Base {
 		//默认应用插件路径
 		defined('APP_ADDONS_PATH') or define('APP_ADDONS_PATH', APP_PATH . 'Addons/');
 		//请求开始时间
-		defined('START_TIME') or define('START_TIME', $_SERVER['REQUEST_TIME_FLOAT']);
+		defined('START_TIME') or define('START_TIME', isset($_SERVER['REQUEST_TIME_FLOAT'])?$_SERVER['REQUEST_TIME_FLOAT']:'');
 		//文件后缀
 		defined('EXT') or define('EXT', '.php');
 		//Third  Parts

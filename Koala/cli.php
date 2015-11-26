@@ -18,7 +18,7 @@ define('LOG_PATH',RUNTIME_PATH.'Storage/');
 
 //框架绝对路径
 define('FRAME_PATH',ENTRANCE_PATH);
-if (!defined('START_TIME')){
+if (!defined('START_TIME')&&isset($_SERVER['REQUEST_TIME_FLOAT'])){
 	define('START_TIME', $_SERVER['REQUEST_TIME_FLOAT']);
 }
 //引导应用程序
