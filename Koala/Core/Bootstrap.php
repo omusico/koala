@@ -8,10 +8,10 @@ defined('IN_KOALA') or define('IN_KOALA', true);
 defined('DEBUGLEVEL') or define('DEBUGLEVEL', 1);
 //是否存在目录
 if(DEBUGLEVEL>0){
-	if(!is_file(FRAME_PATH)){
+	if(!file_exists(FRAME_PATH)){
 		exit('FRAME_PATH Not Exist');
 	}
-	if(!is_file(APP_PATH)){
+	if(!file_exists(APP_PATH)){
 		exit('APP_PATH Not Exist');
 	}
 }
