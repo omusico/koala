@@ -240,9 +240,9 @@ pip-log.txt
 *.log
 *.json
 /Demo
-index.php
 /Panel
 Build/
-Candy/
 light.php
 Light/
+_gsdata_
+sync.ffs_db

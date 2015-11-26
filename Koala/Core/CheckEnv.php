@@ -49,7 +49,8 @@ env::check("PHP_VERSION", function ($key) {
 //应用相对URL路径
 env::reg('APP_RELATIVE_URL', function ($key) {
 	$file = substr($_SERVER['PHP_SELF'], 0, stripos($_SERVER['PHP_SELF'], '.php') + 4);
-	return rtrim($file, array_pop(explode('/', $file)));
+	$parts = explode('/', $file);
+	return rtrim($file, array_pop($parts));
 });
 env::check("PHP_UPLOADSIZE", function ($key) {
 	return array(
