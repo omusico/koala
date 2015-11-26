@@ -74,11 +74,11 @@ class Base {
 		$this->params = $params;
 		if (isset($this->cfg[$name])) {
 			if (isset($this->cfg[$name]['url'])) {
+					$methods = explode('/', $this->cfg[$name]['method']);
 				if (isset($this->cfg[$name]['redirect'])) {
-					$this->_redirectUrl($name, $this->_parseParams($name), array_shift(explode('/', $this->cfg[$name]['method'])));
+					$this->_redirectUrl($name, $this->_parseParams($name), array_shift($methods));
 				} else {
-
-					return $this->_fetchUrl($name, $this->_parseParams($name), array_shift(explode('/', $this->cfg[$name]['method'])));
+					return $this->_fetchUrl($name, $this->_parseParams($name), array_shift($methods));
 				}
 			} else {
 				return null;
