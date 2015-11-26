@@ -81,8 +81,10 @@ class ClassLoader extends Singleton {
 					include $file;
 					break;
 				} else {
-					include $dir . '/' . $path . "/$cname.php";//dir/class/class.php
-					break;
+						if (is_file($file)) {
+							include $dir . '/' . $path . "/$cname.php";//dir/class/class.php
+							break;
+						}
 				}
 			}
 		}

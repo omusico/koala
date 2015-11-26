@@ -15,7 +15,7 @@ namespace Koala\OAPI;
  */
 class Factory extends \Koala\Server\Factory {
 	public static function getServerName($name, $prex = '') {
-		return self::getRealName($name, $prex);
+		return self::getOAPIName($name, $prex);
 	}
 	/**
 	 * 组装完整服务类名
@@ -26,7 +26,7 @@ class Factory extends \Koala\Server\Factory {
 	 * @static
 	 * @return string              完整服务驱动类名
 	 */
-	protected static function getRealName($server_name, $prex = 'Koala') {
+	protected static function getOAPIName($server_name, $prex = 'Koala') {
 		return $prex . '\OAPI\\' . $server_name;
 	}
 }
