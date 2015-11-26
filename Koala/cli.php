@@ -22,6 +22,6 @@ if (!defined('START_TIME')&&isset($_SERVER['REQUEST_TIME_FLOAT'])){
 	define('START_TIME', $_SERVER['REQUEST_TIME_FLOAT']);
 }
 //引导应用程序
-require FRAME_PATH.'Initialise/bootstrap.php';
+require ENTRANCE_PATH.'Initialise/bootstrap.php';
 //执行应用
 KoalaCore::execute();

@@ -1,11 +1,17 @@
 <?php
+/**
+ * 预定义某些常量
+ */
 //应用引导程序
 //目录分隔符
 defined('DS') or define('DS', DIRECTORY_SEPARATOR);
-//
 defined('IN_KOALA') or define('IN_KOALA', true);
 //默认调试级QQ别设置
 defined('DEBUGLEVEL') or define('DEBUGLEVEL', 1);
+
+//环境完备性检测
+require ENTRANCE_PATH . 'Initialise/integrity.php';
+exit;
 //是否存在目录
 if(DEBUGLEVEL>0){
 	if(!file_exists(FRAME_PATH)){
