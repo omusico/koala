@@ -65,8 +65,8 @@ class Oapi extends ControllerBase {
 		exit('login success!');
 	}
 	public function test() {
-		//  $o = \Koala\OAPI::factory('Tencent\QQConnect', array(), 'Library');
-		//echo $o->apply('get_info', array());
+		$o = \Koala\OAPI::factory('Org\Weather', array(), 'Library');
+		echo $o->apply('get_weather_info',array('cityid'=>'101010100'));
 		exit;
 	}
 }
