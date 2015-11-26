@@ -22,10 +22,10 @@ defined('STOR_PATH') or define('STOR_PATH', null);
 
 //框架类及云平台自有类统一化命名
 if (C("enable_class_alias", false)) {
-	class_alias('Koala\Server\Rank\Drive\\' . APP_ENGINE . 'Rank', 'Rank');
-	class_alias('Koala\Server\KVDB\Drive\\' . APP_ENGINE . 'KVDB', 'KVDB');
-	class_alias('Koala\Server\Counter\Drive\\' . APP_ENGINE . 'Counter', 'Counter');
-	class_alias('Koala\Server\Storage\Drive\\' . APP_ENGINE . 'Storage', 'Storage');
+	class_alias('Koala\Server\Rank\Drive\\' . RUN_ENGINE . 'Rank', 'Rank');
+	class_alias('Koala\Server\KVDB\Drive\\' . RUN_ENGINE . 'KVDB', 'KVDB');
+	class_alias('Koala\Server\Counter\Drive\\' . RUN_ENGINE . 'Counter', 'Counter');
+	class_alias('Koala\Server\Storage\Drive\\' . RUN_ENGINE . 'Storage', 'Storage');
 }
 
 

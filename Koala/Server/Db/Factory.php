@@ -40,7 +40,7 @@ class Factory extends \Koala\Server\Factory {
 	 * @return string              完整服务驱动类名
 	 */
 	public static function getServerName($name, $prex = '') {
-		$name = APP_ENGINE . ucfirst($name);
+		$name = RUN_ENGINE . ucfirst($name);
 		return self::getRealName('Db', $name);
 	}
 }

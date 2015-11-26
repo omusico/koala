@@ -5,10 +5,10 @@ class Factory extends \Koala\Server\Factory {
 		$server_name = 'LAERank';
 		switch ($name) {
 			case 'rank':
-				if (APP_ENGINE == 'SAE') {
+				if (RUN_ENGINE == 'SAE') {
 					if (function_exists('SAERank')) {self::$cache_type = 'SAERank';
 					}
-				} elseif (APP_ENGINE == 'BAE') {
+				} elseif (RUN_ENGINE == 'BAE') {
 					if (class_exists('BaeRank')) {self::$cache_type = 'BaeRank';
 					}
 				} else {

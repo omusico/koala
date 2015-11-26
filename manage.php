@@ -11,6 +11,6 @@ define('FRAME_PATH', ENTRANCE_PATH . 'Koala' . DIRECTORY_SEPARATOR);
 //Manage应用绝对路径
 define('APP_PATH', ENTRANCE_PATH . 'Panel' . DIRECTORY_SEPARATOR);
 //引导应用程序
-require FRAME_PATH . 'Core/Bootstrap.php';
+require ENTRANCE_PATH . 'Initialise/Bootstrap.php';
 //执行应用
 Koala::execute();

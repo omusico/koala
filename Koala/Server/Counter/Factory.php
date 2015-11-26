@@ -18,10 +18,10 @@ class Factory extends \Koala\Server\Factory {
 		$server_name = 'LAECounter';
 		switch ($name) {
 			case 'counter':
-				if (APP_ENGINE == 'SAE') {
+				if (RUN_ENGINE == 'SAE') {
 					if (function_exists('SAECounter')) {$server_name = 'SAECounter';
 					}
-				} elseif (APP_ENGINE == 'BAE') {
+				} elseif (RUN_ENGINE == 'BAE') {
 					if (class_exists('BaeCounter')) {$server_name = 'BaeCounter';
 					}
 				} else {

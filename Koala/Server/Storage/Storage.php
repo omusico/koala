@@ -32,7 +32,7 @@ class Storage {
 	public static function factory($name = '', $options = array()) {
 		$server_name = array_pop(explode('\\', __CLASS__));
 		if (empty($name) || !is_string($name)) {
-			$name = C($server_name . ':default', APP_ENGINE . $server_name);
+			$name = C($server_name . ':default', RUN_ENGINE . $server_name);
 		}
 		if (!isset(self::$instances[$name])) {
 			$fac                    = __CLASS__ . '\Factory';

@@ -24,6 +24,6 @@ define('FRAME_PATH', ENTRANCE_PATH . 'Koala/');
 //define('APP_PATH',ENTRANCE_PATH.'MyApp/');
 
 //引导应用程序
-require FRAME_PATH . 'Core/Bootstrap.php';
+require ENTRANCE_PATH . 'Initialise/Bootstrap.php';
 //执行应用
 Koala::execute();

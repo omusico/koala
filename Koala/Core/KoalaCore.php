@@ -5,6 +5,7 @@
  * @package  Koala
  * @author   LunnLew <lunnlew@gmail.com>
  */
+
 //框架核心版本
 define("FRAME_VERSION", '1.1');
 //框架发布时间
@@ -69,8 +70,6 @@ KoalaCore::initialize(function () {
 	//定义应用标识码
 	//对多个相同应用情况下的缓存服务提供前缀防止缓存段共用问题;
 	define('APP_UUID', strtolower(substr(md5(APP_PATH), 0, 6)));
-	//定义应用引擎常量
-	define('APP_ENGINE', env::$items['APP_ENGINE']);
 	//composer第三方库加载支持
 	is_file(FRAME_PATH . 'External/autoload.php') AND require FRAME_PATH . 'External/autoload.php';
 	//调试及错误设置

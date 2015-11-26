@@ -5,10 +5,10 @@ class Factory extends \Koala\Server\Factory {
 		$server_name = 'LAESegment';
 		switch ($name) {
 			case 'segment':
-				if (APP_ENGINE == 'SAE') {
+				if (RUN_ENGINE == 'SAE') {
 					if (function_exists('SAESegment')) {$server_name = 'SAESegment';
 					}
-				} elseif (APP_ENGINE == 'BAE') {
+				} elseif (RUN_ENGINE == 'BAE') {
 					if (class_exists('BaeSegment')) {$server_name = 'BaeSegment';
 					}
 				} else {

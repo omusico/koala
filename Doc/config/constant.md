@@ -18,7 +18,7 @@
 ###FRAME_VERSION--框架版本号
 ###FRAME_RELEASE--框架发布号
 ###START_TIME--请求时间
-###APP_ENGINE--应用引擎类型
+###RUN_ENGINE--应用引擎类型
     框架自动检测,支持BAE,SAE等
     可能值:SAE,BAE
 ##应用常量

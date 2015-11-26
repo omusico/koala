@@ -5,10 +5,10 @@ class Factory extends \Koala\Server\Factory {
 		$server_name = 'LAEKVDB';
 		switch ($name) {
 			case 'kvdb':
-				if (APP_ENGINE == 'SAE') {
+				if (RUN_ENGINE == 'SAE') {
 					if (function_exists('SAEKVDB')) {$server_name = 'SAEKVDB';
 					}
-				} elseif (APP_ENGINE == 'BAE') {
+				} elseif (RUN_ENGINE == 'BAE') {
 					if (class_exists('BaeKVDB')) {$server_name = 'BaeKVDB';
 					}
 				} else {

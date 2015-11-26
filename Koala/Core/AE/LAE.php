@@ -14,7 +14,7 @@ defined('CACHE_PATH') or define('CACHE_PATH', RUNTIME_PATH . 'Cache' . DS);
 defined('LOG_PATH') or define('LOG_PATH', RUNTIME_PATH . 'Log' . DS);
 
 //临时数据路径
-if (env::$items['IS_WIN']) {
+if (SYS_MODE==='WIN') {
 	//windows
 	defined('TMP_PATH') or define('TMP_PATH', 'c:/temp/');
 } else {
@@ -28,10 +28,10 @@ defined('STOR_PATH') or define('STOR_PATH', RUNTIME_PATH . 'Storage' . DS);
 
 //框架类及云平台自有类统一化命名
 if (C("enable_class_alias", false)) {
-	class_alias('Koala\Server\Rank\Drive\\' . APP_ENGINE . 'Rank', 'Rank');
-	class_alias('Koala\Server\KVDB\Drive\\' . APP_ENGINE . 'KVDB', 'KVDB');
-	class_alias('Koala\Server\Counter\Drive\\' . APP_ENGINE . 'Counter', 'Counter');
-	class_alias('Koala\Server\Storage\Drive\\' . APP_ENGINE . 'Storage', 'Storage');
+	class_alias('Koala\Server\Rank\Drive\\' . RUN_ENGINE . 'Rank', 'Rank');
+	class_alias('Koala\Server\KVDB\Drive\\' . RUN_ENGINE . 'KVDB', 'KVDB');
+	class_alias('Koala\Server\Counter\Drive\\' . RUN_ENGINE . 'Counter', 'Counter');
+	class_alias('Koala\Server\Storage\Drive\\' . RUN_ENGINE . 'Storage', 'Storage');
 }
 
 //其他引用

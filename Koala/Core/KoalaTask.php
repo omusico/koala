@@ -122,7 +122,7 @@ KoalaCore::initialize(function () {
 		$log->pushHandler(new AEStreamHandler('Log/' . date('Y-m-d') . "/WARN.log", Log::WARNING));
 	});
 	//加载云服务类支持(如BAE类库)
-	(APP_ENGINE != "LAE") AND include (ENTRANCE_PATH . 'Initialise/Class' . APP_ENGINE . ".php");
+	(RUN_ENGINE != "LAE") AND include (ENTRANCE_PATH . 'Initialise/Class' . RUN_ENGINE . ".php");
 
 	//插件支持
 	Plugin::loadPlugin(FRAME_PATH . 'Addons/');
@@ -135,7 +135,7 @@ KoalaCore::lazyInitialize(function () {
 	//所有可在应用中自定义的常量
 
 	//优先加载文件中自定义的常量
-	include (ENTRANCE_PATH . 'Initialise/Constant' . APP_ENGINE . '.php');
+	include (ENTRANCE_PATH . 'Initialise/Constant' . RUN_ENGINE . '.php');
 
 	//控制器路径
 	defined('CONTRLLER_PATH') or define('CONTRLLER_PATH', APP_PATH . 'Controller/');

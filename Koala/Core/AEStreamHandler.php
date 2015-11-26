@@ -22,7 +22,7 @@ class AEStreamHandler extends StreamHandler {
 			}
 			$this->errorMessage = null;
 			set_error_handler(array($this, 'customErrorHandler'));
-			switch (APP_ENGINE) {
+			switch (RUN_ENGINE) {
 				case 'SAE':
 					sae_set_display_errors(false);//关闭信息输出
 					sae_debug((string) $record['formatted']);//记录日志
