@@ -30,7 +30,8 @@ class OAPI {
 	 * @return object          驱动实例
 	 */
 	public static function factory($name, $options = array(), $prex = 'Koala') {
-		$server_name = array_pop(explode('\\', __CLASS__));
+		$parts = explode('\\', __CLASS__);
+		$server_name = array_pop($parts);
 		if (empty($name) || !is_string($name)) {
 			exit('OAPI ERROR!');
 		}
