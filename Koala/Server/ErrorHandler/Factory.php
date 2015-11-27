@@ -11,6 +11,6 @@ class Factory extends \Koala\Server\Factory {
 				$server_name = 'ErrorHandler';
 				break;
 		}
-		return self::getRealName('ErrorHandler', $server_name);
+		return self::getApiName('ErrorHandler', $server_name);
 	}
 }

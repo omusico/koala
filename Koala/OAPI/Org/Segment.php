@@ -6,7 +6,7 @@
  * @author   LunnLew <lunnlew@gmail.com>
  */
 namespace Koala\OAPI\Org;
-use Koala\OAPI\Base;
+use Core\Request\BaseV1 as RequestBase;
 
 /**
  * 矩网智慧 分词服务
@@ -14,7 +14,7 @@ use Koala\OAPI\Base;
  * @abstract
  * @author    LunnLew <lunnlew@gmail.com>
  */
-abstract class Segment extends Base {
+abstract class Segment extends RequestBase {
 	/**
 	 * 获取token
 	 * @param  string $str [description]

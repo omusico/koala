@@ -18,6 +18,6 @@ class Factory extends \Koala\Server\Factory {
 
 				break;
 		}
-		return self::getRealName('Rank', $server_name);
+		return self::getApiName('Rank', $server_name);
 	}
 }

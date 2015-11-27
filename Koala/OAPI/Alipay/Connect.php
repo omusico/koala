@@ -6,11 +6,11 @@
  * @author   LunnLew <lunnlew@gmail.com>
  */
 namespace Koala\OAPI\Alipay;
-use Koala\OAPI\Base;
+use Core\Request\BaseV2 as RequestBase;
 
 /**
  *  支付宝
  * @abstract
  * @author    LunnLew <lunnlew@gmail.com>
  */
-abstract class Connect extends Base {}
+abstract class Connect extends RequestBase {}

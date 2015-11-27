@@ -6,10 +6,10 @@
  * @author   LunnLew <lunnlew@gmail.com>
  */
 namespace Koala\OAPI\Org;
-use Koala\OAPI\Base;
+use Core\Request\BaseV1 as RequestBase;
 
 /**
  * SMS短信通
  *http://www.smschinese.cn/api.shtml
  */
-class Smschinese extends Base {}
+class Smschinese extends RequestBase {}

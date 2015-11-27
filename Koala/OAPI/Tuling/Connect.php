@@ -6,7 +6,7 @@
  * @author   LunnLew <lunnlew@gmail.com>
  */
 namespace Koala\OAPI\Tuling;
-use Koala\OAPI\Base;
+use Core\Request\BaseV1 as RequestBase;
 
 /**
  *图灵机器人
@@ -14,7 +14,7 @@ use Koala\OAPI\Base;
  * @abstract
  * @author    LunnLew <lunnlew@gmail.com>
  */
-class Connect extends Base {
+class Connect extends RequestBase {
 	/**
 	 * 获取key
 	 * @param  string $str [description]

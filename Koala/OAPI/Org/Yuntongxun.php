@@ -6,12 +6,12 @@
  * @author   LunnLew <lunnlew@gmail.com>
  */
 namespace Koala\OAPI\Org;
-use Koala\OAPI\Base;
+use Core\Request\BaseV1 as RequestBase;
 /**
  * 云通讯平台REST API
  * TODO
  */
-class Yuntongxun extends Base{
+class Yuntongxun extends RequestBase{
 	protected $time;
 	/**
 	 * 构造函数

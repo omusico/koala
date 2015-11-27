@@ -6,7 +6,7 @@
  * @author   LunnLew <lunnlew@gmail.com>
  */
 namespace Koala\OAPI\Tencent;
-use Koala\OAPI\Base;
+use Core\Request\BaseV1 as RequestBase;
 
 /**
  * 微信公众平台 API
@@ -14,7 +14,7 @@ use Koala\OAPI\Base;
  * @abstract
  * @author    LunnLew <lunnlew@gmail.com>
  */
-abstract class WeixinPF extends Base {
+abstract class WeixinPF extends RequestBase {
 	public function first_verify_token() {
 		if ($this->checkSignature()) {
 			exit($this->_getEchostr());

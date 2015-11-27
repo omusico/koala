@@ -6,7 +6,7 @@
  * @author   LunnLew <lunnlew@gmail.com>
  */
 namespace Koala\OAPI\Org;
-use Koala\OAPI\Base;
+use Core\Request\BaseV1 as RequestBase;
 
 /**
  * 国家气象局提供的天气预报接口
@@ -20,7 +20,7 @@ use Koala\OAPI\Base;
  *
  */
 
-class Weather extends Base {
+class Weather extends RequestBase {
 	/**
 	 * 魔术方法
 	 * @param  string $method 方法名

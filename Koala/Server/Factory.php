@@ -14,7 +14,8 @@ namespace Koala\Server;
  * @abstract
  * @author    LunnLew <lunnlew@gmail.com>
  */
-abstract class Factory implements ServerInterface {
+class Factory implements \ApiInterface {
+	static $tpl='\Server\%s\Drive\%s';
 	/**
 	 * 获得服务驱动实例
 	 *
@@ -25,7 +26,9 @@ abstract class Factory implements ServerInterface {
 	 * @return object  实例
 	 */
 	public static function getInstance($name, $option = array(), $prex = 'Koala') {
+
 		$class = static::getServerName($name, $prex);
+
 		if (class_exists($class)) {
 			return new $class($option);
 		} else {
@@ -42,7 +45,7 @@ abstract class Factory implements ServerInterface {
 	 * @static
 	 * @return string              完整服务驱动类名
 	 */
-	protected static function getRealName($name, $server_name, $prex = 'Koala') {
-		return $prex . '\Server\\' . ucwords($name) . '\Drive\\' . $server_name;
+	public static function getApiName($classify, $name ,$prex='Koala'){
+		return vsprintf($prex.self::$tpl,array($classify,$name));
 	}
 }

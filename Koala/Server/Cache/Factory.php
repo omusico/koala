@@ -30,6 +30,6 @@ final class Factory extends \Koala\Server\Factory {
 				$server_name = 'LAEMemfile';
 				break;
 		}
-		return self::getRealName('Cache', $server_name);
+		return self::getApiName('Cache', $server_name);
 	}
 }

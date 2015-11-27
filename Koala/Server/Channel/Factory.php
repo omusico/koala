@@ -31,6 +31,6 @@ class Factory extends \Koala\Server\Factory {
 
 				break;
 		}
-		return self::getRealName('Channel', $server_name);
+		return self::getApiName('Channel', $server_name);
 	}
 }

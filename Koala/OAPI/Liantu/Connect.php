@@ -6,14 +6,14 @@
  * @author   LunnLew <lunnlew@gmail.com>
  */
 namespace Koala\OAPI\Liantu;
-use Koala\OAPI\Base;
+use Core\Request\BaseV1 as RequestBase;
 
 /**
  * 联图网 二维码 api
  *
  * http://www.liantu.com/pingtai/
  */
-class Connect extends Base {
+class Connect extends RequestBase {
 	/**
 	 * 构造函数
 	 */

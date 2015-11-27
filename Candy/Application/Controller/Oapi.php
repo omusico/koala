@@ -65,8 +65,8 @@ class Oapi extends ControllerBase {
 		exit('login success!');
 	}
 	public function test() {
-		$o = \Koala\OAPI::factory('Org\Weather', array(), 'Library');
-		echo $o->apply('get_weather_info',array('cityid'=>'101010100'));
+		$o = \Koala\OAPI::factory('Alipay\Connect', array());
+		echo $o->apply('get_auth_code_login');
 		exit;
 	}
 }

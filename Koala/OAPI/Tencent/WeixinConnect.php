@@ -6,7 +6,7 @@
  * @author   LunnLew <lunnlew@gmail.com>
  */
 namespace Koala\OAPI\Tencent;
-use Koala\OAPI\Base;
+use Core\Request\BaseV1 as RequestBase;
 
 /**
  * 微信 OAUTH API
@@ -14,7 +14,7 @@ use Koala\OAPI\Base;
  * @abstract
  * @author    LunnLew <lunnlew@gmail.com>
  */
-abstract class WeixinConnect extends Base {
+abstract class WeixinConnect extends RequestBase {
 	/**
 	 * 获取回调url
 	 * @param  string $str [description]

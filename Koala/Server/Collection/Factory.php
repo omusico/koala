@@ -36,7 +36,7 @@ class Factory extends \Koala\Server\Factory {
 				$server_name = 'DataCollection';
 				break;
 		}
-		return self::getRealName('Collection', $server_name);
+		return self::getApiName('Collection', $server_name);
 	}
 }
 ?>

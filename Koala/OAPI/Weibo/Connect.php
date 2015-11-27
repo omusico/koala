@@ -6,11 +6,11 @@
  * @author   LunnLew <lunnlew@gmail.com>
  */
 namespace Koala\OAPI\Weibo;
-use Koala\OAPI\Base;
+use Core\Request\BaseV1 as RequestBase;
 
 /**
  */
-abstract class Connect extends Base {
+abstract class Connect extends RequestBase {
 	/**
 	 * 获取回调url
 	 * @param  string $str [description]

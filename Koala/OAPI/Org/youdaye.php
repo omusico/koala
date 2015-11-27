@@ -6,12 +6,12 @@
  * @author   LunnLew <lunnlew@gmail.com>
  */
 namespace Koala\OAPI\Org;
-use Koala\OAPI\Base;
+use Core\Request\BaseV1 as RequestBase;
 
 /**
  *https://www.youdaye.com/docs.htm
  */
-class youdaye extends Base {
+class youdaye extends RequestBase {
 	/**
 	 * 获取appUser
 	 * @param  string $str [description]

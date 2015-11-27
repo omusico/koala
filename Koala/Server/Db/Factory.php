@@ -41,6 +41,6 @@ class Factory extends \Koala\Server\Factory {
 	 */
 	public static function getServerName($name, $prex = '') {
 		$name = RUN_ENGINE . ucfirst($name);
-		return self::getRealName('Db', $name);
+		return self::getApiName('Db', $name);
 	}
 }

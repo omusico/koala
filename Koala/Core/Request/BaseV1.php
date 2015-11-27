@@ -5,14 +5,14 @@
  * @package  Koala
  * @author   LunnLew <lunnlew@gmail.com>
  */
-namespace Koala\OAPI;
+namespace Core\Request;
 /**
  * 基类
  *
  * @package  Koala
  * @author    LunnLew <lunnlew@gmail.com>
  */
-class Base {
+class BaseV1 {
 	/**
 	 * server id
 	 * @var string

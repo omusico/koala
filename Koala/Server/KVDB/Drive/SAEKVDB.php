@@ -67,4 +67,3 @@ final class SAEKVDB extends Base{
 		return $this->object->set_options($options);
 	}
 }
-?>

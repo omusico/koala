@@ -15,6 +15,6 @@ namespace Koala\Server\Storage;
  */
 class Factory extends \Koala\Server\Factory {
 	public static function getServerName($name, $prex = '') {
-		return self::getRealName('Storage', $name);
+		return self::getApiName('Storage', $name);
 	}
 }

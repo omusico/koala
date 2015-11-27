@@ -18,6 +18,6 @@ class Factory extends \Koala\Server\Factory {
 
 				break;
 		}
-		return self::getRealName('KVDB', $server_name);
+		return self::getApiName('KVDB', $server_name);
 	}
 }

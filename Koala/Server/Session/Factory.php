@@ -18,7 +18,7 @@ class Factory extends \Koala\Server\Factory{
                 $server_name = 'PDOStream';
             break;
         }
-        return self::getRealName('Session',$server_name);
+        return self::getApiName('Session',$server_name);
     }
    /**
      * 组装完整服务类名
@@ -29,7 +29,7 @@ class Factory extends \Koala\Server\Factory{
      * @static
      * @return string              完整服务驱动类名
      */
-    protected static function getRealName($name, $server_name, $prex = 'Koala') {
+    protected static function getApiName($name, $server_name, $prex = 'Koala') {
         return $prex . '\Server\\' . ucwords($name) . '\Stream\\' . $server_name;
     }
 }

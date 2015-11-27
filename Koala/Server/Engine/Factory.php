@@ -27,6 +27,6 @@ class Factory extends \Koala\Server\Factory {
 			default:
 				$server_name = 'Smarty';
 		}
-		return self::getRealName('Engine', $server_name);
+		return self::getApiName('Engine', $server_name);
 	}
 }

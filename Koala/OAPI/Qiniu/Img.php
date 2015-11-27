@@ -6,13 +6,13 @@
  * @author   LunnLew <lunnlew@gmail.com>
  */
 namespace Koala\OAPI\Qiniu;
-use Koala\OAPI\Base;
+use Core\Request\BaseV1 as RequestBase;
 
 /**
  * @abstract
  * @author    LunnLew <lunnlew@gmail.com>
  */
-abstract class Img extends Base {
+abstract class Img extends RequestBase {
 	/**
 	 * [setPutPolicy description]
 	 * @param [type] $name      [description]

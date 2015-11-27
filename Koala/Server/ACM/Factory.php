@@ -8,7 +8,7 @@ class Factory extends \Koala\Server\Factory {
 				$server_name = 'Authority';
 				break;
 		}
-		return self::getRealName('ACM', $server_name);
+		return self::getApiName('ACM', $server_name);
 	}
 }
 ?>

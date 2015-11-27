@@ -6,7 +6,7 @@
  * @author   LunnLew <lunnlew@gmail.com>
  */
 namespace Koala\OAPI\Hailiang;
-use Koala\OAPI\Base;
+use Core\Request\BaseV1 as RequestBase;
 
 /**
  * 海量云分词服务
@@ -14,7 +14,7 @@ use Koala\OAPI\Base;
  * @abstract
  * @author    LunnLew <lunnlew@gmail.com>
  */
-abstract class Connect extends Base {
+abstract class Connect extends RequestBase {
 	/**
 	 * 获取token
 	 * @param  string $str [description]

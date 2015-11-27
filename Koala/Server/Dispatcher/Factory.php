@@ -12,6 +12,6 @@ class Factory extends \Koala\Server\Factory {
 				$server_name = 'Dispatcher';
 				break;
 		}
-		return self::getRealName('Dispatcher', $server_name);
+		return self::getApiName('Dispatcher', $server_name);
 	}
 }

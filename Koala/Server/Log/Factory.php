@@ -21,6 +21,6 @@ class Factory extends \Koala\Server\Factory {
 				$server_name = 'Monolog';
 				break;
 		}
-		return self::getRealName('Log', $server_name);
+		return self::getApiName('Log', $server_name);
 	}
 }

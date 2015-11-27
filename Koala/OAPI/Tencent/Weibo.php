@@ -6,7 +6,7 @@
  * @author   LunnLew <lunnlew@gmail.com>
  */
 namespace Koala\OAPI\Tencent;
-use Koala\OAPI\Base;
+use Core\Request\BaseV1 as RequestBase;
 
 /**
  * 腾讯微博开放平台 API
@@ -15,7 +15,7 @@ use Koala\OAPI\Base;
  * @abstract
  * @author    LunnLew <lunnlew@gmail.com>
  */
-abstract class Weibo extends Base {
+abstract class Weibo extends RequestBase {
 	/**
 	 * 获取已保存的code RedirectUri
 	 * @param  string $str [description]

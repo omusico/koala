@@ -24,6 +24,6 @@ class Factory extends \Koala\Server\Factory {
 				$server_name = 'LAEImage';
 				break;
 		}
-		return self::getRealName('Image', $server_name);
+		return self::getApiName('Image', $server_name);
 	}
 }

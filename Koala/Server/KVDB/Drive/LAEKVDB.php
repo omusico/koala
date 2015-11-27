@@ -7,4 +7,3 @@ use Koala\Server\KVDB\Base;
  */
 final class LAEKVDB extends Base{
 }
-?>
